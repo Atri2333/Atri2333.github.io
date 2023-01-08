@@ -345,7 +345,7 @@ mjx-container[display="true"] + br {
       
       <a class="index-excerpt index-excerpt__noimg" href="/2023/01/08/pytorch1/" target="_self">
         <div>
-          1、索引这个其实是numpy里的功能，放在tensor上一样适用： x[:,0] 代表取出第0列的数据 x[1,:] 代表取出第1行的数据 但如果用索引来访问tensor的一部分，二者是共享内存的 123456789y = x[0,:]y += 1print(y)print(x[0,:])  输出： 12345tensor([1.6035, 1.8110, 0.9549])tensor([1.60
+          1、索引这个其实是numpy里的功能，放在tensor上一样适用： x[:,0] 代表取出第0列的数据 x[1,:] 代表取出第1行的数据 但如果用索引来访问tensor的一部分，二者是共享内存的 1234y = x[0,:]y += 1print(y)print(x[0,:])  输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.81
         </div>
       </a>
 
