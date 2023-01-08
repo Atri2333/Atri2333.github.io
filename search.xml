@@ -92,7 +92,8 @@
 <figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tensor</span>([<span class="hljs-number">1</span>.<span class="hljs-number">6035</span>, <span class="hljs-number">1</span>.<span class="hljs-number">8110</span>, <span class="hljs-number">0</span>.<span class="hljs-number">9549</span>])<br><span class="hljs-attribute">tensor</span>([<span class="hljs-number">1</span>.<span class="hljs-number">6035</span>, <span class="hljs-number">1</span>.<span class="hljs-number">8110</span>, <span class="hljs-number">0</span>.<span class="hljs-number">9549</span>])<br></code></pre></td></tr></table></figure>
 
 <p>上面的y和x共享内存，也就是说x,y共同加一</p>
-]]></content>
+<p>那么如何对y开辟一个独属于自己的内存呢？答案是使用clone()函数：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><code class="hljs py">y = x.clone()[<span class="hljs-number">0</span>:]<br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>pytorch</category>
       </categories>
