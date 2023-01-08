@@ -88,7 +88,14 @@
 <p>输出：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tensor</span>([<span class="hljs-number">2</span>.<span class="hljs-number">3288</span>])<br><span class="hljs-attribute">2</span>.<span class="hljs-number">328826427459717</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h2>]]></content>
+<h2 id="2、内存开销"><a href="#2、内存开销" class="headerlink" title="2、内存开销"></a>2、内存开销</h2><p>我们知道，id(x)的函数可以访问实例的内存<br>若id(x)=id(y)，那么两个所对应的内存地址相同<br>然后发现，经过测试，以下两种写法有区别：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><code class="hljs py">x = torch.rand(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>)<br>y = x.clone()[:]<br>id_before = <span class="hljs-built_in">id</span>(y)<br>y += x<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(y) == id_before)<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><code class="hljs py">x = torch.rand(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>)<br>y = x.clone()[:]<br>id_before = <span class="hljs-built_in">id</span>(y)<br>y = y + x<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(y) == id_before)<br></code></pre></td></tr></table></figure>
+<p>输出结果分别为：</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<p>可见，如果用y = y + x的写法，则会开销额外的内存。</p>
+]]></content>
       <categories>
         <category>pytorch</category>
       </categories>
