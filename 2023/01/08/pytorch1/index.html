@@ -16,15 +16,15 @@
   <meta name="author" content="Ayy2">
   <meta name="keywords" content="Ayy2">
   
-    <meta name="description" content="1、索引这个其实是numpy里的功能，放在tensor上一样适用： x[:,0] 代表取出第0列的数据 x[1,:] 代表取出第1行的数据 但如果用索引来访问tensor的一部分，二者是共享内存的 1234y &#x3D; x[0,:]y +&#x3D; 1print(y)print(x[0,:])  输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.81">
+    <meta name="description" content="1、索引这个其实是numpy里的功能，放在tensor上一样适用：x[:,0] 代表取出第0列的数据x[1,:] 代表取出第1行的数据但如果用索引来访问tensor的一部分，二者是共享内存的 1234y &#x3D; x[0,:]y +&#x3D; 1print(y)print(x[0,:]) 输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.8110,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensor学习笔记">
 <meta property="og:url" content="https://atri2333.github.io/2023/01/08/pytorch1/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Blog">
-<meta property="og:description" content="1、索引这个其实是numpy里的功能，放在tensor上一样适用： x[:,0] 代表取出第0列的数据 x[1,:] 代表取出第1行的数据 但如果用索引来访问tensor的一部分，二者是共享内存的 1234y &#x3D; x[0,:]y +&#x3D; 1print(y)print(x[0,:])  输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.81">
+<meta property="og:description" content="1、索引这个其实是numpy里的功能，放在tensor上一样适用：x[:,0] 代表取出第0列的数据x[1,:] 代表取出第1行的数据但如果用索引来访问tensor的一部分，二者是共享内存的 1234y &#x3D; x[0,:]y +&#x3D; 1print(y)print(x[0,:]) 输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.8110,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-08T02:42:24.030Z">
-<meta property="article:modified_time" content="2023-01-08T02:55:42.222Z">
+<meta property="article:modified_time" content="2023-01-08T03:00:56.087Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="tensor">
 <meta name="twitter:card" content="summary_large_image">
@@ -332,7 +332,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          268 字
+          390 字
         
       </span>
     
@@ -343,7 +343,7 @@ mjx-container[display="true"] + br {
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -386,18 +386,18 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <h2 id="1、索引"><a href="#1、索引" class="headerlink" title="1、索引"></a>1、索引</h2><p>这个其实是numpy里的功能，放在tensor上一样适用：</p>
-<p>x[:,0] 代表取出第0列的数据</p>
-<p>x[1,:] 代表取出第1行的数据</p>
-<p>但如果用索引来访问tensor的一部分，二者是共享内存的</p>
+                <h2 id="1、索引"><a href="#1、索引" class="headerlink" title="1、索引"></a>1、索引</h2><p>这个其实是numpy里的功能，放在tensor上一样适用：<br>x[:,0] 代表取出第0列的数据<br>x[1,:] 代表取出第1行的数据<br>但如果用索引来访问tensor的一部分，二者是共享内存的</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs py">y = x[<span class="hljs-number">0</span>,:]<br>y += <span class="hljs-number">1</span><br><span class="hljs-built_in">print</span>(y)<br><span class="hljs-built_in">print</span>(x[<span class="hljs-number">0</span>,:])<br></code></pre></td></tr></table></figure>
-
 <p>输出：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tensor</span>([<span class="hljs-number">1</span>.<span class="hljs-number">6035</span>, <span class="hljs-number">1</span>.<span class="hljs-number">8110</span>, <span class="hljs-number">0</span>.<span class="hljs-number">9549</span>])<br><span class="hljs-attribute">tensor</span>([<span class="hljs-number">1</span>.<span class="hljs-number">6035</span>, <span class="hljs-number">1</span>.<span class="hljs-number">8110</span>, <span class="hljs-number">0</span>.<span class="hljs-number">9549</span>])<br></code></pre></td></tr></table></figure>
-
-<p>上面的y和x共享内存，也就是说x,y共同加一</p>
-<p>那么如何对y开辟一个独属于自己的内存呢？答案是使用clone()函数：</p>
+<p>上面的y和x共享内存，也就是说x,y共同加一<br>那么如何对y开辟一个独属于自己的内存呢？答案是使用clone()函数：</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">y = x.clone()[<span class="hljs-number">0</span>:]<br></code></pre></td></tr></table></figure>
+<p>另外一个函数是item()，它用于将一个标量tensor转化为一个number：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.randn(<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-built_in">print</span>(x.item())<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tensor</span>([<span class="hljs-number">2</span>.<span class="hljs-number">3288</span>])<br><span class="hljs-attribute">2</span>.<span class="hljs-number">328826427459717</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h2>
                 
               </div>
             
