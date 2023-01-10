@@ -95,6 +95,15 @@
 <figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
 <p>可见，如果用y = y + x的写法，则会开销额外的内存。</p>
+<h2 id="3、自动求梯度"><a href="#3、自动求梯度" class="headerlink" title="3、自动求梯度"></a>3、自动求梯度</h2><p>首先，我们需要对我们的自变量tensor添加requires_grad属性：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><code class="hljs py">x = torch.ones(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,requires_grad = <span class="hljs-literal">True</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-built_in">print</span>(x.grad_fn)<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><code class="hljs lua">tensor(<span class="hljs-string">[[1., 1.],</span><br><span class="hljs-string">        [1., 1.]]</span>, requires_grad=True)<br>None<br></code></pre></td></tr></table></figure>
+<p>然后我们开始计算：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><code class="hljs py">y = x + <span class="hljs-number">2</span><br><span class="hljs-built_in">print</span>(y)<br><span class="hljs-built_in">print</span>(y.grad_fn)<br><span class="hljs-built_in">print</span>(x.is_leaf,y.is_leaf)<br>z = y * y * <span class="hljs-number">3</span><br>out = z.mean()<br><span class="hljs-built_in">print</span>(z,out)<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><code class="hljs lua">tensor(<span class="hljs-string">[[3., 3.],</span><br><span class="hljs-string">        [3., 3.]]</span>, grad_fn=&lt;AddBackward0&gt;)<br>&lt;AddBackward0 object at <span class="hljs-number">0x0000026CFFBE9DF0</span>&gt;<br>True False<br>tensor(<span class="hljs-string">[[27., 27.],</span><br><span class="hljs-string">        [27., 27.]]</span>, grad_fn=&lt;MulBackward0&gt;) tensor(<span class="hljs-number">27.</span>, grad_fn=&lt;MeanBackward0&gt;)<br></code></pre></td></tr></table></figure>
+<p>这里的mean()是求均值，所以out是个标量</p>
 ]]></content>
       <categories>
         <category>pytorch</category>
