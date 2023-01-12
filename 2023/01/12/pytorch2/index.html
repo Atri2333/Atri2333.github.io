@@ -16,22 +16,22 @@
   <meta name="author" content="Ayy2">
   <meta name="keywords" content="Ayy2">
   
-    <meta name="description" content="1、索引这个其实是numpy里的功能，放在tensor上一样适用：x[:,0] 代表取出第0列的数据x[1,:] 代表取出第1行的数据但如果用索引来访问tensor的一部分，二者是共享内存的 1234y &#x3D; x[0,:]y +&#x3D; 1print(y)print(x[0,:]) 输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.8110,">
+    <meta name="description" content="参考资料：Dive-into-DL-Pytorch 更多的是对具体代码的注释 1 首先是随机生成数据 1234567num_inputs &#x3D; 2 #特征数量num_examples &#x3D; 1000 #样本数量true_w &#x3D; [2, -3.4] #正确的weighttrue_b &#x3D; 4.2 #正确的biasfeatures &#x3D; torch.tensor(np.random.normal(0, 1,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tensor学习笔记">
-<meta property="og:url" content="https://atri2333.github.io/2023/01/08/pytorch1/index.html">
+<meta property="og:title" content="Pytorch 学习笔记2——线性回归">
+<meta property="og:url" content="https://atri2333.github.io/2023/01/12/pytorch2/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Blog">
-<meta property="og:description" content="1、索引这个其实是numpy里的功能，放在tensor上一样适用：x[:,0] 代表取出第0列的数据x[1,:] 代表取出第1行的数据但如果用索引来访问tensor的一部分，二者是共享内存的 1234y &#x3D; x[0,:]y +&#x3D; 1print(y)print(x[0,:]) 输出： 12tensor([1.6035, 1.8110, 0.9549])tensor([1.6035, 1.8110,">
+<meta property="og:description" content="参考资料：Dive-into-DL-Pytorch 更多的是对具体代码的注释 1 首先是随机生成数据 1234567num_inputs &#x3D; 2 #特征数量num_examples &#x3D; 1000 #样本数量true_w &#x3D; [2, -3.4] #正确的weighttrue_b &#x3D; 4.2 #正确的biasfeatures &#x3D; torch.tensor(np.random.normal(0, 1,">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-08T02:42:24.030Z">
-<meta property="article:modified_time" content="2023-01-10T03:29:22.758Z">
+<meta property="article:published_time" content="2023-01-12T13:02:22.565Z">
+<meta property="article:modified_time" content="2023-01-12T13:24:14.282Z">
 <meta property="article:author" content="Ayy2">
-<meta property="article:tag" content="tensor">
+<meta property="article:tag" content="tensor、nn">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Tensor学习笔记 - Ayy2&#39;s Blog</title>
+  <title>Pytorch 学习笔记2——线性回归 - Ayy2&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -309,7 +309,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Tensor学习笔记</span>
+            <span id="subtitle">Pytorch 学习笔记2——线性回归</span>
           
         </div>
 
@@ -320,8 +320,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-08 10:42" pubdate>
-          2023年1月8日 上午
+        <time datetime="2023-01-12 21:02" pubdate>
+          2023年1月12日 晚上
         </time>
       </span>
     
@@ -332,7 +332,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.1k 字
         
       </span>
     
@@ -343,7 +343,7 @@ mjx-container[display="true"] + br {
         
         
         
-          19 分钟
+          18 分钟
         
       </span>
     
@@ -381,53 +381,43 @@ mjx-container[display="true"] + br {
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Tensor学习笔记</h1>
+            <h1 style="display: none">Pytorch 学习笔记2——线性回归</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1、索引"><a href="#1、索引" class="headerlink" title="1、索引"></a>1、索引</h2><p>这个其实是numpy里的功能，放在tensor上一样适用：<br>x[:,0] 代表取出第0列的数据<br>x[1,:] 代表取出第1行的数据<br>但如果用索引来访问tensor的一部分，二者是共享内存的</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs py">y = x[<span class="hljs-number">0</span>,:]<br>y += <span class="hljs-number">1</span><br><span class="hljs-built_in">print</span>(y)<br><span class="hljs-built_in">print</span>(x[<span class="hljs-number">0</span>,:])<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tensor</span>([<span class="hljs-number">1</span>.<span class="hljs-number">6035</span>, <span class="hljs-number">1</span>.<span class="hljs-number">8110</span>, <span class="hljs-number">0</span>.<span class="hljs-number">9549</span>])<br><span class="hljs-attribute">tensor</span>([<span class="hljs-number">1</span>.<span class="hljs-number">6035</span>, <span class="hljs-number">1</span>.<span class="hljs-number">8110</span>, <span class="hljs-number">0</span>.<span class="hljs-number">9549</span>])<br></code></pre></td></tr></table></figure>
-<p>上面的y和x共享内存，也就是说x,y共同加一<br>那么如何对y开辟一个独属于自己的内存呢？答案是使用clone()函数：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">y = x.clone()[<span class="hljs-number">0</span>:]<br></code></pre></td></tr></table></figure>
-<p>另外一个函数是item()，它用于将一个标量tensor转化为一个number：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.randn(<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-built_in">print</span>(x.item())<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tensor</span>([<span class="hljs-number">2</span>.<span class="hljs-number">3288</span>])<br><span class="hljs-attribute">2</span>.<span class="hljs-number">328826427459717</span><br></code></pre></td></tr></table></figure>
+                <p>参考资料：Dive-into-DL-Pytorch</p>
+<p>更多的是对具体代码的注释</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py"><br></code></pre></td></tr></table></figure>
+<p>首先是随机生成数据</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py">num_inputs = <span class="hljs-number">2</span> <span class="hljs-comment">#特征数量</span><br>num_examples = <span class="hljs-number">1000</span> <span class="hljs-comment">#样本数量</span><br>true_w = [<span class="hljs-number">2</span>, -<span class="hljs-number">3.4</span>] <span class="hljs-comment">#正确的weight</span><br>true_b = <span class="hljs-number">4.2</span> <span class="hljs-comment">#正确的bias</span><br>features = torch.tensor(np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, (num_examples, num_inputs)), dtype = torch.float32) <span class="hljs-comment">#取正态分布</span><br>labels = true_w[<span class="hljs-number">0</span>] * features[:,<span class="hljs-number">0</span>] + true_w[<span class="hljs-number">1</span>] * features[:,<span class="hljs-number">1</span>] + true_b<br>labels += torch.tensor(np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>, size=labels.size())) <span class="hljs-comment">#噪声项，不太懂是干啥的</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="2、内存开销"><a href="#2、内存开销" class="headerlink" title="2、内存开销"></a>2、内存开销</h2><p>我们知道，id(x)的函数可以访问实例的内存<br>若id(x)=id(y)，那么两个所对应的内存地址相同<br>然后发现，经过测试，以下两种写法有区别：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.rand(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>)<br>y = x.clone()[:]<br>id_before = <span class="hljs-built_in">id</span>(y)<br>y += x<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(y) == id_before)<br></code></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.rand(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>)<br>y = x.clone()[:]<br>id_before = <span class="hljs-built_in">id</span>(y)<br>y = y + x<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(y) == id_before)<br></code></pre></td></tr></table></figure>
-<p>输出结果分别为：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
-<p>可见，如果用y = y + x的写法，则会开销额外的内存。</p>
-<h2 id="3、自动求梯度"><a href="#3、自动求梯度" class="headerlink" title="3、自动求梯度"></a>3、自动求梯度</h2><p>首先，我们需要对我们的自变量tensor添加requires_grad属性：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.ones(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,requires_grad = <span class="hljs-literal">True</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-built_in">print</span>(x.grad_fn)<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">tensor(<span class="hljs-string">[[1., 1.],</span><br><span class="hljs-string">        [1., 1.]]</span>, requires_grad=True)<br>None<br></code></pre></td></tr></table></figure>
-<p>然后我们开始计算：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py">y = x + <span class="hljs-number">2</span><br><span class="hljs-built_in">print</span>(y)<br><span class="hljs-built_in">print</span>(y.grad_fn)<br><span class="hljs-built_in">print</span>(x.is_leaf,y.is_leaf)<br>z = y * y * <span class="hljs-number">3</span><br>out = z.mean()<br><span class="hljs-built_in">print</span>(z,out)<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs lua">tensor(<span class="hljs-string">[[3., 3.],</span><br><span class="hljs-string">        [3., 3.]]</span>, grad_fn=&lt;AddBackward0&gt;)<br>&lt;AddBackward0 object at <span class="hljs-number">0x0000026CFFBE9DF0</span>&gt;<br>True False<br>tensor(<span class="hljs-string">[[27., 27.],</span><br><span class="hljs-string">        [27., 27.]]</span>, grad_fn=&lt;MulBackward0&gt;) tensor(<span class="hljs-number">27.</span>, grad_fn=&lt;MeanBackward0&gt;)<br></code></pre></td></tr></table></figure>
-<p>这里的mean()是求均值，所以out是个标量<br>然后使用backward()求均值</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs py">out.backward()<br><span class="hljs-built_in">print</span>(x.grad) <span class="hljs-comment">#注意这里是x不是out</span><br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lua">tensor(<span class="hljs-string">[[4.5000, 4.5000],</span><br><span class="hljs-string">        [4.5000, 4.5000]]</span>)<br></code></pre></td></tr></table></figure>
-<p>注意，如果以后对x需求其它的梯度，记得使用x.grad.data.zero_()进行清零</p>
-<p>还有一个要注意的点，就是我们没办法计算一个张量对另一个张量的梯度，这时候我们需要对backward()里传与当前tensor一样大小的tensor，该tensor里面为权重系数。tensor会自动计算加权后的标量的梯度：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.tensor([<span class="hljs-number">1.0</span>,<span class="hljs-number">2.0</span>,<span class="hljs-number">3.0</span>,<span class="hljs-number">4.0</span>], requires_grad = <span class="hljs-literal">True</span>)<br>y = <span class="hljs-number">2</span> * x<br>z = y.view(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>) <span class="hljs-comment">#view()不会开辟新内存，这里代表y也被改了</span><br><span class="hljs-built_in">print</span>(z)<br>v = torch.tensor([[<span class="hljs-number">1.0</span>, <span class="hljs-number">0.1</span>], [<span class="hljs-number">0.01</span>, <span class="hljs-number">0.001</span>]], dtype=torch.<span class="hljs-built_in">float</span>)<br>z.backward(v)<br><span class="hljs-built_in">print</span>(x.grad)<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-built_in">tensor</span>(<span class="hljs-selector-attr">[[2., 4.]</span>,<br>        <span class="hljs-selector-attr">[6., 8.]</span>], grad_fn=&lt;ViewBackward0&gt;)<br><span class="hljs-function"><span class="hljs-title">tensor</span><span class="hljs-params">([<span class="hljs-number">2.0000</span>, <span class="hljs-number">0.2000</span>, <span class="hljs-number">0.0200</span>, <span class="hljs-number">0.0020</span>])</span></span><br></code></pre></td></tr></table></figure>
-<p>使用with torch.no_grad():可以中断一个tensor的梯度传播：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.tensor(<span class="hljs-number">2.0</span>,requires_grad = <span class="hljs-literal">True</span>)<br>y1 = x ** <span class="hljs-number">2</span><br><span class="hljs-keyword">with</span> torch.no_grad():<br>    y2 = x ** <span class="hljs-number">3</span><br>y3 = y1 + y2<br><br><span class="hljs-built_in">print</span>(x.requires_grad)<br><span class="hljs-built_in">print</span>(y1, y1.requires_grad) <span class="hljs-comment"># True</span><br><span class="hljs-built_in">print</span>(y2, y2.requires_grad) <span class="hljs-comment"># False</span><br><span class="hljs-built_in">print</span>(y3, y3.requires_grad) <span class="hljs-comment"># True</span><br>y3.backward()<br><span class="hljs-built_in">print</span>(x.grad)<span class="hljs-comment"># 为4</span><br></code></pre></td></tr></table></figure>
+<p>然后，我们需要通过data包来读取数据：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> torch.utils.data <span class="hljs-keyword">as</span> Data<br><span class="hljs-comment">#每次训练的样本为10个</span><br>batch_size = <span class="hljs-number">10</span> <br><span class="hljs-comment">#将生成的数据通过Data.TensorDataset放到dataset中</span><br>dataset = Data.TensorDataset(features, labels) <br><span class="hljs-comment">#然后定义每次迭代的数据，shuffle代表随机排列</span><br>data_iter = Data.DataLoader(dataset, batch_size, shuffle = <span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
 
-<p>最后，要是我们希望修改tensor的值，但不希望被autograd记录，我们可以对tensor.data进行操作：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs py">x = torch.tensor(<span class="hljs-number">1.0</span>,requires_grad = <span class="hljs-literal">True</span>)<br><br><span class="hljs-built_in">print</span>(x.data)<br><span class="hljs-built_in">print</span>(x.data.requires_grad)<br><br>y = <span class="hljs-number">2</span> * x<br>x.data = x.data * <span class="hljs-number">100</span><br><br>y.backward()<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-built_in">print</span>(x.grad)<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">tensor</span><span class="hljs-params">(<span class="hljs-number">1</span>.)</span></span><br>False<br><span class="hljs-function"><span class="hljs-title">tensor</span><span class="hljs-params">(<span class="hljs-number">100</span>., requires_grad=True)</span></span><br><span class="hljs-function"><span class="hljs-title">tensor</span><span class="hljs-params">(<span class="hljs-number">2</span>.)</span></span><br></code></pre></td></tr></table></figure>
+<p>然后，通过pytorch预定义的层，建立模型。<br>这里导入的是torch.nn模块，也就是neural network（神经网络）。上一章提到的自动求梯度autograd就是nn所利用的定义模型的方式。<br>nn的核心数据结构是Module，是一个抽象概念。你可以理解为某个layer，或者整个network（我其实也很懵，不过书上是这么讲的）<br>实际运用中，我们一般都是继承nn.Module：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LinearNet</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, n_feature</span>): <span class="hljs-comment">#实例化函数</span><br>        <span class="hljs-built_in">super</span>(LinearNet, self).__init__() <span class="hljs-comment">#调用父类的初始化函数</span><br>        <span class="hljs-comment">#定义变量linear，建立一个隐藏层，n_feature个输入，1个输出</span><br>        self.linear = nn.Linear(n_feature, <span class="hljs-number">1</span>) <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>): <span class="hljs-comment">#前向传播</span><br>        y = self.linear(x) <span class="hljs-comment">#y = wx + b</span><br>        <span class="hljs-keyword">return</span> y<br>    <br>net = LinearNet(num_inputs)<br></code></pre></td></tr></table></figure>
+
+<p>或者用 nn.Sequential 来更方便搭建网络：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs py">net = nn.Sequential(<br>	<span class="hljs-comment">#中间可以插入其它层</span><br>    nn.Linear(num_inputs,<span class="hljs-number">1</span>)<br>    )<br></code></pre></td></tr></table></figure>
+
+<p>可以通过net.parameters()查看模型所有的可学习参数：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> net.parameters():<br>    <span class="hljs-built_in">print</span>(param)<br></code></pre></td></tr></table></figure>
+
+<p>然后，我们需要初始化模型的参数：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">from</span> torch.nn <span class="hljs-keyword">import</span> init <span class="hljs-comment">#导入init</span><br><br>init.normal_(net[<span class="hljs-number">0</span>].weight, mean=<span class="hljs-number">0</span>, std=<span class="hljs-number">0.01</span>) <span class="hljs-comment">#正态分布</span><br>init.constant_(net[<span class="hljs-number">0</span>].bias, val=<span class="hljs-number">0</span>) <span class="hljs-comment">#直接设成0</span><br><span class="hljs-comment">#也可以直接修改bias的data：</span><br><span class="hljs-comment">#net[0].bias.data.fill_(0)</span><br></code></pre></td></tr></table></figure>
+
+<p>然后定义损失函数，使用nn模块中的均方损差损失作为模型的损失函数：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">loss = nn.MSELoss()<br></code></pre></td></tr></table></figure>
+
+<p>然后定义优化算法。从torch.optim模块可以使用SGD、Adam、RMSProp等算法。这里我们使用SGD（小批量随机梯度下降），并设learning_rate为0.03：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br><br>optimizer = optim.SGD(net.parameters(), lr=<span class="hljs-number">0.03</span>)<br><span class="hljs-built_in">print</span>(optimizer)<br><span class="hljs-comment">#SGD (</span><br>Parameter Group <span class="hljs-number">0</span><br>    dampening: <span class="hljs-number">0</span><br>    differentiable: <span class="hljs-literal">False</span><br>    foreach: <span class="hljs-literal">None</span><br>    lr: <span class="hljs-number">0.03</span><br>    maximize: <span class="hljs-literal">False</span><br>    momentum: <span class="hljs-number">0</span><br>    nesterov: <span class="hljs-literal">False</span><br>    weight_decay: <span class="hljs-number">0</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>最后，在使用Gluon训练模型时，可以调用optim实例的step函数来迭代模型参数：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs py">num_epochs = <span class="hljs-number">3</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,num_epochs + <span class="hljs-number">1</span>):<br>    <span class="hljs-keyword">for</span> X,y <span class="hljs-keyword">in</span> data_iter:<br>        output = net(X)<br>        l = loss(output,y.view(batch_size,<span class="hljs-number">1</span>))<br>        optimizer.zero_grad()<br>        l.backward()<br>        optimizer.step()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">"epoch %d, loss: %f"</span> % (epoch,l.item()))<br><span class="hljs-comment">#</span><br>epoch <span class="hljs-number">1</span>, loss: <span class="hljs-number">0.000184</span><br>epoch <span class="hljs-number">2</span>, loss: <span class="hljs-number">0.000179</span><br>epoch <span class="hljs-number">3</span>, loss: <span class="hljs-number">0.000066</span><br></code></pre></td></tr></table></figure>
+
+<p>完毕！</p>
+
                 
               </div>
             
@@ -460,7 +450,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tensor/">#tensor</a>
+        <a href="/tags/tensor%E3%80%81nn/">#tensor、nn</a>
       
     </div>
   
@@ -472,8 +462,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Tensor学习笔记</div>
-      <div>https://atri2333.github.io/2023/01/08/pytorch1/</div>
+      <div>Pytorch 学习笔记2——线性回归</div>
+      <div>https://atri2333.github.io/2023/01/12/pytorch2/</div>
     </div>
     <div class="license-meta">
       
@@ -485,7 +475,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年1月8日</div>
+          <div>2023年1月12日</div>
         </div>
       
       
@@ -517,18 +507,12 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/01/12/pytorch2/" title="Pytorch 学习笔记2——线性回归">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pytorch 学习笔记2——线性回归</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/28/3/" title="【贪心、数论】Codeforces Round 841 (Div. 2) E-Graph Cost">
-                        <span class="hidden-mobile">【贪心、数论】Codeforces Round 841 (Div. 2) E-Graph Cost</span>
+                      <a href="/2023/01/08/pytorch1/" title="Tensor学习笔记">
+                        <span class="hidden-mobile">Tensor学习笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
