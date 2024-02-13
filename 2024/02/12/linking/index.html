@@ -19,26 +19,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="fw">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ayy2&#39;s Website">
-<meta property="og:url" content="https://atri2333.github.io/index.html">
+    <meta name="description" content="链接笔记0 屁话 该部分属于屁话，可以不看。  认识我的人都知道，我是一名ACMer，喜欢参加的比赛叫做ICPC，在一般人眼里就是“写代码”的比赛（然而事实上是坐牢的比赛）。 假设你是一名高手ACMer，参加了今年的ICPC World Final。今年WF的压轴题如下：  输入两个整数  和  ，输出  .  这么难的题，难倒了除了你之外的所有来自世界各地的顶尖选手。稍作思索过后，你写出了如下A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linking">
+<meta property="og:url" content="https://atri2333.github.io/2024/02/12/linking/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="fw">
+<meta property="og:description" content="链接笔记0 屁话 该部分属于屁话，可以不看。  认识我的人都知道，我是一名ACMer，喜欢参加的比赛叫做ICPC，在一般人眼里就是“写代码”的比赛（然而事实上是坐牢的比赛）。 假设你是一名高手ACMer，参加了今年的ICPC World Final。今年WF的压轴题如下：  输入两个整数  和  ，输出  .  这么难的题，难倒了除了你之外的所有来自世界各地的顶尖选手。稍作思索过后，你写出了如下A">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://atri2333.github.io/2024/02/12/linking/memory.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/02/12/linking/elf.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/02/12/linking/elf2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/02/12/linking/dynamic.png">
+<meta property="article:published_time" content="2024-02-12T06:28:11.000Z">
+<meta property="article:modified_time" content="2024-02-13T09:47:24.142Z">
 <meta property="article:author" content="Ayy2">
-<meta property="article:tag" content="acm, system, software">
+<meta property="article:tag" content="csapp">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/02/12/linking/memory.png">
 
 
-<link rel="canonical" href="https://atri2333.github.io/">
+<link rel="canonical" href="https://atri2333.github.io/2024/02/12/linking/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/02/12/linking/","path":"2024/02/12/linking/","title":"linking"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Ayy2's Website</title>
+<title>linking | Ayy2's Website</title>
   
 
 
@@ -183,7 +190,7 @@ mjx-container[display="true"] + br {
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Ayy2's Website</h1>
+      <p class="site-title">Ayy2's Website</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">hh</p>
@@ -237,7 +244,7 @@ mjx-container[display="true"] + br {
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -250,6 +257,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">链接笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%B1%81%E8%AF%9D"><span class="nav-number">1.1.</span> <span class="nav-text">0 屁话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%A8%8B%E5%BA%8F%E7%94%9F%E6%88%90%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">1. 程序生成流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%BC%96%E8%AF%91"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%B1%87%E7%BC%96"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3 汇编</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E9%93%BE%E6%8E%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.4 链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">1.3.</span> <span class="nav-text">2. 静态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 可重定位目标文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E9%9D%99%E6%80%81%E5%BA%93%E6%96%87%E4%BB%B6-a"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 静态库文件(.a)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E7%AC%A6%E5%8F%B7%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4 符号解析过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.5 重定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.6.</span> <span class="nav-text">2.6 可执行目标文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.3.7.</span> <span class="nav-text">2.7 加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">3. 动态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%85%B1%E4%BA%AB%E5%BA%93"><span class="nav-number">1.4.1.</span> <span class="nav-text">3.1 共享库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E4%BD%8D%E7%BD%AE%E6%97%A0%E5%85%B3%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.2.</span> <span class="nav-text">3.2 位置无关代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.3 动态链接过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.4.4.</span> <span class="nav-text">3.4 重定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-GOT"><span class="nav-number">1.4.5.</span> <span class="nav-text">3.5 GOT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-PLT"><span class="nav-number">1.4.6.</span> <span class="nav-text">3.6 PLT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">4. 总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -293,16 +301,17 @@ mjx-container[display="true"] + br {
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/02/12/linking/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -316,13 +325,13 @@ mjx-container[display="true"] + br {
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="name" content="linking | Ayy2's Website">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/12/linking/" class="post-title-link" itemprop="url">linking</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          linking
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -351,8 +360,7 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="链接笔记"><a href="#链接笔记" class="headerlink" title="链接笔记"></a>链接笔记</h1><h2 id="0-屁话"><a href="#0-屁话" class="headerlink" title="0 屁话"></a>0 屁话</h2><blockquote>
+    <div class="post-body" itemprop="articleBody"><h1 id="链接笔记"><a href="#链接笔记" class="headerlink" title="链接笔记"></a>链接笔记</h1><h2 id="0-屁话"><a href="#0-屁话" class="headerlink" title="0 屁话"></a>0 屁话</h2><blockquote>
 <p>该部分属于屁话，可以不看。</p>
 </blockquote>
 <p>认识我的人都知道，我是一名ACMer，喜欢参加的比赛叫做ICPC，在一般人眼里就是“写代码”的比赛（然而事实上是坐牢的比赛）。</p>
@@ -583,7 +591,6 @@ mjx-container[display="true"] + br {
 <h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>CSAPP的链接这一章写的着实抽象，无论是看视频还是看书都搞不懂。因此我花了几天时间专门试图去弄懂关于链接的概念，也因此作了本篇笔记。笔记内部包含了不少个人对链接的理解，可能有所谬误，望谅解。</p>
 <p>链接是个很大的话题，感觉和编译原理一样，需要真正弄懂的话要花很大力气。关于动态链接的详细部分，以后有时间再作功课！</p>
 
-      
     </div>
 
     
@@ -591,202 +598,25 @@ mjx-container[display="true"] + br {
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/csapp/" rel="tag"># csapp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/02/11/diary/" rel="prev" title="保研日寄">
+                  <i class="fa fa-angle-left"></i> 保研日寄
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/02/11/diary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2's Website">
-      <meta itemprop="description" content="fw">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/11/diary/" class="post-title-link" itemprop="url">保研日寄</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-02-11 19:07:17 / 修改时间：20:16:03" itemprop="dateCreated datePublished" datetime="2024-02-11T19:07:17+08:00">2024-02-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="2-10-2-11-他们称之为新年"><a href="#2-10-2-11-他们称之为新年" class="headerlink" title="2.10-2.11 他们称之为新年"></a>2.10-2.11 他们称之为新年</h2><p>大年初一半死不活地卷了一天（早上csapp，下午计网，晚上把cache lab通关后又卷了点java，发现java中的&#x3D;&#x3D;不简单）</p>
-<p>到了晚上十一点整个人都很虚，把最后的力扣刷完，躺在床上却睡不着。</p>
-<p>好好好，相比于其他保研人我没什么优势。不过在焦虑方面我可谓是遥遥领先。</p>
-<p>作为一个类跨保er（我自己发明的词，感觉从ai跨到cs&#x2F;se也算跨保，至少难度跟跨保的难度一致），最难的莫过于前人的经验没有一个适用于我。</p>
-<p>想着未来去南软，实习真挺香的，还不用搞科研，适合我这种只想摆烂的鼠鼠。</p>
-<p>南软优营的学长，手上项目一堆，还参与过不少开源活动。</p>
-<p>妈的，零项目鼠鼠落泪（大水创就算了，能顺利结题不耽误我保研就好）</p>
-<p>然后南软还会考察什么软件工程、设计模式的。笑死，根本没学过，只能到时候靠补。</p>
-<p>不过想着自己零项目挺难受的，于是考虑下学期开始做xv6的lab，看看能不能刷点简历上去。</p>
-<p>当然前置课程是csapp，现在先把基础打好吧，不用着急。</p>
-<p>就业向的话，好像只有南软了吧。</p>
-<p>科研向，我只知道千万不要搞纯ai。主要原因是不喜欢对一个黑盒进行研究。</p>
-<p>想着sys可能比较适合我，至少在自学csapp的过程当中我是比较享受的。</p>
-<p>不过感觉学sys和研究sys可能是两个东西，到时候读研真搞sys的话，可能也挺痛苦的。</p>
-<p>不过先不想这么多，先上岸再说。</p>
-<p>我觉得njucs算是不错的选择，直到我看了往年的笔试题。</p>
-<p>好家伙，还是冲南软吧（真的都不会！</p>
-<p>给我整无语了，为什么我这不会那也不会。</p>
-<p>大致看了一下题目，包含了408（只会数据结构）、csapp（ELF文件动态链接什么的，这应该是csapp的内容）、Linux（你妈，一堆命令我见都没见过）、编译原理等</p>
-<p>好了，夏令营不可能报njucs的了，预推免再冲冲看</p>
-<p>现在大致要学习并掌握的技术栈大致有：</p>
-<ul>
-<li>操作系统</li>
-<li>数据库</li>
-<li>软件工程</li>
-<li>设计模式</li>
-<li>java</li>
-<li>计算机网络</li>
-</ul>
-<p>距离夏令营还有不到五个月，我都不知道接下来的时间我该怎么活。</p>
-<p>又孤独又痛苦</p>
-<p>过年的，外面都是鞭炮的响声。</p>
-<p>是真的吵</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/02/04/hello/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2's Website">
-      <meta itemprop="description" content="fw">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/04/hello/" class="post-title-link" itemprop="url">hello</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-02-04 14:00:33 / 修改时间：18:14:14" itemprop="dateCreated datePublished" datetime="2024-02-04T14:00:33+08:00">2024-02-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="寒假学习计划"><a href="#寒假学习计划" class="headerlink" title="寒假学习计划"></a>寒假学习计划</h1><p>1、自学 <a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/afs/cs/academic/class/15213-f15/www/schedule.html">CMU 15-213</a> 课程，并完成课程要求的相关lab</p>
-<p>2、自学<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JV411t7ow/">计网</a></p>
-<p>3、初步掌握java</p>
-<p>4、<a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>Hot 100，争取用java实现</p>
-<p>5、<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/training/9391">洛谷题单</a></p>
-<h1 id="第六学期学习计划-初步"><a href="#第六学期学习计划-初步" class="headerlink" title="第六学期学习计划(初步)"></a>第六学期学习计划(初步)</h1><p>1、继续学<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JV411t7ow/">计网</a></p>
-<p>2、<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/schedule.html">操作系统</a></p>
-<p>3、<a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2022/schedule.html">数据库</a></p>
-<p>4、大创，nlp</p>
-<img src="/2024/02/04/hello/atri1.jpg" class="" title="atri1">
-
-<h1 id="代码块测试"><a href="#代码块测试" class="headerlink" title="代码块测试"></a>代码块测试</h1><p>C++</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> _ = <span class="number">2333</span>;</span><br><span class="line"><span class="type">int</span> n, K;</span><br><span class="line"><span class="type">int</span> f[_], a[_];</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(ll mid)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> cnt = n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">		f[i] = i - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt; i; ++j)&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">abs</span>(a[i]-a[j]) &lt;= (i - j) * mid)</span><br><span class="line">				f[i] = <span class="built_in">min</span>(f[i], f[j] + i - j - <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		cnt = <span class="built_in">min</span>(cnt, f[i] + n - i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cnt &lt;= K;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>();</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; K;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">		cin &gt;&gt; a[i];</span><br><span class="line">	ll l = <span class="number">0</span>, r = <span class="number">2e9</span>;</span><br><span class="line">	ll ans=<span class="number">2e9</span>;</span><br><span class="line">	<span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">		ll mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">check</span>(mid)) ans = mid, r = mid - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.goodnuaa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/resp&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    String <span class="title function_">resp</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Atri Kawaii&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler, MinMaxScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold, train_test_split</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> libsvm.svmutil <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> read</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">classify</span>(<span class="params">param_str=<span class="string">&quot;-t 2 -c 1&quot;</span>, scaler=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># 读入、划分数据集</span></span><br><span class="line">    X_array, y_array = read.getdata()</span><br><span class="line">    X_train, X_val, y_train, y_val = train_test_split(X_array, y_array, test_size=<span class="number">0.3</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 标准化</span></span><br><span class="line">    <span class="keyword">if</span> scaler <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        X_train = scaler.fit_transform(X_train)</span><br><span class="line">        X_val = scaler.fit_transform(X_val)</span><br><span class="line">    </span><br><span class="line">    prob = svm_problem(y_train.tolist(), X_train.tolist())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置超参数</span></span><br><span class="line">    param = svm_parameter(param_str)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># SMO训练SVM</span></span><br><span class="line">    model = svm_train(prob, param)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nvalid acc: &quot;</span>)</span><br><span class="line">    labels, acc, vals = svm_predict(y_val.tolist(), X_val.tolist(), model)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(acc)</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;train acc: &quot;</span>)</span><br><span class="line">    labels, acc, vals = svm_predict(y_train.tolist(), X_train.tolist(), model)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(acc)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 选择归一化方式</span></span><br><span class="line">    <span class="comment"># scaler = MinMaxScaler()</span></span><br><span class="line">    scaler = StandardScaler()</span><br><span class="line">    <span class="comment"># scaler = None</span></span><br><span class="line"></span><br><span class="line">    classify(scaler=scaler)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
