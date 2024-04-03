@@ -264,12 +264,12 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -294,6 +294,226 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/03/strhash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="fw">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/03/strhash/" class="post-title-link" itemprop="url">字符串哈希</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-03 22:00:00 / 修改时间：22:09:27" itemprop="dateCreated datePublished" datetime="2024-04-03T22:00:00+08:00">2024-04-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h1><p>将字符串转换为一个哈希值，从而判断两个字符串是否相同。</p>
+<p>模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> P = <span class="number">131</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> _ = <span class="number">1510</span>;</span><br><span class="line">ull p[_], h[_];</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">char</span> s[_];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	p[<span class="number">0</span>] = <span class="number">1</span>, h[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		p[i] = p[i<span class="number">-1</span>] * P;</span><br><span class="line">		h[i] = h[i<span class="number">-1</span>] * P + s[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ull <span class="title">get</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> h[r] - h[l<span class="number">-1</span>] * p[r-l+<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">substr</span><span class="params">(<span class="type">int</span> l1, <span class="type">int</span> r1, <span class="type">int</span> l2, <span class="type">int</span> r2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">get</span>(l1, r1) == <span class="built_in">get</span>(l2, r2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是P取131或13331，然后模数采用 <code>unsigned long long</code> 的自动溢出机制。</p>
+<p>练习题：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1943/problem/B">https://codeforces.com/contest/1943/problem/B</a>。div1的B，难度为2000，中等难度。</p>
+<p>这题的重点实际上并不在于字符串哈希，而是在于判 aaa 和 ababa 这种情况。</p>
+<p>但是对于整个子串的情况，需要特别判断是否为回文串。</p>
+<p>如果你采用上述的哈希方式，你会发现你WA了。原因自然是哈希冲突。</p>
+<p>然后我试了很多组 P 和 MOD，最后终于得到了一个不冲突的方案（2333和998244853）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> P = <span class="number">2333</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> _ = <span class="number">200010</span>;</span><br><span class="line"><span class="type">const</span> ull mod = <span class="number">998244853</span>;</span><br><span class="line">ull p[_], h[_], hh[_];</span><br><span class="line"><span class="type">int</span> n, q;</span><br><span class="line">string s;</span><br><span class="line">set&lt;<span class="type">int</span>&gt; even, odd;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	p[<span class="number">0</span>] = <span class="number">1</span>, h[<span class="number">0</span>] = hh[<span class="number">0</span>] = <span class="number">0</span>; even.<span class="built_in">clear</span>(); odd.<span class="built_in">clear</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		p[i] = p[i<span class="number">-1</span>] * P % mod;</span><br><span class="line">		h[i] = h[i<span class="number">-1</span>] * P + s[i<span class="number">-1</span>]; h[i] %= mod;</span><br><span class="line">		hh[i] = hh[i<span class="number">-1</span>] * P + s[n-i]; hh[i] %= mod;</span><br><span class="line">		<span class="keyword">if</span>(i &lt; n &amp;&amp; s[i<span class="number">-1</span>] != s[i]) odd.<span class="built_in">insert</span>(i);</span><br><span class="line">		<span class="keyword">if</span>(i &lt; n - <span class="number">1</span> &amp;&amp; s[i<span class="number">-1</span>] != s[i+<span class="number">1</span>]) even.<span class="built_in">insert</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ull <span class="title">geth</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (h[r] - h[l<span class="number">-1</span>] * p[r-l+<span class="number">1</span>] % mod + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ull <span class="title">gethh</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> rr = n - l + <span class="number">1</span>, ll = n - r + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> (hh[rr] - hh[ll<span class="number">-1</span>] * p[rr-ll+<span class="number">1</span>] % mod + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>();</span><br><span class="line">	<span class="type">int</span> T; cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">		cin &gt;&gt; s;</span><br><span class="line">		<span class="built_in">init</span>();</span><br><span class="line">		<span class="keyword">while</span>(q--)&#123;</span><br><span class="line">			<span class="type">int</span> l, r;</span><br><span class="line">			cin &gt;&gt; l &gt;&gt; r;</span><br><span class="line">			<span class="type">int</span> len = r - l + <span class="number">1</span>;</span><br><span class="line">			ll ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">geth</span>(l, r) != <span class="built_in">gethh</span>(l, r)) ans = len;</span><br><span class="line">			<span class="keyword">auto</span> it = odd.<span class="built_in">lower_bound</span>(l);</span><br><span class="line">			<span class="keyword">auto</span> it2 = even.<span class="built_in">lower_bound</span>(l);</span><br><span class="line">			<span class="keyword">if</span>(it == odd.<span class="built_in">end</span>() || (*it) &gt;= r)&#123;</span><br><span class="line">				;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">if</span>(it2 == even.<span class="built_in">end</span>() || (*it2) &gt;= r - <span class="number">1</span>)</span><br><span class="line">					ans += <span class="number">1ll</span> * (len - <span class="number">1</span>) / <span class="number">2</span> * ((len - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					ans += <span class="number">1ll</span> * (len - <span class="number">1</span>) * len / <span class="number">2</span> - <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/2024/04/03/strhash/ohno.png" class="" title="ohno">
+<p>事实说明哈希冲突还是很玄学的。因此需要考虑更好的判回文串的方式：Manacher。</p>
+<p>有空再写！</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/03/diary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="fw">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/03/diary/" class="post-title-link" itemprop="url">保研日寄</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-03 19:07:17 / 修改时间：22:11:03" itemprop="dateCreated datePublished" datetime="2024-04-03T19:07:17+08:00">2024-04-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="4-03-准备出发"><a href="#4-03-准备出发" class="headerlink" title="4.03 准备出发"></a>4.03 准备出发</h2><p>难得有时间独处一下，稍微整理一下这学期的行程。</p>
+<p>今天抑郁症有点复发，所以不宜太卷。因此做规划是比较好的选择。</p>
+<p>另外，终于拿到了盖章的排名，前五学期专业第一也板上钉钉</p>
+<p><img src="diary/rank.jpg" alt="rank"  /></p>
+<p>所以，我大概率，应该会有学上。</p>
+<p>我目前夏令营的投递目标是：njuse，fducs，buaacs，ruc信院，最好能有个sysu保底，不过时间上很容易撞</p>
+<p>由于我特别想去南软，所以前期就按照南软的要求进行预习（</p>
+<p>当然预推免才是主战场。预推免投递目标看情况吧，如果南软优营了估计就摆了（虽然挺想去软微</p>
+<p>所以为了完全的准备，第六学期还是得保持专业第一</p>
+<p>所以，我初步的安排如下：</p>
+<p>专业课方面，由于我是非科班，因此可以考虑把上课时间拿去刷王道考研教材</p>
+<p>然后累了的话就去刷刷绿裙github repo上的经验贴，整理一下面经，估计会同步到这个blog上</p>
+<p>项目方面，我特别喜欢操作系统，因此看看能不能做完xv6 lab的基础上进一步深入分析xv6源码。感觉能完全理解源码的话应该挺不错的。</p>
+<p>然后暑假的话把15445做了，拿去水分散实习学分</p>
+<p>另外大创一定得顺利结题，不然保研名额就没了（</p>
+<p>机试方面，每周都打一打abc吧。另外跟着B站的董晓算法滚一滚板子（</p>
+<p>另外南软只推荐java，我不怎么会java，有点难整hh</p>
+<p>好的，话不宜说太多，饼不宜画太大。得开始卷了</p>
+<h2 id="2-14-结果和过程"><a href="#2-14-结果和过程" class="headerlink" title="2.14 结果和过程"></a>2.14 结果和过程</h2><p>自从高考失利后，我就不相信什么过程大于结果的说法了。</p>
+<p>讲真，我发现，至少在我身上，并没有什么努力能得到回报的说法。</p>
+<p>我特别在意结果</p>
+<p>我只在意结果</p>
+<p>过程有什么用</p>
+<p>学习是个很快乐的过程，高端的人一般都会去体会这些过程，但这是建立在他们已经有了好的结果的基础之上</p>
+<p>我要什么，我要华五的title，我要大厂开发岗offer</p>
+<p>我只在乎结果，我只在乎最后能不能拿到钱</p>
+<p>因此这三年来，当我特别在乎一件事情的结果的时候，命运就偏偏不让我拥有这个结果。</p>
+<p>即使是一些小成就，命运都想尽办法让我得不到</p>
+<p>我不知道是不是只有我运气这么差</p>
+<p>但假设就我运气这么差，我该怎么活？</p>
+<p>自大学以来，我就发现，除了高考没考好，应试能力能吊打同学，似乎就没有什么其他好的条件了。</p>
+<p>没家境，没Npy，性格也好不到哪去</p>
+<p>高考对我的伤害还是太大了</p>
+<p>有时候真的很绝望</p>
+<p>要是我再怎么努力，也被这该死的命运限制</p>
+<p>我活着有什么用</p>
+<h2 id="2-10-2-11-他们称之为新年"><a href="#2-10-2-11-他们称之为新年" class="headerlink" title="2.10-2.11 他们称之为新年"></a>2.10-2.11 他们称之为新年</h2><p>大年初一半死不活地卷了一天（早上csapp，下午计网，晚上把cache lab通关后又卷了点java，发现java中的==不简单）</p>
+<p>到了晚上十一点整个人都很虚，把最后的力扣刷完，躺在床上却睡不着。</p>
+<p>好好好，相比于其他保研人我没什么优势。不过在焦虑方面我可谓是遥遥领先。</p>
+<p>作为一个类跨保er（我自己发明的词，感觉从ai跨到cs/se也算跨保，至少难度跟跨保的难度一致），最难的莫过于前人的经验没有一个适用于我。</p>
+<p>想着未来去南软，实习真挺香的，还不用搞科研，适合我这种只想摆烂的鼠鼠。</p>
+<p>南软优营的学长，手上项目一堆，还参与过不少开源活动。</p>
+<p>妈的，零项目鼠鼠落泪（大水创就算了，能顺利结题不耽误我保研就好）</p>
+<p>然后南软还会考察什么软件工程、设计模式的。笑死，根本没学过，只能到时候靠补。</p>
+<p>不过想着自己零项目挺难受的，于是考虑下学期开始做xv6的lab，看看能不能刷点简历上去。</p>
+<p>当然前置课程是csapp，现在先把基础打好吧，不用着急。</p>
+<p>就业向的话，好像只有南软了吧。</p>
+<p>科研向，我只知道千万不要搞纯ai。主要原因是不喜欢对一个黑盒进行研究。</p>
+<p>想着sys可能比较适合我，至少在自学csapp的过程当中我是比较享受的。</p>
+<p>不过感觉学sys和研究sys可能是两个东西，到时候读研真搞sys的话，可能也挺痛苦的。</p>
+<p>不过先不想这么多，先上岸再说。</p>
+<p>我觉得njucs算是不错的选择，直到我看了往年的笔试题。</p>
+<p>好家伙，还是冲南软吧（真的都不会！</p>
+<p>给我整无语了，为什么我这不会那也不会。</p>
+<p>大致看了一下题目，包含了408（只会数据结构）、csapp（ELF文件动态链接什么的，这应该是csapp的内容）、Linux（你妈，一堆命令我见都没见过）、编译原理等</p>
+<p>好了，夏令营不可能报njucs的了，预推免再冲冲看</p>
+<p>现在大致要学习并掌握的技术栈大致有：</p>
+<ul>
+<li>操作系统</li>
+<li>数据库</li>
+<li>软件工程</li>
+<li>设计模式</li>
+<li>java</li>
+<li>计算机网络</li>
+</ul>
+<p>距离夏令营还有不到五个月，我都不知道接下来的时间我该怎么活。</p>
+<p>又孤独又痛苦</p>
+<p>过年的，外面都是鞭炮的响声。</p>
+<p>是真的吵</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -880,132 +1100,6 @@ mjx-container[display="true"] + br {
 <h3 id="3-6-PLT"><a href="#3-6-PLT" class="headerlink" title="3.6 PLT"></a>3.6 PLT</h3><p>模块间的函数调用，主要使用的是一个称之为<strong>延迟绑定</strong>的技术。它的主要动机是想让函数的重定位延迟到调用其的第一次才发生。这需要代码段中的<strong>过程链接表</strong>（PLT）支持。PLT是一个数组，每个条目都是16字节的可运行代码。简单来讲，一个模块调用另一个模块的函数，会先进入该函数对应的PLT条目开始运行代码，代码的主要功能是跳转到动态链接器中并由动态链接器将PLT中的代码改成直接跳到函数地址的代码。以后每次都可以通过进入对应的PLT条目来调用对应的函数。</p>
 <h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>CSAPP的链接这一章写的着实抽象，无论是看视频还是看书都搞不懂。因此我花了几天时间专门试图去弄懂关于链接的概念，也因此作了本篇笔记。笔记内部包含了不少个人对链接的理解，可能有所谬误，望谅解。</p>
 <p>链接是个很大的话题，感觉和编译原理一样，需要真正弄懂的话要花很大力气。关于动态链接的详细部分，以后有时间再作功课！</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/02/11/diary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2's Website">
-      <meta itemprop="description" content="fw">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/11/diary/" class="post-title-link" itemprop="url">保研日寄</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-02-11 19:07:17" itemprop="dateCreated datePublished" datetime="2024-02-11T19:07:17+08:00">2024-02-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-02-14 15:34:47" itemprop="dateModified" datetime="2024-02-14T15:34:47+08:00">2024-02-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="2-14-结果和过程"><a href="#2-14-结果和过程" class="headerlink" title="2.14 结果和过程"></a>2.14 结果和过程</h2><p>自从高考失利后，我就不相信什么过程大于结果的说法了。</p>
-<p>讲真，我发现，至少在我身上，并没有什么努力能得到回报的说法。</p>
-<p>我特别在意结果</p>
-<p>我只在意结果</p>
-<p>过程有什么用</p>
-<p>学习是个很快乐的过程，高端的人一般都会去体会这些过程，但这是建立在他们已经有了好的结果的基础之上</p>
-<p>我要什么，我要华五的title，我要大厂开发岗offer</p>
-<p>我只在乎结果，我只在乎最后能不能拿到钱</p>
-<p>因此这三年来，当我特别在乎一件事情的结果的时候，命运就偏偏不让我拥有这个结果。</p>
-<p>即使是一些小成就，命运都想尽办法让我得不到</p>
-<p>我不知道是不是只有我运气这么差</p>
-<p>但假设就我运气这么差，我该怎么活？</p>
-<p>自大学以来，我就发现，除了高考没考好，应试能力能吊打同学，似乎就没有什么其他好的条件了。</p>
-<p>没家境，没Npy，性格也好不到哪去</p>
-<p>高考对我的伤害还是太大了</p>
-<p>有时候真的很绝望</p>
-<p>要是我再怎么努力，也被这该死的命运限制</p>
-<p>我活着有什么用</p>
-<h2 id="2-10-2-11-他们称之为新年"><a href="#2-10-2-11-他们称之为新年" class="headerlink" title="2.10-2.11 他们称之为新年"></a>2.10-2.11 他们称之为新年</h2><p>大年初一半死不活地卷了一天（早上csapp，下午计网，晚上把cache lab通关后又卷了点java，发现java中的==不简单）</p>
-<p>到了晚上十一点整个人都很虚，把最后的力扣刷完，躺在床上却睡不着。</p>
-<p>好好好，相比于其他保研人我没什么优势。不过在焦虑方面我可谓是遥遥领先。</p>
-<p>作为一个类跨保er（我自己发明的词，感觉从ai跨到cs/se也算跨保，至少难度跟跨保的难度一致），最难的莫过于前人的经验没有一个适用于我。</p>
-<p>想着未来去南软，实习真挺香的，还不用搞科研，适合我这种只想摆烂的鼠鼠。</p>
-<p>南软优营的学长，手上项目一堆，还参与过不少开源活动。</p>
-<p>妈的，零项目鼠鼠落泪（大水创就算了，能顺利结题不耽误我保研就好）</p>
-<p>然后南软还会考察什么软件工程、设计模式的。笑死，根本没学过，只能到时候靠补。</p>
-<p>不过想着自己零项目挺难受的，于是考虑下学期开始做xv6的lab，看看能不能刷点简历上去。</p>
-<p>当然前置课程是csapp，现在先把基础打好吧，不用着急。</p>
-<p>就业向的话，好像只有南软了吧。</p>
-<p>科研向，我只知道千万不要搞纯ai。主要原因是不喜欢对一个黑盒进行研究。</p>
-<p>想着sys可能比较适合我，至少在自学csapp的过程当中我是比较享受的。</p>
-<p>不过感觉学sys和研究sys可能是两个东西，到时候读研真搞sys的话，可能也挺痛苦的。</p>
-<p>不过先不想这么多，先上岸再说。</p>
-<p>我觉得njucs算是不错的选择，直到我看了往年的笔试题。</p>
-<p>好家伙，还是冲南软吧（真的都不会！</p>
-<p>给我整无语了，为什么我这不会那也不会。</p>
-<p>大致看了一下题目，包含了408（只会数据结构）、csapp（ELF文件动态链接什么的，这应该是csapp的内容）、Linux（你妈，一堆命令我见都没见过）、编译原理等</p>
-<p>好了，夏令营不可能报njucs的了，预推免再冲冲看</p>
-<p>现在大致要学习并掌握的技术栈大致有：</p>
-<ul>
-<li>操作系统</li>
-<li>数据库</li>
-<li>软件工程</li>
-<li>设计模式</li>
-<li>java</li>
-<li>计算机网络</li>
-</ul>
-<p>距离夏令营还有不到五个月，我都不知道接下来的时间我该怎么活。</p>
-<p>又孤独又痛苦</p>
-<p>过年的，外面都是鞭炮的响声。</p>
-<p>是真的吵</p>
 
       
     </div>
