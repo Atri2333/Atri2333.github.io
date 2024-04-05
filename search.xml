@@ -26,9 +26,14 @@
 ]]></content>
   </entry>
   <entry>
-    <title>保研日寄</title>
-    <url>/2024/04/04/diary/</url>
-    <content><![CDATA[<h2 id="4-04-摆烂的一天"><a href="#4-04-摆烂的一天" class="headerlink" title="4.04 摆烂的一天"></a>4.04 摆烂的一天</h2><p>唉，以为舍友走了可以在宿舍安静学习</p>
+    <title>日寄</title>
+    <url>/2024/04/05/diary/</url>
+    <content><![CDATA[<h2 id="4-05-不因伤心落泪"><a href="#4-05-不因伤心落泪" class="headerlink" title="4.05 不因伤心落泪"></a>4.05 不因伤心落泪</h2><p>xv6 multithread lab完成！</p>
+<p>我个人感觉，多线程这一章非常难，特别是对coordination机制的lock的处理。然而lab却比较简单，感觉比较基础。</p>
+<p>当然，我是sb，设置sp寄存器的时候忘记栈是从高地址往低地址延申的。卡了很久（</p>
+<p>然后的话，今天也算比较摆的了，除了lab还随便糊弄了一下学校的专业课</p>
+<p>万恶的学校作业（</p>
+<h2 id="4-04-摆烂的一天"><a href="#4-04-摆烂的一天" class="headerlink" title="4.04 摆烂的一天"></a>4.04 摆烂的一天</h2><p>唉，以为舍友走了可以在宿舍安静学习</p>
 <p>事实上在宿舍只想打游戏（</p>
 <p>终于把xv6 lock和sleep wakeup这一节给过了</p>
 <p>太tm难了</p>
@@ -533,5 +538,10 @@
       <tags>
         <tag>ACM</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2024/04/05/collections/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
