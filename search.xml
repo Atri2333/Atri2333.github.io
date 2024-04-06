@@ -28,7 +28,14 @@
   <entry>
     <title>日寄</title>
     <url>/2024/04/05/diary/</url>
-    <content><![CDATA[<h2 id="4-05-不因伤心落泪"><a href="#4-05-不因伤心落泪" class="headerlink" title="4.05 不因伤心落泪"></a>4.05 不因伤心落泪</h2><p>xv6 multithread lab完成！</p>
+    <content><![CDATA[<h2 id="4-06-结束的假期-想说的话"><a href="#4-06-结束的假期-想说的话" class="headerlink" title="4.06 结束的假期+想说的话"></a>4.06 结束的假期+想说的话</h2><p>又是开摆的一天（</p>
+<p>开了xv6 file system的坑，感觉好难</p>
+<p>说实话，6.s081这课确实挺硬核</p>
+<p>不过lab挺简单的，以后有空去做一下2020的lab，据说是要比2021的难</p>
+<p>看了计网考研+打了atcoder。</p>
+<p>唉，感觉ACM水平越来越差了</p>
+<img src="/2024/04/05/diary/codeforces.png" class="" title="codeforces">
+<h2 id="4-05-不因伤心落泪"><a href="#4-05-不因伤心落泪" class="headerlink" title="4.05 不因伤心落泪"></a>4.05 不因伤心落泪</h2><p>xv6 multithread lab完成！</p>
 <p>我个人感觉，多线程这一章非常难，特别是对coordination机制的lock的处理。然而lab却比较简单，感觉比较基础。</p>
 <p>当然，我是sb，设置sp寄存器的时候忘记栈是从高地址往低地址延申的。卡了很久（</p>
 <p>然后的话，今天也算比较摆的了，除了lab还随便糊弄了一下学校的专业课</p>
