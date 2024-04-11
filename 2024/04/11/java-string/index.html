@@ -19,26 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="❤blackbird❤">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ayy2&#39;s Website">
-<meta property="og:url" content="https://atri2333.github.io/archives/2024/index.html">
+    <meta name="description" content="JAVA速成Day4——字符串字符串也是ACM里常用的东西，但是java里的字符串我并不是很熟悉，所以这次就稍微速通一下~ String：首先我们得清楚String类在java中是不可变的。这真的勾八坑爹  equals()  比较两个String是否相等，返回boolean  compareTo()  比较两个字符串的字典序，返回负数&#x2F;0&#x2F;正数  substring()  提取子串，左闭右开。第">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_string">
+<meta property="og:url" content="https://atri2333.github.io/2024/04/11/java-string/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="❤blackbird❤">
+<meta property="og:description" content="JAVA速成Day4——字符串字符串也是ACM里常用的东西，但是java里的字符串我并不是很熟悉，所以这次就稍微速通一下~ String：首先我们得清楚String类在java中是不可变的。这真的勾八坑爹  equals()  比较两个String是否相等，返回boolean  compareTo()  比较两个字符串的字典序，返回负数&#x2F;0&#x2F;正数  substring()  提取子串，左闭右开。第">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-11T12:57:27.000Z">
+<meta property="article:modified_time" content="2024-04-11T13:15:31.018Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://atri2333.github.io/archives/2024/">
+<link rel="canonical" href="https://atri2333.github.io/2024/04/11/java-string/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2024/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/04/11/java-string/","path":"2024/04/11/java-string/","title":"java_string"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | Ayy2's Website</title>
+<title>java_string | Ayy2's Website</title>
   
 
 
@@ -71,7 +73,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Ayy2's Website</h1>
+      <p class="site-title">Ayy2's Website</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">❤blackbird❤</p>
@@ -125,7 +127,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -138,6 +140,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JAVA%E9%80%9F%E6%88%90Day4%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">JAVA速成Day4——字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">String：</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,229 +184,107 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 10 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/11/java-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="❤blackbird❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="java_string | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java_string
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+      <time title="创建时间：2024-04-11 20:57:27 / 修改时间：21:15:31" itemprop="dateCreated datePublished" datetime="2024-04-11T20:57:27+08:00">2024-04-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="JAVA速成Day4——字符串"><a href="#JAVA速成Day4——字符串" class="headerlink" title="JAVA速成Day4——字符串"></a>JAVA速成Day4——字符串</h1><p>字符串也是ACM里常用的东西，但是java里的字符串我并不是很熟悉，所以这次就稍微速通一下~</p>
+<h2 id="String："><a href="#String：" class="headerlink" title="String："></a>String：</h2><p>首先我们得清楚String类在java中是<strong>不可变的</strong>。这真的勾八坑爹</p>
+<ul>
+<li>equals()</li>
+</ul>
+<p>比较两个String是否相等，返回boolean</p>
+<ul>
+<li>compareTo()</li>
+</ul>
+<p>比较两个字符串的字典序，返回负数/0/正数</p>
+<ul>
+<li>substring()</li>
+</ul>
+<p>提取子串，左闭右开。第二个参数可选</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;blackbird&quot;</span>.substring(<span class="number">5</span>) <span class="comment">// bird</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>toCharArray()</li>
+</ul>
+<p>转化为 <code>Char[]</code> 。</p>
+<p>未完待续</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-11T20:57:27+08:00"
-              content="2024-04-11">
-          04-11
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/11/java-string/" itemprop="url">
-          <span itemprop="name">java_string</span>
-        </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/10/java-interface/" rel="prev" title="java_interface">
+                  <i class="fa fa-angle-left"></i> java_interface
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-10T19:56:51+08:00"
-              content="2024-04-10">
-          04-10
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/10/java-interface/" itemprop="url">
-          <span itemprop="name">java_interface</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-09T20:35:30+08:00"
-              content="2024-04-09">
-          04-09
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/09/collections/" itemprop="url">
-          <span itemprop="name">JAVA速成Day1——集合</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-09T20:35:30+08:00"
-              content="2024-04-09">
-          04-09
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/09/designpattern/" itemprop="url">
-          <span itemprop="name">JAVA速成Day2——单例模式</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-05T20:00:00+08:00"
-              content="2024-04-05">
-          04-05
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/05/diary/" itemprop="url">
-          <span itemprop="name">日寄</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-03T22:00:00+08:00"
-              content="2024-04-03">
-          04-03
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/03/strhash/" itemprop="url">
-          <span itemprop="name">字符串哈希</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-03-25T19:00:00+08:00"
-              content="2024-03-25">
-          03-25
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/03/25/count/" itemprop="url">
-          <span itemprop="name">一些ACM计数问题——球盒模型等</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-17T18:00:00+08:00"
-              content="2024-02-17">
-          02-17
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/17/tsh/" itemprop="url">
-          <span itemprop="name">tsh lab</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-12T14:28:11+08:00"
-              content="2024-02-12">
-          02-12
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/12/linking/" itemprop="url">
-          <span itemprop="name">linking</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-04T14:00:33+08:00"
-              content="2024-02-04">
-          02-04
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/04/hello/" itemprop="url">
-          <span itemprop="name">hello</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
 
 </div>
   </main>

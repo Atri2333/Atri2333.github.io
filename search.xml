@@ -795,6 +795,35 @@
 <p>这样的话，如果对于一个接口新增一个方法，就不需要更改所有实现它的子类了，只需要在需要的地方 <code>override</code> 即可。</p>
 <hr>
 <p>晚安</p>
+<hr>
+<p>事实上接口是可以有字段的，但是其类型为 <code>public static final</code> ：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MALE</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">FEMALE</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>—update 24.4.11</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>java_string</title>
+    <url>/2024/04/11/java-string/</url>
+    <content><![CDATA[<h1 id="JAVA速成Day4——字符串"><a href="#JAVA速成Day4——字符串" class="headerlink" title="JAVA速成Day4——字符串"></a>JAVA速成Day4——字符串</h1><p>字符串也是ACM里常用的东西，但是java里的字符串我并不是很熟悉，所以这次就稍微速通一下~</p>
+<h2 id="String："><a href="#String：" class="headerlink" title="String："></a>String：</h2><p>首先我们得清楚String类在java中是<strong>不可变的</strong>。这真的勾八坑爹</p>
+<ul>
+<li>equals()</li>
+</ul>
+<p>比较两个String是否相等，返回boolean</p>
+<ul>
+<li>compareTo()</li>
+</ul>
+<p>比较两个字符串的字典序，返回负数/0/正数</p>
+<ul>
+<li>substring()</li>
+</ul>
+<p>提取子串，左闭右开。第二个参数可选</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;blackbird&quot;</span>.substring(<span class="number">5</span>) <span class="comment">// bird</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>toCharArray()</li>
+</ul>
+<p>转化为 <code>Char[]</code> 。</p>
+<p>未完待续</p>
 ]]></content>
   </entry>
 </search>
