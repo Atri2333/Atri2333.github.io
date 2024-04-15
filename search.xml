@@ -823,7 +823,55 @@
 <li>toCharArray()</li>
 </ul>
 <p>转化为 <code>Char[]</code> 。</p>
-<p>未完待续</p>
+<h2 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h2><p>由于String类部是 <code>final</code> 类型，不可变。因此当你使用 <code>+</code> 连接两个String时，事实上会再new一个String对象，这是没有效率的。</p>
+<p>所以java提供了一个类StringBuilder，它是可变的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        str.append(<span class="string">&quot;i &quot;</span>).append(<span class="string">&quot;love &quot;</span>).append(<span class="string">&quot;blackbird.&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">output</span> <span class="operator">=</span> str.toString();</span><br><span class="line">        System.out.println(output);</span><br><span class="line">        str.setCharAt(<span class="number">0</span>, <span class="string">&#x27;u&#x27;</span>);</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="顺带一提"><a href="#顺带一提" class="headerlink" title="顺带一提"></a>顺带一提</h2><p>这里提到了方法<code>equals()</code> 。事实上，对于所有非基本类型，都应该使用这个方法来判断对象之间是否相等。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">基本类型</th>
+<th style="text-align:left">对应的引用类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">java.lang.Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">byte</td>
+<td style="text-align:left">java.lang.Byte</td>
+</tr>
+<tr>
+<td style="text-align:left">short</td>
+<td style="text-align:left">java.lang.Short</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">java.lang.Integer</td>
+</tr>
+<tr>
+<td style="text-align:left">long</td>
+<td style="text-align:left">java.lang.Long</td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left">java.lang.Float</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">java.lang.Double</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">java.lang.Character</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例如int对应的引用类型Integer</p>
 ]]></content>
   </entry>
   <entry>
