@@ -974,13 +974,13 @@
   <entry>
     <title>xv6-lab</title>
     <url>/2024/04/24/xv6-lab/</url>
-    <content><![CDATA[<h1 id="1-MIT-6-S081-lab-2020-2021-回顾"><a href="#1-MIT-6-S081-lab-2020-2021-回顾" class="headerlink" title="1. MIT 6.S081 lab(2020/2021)回顾"></a>1. MIT 6.S081 lab(2020/2021)回顾</h1><blockquote>
+    <content><![CDATA[<h1 id="1-xv6-摆烂-理解"><a href="#1-xv6-摆烂-理解" class="headerlink" title="1. xv6-摆烂-理解"></a>1. xv6-摆烂-理解</h1><blockquote>
 <p>大三上学期突然很想自学CS，然后在寒假学了CSAPP的大部分后开始了MIT 6.S081这个课程。用时大概两个月(2.25-4.24)从零开始自学OS到完成了除network外的所有lab，包括2020年和2021年的版本。</p>
 <p>学这东西纯属兴趣，想体验一下科班的感觉（</p>
 </blockquote>
-<h3 id="学习路径"><a href="#学习路径" class="headerlink" title="学习路径"></a>学习路径</h3><p>我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：<a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081</a></p>
+<h2 id="学习路径"><a href="#学习路径" class="headerlink" title="学习路径"></a>学习路径</h2><p>我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：<a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081</a></p>
 <p>一般就是，先根据课程要求，浏览一遍xv6 book上对应的章节及源码，然后看上面那个文档，然后再回到xv6 book当中巩固一下。</p>
-<p>然后lab的话，前期是根据课程安排进行的。但到后面课程会开始讲一些论文，我是在那之前把所有lab给完成的。所以在写这个文章的时候，我其实还没有结束这门课程的学习。如标题所见，这只是我这两个月来对lab的回顾。</p>
+<p>然后lab的话，前期是根据课程安排进行的。但到后面课程会开始讲一些论文，我是在那之前把所有lab给完成的。所以在写这个文章的时候，我其实还没有结束这门课程的学习。如标题所见，这只是我这两个月来对lab的回顾。我会继续后续论文的学习</p>
 <h3 id="lab-1-Xv6-and-Unix-utilities-2020-2021"><a href="#lab-1-Xv6-and-Unix-utilities-2020-2021" class="headerlink" title="lab 1 Xv6 and Unix utilities (2020/2021)"></a>lab 1 Xv6 and Unix utilities (2020/2021)</h3><p>这个其实主要目的是让你安装好环境+熟悉一下xv6的代码结构。主要任务是使用xv6自带的系统调用实现一些功能，比较难的可能是 primes 那个实验，需要你使用多进程通信来完成素数筛。</p>
 <p>我当时的想法大致是给每个进程都维护了一个要筛的素数（通过向管道写入第一个数来完成），如果当前传进来的数没办法整除当前进程所维护的素数，就交付给它的子进程处理。</p>
 <h3 id="lab-2-system-calls-2020-2021"><a href="#lab-2-system-calls-2020-2021" class="headerlink" title="lab 2 system calls (2020/2021)"></a>lab 2 system calls (2020/2021)</h3><p>这个lab就开启了你魔改内核的征程（不是）。你需要实现两个系统调用trace和sysinfo，分别追踪系统调用以及空闲内存与进程的数量。算是最简单的lab之一了，跟着Hint做就行。</p>
@@ -1010,6 +1010,19 @@
 <p>另外，有一些lab并不是只靠我一个人完成的，我是适当地参考了一些其它人的做法。特别是2020年的页表那个实验，我发现我的写法和网上很多人都不一样，导致就算看别人的也没办法把自己的bug调试好（</p>
 <p>不过最终也是赶在学校的破实验课开课前把除了network的xv6 lab都过了一遍，收获挺大的，算是对os有了初步的理解。至少给我一些名词，例如进程、线程、页表等，我都能从xv6的例子中进行联想。</p>
 <p>后面会通过这个系列深入xv6源码：<a href="https://www.youtube.com/playlist?list=PLbtzT1TYeoMhTPzyTZboW_j7TPAnjv9XB">https://www.youtube.com/playlist?list=PLbtzT1TYeoMhTPzyTZboW_j7TPAnjv9XB</a></p>
+<h2 id="摆烂"><a href="#摆烂" class="headerlink" title="摆烂"></a>摆烂</h2><p>这几周，除了自学这个课程，感觉就没做什么了。</p>
+<p>可能，打了一些比赛</p>
+<p>校赛，虽然acm退役了，但是打了rk4，仅次于三位noi选手</p>
+<p>csp，455，虽然发挥不太好</p>
+<p>蓝桥杯，一般般吧，国赛懒得去了</p>
+<p>天梯赛，国一，但是我比赛期间（不知晓具体规则的情况下）本能地去头文件查了api，感觉要被查作弊了</p>
+<p>codeforces，摆烂了，不想打，只打atcoder，然后1600还没上</p>
+<p>学了点java</p>
+<p>感觉，学国外的公开课，收获确实挺大</p>
+<p>做对应的lab，居然会有点网瘾的感觉</p>
+<p>但是现在却没有当初网瘾的动力了</p>
+<p>好在，认识了一个非常好的人</p>
+<p>所以这几周过的也是非常有意义</p>
 ]]></content>
   </entry>
 </search>
