@@ -928,6 +928,11 @@
 <p>但是根据 <code>stackoverflow</code> 上的解释，可以使用 <code>TreeMap&lt;E, Integer&gt;</code> 来模拟 <code>multiset</code> ，其中value是计数器。</p>
 <p>关于java中的集合就先说这么多了。</p>
 <p>晚安</p>
+<hr>
+<p>update 24.5.1</p>
+<p><code>arraylist.toArray(T[] arr)</code></p>
+<p>将Arraylist转化为正宗数组的方法，参数为存数据的数组。未指定默认为 <code>Object[]</code></p>
+<p>例如 <code>arr.toArray(new int[arr.size()][2]);</code> (<a href="https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&amp;envId=top-100-liked">https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&amp;envId=top-100-liked</a>)</p>
 ]]></content>
   </entry>
   <entry>
