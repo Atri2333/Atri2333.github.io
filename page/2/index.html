@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,163 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/11/java/java-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/11/java/java-string/" class="post-title-link" itemprop="url">java_string</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-11 20:57:27" itemprop="dateCreated datePublished" datetime="2024-04-11T20:57:27+08:00">2024-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-04-15 09:34:06" itemprop="dateModified" datetime="2024-04-15T09:34:06+08:00">2024-04-15</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/04/11/java/java-string/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/11/java/java-string/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="JAVA速成Day4——字符串"><a href="#JAVA速成Day4——字符串" class="headerlink" title="JAVA速成Day4——字符串"></a>JAVA速成Day4——字符串</h1><p>字符串也是ACM里常用的东西，但是java里的字符串我并不是很熟悉，所以这次就稍微速通一下~</p>
+<h2 id="String："><a href="#String：" class="headerlink" title="String："></a>String：</h2><p>首先我们得清楚String类在java中是<strong>不可变的</strong>。这真的勾八坑爹</p>
+<ul>
+<li>equals()</li>
+</ul>
+<p>比较两个String是否相等，返回boolean</p>
+<ul>
+<li>compareTo()</li>
+</ul>
+<p>比较两个字符串的字典序，返回负数/0/正数</p>
+<ul>
+<li>substring()</li>
+</ul>
+<p>提取子串，左闭右开。第二个参数可选</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;blackbird&quot;</span>.substring(<span class="number">5</span>) <span class="comment">// bird</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>toCharArray()</li>
+</ul>
+<p>转化为 <code>Char[]</code> 。</p>
+<h2 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h2><p>由于String类部是 <code>final</code> 类型，不可变。因此当你使用 <code>+</code> 连接两个String时，事实上会再new一个String对象，这是没有效率的。</p>
+<p>所以java提供了一个类StringBuilder，它是可变的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        str.append(<span class="string">&quot;i &quot;</span>).append(<span class="string">&quot;love &quot;</span>).append(<span class="string">&quot;blackbird.&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">output</span> <span class="operator">=</span> str.toString();</span><br><span class="line">        System.out.println(output);</span><br><span class="line">        str.setCharAt(<span class="number">0</span>, <span class="string">&#x27;u&#x27;</span>);</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="顺带一提"><a href="#顺带一提" class="headerlink" title="顺带一提"></a>顺带一提</h2><p>这里提到了方法<code>equals()</code> 。事实上，对于所有非基本类型，都应该使用这个方法来判断对象之间是否相等。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">基本类型</th>
+<th style="text-align:left">对应的引用类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">java.lang.Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">byte</td>
+<td style="text-align:left">java.lang.Byte</td>
+</tr>
+<tr>
+<td style="text-align:left">short</td>
+<td style="text-align:left">java.lang.Short</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">java.lang.Integer</td>
+</tr>
+<tr>
+<td style="text-align:left">long</td>
+<td style="text-align:left">java.lang.Long</td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left">java.lang.Float</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">java.lang.Double</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">java.lang.Character</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例如int对应的引用类型Integer</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
