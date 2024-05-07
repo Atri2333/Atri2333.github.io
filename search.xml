@@ -1354,4 +1354,47 @@
 <p><a href="https://codeforces.com/contest/1968/problem/G2">https://codeforces.com/contest/1968/problem/G2</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>data_link_layer</title>
+    <url>/2024/05/07/computer-network/data-link-layer/</url>
+    <content><![CDATA[<h1 id="计网——数据链路层复习"><a href="#计网——数据链路层复习" class="headerlink" title="计网——数据链路层复习"></a>计网——数据链路层复习</h1><p><strong>链路：</strong>从一个结点到相邻结点的一段物理链路</p>
+<p><strong>数据链路</strong>：在链路的基础上增加了一些硬件（如网卡）和软件（如协议）</p>
+<p>实现数据链路层：主机（五层）、路由器（三层）、交换机（两层）</p>
+<blockquote>
+<p>参考的不是OSI模型，那个七层的模型一点不熟</p>
+</blockquote>
+<p>数据链路层使用两种<strong>信道</strong>：点对点信道、广播信道（总线型？hh</p>
+<blockquote>
+<p>局域网这个概念实际上属于数据链路层的范畴。它虽然听起来是个网络，但是网络层要解决的是如何协调多个网络之间联系的问题。而在单个局域网内部是不需要使用路由器来转发的。从整个互联网体系来看，局域网属于数据链路层的范畴。</p>
+</blockquote>
+<p>数据链路层的<strong>协议数据单元</strong>：帧</p>
+<p>这引起对数据链路层主要的三个功能的讨论：</p>
+<ul>
+<li>封装成帧</li>
+</ul>
+<p>在网络层往下发放的数据单元的前后分别添加首部和尾部，形成一个帧。</p>
+<p>首部和尾部的一个重要作用就是<strong>帧定界</strong>，当然也有其它重要的控制信息。</p>
+<p>例如点对点协议的PPP帧：</p>
+<img src="/2024/05/07/computer-network/data-link-layer/ppp1.png" class="" title="ppp1">
+<p>它的帧定界标志为一个字节，8个bit：01111110</p>
+<p>但是以太网V2的MAC帧不需要帧定界，它采用的是前导码机制：</p>
+<img src="/2024/05/07/computer-network/data-link-layer/mac1.png" class="" title="mac1">
+<p>外加以太网规定帧之间留有96比特时间的间隔，因此不需要帧结束定界符。</p>
+<p><strong>透明传输</strong>解决的问题是帧定界标志与数据部分内容的冲突问题。</p>
+<p>对于<strong>面向字节</strong>的物理链路，采用<strong>字节填充</strong>解决，具体是在数据部分的冲突字节（包括ESC）之前填充一个转义字符ESC来加以区分</p>
+<p>举例（王道p58）：帧的数据段中出现EOT（结束）和SOH（开始）控制字符，然后有以下数据：</p>
+<p>SOH | A EOT ESC B | EOT</p>
+<p>透明传输解决后的方案：</p>
+<p>SOH| A <strong>ESC</strong> EOT <strong>ESC</strong> ESC B | EOT</p>
+<p>对于<strong>面向比特</strong>的物理链路，采用零比特填充法。拿PPP帧举例，它的具体操作是在数据字段中每遇到连续5个1，就自动插入一个0.</p>
+<p>同时，在封装成帧这一部分，为了提高帧的传输效率，应当使帧的数据部分的长度尽可能大。但也不能太大，因此每一种链路层协议都规定了帧的<strong>数据部分</strong>的长度上限，即 <strong>MTU</strong>。</p>
+<img src="/2024/05/07/computer-network/data-link-layer/fzcz.png" class="" title="fzcz">
+<blockquote>
+<p>不同协议的MTU的长度会影响到网络层中ip数据报的分片。具体内容见网络层ipv4数据报头部结构。需要注意MTU的长度不包括帧头和帧尾。</p>
+</blockquote>
+<ul>
+<li>差错检测</li>
+</ul>
+]]></content>
+  </entry>
 </search>

@@ -19,26 +19,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Fall Guard">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ayy2&#39;s Website">
-<meta property="og:url" content="https://atri2333.github.io/archives/page/2/index.html">
+    <meta name="description" content="计网——数据链路层复习链路：从一个结点到相邻结点的一段物理链路 数据链路：在链路的基础上增加了一些硬件（如网卡）和软件（如协议） 实现数据链路层：主机（五层）、路由器（三层）、交换机（两层）  参考的不是OSI模型，那个七层的模型一点不熟  数据链路层使用两种信道：点对点信道、广播信道（总线型？hh  局域网这个概念实际上属于数据链路层的范畴。它虽然听起来是个网络，但是网络层要解决的是如何协调多个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="data_link_layer">
+<meta property="og:url" content="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="Fall Guard">
+<meta property="og:description" content="计网——数据链路层复习链路：从一个结点到相邻结点的一段物理链路 数据链路：在链路的基础上增加了一些硬件（如网卡）和软件（如协议） 实现数据链路层：主机（五层）、路由器（三层）、交换机（两层）  参考的不是OSI模型，那个七层的模型一点不熟  数据链路层使用两种信道：点对点信道、广播信道（总线型？hh  局域网这个概念实际上属于数据链路层的范畴。它虽然听起来是个网络，但是网络层要解决的是如何协调多个">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/ppp1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/mac1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/fzcz.png">
+<meta property="article:published_time" content="2024-05-07T12:33:33.000Z">
+<meta property="article:modified_time" content="2024-05-07T13:00:54.407Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/ppp1.png">
 
 
-<link rel="canonical" href="https://atri2333.github.io/archives/page/2/">
+<link rel="canonical" href="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/page/2/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/","path":"2024/05/07/computer-network/data-link-layer/","title":"data_link_layer"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | Ayy2's Website</title>
+<title>data_link_layer | Ayy2's Website</title>
   
 
 
@@ -71,7 +77,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Ayy2's Website</h1>
+      <p class="site-title">Ayy2's Website</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">let's fly together, pls...</p>
@@ -125,7 +131,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -138,6 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——数据链路层复习</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,233 +188,145 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 20 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/07/computer-network/data-link-layer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="data_link_layer | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          data_link_layer
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+      <time title="创建时间：2024-05-07 20:33:33 / 修改时间：21:00:54" itemprop="dateCreated datePublished" datetime="2024-05-07T20:33:33+08:00">2024-05-07</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/07/computer-network/data-link-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/07/computer-network/data-link-layer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="计网——数据链路层复习"><a href="#计网——数据链路层复习" class="headerlink" title="计网——数据链路层复习"></a>计网——数据链路层复习</h1><p><strong>链路：</strong>从一个结点到相邻结点的一段物理链路</p>
+<p><strong>数据链路</strong>：在链路的基础上增加了一些硬件（如网卡）和软件（如协议）</p>
+<p>实现数据链路层：主机（五层）、路由器（三层）、交换机（两层）</p>
+<blockquote>
+<p>参考的不是OSI模型，那个七层的模型一点不熟</p>
+</blockquote>
+<p>数据链路层使用两种<strong>信道</strong>：点对点信道、广播信道（总线型？hh</p>
+<blockquote>
+<p>局域网这个概念实际上属于数据链路层的范畴。它虽然听起来是个网络，但是网络层要解决的是如何协调多个网络之间联系的问题。而在单个局域网内部是不需要使用路由器来转发的。从整个互联网体系来看，局域网属于数据链路层的范畴。</p>
+</blockquote>
+<p>数据链路层的<strong>协议数据单元</strong>：帧</p>
+<p>这引起对数据链路层主要的三个功能的讨论：</p>
+<ul>
+<li>封装成帧</li>
+</ul>
+<p>在网络层往下发放的数据单元的前后分别添加首部和尾部，形成一个帧。</p>
+<p>首部和尾部的一个重要作用就是<strong>帧定界</strong>，当然也有其它重要的控制信息。</p>
+<p>例如点对点协议的PPP帧：</p>
+<img src="/2024/05/07/computer-network/data-link-layer/ppp1.png" class="" title="ppp1">
+<p>它的帧定界标志为一个字节，8个bit：01111110</p>
+<p>但是以太网V2的MAC帧不需要帧定界，它采用的是前导码机制：</p>
+<img src="/2024/05/07/computer-network/data-link-layer/mac1.png" class="" title="mac1">
+<p>外加以太网规定帧之间留有96比特时间的间隔，因此不需要帧结束定界符。</p>
+<p><strong>透明传输</strong>解决的问题是帧定界标志与数据部分内容的冲突问题。</p>
+<p>对于<strong>面向字节</strong>的物理链路，采用<strong>字节填充</strong>解决，具体是在数据部分的冲突字节（包括ESC）之前填充一个转义字符ESC来加以区分</p>
+<p>举例（王道p58）：帧的数据段中出现EOT（结束）和SOH（开始）控制字符，然后有以下数据：</p>
+<p>SOH | A EOT ESC B | EOT</p>
+<p>透明传输解决后的方案：</p>
+<p>SOH| A <strong>ESC</strong> EOT <strong>ESC</strong> ESC B | EOT</p>
+<p>对于<strong>面向比特</strong>的物理链路，采用零比特填充法。拿PPP帧举例，它的具体操作是在数据字段中每遇到连续5个1，就自动插入一个0.</p>
+<p>同时，在封装成帧这一部分，为了提高帧的传输效率，应当使帧的数据部分的长度尽可能大。但也不能太大，因此每一种链路层协议都规定了帧的<strong>数据部分</strong>的长度上限，即 <strong>MTU</strong>。</p>
+<img src="/2024/05/07/computer-network/data-link-layer/fzcz.png" class="" title="fzcz">
+<blockquote>
+<p>不同协议的MTU的长度会影响到网络层中ip数据报的分片。具体内容见网络层ipv4数据报头部结构。需要注意MTU的长度不包括帧头和帧尾。</p>
+</blockquote>
+<ul>
+<li>差错检测</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-12T18:12:44+08:00"
-              content="2024-04-12">
-          04-12
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/12/lock-lab/" itemprop="url">
-          <span itemprop="name">lock_lab</span>
-        </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/05/Z-algorithm/" rel="prev" title="Z-algorithm">
+                  <i class="fa fa-angle-left"></i> Z-algorithm
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-11T20:57:27+08:00"
-              content="2024-04-11">
-          04-11
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/11/java/java-string/" itemprop="url">
-          <span itemprop="name">java_string</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-10T19:56:51+08:00"
-              content="2024-04-10">
-          04-10
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/10/java/java-interface/" itemprop="url">
-          <span itemprop="name">java_interface</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-09T20:35:30+08:00"
-              content="2024-04-09">
-          04-09
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/09/java/collections/" itemprop="url">
-          <span itemprop="name">JAVA速成Day1——集合</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-09T20:35:30+08:00"
-              content="2024-04-09">
-          04-09
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/09/java/designpattern/" itemprop="url">
-          <span itemprop="name">JAVA速成Day2——单例模式</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-03T22:00:00+08:00"
-              content="2024-04-03">
-          04-03
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/03/strhash/" itemprop="url">
-          <span itemprop="name">字符串哈希</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-03-25T19:00:00+08:00"
-              content="2024-03-25">
-          03-25
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/03/25/count/" itemprop="url">
-          <span itemprop="name">一些ACM计数问题——球盒模型等</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-17T18:00:00+08:00"
-              content="2024-02-17">
-          02-17
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/17/tsh/" itemprop="url">
-          <span itemprop="name">tsh lab</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-12T14:28:11+08:00"
-              content="2024-02-12">
-          02-12
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/12/linking/" itemprop="url">
-          <span itemprop="name">linking</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-04T14:00:33+08:00"
-              content="2024-02-04">
-          02-04
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/04/hello/" itemprop="url">
-          <span itemprop="name">hello</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
-  
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
-
 </div>
   </main>
 
