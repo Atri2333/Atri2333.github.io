@@ -1300,4 +1300,20 @@
 <p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>network-layer</title>
+    <url>/2024/05/09/computer-network/network-layer/</url>
+    <content><![CDATA[<h1 id="计网——网络层复习"><a href="#计网——网络层复习" class="headerlink" title="计网——网络层复习"></a>计网——网络层复习</h1><p>网络层的主要任务是实现<strong>网络互联</strong>，进而实现数据报在<strong>各</strong>网络之间的传输。</p>
+<p>网络层需要解决以下三个问题：</p>
+<ol>
+<li>网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输”）</li>
+<li>网络层寻址问题</li>
+<li>路由选择问题</li>
+</ol>
+<p>因特网使用TCP/IP协议栈，使用网际协议IP</p>
+<h2 id="两种服务"><a href="#两种服务" class="headerlink" title="两种服务"></a>两种服务</h2><h3 id="面向连接的虚电路服务"><a href="#面向连接的虚电路服务" class="headerlink" title="面向连接的虚电路服务"></a>面向连接的虚电路服务</h3><p>通信之前先建立虚电路，以保证通信双方所需的一切网络资源。虚电路只是一条<strong>逻辑</strong>上的连接</p>
+<p>发送方发送给接收方的所有分组都沿着同一条虚电路传送</p>
+<p><img src="D:\personal_page\source\_posts\computer-network\network-layer\VC1.png" alt="VC1"></p>
+<h3 id="无连接的数据报服务"><a href="#无连接的数据报服务" class="headerlink" title="无连接的数据报服务"></a>无连接的数据报服务</h3>]]></content>
+  </entry>
 </search>

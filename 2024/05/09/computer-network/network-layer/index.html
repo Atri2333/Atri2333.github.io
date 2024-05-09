@@ -19,26 +19,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Fall Guard">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ayy2&#39;s Website">
-<meta property="og:url" content="https://atri2333.github.io/archives/2024/04/index.html">
+    <meta name="description" content="计网——网络层复习网络层的主要任务是实现网络互联，进而实现数据报在各网络之间的传输。 网络层需要解决以下三个问题：  网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输”） 网络层寻址问题 路由选择问题  因特网使用TCP&#x2F;IP协议栈，使用网际协议IP 两种服务面向连接的虚电路服务通信之前先建立虚电路，以保证通信双方所需的一切网络资源。虚电路只是一条逻辑上的连接 发送方发送给接收方的所有分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="network-layer">
+<meta property="og:url" content="https://atri2333.github.io/2024/05/09/computer-network/network-layer/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="Fall Guard">
+<meta property="og:description" content="计网——网络层复习网络层的主要任务是实现网络互联，进而实现数据报在各网络之间的传输。 网络层需要解决以下三个问题：  网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输”） 网络层寻址问题 路由选择问题  因特网使用TCP&#x2F;IP协议栈，使用网际协议IP 两种服务面向连接的虚电路服务通信之前先建立虚电路，以保证通信双方所需的一切网络资源。虚电路只是一条逻辑上的连接 发送方发送给接收方的所有分">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:\personal_page\source\_posts\computer-network\network-layer\VC1.png">
+<meta property="article:published_time" content="2024-05-09T12:54:32.000Z">
+<meta property="article:modified_time" content="2024-05-09T13:15:09.003Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:\personal_page\source\_posts\computer-network\network-layer\VC1.png">
 
 
-<link rel="canonical" href="https://atri2333.github.io/archives/2024/04/">
+<link rel="canonical" href="https://atri2333.github.io/2024/05/09/computer-network/network-layer/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2024/04/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/09/computer-network/network-layer/","path":"2024/05/09/computer-network/network-layer/","title":"network-layer"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | Ayy2's Website</title>
+<title>network-layer | Ayy2's Website</title>
   
 
 
@@ -71,7 +75,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Ayy2's Website</h1>
+      <p class="site-title">Ayy2's Website</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
@@ -125,7 +129,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -138,6 +142,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——网络层复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">两种服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%99%9A%E7%94%B5%E8%B7%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">面向连接的虚电路服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.2.</span> <span class="nav-text">无连接的数据报服务</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,210 +186,118 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 22 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/computer-network/network-layer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="network-layer | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          network-layer
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+      <time title="创建时间：2024-05-09 20:54:32 / 修改时间：21:15:09" itemprop="dateCreated datePublished" datetime="2024-05-09T20:54:32+08:00">2024-05-09</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/09/computer-network/network-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/computer-network/network-layer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="计网——网络层复习"><a href="#计网——网络层复习" class="headerlink" title="计网——网络层复习"></a>计网——网络层复习</h1><p>网络层的主要任务是实现<strong>网络互联</strong>，进而实现数据报在<strong>各</strong>网络之间的传输。</p>
+<p>网络层需要解决以下三个问题：</p>
+<ol>
+<li>网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输”）</li>
+<li>网络层寻址问题</li>
+<li>路由选择问题</li>
+</ol>
+<p>因特网使用TCP/IP协议栈，使用网际协议IP</p>
+<h2 id="两种服务"><a href="#两种服务" class="headerlink" title="两种服务"></a>两种服务</h2><h3 id="面向连接的虚电路服务"><a href="#面向连接的虚电路服务" class="headerlink" title="面向连接的虚电路服务"></a>面向连接的虚电路服务</h3><p>通信之前先建立虚电路，以保证通信双方所需的一切网络资源。虚电路只是一条<strong>逻辑</strong>上的连接</p>
+<p>发送方发送给接收方的所有分组都沿着同一条虚电路传送</p>
+<p><img src="D:\personal_page\source\_posts\computer-network\network-layer\VC1.png" alt="VC1"></p>
+<h3 id="无连接的数据报服务"><a href="#无连接的数据报服务" class="headerlink" title="无连接的数据报服务"></a>无连接的数据报服务</h3>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-25T10:04:13+08:00"
-              content="2024-04-25">
-          04-25
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/25/move-semantics-cpp/" itemprop="url">
-          <span itemprop="name">move_semantics_cpp</span>
-        </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/09/se/" rel="prev" title="se">
+                  <i class="fa fa-angle-left"></i> se
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-24T18:14:40+08:00"
-              content="2024-04-24">
-          04-24
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/24/xv6-lab/" itemprop="url">
-          <span itemprop="name">xv6-lab</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-17T16:22:38+08:00"
-              content="2024-04-17">
-          04-17
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/17/java/java-strategy/" itemprop="url">
-          <span itemprop="name">java-strategy</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-12T18:12:44+08:00"
-              content="2024-04-12">
-          04-12
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/12/lock-lab/" itemprop="url">
-          <span itemprop="name">lock_lab</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-11T20:57:27+08:00"
-              content="2024-04-11">
-          04-11
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/11/java/java-string/" itemprop="url">
-          <span itemprop="name">java_string</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-10T19:56:51+08:00"
-              content="2024-04-10">
-          04-10
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/10/java/java-interface/" itemprop="url">
-          <span itemprop="name">java_interface</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-09T20:35:30+08:00"
-              content="2024-04-09">
-          04-09
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/09/java/collections/" itemprop="url">
-          <span itemprop="name">JAVA速成Day1——集合</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-09T20:35:30+08:00"
-              content="2024-04-09">
-          04-09
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/09/java/designpattern/" itemprop="url">
-          <span itemprop="name">JAVA速成Day2——单例模式</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-03T22:00:00+08:00"
-              content="2024-04-03">
-          04-03
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/03/strhash/" itemprop="url">
-          <span itemprop="name">字符串哈希</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
-  
-  
-
 </div>
   </main>
 

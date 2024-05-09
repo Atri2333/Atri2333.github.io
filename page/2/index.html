@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,138 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/24/xv6-lab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/24/xv6-lab/" class="post-title-link" itemprop="url">xv6-lab</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-24 18:14:40 / 修改时间：20:40:29" itemprop="dateCreated datePublished" datetime="2024-04-24T18:14:40+08:00">2024-04-24</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/04/24/xv6-lab/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/24/xv6-lab/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-xv6-摆烂-理解"><a href="#1-xv6-摆烂-理解" class="headerlink" title="1. xv6-摆烂-理解"></a>1. xv6-摆烂-理解</h1><blockquote>
+<p>大三上学期突然很想自学CS，然后在寒假学了CSAPP的大部分后开始了MIT 6.S081这个课程。用时大概两个月(2.25-4.24)从零开始自学OS到完成了除network外的所有lab，包括2020年和2021年的版本。</p>
+<p>学这东西纯属兴趣，想体验一下科班的感觉（</p>
+</blockquote>
+<h2 id="学习路径"><a href="#学习路径" class="headerlink" title="学习路径"></a>学习路径</h2><p>我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：<a target="_blank" rel="noopener" href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081</a></p>
+<p>一般就是，先根据课程要求，浏览一遍xv6 book上对应的章节及源码，然后看上面那个文档，然后再回到xv6 book当中巩固一下。</p>
+<p>然后lab的话，前期是根据课程安排进行的。但到后面课程会开始讲一些论文，我是在那之前把所有lab给完成的。所以在写这个文章的时候，我其实还没有结束这门课程的学习。如标题所见，这只是我这两个月来对lab的回顾。我会继续后续论文的学习</p>
+<h3 id="lab-1-Xv6-and-Unix-utilities-2020-2021"><a href="#lab-1-Xv6-and-Unix-utilities-2020-2021" class="headerlink" title="lab 1 Xv6 and Unix utilities (2020/2021)"></a>lab 1 Xv6 and Unix utilities (2020/2021)</h3><p>这个其实主要目的是让你安装好环境+熟悉一下xv6的代码结构。主要任务是使用xv6自带的系统调用实现一些功能，比较难的可能是 primes 那个实验，需要你使用多进程通信来完成素数筛。</p>
+<p>我当时的想法大致是给每个进程都维护了一个要筛的素数（通过向管道写入第一个数来完成），如果当前传进来的数没办法整除当前进程所维护的素数，就交付给它的子进程处理。</p>
+<h3 id="lab-2-system-calls-2020-2021"><a href="#lab-2-system-calls-2020-2021" class="headerlink" title="lab 2 system calls (2020/2021)"></a>lab 2 system calls (2020/2021)</h3><p>这个lab就开启了你魔改内核的征程（不是）。你需要实现两个系统调用trace和sysinfo，分别追踪系统调用以及空闲内存与进程的数量。算是最简单的lab之一了，跟着Hint做就行。</p>
+<h3 id="lab-3-page-tables-2021"><a href="#lab-3-page-tables-2021" class="headerlink" title="lab 3 page tables (2021)"></a>lab 3 page tables (2021)</h3><p>这个lab主要考察你对RISCV和xv6内页表的理解。由于时间太过遥远，我不太记得清楚其中的细节了。但总之也是一个比较简单的lab。</p>
+<h3 id="lab-3-page-tables-2020"><a href="#lab-3-page-tables-2020" class="headerlink" title="lab 3 page tables (2020)"></a>lab 3 page tables (2020)</h3><p>其实这个才是真正的lab3（，2021年的是阉割的版本</p>
+<p>我是到最后才完成的这个lab，原因是它真的非常难！大概耗费了我三天时间</p>
+<p>这个lab要求我们为每个进程都额外维护一个内核页表，来简化 <code>copyin/copyinstr</code> 函数所需要的内核/进程页表之间的转换。</p>
+<p>你需要为这个进程的内核页表写很多函数，例如初始化，拷贝页表等。</p>
+<p>你还需要兼顾<strong>效率</strong>，即你需要在同一个物理地址上同时为内核页表以及进程的内核页表建立映射，而非直接拷贝物理空间。这涉及到许多细节，可能需要允许一些非法情况发生。</p>
+<h3 id="lab-4-traps-2020-2021"><a href="#lab-4-traps-2020-2021" class="headerlink" title="lab 4 traps (2020/2021)"></a>lab 4 traps (2020/2021)</h3><p>这个lab考察你对xv6内部如何处理trap的细节，相对来说也是比较难的。通过了解xv6如何让trap机制透明来完成该lab中的alarm功能，例如保存上下文，设置pc、ra寄存器等。</p>
+<p>另外顺带一提，在这个lab中，你实现的backtrace函数非常实用，可以直接拷贝到其它lab中，非常方便调试。</p>
+<h3 id="lab-5-xv6-lazy-page-allocation-2020"><a href="#lab-5-xv6-lazy-page-allocation-2020" class="headerlink" title="lab 5 xv6 lazy page allocation (2020)"></a>lab 5 xv6 lazy page allocation (2020)</h3><p>这个lab考察你对page fault的理解。通过对特定的page fault的处理，使内核能够“按需”分配物理内存。</p>
+<p>同时你也需要修改其它函数，让它能够允许一些非法情况的发生。</p>
+<h3 id="lab-6-Copy-on-Write-Fork-for-xv6-2020-2021"><a href="#lab-6-Copy-on-Write-Fork-for-xv6-2020-2021" class="headerlink" title="lab 6 Copy-on-Write Fork for xv6 (2020/2021)"></a>lab 6 Copy-on-Write Fork for xv6 (2020/2021)</h3><p>同样考察page fault的理解。COW fork和lazy page allocation都是可以通过处理page fault来实现的功能，但是前者可能要更难一些。因为在fork之后，新进程的页表和父进程的页表指向同一块区域，因此需要对page进行计数。这个涉及到一些多线程并发的东西，例如自旋锁来维护每个page的计数的不变性。</p>
+<p>总之也算是比较难的一个lab。</p>
+<h3 id="lab-7-Multithreading-2020-2021"><a href="#lab-7-Multithreading-2020-2021" class="headerlink" title="lab 7 Multithreading (2020/2021)"></a>lab 7 Multithreading (2020/2021)</h3><p>这个lab有点意思，它不仅考察了你对xv6进程调度的理解，还让你了解了一下 UNIX pthread 库函数的使用，来实现多线程并发以及barrier。</p>
+<p>多线程并发编程是个老生常谈的话题，我以后大概也会花时间深入了解一下。</p>
+<p>但是lab本身是简单的。</p>
+<h3 id="lab-8-lock-2020-2021"><a href="#lab-8-lock-2020-2021" class="headerlink" title="lab 8 lock (2020/2021)"></a>lab 8 lock (2020/2021)</h3><p>这个lab的主要任务是改善xv6原有的对lock的粗粒度的使用。需要你给出更加细粒度的lock方案。</p>
+<p>对于每个lock，你需要明确它所保护的<strong>不变性</strong>。</p>
+<p>之前无聊的时候写过解法：<a href="https://atri2333.github.io/2024/04/12/lock-lab/">https://atri2333.github.io/2024/04/12/lock-lab/</a></p>
+<h3 id="lab-9-file-system-2020-2021"><a href="#lab-9-file-system-2020-2021" class="headerlink" title="lab 9 file system (2020/2021)"></a>lab 9 file system (2020/2021)</h3><p>这个lab有两个任务：第一个任务是采用页表分层的思想，将inode的indirect数据block也进行分层，来大幅扩展一个文件所能支持的大小。第二个任务是实现 symlink 系统调用，创建一个新的文件类型symlink，并可以通过这个symlink来追踪其它文件或symlink。</p>
+<p>讲真文件系统这章我学的有点仓促，感觉有些东西并没有特别懂，但是对于lab本身还是够用。</p>
+<h3 id="lab-10-mmap-2020-2021"><a href="#lab-10-mmap-2020-2021" class="headerlink" title="lab 10 mmap (2020/2021)"></a>lab 10 mmap (2020/2021)</h3><p>这个lab要求你实现一个阉割版的mmap系统调用，及其对应的阉割版的munmap系统调用，能让用户可以通过访问内存来同步访问文件。</p>
+<p>算是对前面的lab的总结了，它涉及到了页表、page fault、文件系统等知识点。</p>
+<h3 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h3><p>关于调试，一般来讲是推荐gdb。但是根据我亲身经历（或者acmer的破习惯），printf调试法更加有用。这可能是由于我gdb用的并不熟练，所以调试起来笨手笨脚的，不如直接打log来的方便与显然（</p>
+<p>另外，有一些lab并不是只靠我一个人完成的，我是适当地参考了一些其它人的做法。特别是2020年的页表那个实验，我发现我的写法和网上很多人都不一样，导致就算看别人的也没办法把自己的bug调试好（</p>
+<p>不过最终也是赶在学校的破实验课开课前把除了network的xv6 lab都过了一遍，收获挺大的，算是对os有了初步的理解。至少给我一些名词，例如进程、线程、页表等，我都能从xv6的例子中进行联想。</p>
+<p>后面会通过这个系列深入xv6源码：<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLbtzT1TYeoMhTPzyTZboW_j7TPAnjv9XB">https://www.youtube.com/playlist?list=PLbtzT1TYeoMhTPzyTZboW_j7TPAnjv9XB</a></p>
+<h2 id="摆烂"><a href="#摆烂" class="headerlink" title="摆烂"></a>摆烂</h2><p>这几周，除了自学这个课程，感觉就没做什么了。</p>
+<p>可能，打了一些比赛</p>
+<p>校赛，虽然acm退役了，但是打了rk4，仅次于三位noi选手</p>
+<p>csp，455，虽然发挥不太好</p>
+<p>蓝桥杯，一般般吧，国赛懒得去了</p>
+<p>天梯赛，国一，但是我比赛期间（不知晓具体规则的情况下）本能地去头文件查了api，感觉要被查作弊了</p>
+<p>codeforces，摆烂了，不想打，只打atcoder，然后1600还没上</p>
+<p>学了点java</p>
+<p>感觉，学国外的公开课，收获确实挺大</p>
+<p>做对应的lab，居然会有点网瘾的感觉</p>
+<p>但是现在却没有当初网瘾的动力了</p>
+<p>好在，认识了一个非常好的人</p>
+<p>所以这几周过的也是非常有意义</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1494,325 +1626,6 @@ mjx-container[display="true"] + br {
 <h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p>通过遍历所有16个测试用例，每个测试用例都和标准程序 <code>tshref</code> 来比对，来判断 <code>tsh</code> 的正确性。本lab是没有自动评分程序的</p>
 <img src="/2024/02/17/tsh/1.png" class="" title="tot">
 <p>此次lab主要是通过实现一个自己的shell来更好地了解信号、并发等概念。个人认为目前学习CSAPP下来，异常控制流这章是最难的，但是对应的lab却不难，算是目前完成的五个lab（data、bomb、attack、cache、shell）中用时最少的。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/02/12/linking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2's Website">
-      <meta itemprop="description" content="Fall Guard">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/12/linking/" class="post-title-link" itemprop="url">linking</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-02-12 14:28:11" itemprop="dateCreated datePublished" datetime="2024-02-12T14:28:11+08:00">2024-02-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-02-13 17:47:24" itemprop="dateModified" datetime="2024-02-13T17:47:24+08:00">2024-02-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/02/12/linking/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/02/12/linking/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="链接笔记"><a href="#链接笔记" class="headerlink" title="链接笔记"></a>链接笔记</h1><h2 id="0-屁话"><a href="#0-屁话" class="headerlink" title="0 屁话"></a>0 屁话</h2><blockquote>
-<p>该部分属于屁话，可以不看。</p>
-</blockquote>
-<p>认识我的人都知道，我是一名ACMer，喜欢参加的比赛叫做ICPC，在一般人眼里就是“写代码”的比赛（然而事实上是坐牢的比赛）。</p>
-<p>假设你是一名高手ACMer，参加了今年的ICPC World Final。今年WF的压轴题如下：</p>
-<blockquote>
-<p>输入两个整数 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.197ex" height="1.02ex" role="img" focusable="false" viewBox="0 -441 529 451"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g></svg></mjx-container> 和 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.971ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 429 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g></g></svg></mjx-container> ，输出 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.933ex" height="1.756ex" role="img" focusable="false" viewBox="0 -694 2180.4 776"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(751.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(1751.4,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g></g></svg></mjx-container> .</p>
-</blockquote>
-<p>这么难的题，难倒了除了你之外的所有来自世界各地的顶尖选手。稍作思索过后，你写出了如下AC代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// add.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>{</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="type">int</span> c = add(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>一行绿色的Accepted飘过，你AK了WF，然后从梦中醒来。</p>
-<blockquote>
-<p>开个玩笑hh</p>
-</blockquote>
-<p>不过醒来的你突发奇想。作为ACMer的我们，对于每个问题，写的程序一直都在一个文件之下。</p>
-<p>但用屁股想都知道，正常的C语言的工程，肯定是由多个源文件组成的。比如上面的 <code>add.c</code> 程序，你可以分成两份源代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// add.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>{</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="type">int</span> c = add(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>不过问题来了，作为一个ACMer，习惯使用VScode Code Runner的你，执行 <code>main.c</code> 后却遇到了以下错误：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">main.c: In function ‘main’:</span><br><span class="line">main.c:6:13: warning: implicit declaration of function ‘add’ [-Wimplicit-function-declaration]</span><br><span class="line">    6 |     int c = add(a, b);</span><br><span class="line">      |             ^~~</span><br><span class="line">/usr/bin/ld: /tmp/cckuC0BG.o: in function `main':</span><br><span class="line">add.c:(.text+0x4a): undefined reference to `add'</span><br><span class="line">collect2: error: ld returned 1 exit status</span><br></pre></td></tr></table></figure>
-<p>这里是ld返回了一个异常信号1，说明是ld程序出现了错误，也就是链接器错误。具体错误是ld找不到<code>add</code>函数。</p>
-<p>聪明的你仔细一想，觉得这也正常。毕竟你只是“执行”了一个文件，似乎另一个文件还不知道如何让它加入到执行过程中。</p>
-<p>而将多个文件加入到一个程序的过程，其实就是链接的过程。</p>
-<h2 id="1-程序生成流程"><a href="#1-程序生成流程" class="headerlink" title="1. 程序生成流程"></a>1. 程序生成流程</h2><p>一个使用C语言编写的程序，需要通过四个步骤来生成最终的<strong>可执行文件</strong>：预处理、编译、汇编、链接。</p>
-<p>以下描述以GNU编译系统为基础，在Linux平台(x64架构)运行测试。GNU提供了我们最熟悉的编译套件<code>gcc</code>。</p>
-<h3 id="1-1-预处理"><a href="#1-1-预处理" class="headerlink" title="1.1 预处理"></a>1.1 预处理</h3><p>首先，我们的C语言源文件是不能直接被执行的。你双击一个.c文件，出来的只会是IDE或者文本编辑器，因为.c文件实质上就是一个文本文件。</p>
-<p>但是在预处理这个步骤，我们输出的仍然是一个文本文件。</p>
-<p>预处理的目的，是为了便于接下来的<strong>编译</strong>步骤，它大致有以下几个作用：</p>
-<p>1、删掉注释。如果你特别喜欢printf调试，那么在最后提交程序的时候需要将其注释掉。注释的内容不可能在最终的目标文件里，它在预处理阶段就消失了。</p>
-<p>2、处理除了 <code>#progma</code> 外的所有以<code>#</code>开头的代码。例如 <code>#define</code> 定义宏，<code>#ifdef</code> 、<code>#endif</code>等预编译指令，以及头文件 <code>#include</code>，在预处理阶段会将头文件插入到原有地方。（当然头文件包含可能是递归的，因此需要递归处理）</p>
-<p>3、还会添加一些标识信息。</p>
-<p>例如以下文件：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// add.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>{</span><br><span class="line">    <span class="comment">// add two integers</span></span><br><span class="line">    <span class="type">int</span> sum = a + b;</span><br><span class="line">    <span class="comment">// then return the sum</span></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>可以通过以下两个命令生成预处理文件 <code>add.i</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linux&gt; cpp add.c add.i</span><br><span class="line">linux&gt; gcc -E add.c -o add.i</span><br></pre></td></tr></table></figure>
-<p><code>cpp</code> 是C预处理器，通过预处理可以得到以下文本文件 <code>add.i</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">0</span> <span class="string">"add.c"</span></span><br><span class="line"># <span class="number">0</span> <span class="string">"&lt;built-in&gt;"</span></span><br><span class="line"># <span class="number">0</span> <span class="string">"&lt;command-line&gt;"</span></span><br><span class="line"># <span class="number">1</span> <span class="string">"/usr/include/stdc-predef.h"</span> <span class="number">1</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"># <span class="number">0</span> <span class="string">"&lt;command-line&gt;"</span> <span class="number">2</span></span><br><span class="line"># <span class="number">1</span> <span class="string">"add.c"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="type">long</span> <span class="title function_">add</span><span class="params">(<span class="type">long</span> <span class="type">long</span> a, <span class="type">long</span> <span class="type">long</span> b)</span>{</span><br><span class="line"></span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> sum = a + b;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>可以发现头部给了一些标识信息。其次所有注释也被删去，而我们的int也因为宏定义被改成了long long类型。</p>
-<p>当然 <code>#define int long long</code> 这种代码千万不要写（除了ACM赛场上最后一分钟发现程序爆int），这里只是为了展示~</p>
-<h3 id="1-2-编译"><a href="#1-2-编译" class="headerlink" title="1.2 编译"></a>1.2 编译</h3><p>得到了我们的预处理文本文件，我们就可以正式开始编译了。通过编译程序，我们最终会得到一个汇编文本文件。它是一个由汇编语言所描述的<strong>文本</strong>文件，仍然可以被文本编辑器所查看。</p>
-<p>可以通过以下命令生成汇编文件 <code>add.s</code>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">/usr/lib/gcc/x86_64-linux-gnu/11/cc1 add.i</span></span><br><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -S add.i -o add.s</span></span><br><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -S add.c -o add.s</span></span><br></pre></td></tr></table></figure>
-<p>这里的cc1便是正式的编译器。由于它不在我的环境变量上面，因此这里需要列出它的地址。当然你也可以直接用gcc -S命令进行编译。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">	.file	"add.i"</span><br><span class="line">	.text</span><br><span class="line">	.globl	add</span><br><span class="line">	.type	add, @function</span><br><span class="line">add:</span><br><span class="line">.LFB0:</span><br><span class="line">	.cfi_startproc</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	.cfi_def_cfa_offset 16</span><br><span class="line">	.cfi_offset 6, -16</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	.cfi_def_cfa_register 6</span><br><span class="line">	movq	%rdi, -24(%rbp)</span><br><span class="line">	movq	%rsi, -32(%rbp)</span><br><span class="line">	movq	-24(%rbp), %rdx</span><br><span class="line">	movq	-32(%rbp), %rax</span><br><span class="line">	addq	%rdx, %rax</span><br><span class="line">	movq	%rax, -8(%rbp)</span><br><span class="line">	movq	-8(%rbp), %rax</span><br><span class="line">	popq	%rbp</span><br><span class="line">	.cfi_def_cfa 7, 8</span><br><span class="line">	ret</span><br><span class="line">	.cfi_endproc</span><br><span class="line">.LFE0:</span><br><span class="line">	.size	add, .-add</span><br><span class="line">	.ident	"GCC: (Ubuntu 11.2.0-19ubuntu1) 11.2.0"</span><br><span class="line">	.section	.note.GNU-stack,"",@progbits</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>这个便是得到的汇编文件。熟悉x86汇编的可以发现这里的寄存器以 r 开头，代表我们操作的是8个字节的long long类型整数。</p>
-<p>需要注意的是，汇编的每一行指令都与机器指令<strong>一对一相关</strong>。</p>
-<h3 id="1-3-汇编"><a href="#1-3-汇编" class="headerlink" title="1.3 汇编"></a>1.3 汇编</h3><p>为了生成可执行文件的那种二进制格式文件，在得到汇编文件之后，我们需要将其转化为机器代码。这便是汇编器所做的工作，可以通过以下指令执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">as add.s -o add.o</span></span><br><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -c add.s -o add.o</span></span><br><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -c add.c -o add.o</span></span><br></pre></td></tr></table></figure>
-<p>这里的as便是汇编器，通过它可以生成一个称之为<strong>可重定位目标文件</strong>的文件。在编辑器是不能正确显示这个文件的，因为它是一种二进制格式文件。</p>
-<p>可重定位目标文件是我们在这里所关注的重点。在Linux操作系统下，目标文件（例如这里的可重定位目标文件，以及后续链接生成的可执行目标文件等）遵从的格式称为<strong>ELF</strong>格式，在这篇文章会大致介绍这类格式，它是我们理解链接的基础。</p>
-<h3 id="1-4-链接"><a href="#1-4-链接" class="headerlink" title="1.4 链接"></a>1.4 链接</h3><p>得到了 <code>add.o</code>之后，我们还需要进行进一步的链接操作。</p>
-<p>所谓链接，就是将多个目标文件进行<strong>组合</strong>，得到最后的可执行程序。它是将各种代码和数据片段合并成单一文件的过程，我们称之为<strong>可执行目标文件</strong>。作为目标文件的一种，在Linux环境下它也遵从ELF的格式。</p>
-<p>目前我们得到的只有一个 <code>add.o</code> 的可重定位目标文件。因此我们还需要一个 main主函数来调用 add 函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, add(a, b));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>通过以下命令生成 <code>main.c</code>对应的<code>main.o</code>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -S main.c -o main.o</span></span><br></pre></td></tr></table></figure>
-<p>这时候得到了一个warning：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main.c: In function ‘main’:</span><br><span class="line">main.c:4:18: warning: implicit declaration of function ‘add’ [-Wimplicit-function-declaration]</span><br><span class="line">    4 |     printf("%d", add(a, b));</span><br></pre></td></tr></table></figure>
-<p>warning的内容是警告我们找不到add的函数定义。事实上我们应该在文件中提前定义好add函数格式：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, add(a, b));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>便可以消除这个警告。不过这个add函数内部是空的啊，它的内部实现在 <code>add.c</code> 文件里，我们如何将这个文件的函数和<code>main.c</code>结合呢？答案就是使用最终的链接操作。可以通过以下命令执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">ld -o add main.o add.o</span> </span><br><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -o add main.o add.o</span></span><br><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -o add main.c add.c</span></span><br></pre></td></tr></table></figure>
-<p>最终我们得到可执行目标文件 <code>add</code>。通过执行该目标文件，可以在命令行得到期望的输出： <code>3</code>。</p>
-<h2 id="2-静态链接"><a href="#2-静态链接" class="headerlink" title="2. 静态链接"></a>2. 静态链接</h2><p>透过上面对 <code>add.c</code> <code>main.c</code>的编译执行流程，我们了解了两种目标文件：可重定位目标文件（<code>add.o</code> <code>main.o</code>）以及可执行目标文件 （<code>add</code>）。</p>
-<p>这两种目标文件都遵从<strong>ELF</strong>格式。为了方便研究这种格式，我们考虑以下实现交换数组数据的代码（其实是CSAPP的课后习题，摘自<a target="_blank" rel="noopener" href="https://www.icourse163.org/course/NJU-1001625001?tid=1470930500">https://www.icourse163.org/course/NJU-1001625001?tid=1470930500</a> ，该课程主要针对32位系统架构IA32，这里我们换成x64架构进行学习）：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.c</span></span><br><span class="line"><span class="type">int</span> buf[<span class="number">2</span>] = {<span class="number">1</span>, <span class="number">2</span>};</span><br><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    swap();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;    </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// swap.c</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> buf[];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *bufp0 = &amp;buf[<span class="number">0</span>];</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> *bufp1;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> tmp;</span><br><span class="line">    bufp1 = &amp;buf[<span class="number">1</span>];</span><br><span class="line">    tmp = *bufp0;</span><br><span class="line">    *bufp0 = *bufp1;</span><br><span class="line">    *bufp1 = tmp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>首先我们研究 <code>main.c</code>：</p>
-<p>1、定义了全局变量数组<code>buf[]</code>；</p>
-<p>2、声明了一个 <code>void</code>类型的函数<code>swap()</code>，但是没有具体实现；</p>
-<p>3、定义了一个 <code>int</code>类型的函数 <code>main()</code>。</p>
-<p>其次研究 <code>swap.c</code>：</p>
-<p>1、定义了一个外部数组<code>buf[]</code>；</p>
-<p>2、定义了一个全局变量指针 <code>bufp0</code>，并赋初值 <code>&amp;buf[0]</code>；</p>
-<p>3、定义了一个静态变量指针 <code>bufp1</code>，并且没有初始化（未初始化的全局变量或者静态变量默认为0或NULL）；</p>
-<p>4、定义了一个 <code>void</code> 类型函数 <code>swap()</code>。</p>
-<p>5、在 <code>swap()</code>函数内部，定义了一个局部变量 <code>tmp</code>。</p>
-<h3 id="2-1-符号"><a href="#2-1-符号" class="headerlink" title="2.1 符号"></a>2.1 符号</h3><p><strong>符号</strong>是链接过程中最基本的概念。每个符号对应于一个函数、一个全局变量或一个静态变量。例如上述 <code>main.c</code>中的 <code>buf</code>、<code>swap</code>、以及主函数 <code>main</code>，和 <code>swap.c</code>中的 <code>buf</code>、<code>bufp0</code>、<code>bufp1</code>、<code>swap</code>。可以观察到两个文件之间的符号有所重合，链接器可以通过不同符号的<strong>绑定属性</strong>来统一考虑这些可能重合的符号（例如extern声明的 <code>buf</code>，它所代表的其实就是 <code>main.c</code>定义的<code>buf</code>，通过<code>extern</code>声明的符号的<strong>绑定属性</strong>其实是弱符号，与之对应的有强符号，后面会详细探讨）。其次局部变量 <code>tmp</code> 不属于符号，链接器不考虑局部变量。局部变量一般存储在用户栈空间或者寄存器内部。</p>
-<p>那么全局变量和静态变量存储在哪呢？以下是计算机虚拟存储器的一个视图（摘自CSAPP）：</p>
-<img src="/2024/02/12/linking/memory.png" class="" title="memory">
-<p>最上面是操作系统内核区，其次便是用户栈。而我们的代码以及全局、静态变量存储在下面的<code>load from the exec file</code> 区域。代码作为只读数据，存储在只读代码段，而数据变存储在其上面的读写数据段。它们是通过<strong>可执行目标文件</strong>（即链接后的目标文件）加载到主存的。</p>
-<p>一般为了构造可执行目标文件，链接器需要完成两个任务：</p>
-<p>1、<strong>符号解析</strong>。对于不同文件的不同符号，可能存在符号定义（即新定义一个符号）和符号引用（即使用一个符号，这个符号需要定义过，但不一定要在本文件（或者本<strong>模块</strong>）定义）。符号解析所要干的事情就是将所有各自的模块中的符号引用与所有模块的一个<strong>大集合</strong>中的符号定义相<strong>关联</strong>。例如 <code>main.c</code>中main函数内部使用了 <code>swap</code>函数，即引用了 <code>swap</code> 符号，链接器需要确定它和 <code>main.c</code>中声明的 <code>swap</code> 函数（函数无内容，为弱符号，后续会提及强弱符号）关联还是和 <code>swap.c</code> 中定义的 <code>swap</code> 函数（有内容，为强符号）关联。事实上用屁股想都知道是和后者关联。</p>
-<p>2、<strong>重定位</strong>。重定位就是对所有的符号引用的地方，把合并后的可执行目标文件装入存储器后内存里各个符号的位置写入到原有的位置。例如我们反编译一下 <code>main</code> 模块：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">objdump -d main.o &gt; main.txt</span></span><br></pre></td></tr></table></figure>
-<p>得到以下反汇编信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">main.o:     file format elf64-x86-64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line">0000000000000000 &lt;main&gt;:</span><br><span class="line">   0:	f3 0f 1e fa          	endbr64 </span><br><span class="line">   4:	55                   	push   %rbp</span><br><span class="line">   5:	48 89 e5             	mov    %rsp,%rbp</span><br><span class="line">   8:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">   d:	e8 00 00 00 00       	call   12 &lt;main+0x12&gt;</span><br><span class="line">  12:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  17:	5d                   	pop    %rbp</span><br><span class="line">  18:	c3                   	ret    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>可以发现，在call命令这里，没法通过反汇编信息看出我们call的是哪个函数。我们知道call的应该是 <code>swap</code> 模块的 <code>swap</code> 过程，但是由于这里我们还没有进行链接，因此 call 这里的偏移量设置成为了0。后续链接之后，这里的偏移量会被重新覆盖：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">000000000000116c &lt;main&gt;:</span><br><span class="line">    116c:	f3 0f 1e fa          	endbr64 </span><br><span class="line">    1170:	55                   	push   %rbp</span><br><span class="line">    1171:	48 89 e5             	mov    %rsp,%rbp</span><br><span class="line">    1174:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">    1179:	e8 ab ff ff ff       	call   1129 &lt;swap&gt;</span><br><span class="line">    117e:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">    1183:	5d                   	pop    %rbp</span><br><span class="line">    1184:	c3                   	ret   </span><br></pre></td></tr></table></figure>
-<p>进行链接后的main方法中的call内部偏移量不为0，它被覆盖成了 <code>ab ff ff ff</code>。这种地址偏移量（或者绝对地址）值的覆盖就是重定位，而这个值是需要通过前面的符号解析和最终文件的合并来得出的。本文章不会介绍这些模块（可重定位目标文件）具体是如何合并的，只会说个大概。</p>
-<p>你可能会有疑问， <code>main</code> 模块声明的 <code>swap</code> 怎么消失了呢？这是因为 <code>swap</code> 只是个声明，不包含实际代码，因此它不在反汇编 <code>Disassembly of section .text:</code> 下面显示。</p>
-<h3 id="2-2-可重定位目标文件"><a href="#2-2-可重定位目标文件" class="headerlink" title="2.2 可重定位目标文件"></a>2.2 可重定位目标文件</h3><p>可重定位目标文件遵从ELF文件格式。ELF文件格式大致如下（摘自CSAPP）：</p>
-<img src="/2024/02/12/linking/elf.png" class="" title="elf">
-<p>在可重定位目标文件当中，第二部分（段头表）是没有的，我们这里主要来看看其它部分。</p>
-<p>1、ELF头：即ELF的头部部分。首先它拥有16个字节的魔数序列，这个序列包含了文件的类型和格式信息。其次剩余部分则包含了机器类型、节头表（最下面的部分）的位置偏移等帮助链接器进行语法分析和解释的信息。</p>
-<p>可以通过以下命令解析ELF头：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">readelf -h main.o</span></span><br></pre></td></tr></table></figure>
-<p>得到：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ELF Header:</span><br><span class="line">  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 </span><br><span class="line">  Class:                             ELF64   # ELF文件格式为ELF64，这是通过解析Magic Number得出的</span><br><span class="line">  Data:                              2's complement, little endian   # 使用二进制补码，小端方式存储</span><br><span class="line">  Version:                           1 (current)</span><br><span class="line">  OS/ABI:                            UNIX - System V</span><br><span class="line">  ABI Version:                       0</span><br><span class="line">  Type:                              REL (Relocatable file)   # 可重定位目标文件</span><br><span class="line">  Machine:                           Advanced Micro Devices X86-64</span><br><span class="line">  Version:                           0x1</span><br><span class="line">  Entry point address:               0x0</span><br><span class="line">  Start of program headers:          0 (bytes into file)   # 没有程序头表，因为是可重定位目标文件</span><br><span class="line">  Start of section headers:          560 (bytes into file)   # 段头表位置</span><br><span class="line">  Flags:                             0x0</span><br><span class="line">  Size of this header:               64 (bytes)   # ELF头占64Bytes</span><br><span class="line">  Size of program headers:           0 (bytes)</span><br><span class="line">  Number of program headers:         0</span><br><span class="line">  Size of section headers:           64 (bytes)   # 节头表表项占64Bytes</span><br><span class="line">  Number of section headers:         13   # 节头表有13个表项</span><br><span class="line">  Section header string table index: 12</span><br></pre></td></tr></table></figure>
-<p>2、节头表：即ELF的尾部部分。在可重定位目标文件中，节是一个单位，以.为开头（如.text）表示的都是一个一个节。节中都是字节序列，但是同一个节中的内容的性质相同。而节头表则存储了这些节的一些信息。例如每个节的节名、在ELF文件中的位置、节的大小等等。节头表本身是一个表，也就是一个结构体数组，每个结构体定义如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">  Elf32_Word    sh_name;        <span class="comment">/* Section name (string tbl index) */</span></span><br><span class="line">  Elf32_Word    sh_type;        <span class="comment">/* Section type */</span></span><br><span class="line">  Elf32_Word    sh_flags;       <span class="comment">/* Section flags */</span></span><br><span class="line">  Elf32_Addr    sh_addr;        <span class="comment">/* Section virtual addr at execution */</span></span><br><span class="line">  Elf32_Off sh_offset;      <span class="comment">/* Section file offset */</span></span><br><span class="line">  Elf32_Word    sh_size;        <span class="comment">/* Section size in bytes */</span></span><br><span class="line">  Elf32_Word    sh_link;        <span class="comment">/* Link to another section */</span></span><br><span class="line">  Elf32_Word    sh_info;        <span class="comment">/* Additional section information */</span></span><br><span class="line">  Elf32_Word    sh_addralign;       <span class="comment">/* Section alignment */</span></span><br><span class="line">  Elf32_Word    sh_entsize;     <span class="comment">/* Entry size if section holds table */</span></span><br><span class="line">} Elf32_Shdr;</span><br></pre></td></tr></table></figure>
-<p>可以通过以下命令解析节头表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">readelf -S main.o</span></span><br></pre></td></tr></table></figure>
-<p>得到：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">There are 13 section headers, starting at offset 0x230:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type             Address           Offset</span><br><span class="line">       Size              EntSize          Flags  Link  Info  Align</span><br><span class="line">  [ 0]                   NULL             0000000000000000  00000000</span><br><span class="line">       0000000000000000  0000000000000000           0     0     0</span><br><span class="line">  [ 1] .text             PROGBITS         0000000000000000  00000040</span><br><span class="line">       0000000000000019  0000000000000000  AX       0     0     1</span><br><span class="line">  [ 2] .rela.text        RELA             0000000000000000  00000190</span><br><span class="line">       0000000000000018  0000000000000018   I      10     1     8</span><br><span class="line">  [ 3] .data             PROGBITS         0000000000000000  00000060</span><br><span class="line">       0000000000000008  0000000000000000  WA       0     0     8</span><br><span class="line">  [ 4] .bss              NOBITS           0000000000000000  00000068</span><br><span class="line">       0000000000000000  0000000000000000  WA       0     0     1</span><br><span class="line">  [ 5] .comment          PROGBITS         0000000000000000  00000068</span><br><span class="line">       0000000000000027  0000000000000001  MS       0     0     1</span><br><span class="line">  [ 6] .note.GNU-stack   PROGBITS         0000000000000000  0000008f</span><br><span class="line">       0000000000000000  0000000000000000           0     0     1</span><br><span class="line">  [ 7] .note.gnu.pr[...] NOTE             0000000000000000  00000090</span><br><span class="line">       0000000000000020  0000000000000000   A       0     0     8</span><br><span class="line">  [ 8] .eh_frame         PROGBITS         0000000000000000  000000b0</span><br><span class="line">       0000000000000038  0000000000000000   A       0     0     8</span><br><span class="line">  [ 9] .rela.eh_frame    RELA             0000000000000000  000001a8</span><br><span class="line">       0000000000000018  0000000000000018   I      10     8     8</span><br><span class="line">  [10] .symtab           SYMTAB           0000000000000000  000000e8</span><br><span class="line">       0000000000000090  0000000000000018          11     3     8</span><br><span class="line">  [11] .strtab           STRTAB           0000000000000000  00000178</span><br><span class="line">       0000000000000016  0000000000000000           0     0     1</span><br><span class="line">  [12] .shstrtab         STRTAB           0000000000000000  000001c0</span><br><span class="line">       000000000000006c  0000000000000000           0     0     1</span><br><span class="line">Key to Flags:</span><br><span class="line">  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),</span><br><span class="line">  L (link order), O (extra OS processing required), G (group), T (TLS),</span><br><span class="line">  C (compressed), x (unknown), o (OS specific), E (exclude),</span><br><span class="line">  D (mbind), l (large), p (processor specific)</span><br></pre></td></tr></table></figure>
-<p>第一行说明节头表在位置 0x230 处，这和ELF头中给出的560一致。</p>
-<p>然后节头表描述了13个节各自的信息，例如名字（.text，.data等等），大小等等。</p>
-<p>3、.text：是一个节。节中包含着该可重定位目标文件的代码段。我们知道汇编之后的代码段是二进制形式，因此这里是无法查看的。</p>
-<p>4、.rodata：是一个节。节中包含着只读数据。例如switch语句中可能生成的跳转表。</p>
-<p>5、.data：是一个节。节中包含着<strong>已经</strong>初始化的全局和静态变量。关于这些值对应的哪些变量的信息在后续的.symtab（符号表节）给出。</p>
-<p>6、.bss：是一个节。节中包含着<strong>未</strong>初始化的全局和静态变量与初始化为0的变量。这个节其实只是意义上的一个节，它在ELF文件中只是个占位符，不占据硬盘空间。因为.data包含的是值，所以.bss包含的理论上也应该是值，然而未初始化的变量默认为0，因此可以考虑优化掉这些空间。</p>
-<p>7、.symtab：是一个节。节中存着一个符号表，它存放的是符号相关信息。符号表和节头表一样是个结构体数组，结构体定义如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">  Elf64_Word    st_name;        <span class="comment">/* Symbol name (string tbl index) */</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> st_info;        <span class="comment">/* Symbol type and binding */</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> st_other;       <span class="comment">/* Symbol visibility */</span></span><br><span class="line">  Elf64_Section st_shndx;       <span class="comment">/* Section index */</span></span><br><span class="line">  Elf64_Addr    st_value;       <span class="comment">/* Symbol value */</span></span><br><span class="line">  Elf64_Xword   st_size;        <span class="comment">/* Symbol size */</span></span><br><span class="line">} Elf64_Sym;</span><br></pre></td></tr></table></figure>
-<p>每一个表项（结构体）定义了符号的名字、在对应节中的偏移量位置、符号占用字节数（变量为变量大小，函数为函数内部机器指令共占用字节大小）、符号对应的节、符号的类型（数据还是函数，或者未定义）以及符号的绑定属性（强弱全局符号或者局部符号即static）</p>
-<p>可以通过以下命令来解析符号表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">readelf -s main.o</span></span><br></pre></td></tr></table></figure>
-<p>得到：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Symbol table '.symtab' contains 6 entries:</span><br><span class="line">   Num:    Value          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND </span><br><span class="line">     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS main.c</span><br><span class="line">     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 .text</span><br><span class="line">     3: 0000000000000000     8 OBJECT  GLOBAL DEFAULT    3 buf</span><br><span class="line">     4: 0000000000000000    25 FUNC    GLOBAL DEFAULT    1 main</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND swap</span><br></pre></td></tr></table></figure>
-<p>符号表第3个表项显示buf符号的信息。它在第3个节（即.data节），占用8个字节，为OBJECT(数据)，为全局符号。</p>
-<p>符号表第4个表项显示main符号的信息。它在第1个节（即.text节），占用25个字节（和前面对应上了），为FUNC(函数)，为全局符号。</p>
-<p>符号表第5个表项显示swap符号的信息。它所在的节是个<strong>伪节</strong> UNDEF，代表未定义的符号。<code>main</code> 模块只是声明了这个符号，但并没有给出完整的定义，完整的定义在 <code>swap</code> 模块。</p>
-<p>同样，解析 <code>swap.o</code> 的符号表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">4: 0000000000000000     8 OBJECT  LOCAL  DEFAULT    4 bufp1</span><br><span class="line">5: 0000000000000000     8 OBJECT  GLOBAL DEFAULT    5 bufp0</span><br><span class="line">6: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND buf</span><br><span class="line">7: 0000000000000000    67 FUNC    GLOBAL DEFAULT    1 swap</span><br></pre></td></tr></table></figure>
-<p>由于 <code>bufp1</code> 是静态变量，它的使用被限制在了这个模块，因此它是一种<strong>局部符号</strong>。 而其余符号则是<strong>全局符号</strong>。</p>
-<p>8、.rel.text与.rel.data：是节，都存储着关于该模块的<strong>重定位条目</strong>表。当汇编器遇到对一个未知位置的引用（例如上述 <code>main.o</code> 的反汇编信息</p>
-<p> <code>d:    e8 00 00 00 00           call   12 &lt;main+0x12&gt;</code>），就会生成对应的重定位条目。如果是命令遇到的引用，生成的重定位条目存储在.rel.text中；如果是数据遇到的引用（例如给全局变量定义时用另一个全局变量进行初始化），生成的重定位条目存储在.rel.data中。重定位条目内部包含：需要修改的地址引用相对于其所在节的偏移（即哪里引用的）、应该指向的符号以及重定位类型。ELF定义了很多重定位类型，比如：</p>
-<ul>
-<li>R_X86_64_PC32：所覆盖的地址使用PC相对寻址，即引用位置的<strong>下一条命令</strong>的位置和符号位置之间的差值；</li>
-<li>R_X86_64_32：绝对寻址。</li>
-</ul>
-<p>可以通过以下命令解析重定位条目：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">readelf --relocs swap.o</span></span><br></pre></td></tr></table></figure>
-<p>得到以下内容：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Relocation section '.rela.text' at offset 0x1f0 contains 6 entries:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">00000000000b  000600000002 R_X86_64_PC32     0000000000000000 buf + 0</span><br><span class="line">000000000012  000300000002 R_X86_64_PC32     0000000000000000 .bss - 4</span><br><span class="line">000000000019  000500000002 R_X86_64_PC32     0000000000000000 bufp0 - 4</span><br><span class="line">000000000025  000300000002 R_X86_64_PC32     0000000000000000 .bss - 4</span><br><span class="line">00000000002c  000500000002 R_X86_64_PC32     0000000000000000 bufp0 - 4</span><br><span class="line">000000000037  000300000002 R_X86_64_PC32     0000000000000000 .bss - 4</span><br><span class="line"></span><br><span class="line">Relocation section '.rela.data.rel' at offset 0x280 contains 1 entry:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000000  000600000001 R_X86_64_64       0000000000000000 buf + 0</span><br><span class="line"></span><br><span class="line">Relocation section '.rela.eh_frame' at offset 0x298 contains 1 entry:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000020  000200000002 R_X86_64_PC32     0000000000000000 .text + 0</span><br></pre></td></tr></table></figure>
-<p>可以发现，对于.rel.text中所有的重定位条目，所有的重定位类型都是R_X86_64_PC32。</p>
-<p>9、.strtab：是一个节。节存储着一张字符串表。例如.symtab内部的符号名字（<code>Elf64_Word</code> 格式定义的 <code>Name</code>）以及节头表内部存储着各个节的名字，都是一种整数格式，它代表着在字符串表当中相对于节头的偏移。</p>
-<h3 id="2-3-静态库文件-a"><a href="#2-3-静态库文件-a" class="headerlink" title="2.3 静态库文件(.a)"></a>2.3 静态库文件(.a)</h3><p>作为程序员，我们对库这个概念并不陌生。在ISO C99标准内定义了一个标准库 <code>libc.a</code> ，它是系统自带的静态库。在老版本系统上作为一个默认被链接的对象和目标文件进行链接（当然现在一般采用<strong>动态</strong>链接技术，这里我们所接触的都是静态链接）。</p>
-<p>静态库是一系列可重定位目标文件的集合，可以使用 <code>ar</code> 工具进行创建。例如我们想将 <code>main</code> 模块和 <code>swap</code> 模块进行打包，可以输入以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">ar rcs mylib.a swap.o main.o</span></span><br></pre></td></tr></table></figure>
-<p>这样就在本地生成了 <code>mylib.a</code> 静态库。</p>
-<p>需要记住的是，静态库可以认为是一系列可重定位目标文件 <code>.o</code> 的集合。在链接过程中，通过在静态库当中寻找当前还未被解析的符号，来从中<strong>抽取</strong>一些 <code>.o</code> 文件来进行链接。所以就算标准静态库 <code>libc.a</code> 有5MB那么大，生成的可执行目标文件的大小也只是以KB为单位。（本例的 <code>main</code> 可执行目标文件只有十几KB）</p>
-<h3 id="2-4-符号解析过程"><a href="#2-4-符号解析过程" class="headerlink" title="2.4 符号解析过程"></a>2.4 符号解析过程</h3><p>符号解析如我们之前所说，是将符号的引用与符号的定义之间进行关联。在符号解析这个过程，便是链接错误产生的过程（</p>
-<p>根据符号的绑定属性，分为以下几种：</p>
-<p>1、局部符号。这种符号只在某个模块内部生效。</p>
-<p>2、全局符号的强符号。它代表函数与初始化的全局变量。</p>
-<p>3、全局符号的弱符号。它代表未初始化的全局变量。</p>
-<p>在符号解析的过程中，可能存在同一个符号被定义多次（即多重定义）。因此Linux链接器使用以下规则来从多重符号中进行选择：</p>
-<p>1、同名强符号只允许存在一个。</p>
-<p>2、如果一个强符号和多个弱符号重名，选择强符号。</p>
-<p>3、如果多个弱符号重名，则<strong>随机选择</strong>一个。</p>
-<p>因此，我们不能在多个模块同时定义同一个初始化的全局变量，或者定义同名函数。</p>
-<p>然而我们却可以同时定义多个同名的未初始化的全局变量，这个是不会报错的，但是<strong>极不推荐</strong>！具体相关例子可以参考南大ICS课程：<a target="_blank" rel="noopener" href="https://www.icourse163.org/learn/NJU-1001625001?tid=1470930500#/learn/content?type=detail&amp;id=1255034632&amp;cid=1286661897">https://www.icourse163.org/learn/NJU-1001625001?tid=1470930500#/learn/content?type=detail&amp;id=1255034632&amp;cid=1286661897</a></p>
-<p>在链接过程中，链接器是根据你输入到命令行的文件（包括可重定位目标文件与静态库文件）的<strong>顺序</strong>来顺序地进行解析。</p>
-<p>具体地，链接器会维护以下三个集合：</p>
-<p>E：可重定位目标文件的集合。这包括命令行输入的可重定位目标文件以及静态库内部被<strong>抽取</strong>的可重定位目标文件；</p>
-<p>U：在目前已经遍历到的文件中，解析过程所没能解析出的符号；</p>
-<p>D：已定义的符号。</p>
-<p>链接过程如下：</p>
-<p>1、对于命令行输入的文件，如果是可重定位目标文件，则加入集合E，同时根据可重定位目标文件中定义和引用的符号来修改集合U和D。然后进行下一个文件读入；</p>
-<p>2、如果是静态库文件，则尝试对目前集合U中的符号进行匹配。若在静态库中的某个文件成员.o内部匹配成功，则将该文件成员加入到E中，同时与第一步一样进行集合U和D的修改。然后反复进行U中的符号匹配，直到U和D集合不再变化，则进行下一个文件读入。</p>
-<p>为了解释清楚，我们稍微修改一下 <code>swap</code> 模块：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swap.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> buf[];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *bufp0 = &amp;buf[<span class="number">0</span>];</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> *bufp1;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> tmp;</span><br><span class="line">    bufp1 = &amp;buf[<span class="number">1</span>];</span><br><span class="line">    tmp = *bufp0;</span><br><span class="line">    *bufp0 = *bufp1;</span><br><span class="line">    *bufp1 = tmp;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"swap complete!"</span>); <span class="comment">// 加入输出函数</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.c</span></span><br><span class="line"><span class="type">int</span> buf[<span class="number">2</span>] = {<span class="number">1</span>, <span class="number">2</span>};</span><br><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>{</span><br><span class="line">    swap();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;    </span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>然后我们使用以下命令进行链接：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -o main main.o swap.o</span></span><br></pre></td></tr></table></figure>
-<p>考虑符号解析过程：</p>
-<p>1、E集合加入目标文件 <code>main.o</code> 。此时D中已解析符号有：<code>buf</code> 和 <code>main</code> ，而U中存在未解析符号 <code>swap</code>（因为main函数内部对该符号进行了引用）；</p>
-<p>2、E集合加入目标文件 <code>swap.o</code> 。此时D中加入新的已解析符号：<code>bufp0</code>。然后该模块内部引用了符号 <code>buf</code>、<code>bufp0</code> 、<code>printf</code> 和局部符号 <code>bufp1</code> 。对于 U 中未解析符号 <code>swap</code> ，在本模块给出了定义，因此将其转入集合D。同时由于 <code>printf</code> 尚未解析，将其加入集合 U；</p>
-<p>3、链接器默认链接静态库文件 <code>libc.a</code> 。此时在静态库内部寻找U中 <code>printf</code> 符号的定义，发现在 <code>printf.o</code> 内部存在定义，因此将 <code>printf</code> 符号转入集合D。同时也将 <code>printf.o</code> 内部的定义符号加入集合D，新的未解析符号加入集合U；</p>
-<p>4、继续在 <code>libc.a</code> 中往复上述过程，直至U集合为空。</p>
-<h3 id="2-5-重定位"><a href="#2-5-重定位" class="headerlink" title="2.5 重定位"></a>2.5 重定位</h3><p>确定好了集合E中需要使用的<strong>可重定位目标文件</strong>以及<strong>符号引用与符号定义之间的关联</strong>，接下来就需要将引用处的地址进行覆盖了，也就是重定位。重定位过程大致分为以下三个步骤（摘自南大ICS）：</p>
-<p>1、合并相同的节。将所有可重定位目标文件中相同的节进行合并，例如.text节内部的代码进行合并，方便将来统一装入内存运行。</p>
-<p>2、对定义符号进行重定位。其实就是将节合并后的文件中每个定义的符号的地址进行确定，对于函数即其首条指令的首地址，对于数据即其在合并后的.data中的地址。</p>
-<p>3、对引用符号进行重定位。每一个引用符号都对应于上述我们讲过的<strong>重定位条目</strong>，它们是存在.rel开头的节中的。在这步需要通过遍历这些条目，一步一步用上面得到的定义符号的地址进行覆盖。当然不完全是覆盖，例如PC相对地址的重定位方式，它所要覆盖的运行时地址是需要进行相关计算的。有时候在可重定位目标文件中上面给出的地址（例如上面<code>d:    e8 00 00 00 00           call   12 &lt;main+0x12&gt;</code> 中的机器数0，有时候不一定是0）是需要参与计算的，这与重定位类型有关，每个重定位类型都对应着一个覆盖地址计算公式。</p>
-<p>重定位过后，每个符号的引用都填入了正确的实际地址，于是生成了最后的可执行目标文件。</p>
-<h3 id="2-6-可执行目标文件"><a href="#2-6-可执行目标文件" class="headerlink" title="2.6 可执行目标文件"></a>2.6 可执行目标文件</h3><p>可执行目标文件作为一种目标文件，同样在Linux环境下遵循ELF文件格式。</p>
-<p>我们可以使用以下命令读取 <code>main</code> 文件的ELF头：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">readelf -h main</span></span><br></pre></td></tr></table></figure>
-<p>得到结果如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ELF Header:</span><br><span class="line">  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 </span><br><span class="line">  Class:                             ELF64   # ELF文件格式为ELF64，这是通过解析Magic Number得出的</span><br><span class="line">  Data:                              2's complement, little endian	 # 使用二进制补码，小端方式存储</span><br><span class="line">  Version:                           1 (current)</span><br><span class="line">  OS/ABI:                            UNIX - System V</span><br><span class="line">  ABI Version:                       0</span><br><span class="line">  Type:                              DYN (Position-Independent Executable file)   # 位置无关可执行文件</span><br><span class="line">  Machine:                           Advanced Micro Devices X86-64</span><br><span class="line">  Version:                           0x1</span><br><span class="line">  Entry point address:               0x1060   # 程序入口地址</span><br><span class="line">  Start of program headers:          64 (bytes into file)   # 程序头表</span><br><span class="line">  Start of section headers:          14136 (bytes into file)</span><br><span class="line">  Flags:                             0x0</span><br><span class="line">  Size of this header:               64 (bytes)</span><br><span class="line">  Size of program headers:           56 (bytes)   # 程序头表表项占用56Bytes</span><br><span class="line">  Number of program headers:         13   # 有13个表项</span><br><span class="line">  Size of section headers:           64 (bytes)</span><br><span class="line">  Number of section headers:         31   </span><br><span class="line">  Section header string table index: 30</span><br></pre></td></tr></table></figure>
-<p>可以和上面可重定位目标文件的ELF头进行对比：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ELF Header:</span><br><span class="line">  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 </span><br><span class="line">  Class:                             ELF64   # ELF文件格式为ELF64，这是通过解析Magic Number得出的</span><br><span class="line">  Data:                              2's complement, little endian   # 使用二进制补码，小端方式存储</span><br><span class="line">  Version:                           1 (current)</span><br><span class="line">  OS/ABI:                            UNIX - System V</span><br><span class="line">  ABI Version:                       0</span><br><span class="line">  Type:                              REL (Relocatable file)   # 可重定位目标文件</span><br><span class="line">  Machine:                           Advanced Micro Devices X86-64</span><br><span class="line">  Version:                           0x1</span><br><span class="line">  Entry point address:               0x0</span><br><span class="line">  Start of program headers:          0 (bytes into file)   # 没有程序头表，因为是可重定位目标文件</span><br><span class="line">  Start of section headers:          560 (bytes into file)   # 段头表位置</span><br><span class="line">  Flags:                             0x0</span><br><span class="line">  Size of this header:               64 (bytes)   # ELF头占64Bytes</span><br><span class="line">  Size of program headers:           0 (bytes)</span><br><span class="line">  Number of program headers:         0</span><br><span class="line">  Size of section headers:           64 (bytes)   # 节头表表项占64Bytes</span><br><span class="line">  Number of section headers:         13   # 节头表有13个表项</span><br><span class="line">  Section header string table index: 12</span><br></pre></td></tr></table></figure>
-<p>可以发现，首先是我们ELF文件类型变成了位置无关的可执行文件，其次ELF文件内部新增了程序头表。</p>
-<p>在可执行目标文件中，ELF文件被分成一个一个段，每个段内又分成一个一个节。例如（摘自CSAPP）：</p>
-<img src="/2024/02/12/linking/elf2.png" class="" title="elf2">
-<p>开头是ELF头，其次是可执行目标文件中特有的程序头表（段头表），然后接下来黄色的三个节属于一个段，我们称之为只读内存段，它包含着.text、.rodata只读数据节和新的.init节，它们都是只读的数据或者代码，独属于一个段。.init节内部定义了一个_init函数，在程序通过ELF头中规定的入口地址进行执行的时候，会在初始化过程中调用这个函数，只需了解即可。接下来两个蓝色的节属于另一个段，我们称之为读/写内存段，它包含.data和.bss节。另外ELF文件还包含着其它段，这些段的信息在程序头表内部有所定义。程序头表本身是个结构体数组，其结构体定义如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> {</span></span><br><span class="line">    Elf64_Half    p_type;        <span class="comment">/* entry type */</span></span><br><span class="line">    Elf64_Half    p_flags;    <span class="comment">/* flags */</span></span><br><span class="line">    Elf64_Off    p_offset;    <span class="comment">/* offset */</span></span><br><span class="line">    Elf64_Addr    p_vaddr;    <span class="comment">/* virtual address */</span></span><br><span class="line">    Elf64_Addr    p_paddr;    <span class="comment">/* physical address */</span></span><br><span class="line">    Elf64_Xword    p_filesz;    <span class="comment">/* file size */</span></span><br><span class="line">    Elf64_Xword    p_memsz;    <span class="comment">/* memory size */</span></span><br><span class="line">    Elf64_Xword    p_align;    <span class="comment">/* memory &amp; file alignment */</span></span><br><span class="line">} Elf64_Phdr;</span><br></pre></td></tr></table></figure>
-<p>通过以下命令解析程序头表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">readelf -l main</span></span><br></pre></td></tr></table></figure>
-<p>可得：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">Elf file type is DYN (Position-Independent Executable file)</span><br><span class="line">Entry point 0x1060</span><br><span class="line">There are 13 program headers, starting at offset 64</span><br><span class="line"></span><br><span class="line">Program Headers:</span><br><span class="line">  Type           Offset             VirtAddr           PhysAddr</span><br><span class="line">                 FileSiz            MemSiz              Flags  Align</span><br><span class="line">  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040</span><br><span class="line">                 0x00000000000002d8 0x00000000000002d8  R      0x8</span><br><span class="line">  INTERP         0x0000000000000318 0x0000000000000318 0x0000000000000318</span><br><span class="line">                 0x000000000000001c 0x000000000000001c  R      0x1</span><br><span class="line">      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</span><br><span class="line">  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000</span><br><span class="line">                 0x0000000000000640 0x0000000000000640  R      0x1000</span><br><span class="line">  LOAD           0x0000000000001000 0x0000000000001000 0x0000000000001000</span><br><span class="line">                 0x00000000000001cd 0x00000000000001cd  R E    0x1000</span><br><span class="line">  LOAD           0x0000000000002000 0x0000000000002000 0x0000000000002000</span><br><span class="line">                 0x000000000000011c 0x000000000000011c  R      0x1000</span><br><span class="line">  LOAD           0x0000000000002db8 0x0000000000003db8 0x0000000000003db8</span><br><span class="line">                 0x0000000000000268 0x0000000000000278  RW     0x1000</span><br><span class="line">  DYNAMIC        0x0000000000002dc8 0x0000000000003dc8 0x0000000000003dc8</span><br><span class="line">                 0x00000000000001f0 0x00000000000001f0  RW     0x8</span><br><span class="line">  NOTE           0x0000000000000338 0x0000000000000338 0x0000000000000338</span><br><span class="line">                 0x0000000000000030 0x0000000000000030  R      0x8</span><br><span class="line">  NOTE           0x0000000000000368 0x0000000000000368 0x0000000000000368</span><br><span class="line">                 0x0000000000000044 0x0000000000000044  R      0x4</span><br><span class="line">  GNU_PROPERTY   0x0000000000000338 0x0000000000000338 0x0000000000000338</span><br><span class="line">                 0x0000000000000030 0x0000000000000030  R      0x8</span><br><span class="line">  GNU_EH_FRAME   0x0000000000002014 0x0000000000002014 0x0000000000002014</span><br><span class="line">                 0x000000000000003c 0x000000000000003c  R      0x4</span><br><span class="line">  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000</span><br><span class="line">                 0x0000000000000000 0x0000000000000000  RW     0x10</span><br><span class="line">  GNU_RELRO      0x0000000000002db8 0x0000000000003db8 0x0000000000003db8</span><br><span class="line">                 0x0000000000000248 0x0000000000000248  R      0x1</span><br><span class="line"></span><br><span class="line"> Section to Segment mapping:</span><br><span class="line">  Segment Sections...</span><br><span class="line">   00     </span><br><span class="line">   01     .interp </span><br><span class="line">   02     .interp .note.gnu.property .note.gnu.build-id .note.ABI-tag .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt </span><br><span class="line">   03     .init .plt .plt.got .plt.sec .text .fini </span><br><span class="line">   04     .rodata .eh_frame_hdr .eh_frame </span><br><span class="line">   05     .init_array .fini_array .dynamic .got .data .bss </span><br><span class="line">   06     .dynamic </span><br><span class="line">   07     .note.gnu.property </span><br><span class="line">   08     .note.gnu.build-id .note.ABI-tag </span><br><span class="line">   09     .note.gnu.property </span><br><span class="line">   10     .eh_frame_hdr </span><br><span class="line">   11     </span><br><span class="line">   12     .init_array .fini_array .dynamic .got </span><br></pre></td></tr></table></figure>
-<p>第3个段包含了.init，.text等代码信息，可以发现它的类型是LOAD，即该段是可装入段。后面也给出了它装入内存的虚拟地址和物理地址（二者是相等的），以及执行权限（R E，即可读，不可写，可执行）。</p>
-<p>第5个段包含了.data，.bss等数据信息，它的类型也是LOAD。同时它拥有RW权限，即可读可写不可执行。</p>
-<p>需要注意的是，可执行目标文件中没有.rel开头的段，因为它已经不需要被重定位了。</p>
-<p>另外这里每一个段都有个Align，代表对齐要求。对于任何段s，链接器必须选择一个该段的起始地址 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="5.729ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 2532 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="76" d="M338 431Q344 429 422 429Q479 429 503 431H508V385H497Q439 381 423 345Q421 341 356 172T288 -2Q283 -11 263 -11Q244 -11 239 -2Q99 359 98 364Q93 378 82 381T43 385H19V431H25L33 430Q41 430 53 430T79 430T104 429T122 428Q217 428 232 431H240V385H226Q187 384 184 370Q184 366 235 234L286 102L377 341V349Q377 363 367 372T349 383T335 385H331V431H338Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(528,0)"></path><path data-c="64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" transform="translate(1028,0)"></path><path data-c="64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" transform="translate(1584,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(2140,0)"></path></g></g></g></g></svg></mjx-container>，满足：</p>
-<script type="math/tex; mode=display">
-\mathrm{vaddr} \bmod \mathrm{align} = \mathrm{off} \bmod \mathrm{align}.</script><p>这是为了将可执行目标文件装入内存的效率提高，具体原理在于虚拟内存的组织方式。</p>
-<h3 id="2-7-加载"><a href="#2-7-加载" class="headerlink" title="2.7 加载"></a>2.7 加载</h3><p>在shell内部通过输入以下命令进行程序加载：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">./main</span></span><br></pre></td></tr></table></figure>
-<p>shell加载一个程序时，会通过调用 <code>execve</code> 函数来启动操作系统的加载器，从而在shell的上下文中创建一个 <code>main</code> 的进程，它是shell的子进程，将 <code>main</code> 可执行目标文件装入内存后将跳转到程序的入口点（在ELF文件头中有给出，其实是 <code>_start</code> 函数的地址）进行初始化，然后调用用户层的 <code>main</code> 函数，处理返回值后将控制返回给内核。</p>
-<h2 id="3-动态链接"><a href="#3-动态链接" class="headerlink" title="3. 动态链接"></a>3. 动态链接</h2><p>事实上上述我们讨论的部分都属于静态链接。但是我们所运行的结果都是建立在现在大规模普及的动态链接的基础上（即，上述有个例子讲述了我们是怎么链接 <code>libc.a</code> 的。事实上根本没有 <code>libc.a</code> ，取而代之的是对应的共享库 <code>libc.so</code> ，它是通过动态链接而链接到程序内部的）</p>
-<p>我们稍微讨论一下动态链接。由于笔者也没有多么深入，因此以下内容仅供参考，建议可以系统学习后参考本文进行总结。</p>
-<h3 id="3-1-共享库"><a href="#3-1-共享库" class="headerlink" title="3.1 共享库"></a>3.1 共享库</h3><p>共享库是一种目标文件，本身在Linux平台也遵从ELF文件格式。与静态库文件不同的是，共享库可以在程序进行静态链接后生成可执行目标文件且被装入内存后，将其内部的代码和数据<strong>动态</strong>地装入主存并供调用。</p>
-<p>共享库相比静态库，有着省空间、可灵活更改的优点。想象一下，每一个可执行目标文件都包含着 <code>libc.a</code> 静态库内部的符号，它们之间会有很大的重复，这会造成很大的硬盘空间浪费。</p>
-<p>由于共享库是动态被装载到内存中的，因此需要确保装载的代码是<strong>位置无关代码</strong>，接下来我们介绍一下位置无关代码。</p>
-<h3 id="3-2-位置无关代码"><a href="#3-2-位置无关代码" class="headerlink" title="3.2 位置无关代码"></a>3.2 位置无关代码</h3><p>位置无关代码具有以下两个特征（摘自南大ICS）：</p>
-<p>1、保证共享库的代码在主存中的位置是不确定的；</p>
-<p>2、即使代码长度发生变化，也不影响调用它的程序。</p>
-<p>可以通过以下命令生成位置无关代码对应的可重定位目标文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -c -fPIC main.o swap.o</span></span><br></pre></td></tr></table></figure>
-<p>所谓的位置无关，就是在代码内部进行符号引用的时候，可以不通过自己本身代码的位置来获得相关符号的信息。我们前面了解过的一个重定位类型：R_X86_64_PC32，即PC相对寻址，它是一种需要当前代码地址（即位置相关）的重定位方式。因此之前生成的可重定位目标文件不是位置无关代码。</p>
-<p>通过指定 -fPIC 选项可以生成位置无关代码。生成后可以通过 <code>readelf --relocs swap.o</code> 命令来查看重定位条目：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Relocation section '.rela.text' at offset 0x228 contains 6 entries:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">00000000000b  00060000002a R_X86_64_REX_GOTP 0000000000000000 buf - 4</span><br><span class="line">000000000016  000300000002 R_X86_64_PC32     0000000000000000 .bss - 4</span><br><span class="line">00000000001d  00050000002a R_X86_64_REX_GOTP 0000000000000000 bufp0 - 4</span><br><span class="line">00000000002c  000300000002 R_X86_64_PC32     0000000000000000 .bss - 4</span><br><span class="line">000000000033  00050000002a R_X86_64_REX_GOTP 0000000000000000 bufp0 - 4</span><br><span class="line">000000000041  000300000002 R_X86_64_PC32     0000000000000000 .bss - 4</span><br><span class="line"></span><br><span class="line">Relocation section '.rela.data.rel' at offset 0x2b8 contains 1 entry:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000000  000600000001 R_X86_64_64       0000000000000000 buf + 0</span><br><span class="line"></span><br><span class="line">Relocation section '.rela.eh_frame' at offset 0x2d0 contains 1 entry:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000020  000200000002 R_X86_64_PC32     0000000000000000 .text + 0</span><br></pre></td></tr></table></figure>
-<p>可以发现，除去.bss这种特殊的符号，其余我们需要的重定位条目的重定位类型都改成了R_X86_64_REX_GOTP。这种方式可以消除代码对PC位置的依赖，从而达到位置无关。</p>
-<p>有了位置无关的可重定位目标文件，我们就可以生成我们自己的共享库 <code>mylib.so</code>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">linux&gt; </span><span class="language-bash">gcc -shared -fPIC -o mylib.so main.o swap.o</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-3-动态链接过程"><a href="#3-3-动态链接过程" class="headerlink" title="3.3 动态链接过程"></a>3.3 动态链接过程</h3><p><strong>加载时</strong>动态链接过程大致如下（摘自CSAPP）：</p>
-<img src="/2024/02/12/linking/dynamic.png" class="" title="dynamic">
-<p>首先，共享库 <code>libc.so</code>、<code>libvector.so</code> 都作为静态链接对象和可重定位目标文件进行链接。这里链接的目的是为了完成相关的符号解析，而没有进行重定位。真正的重定位在后续可执行目标文件装入内存后动态链接器执行的。</p>
-<p>这种可执行目标文件内部有一个特殊的段.interp，它包含动态链接器（<code>ld-linux.so</code> ，本身就是个共享库）的路径，让shell调用execve后将控制传递给这个加载进内存的动态链接器。接着动态链接器会根据与共享库静态链接的信息来加载<code>libc.so</code>、<code>libvector.so</code>，并完成重定位。</p>
-<p>除去加载时动态链接，Linux系统为动态链接器提供了一系列运行时动态链接的接口，允许应用在运行时加载和链接共享库。这叫做运行时动态链接。</p>
-<p>Linux定义了一系列接口，如 <code>dlopen</code>、<code>dlsym</code> 等，头文件为 <code>dlfcn.h</code> ，我们可以直接使用这些接口。</p>
-<h3 id="3-4-重定位"><a href="#3-4-重定位" class="headerlink" title="3.4 重定位"></a>3.4 重定位</h3><p>由于共享库文件是位置无关的，因此它们和外部程序引用它们的时候需要采取一些特殊的重定位策略。</p>
-<p>对于某个共享库文件的模块内部之间函数互相调用，由于它们同在一个固定模块中，即便它们在内存中的位置不确定，但相对位置之差是固定的，因此可以使用相对寻址。</p>
-<p>而对于模块内部的数据调用，调用的命令在.text区域，数据加载在.data区域。同一个模块在加载的时候是可以知道它们之间的相对位置的，因此可以通过某些指令获得当前的PC值，采用PC相对寻址方式来访问数据。</p>
-<p>因此难点在于模块之间的数据、函数调用。</p>
-<h3 id="3-5-GOT"><a href="#3-5-GOT" class="headerlink" title="3.5 GOT"></a>3.5 GOT</h3><p>引用不同模块的数据，可以基于以下事实：代码段中任何指令和数据段中任何变量之间的距离都是一个<strong>运行时常量</strong>。</p>
-<p>因此编译器在数据段开始的地方创建了一个表，叫做全局偏移量表（GOT）。GOT可以看做是一个指针数组，编译器会在编译的时候对每一个GOT项确定一个重定位项，在后续动态链接装载的时候会实时对对应的GOT项进行重定位，填入不同模块数据的地址。</p>
-<p>例如某个程序内部需要引用一个数据 <code>addcnt</code>，而它的定义在共享库 <code>libvector.so</code> 中。编译器会在数据段.data头部创建一个指针数组GOT，并将符号 <code>addcnt</code> 与GOT的一项对应并生成对应的重定位条目。在程序执行的时候，<code>libvector.so</code> 装入主存时会将数据 <code>addcnt</code> 的地址填入对应的GOT表。</p>
-<p>事实上对于同一个模块内部的数据调用，也使用GOT方案。</p>
-<h3 id="3-6-PLT"><a href="#3-6-PLT" class="headerlink" title="3.6 PLT"></a>3.6 PLT</h3><p>模块间的函数调用，主要使用的是一个称之为<strong>延迟绑定</strong>的技术。它的主要动机是想让函数的重定位延迟到调用其的第一次才发生。这需要代码段中的<strong>过程链接表</strong>（PLT）支持。PLT是一个数组，每个条目都是16字节的可运行代码。简单来讲，一个模块调用另一个模块的函数，会先进入该函数对应的PLT条目开始运行代码，代码的主要功能是跳转到动态链接器中并由动态链接器将PLT中的代码改成直接跳到函数地址的代码。以后每次都可以通过进入对应的PLT条目来调用对应的函数。</p>
-<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>CSAPP的链接这一章写的着实抽象，无论是看视频还是看书都搞不懂。因此我花了几天时间专门试图去弄懂关于链接的概念，也因此作了本篇笔记。笔记内部包含了不少个人对链接的理解，可能有所谬误，望谅解。</p>
-<p>链接是个很大的话题，感觉和编译原理一样，需要真正弄懂的话要花很大力气。关于动态链接的详细部分，以后有时间再作功课！</p>
 
       
     </div>
