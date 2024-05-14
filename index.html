@@ -339,7 +339,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-13 21:08:51" itemprop="dateModified" datetime="2024-05-13T21:08:51+08:00">2024-05-13</time>
+      <time title="修改时间：2024-05-14 11:31:02" itemprop="dateModified" datetime="2024-05-14T11:31:02+08:00">2024-05-14</time>
     </span>
 
   
@@ -555,7 +555,131 @@ mjx-container[display="true"] + br {
 <li>通知（Notification）报文。用来发送检测到的差错。</li>
 </ol>
 <img src="/2024/05/09/computer-network/network-layer/bgp1.png" class="" title="bgp1">
-<h2 id="IPv4数据报格式"><a href="#IPv4数据报格式" class="headerlink" title="IPv4数据报格式"></a>IPv4数据报格式</h2>
+<h2 id="IPv4数据报格式"><a href="#IPv4数据报格式" class="headerlink" title="IPv4数据报格式"></a>IPv4数据报格式</h2><p>直接上图</p>
+<img src="/2024/05/09/computer-network/network-layer/ip4.png" class="" title="ip4">
+<ul>
+<li>一个IP数据报由<strong>首部</strong>和<strong>数据</strong>两部分组成</li>
+<li>首部的前一部分是<strong>固定长度，为20字节</strong></li>
+<li>首部后面部分是可选字段，其长度可变</li>
+<li>首部长度一定是<strong>4字节的整数倍</strong>，填充部分用于确保这一条件</li>
+</ul>
+<p>每一行由32个比特组成，每个小格子称为字段或者域，用来表达IP协议的相关功能：</p>
+<ul>
+<li>版本：4比特，表示ip协议的版本</li>
+<li>首部长度：4比特，表示ip数据报首部的长度，<strong>以4字节为单位</strong></li>
+<li>可选字段：1字节到40字节不等，用来支持其它功能</li>
+<li>填充字段：确保首部长度为4字节的整数倍，用全0填充</li>
+<li>区分服务：利用该字段的数值可提供不同等级的服务质量，不过一般情况不使用该字段</li>
+<li>总长度：16比特，以<strong>字节</strong>为单位</li>
+<li>标识：占16比特，属于同一个数据报的<strong>各分片数据报</strong>应该具有<strong>相同的标识</strong></li>
+<li>标志：3比特，DF位（1表示不允许分片，0表示允许分片），MF位（1表示后面还有分片，0表示这是最后一个分片），保留位（必须为0）</li>
+<li>片偏移：13比特，以8个字节为单位，指出分片数据报的<strong>数据载荷部分</strong>偏移其原数据报的数据载荷位置多少个单位</li>
+</ul>
+<blockquote>
+<p>这要求分片的数据载荷部分，除了最后一个分片，都要保证其大小为8个字节的整数倍？</p>
+</blockquote>
+<ul>
+<li><p>生存时间TTL：占8比特，现在以<strong>跳数</strong>为单位，路由器转发IP数据报时，将IP数据报首部中的<strong>该字段的值减1</strong>，若不为0则转发，否则丢弃</p>
+</li>
+<li><p>协议：占8比特，指明IP数据报部分是何种协议数据单元：</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">协议名称</th>
+<th style="text-align:center">ICMP</th>
+<th style="text-align:center">IGMP</th>
+<th style="text-align:center">TCP</th>
+<th style="text-align:center">UDP</th>
+<th style="text-align:center">IPv6</th>
+<th style="text-align:center">OSPF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">协议字段值</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">17</td>
+<td style="text-align:center">41</td>
+<td style="text-align:center">89</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>这里不仅有网络层协议，还有传输层协议捏。咦，传输层和网络层之间是有关联的吗，为什么要把传输层的信息封装在IP首部中？这不是违背了分层的idea了吗？</p>
+</blockquote>
+<ul>
+<li>首部检验和：占16比特，用来检测首部在传输过程中<strong>是否存在差错</strong>。比CRC简单。IP数据报每经过一个路由器，都要重新计算该字段，因为某些字段（TTL、标志、片偏移等）可能发生变化</li>
+<li>源/目的IP地址：各占32比特</li>
+</ul>
+<h2 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h2><blockquote>
+<p>ICMP的作用是让主机或者路由器报告<strong>差错和异常</strong>情况，提高IP数据报交付的机会。</p>
+</blockquote>
+<p>ICMP报文有两种：ICMP<strong>差错报告报文</strong>和ICMP<strong>询问报文</strong>。</p>
+<p>ICMP<strong>差错报告报文</strong>用于目标主机或目标路径上的路由器，向源主机报告差错和异常情况。共5种常用类型：</p>
+<ol>
+<li>终点不可达。当路由器或主机不能交付数据报时，发送该报文</li>
+<li>源点抑制。当路由器或主机<strong>由于拥塞</strong>，而丢弃数据报时，发送该报文，使源点知道应该把数据报的<strong>发送速率降低</strong></li>
+<li>时间超过。当路由器收到TTL为零的数据报时，除丢弃数据报外，还需要向源点发送时间超过报文。另外一种情况是终点在<strong>规定时间</strong>内不能收到一个数据报的全部数据报片时，就把已有数据报丢弃，也会向源点发送该报文。</li>
+<li>参数问题。当路由器或目标主机收到的数据报的首部中，有的字段值不正确时，丢弃该数据报，发送参数问题报文</li>
+<li>改变路由（重定向）。路由器把该报文发送给主机，让主机知道下次应将数据报发送另外的路由器。</li>
+</ol>
+<p>以下情况不应发送ICMP差错报告报文：</p>
+<ul>
+<li>对ICMP差错报告报文，不发送ICMP差错报告报文（不然就套娃了不是吗</li>
+<li>对第一个分片的数据报片的所有后续数据报片，不发送ICMP差错报告报文（不然就太多了？</li>
+<li>对具有多播地址的数据报，不发送</li>
+<li>对具有特殊地址（如环回地址127.0.0.0或者0.0.0.0），不发送</li>
+</ul>
+<p>ICMP询问报文，常见的有2种：</p>
+<ol>
+<li>回送请求和回答。向特定的目的主机发出询问，目的主机收到该报文后必须给源主机或发送ICMP回送回答报文。一般用于测试目的站是否可达。</li>
+<li>时间戳请求或回答。请求某个主机或路由器当前的日期和时间，通常用于进行时钟同步和测量时间。</li>
+</ol>
+<blockquote>
+<p>ICMP应用：</p>
+<ol>
+<li>PING，用来测试主机或路由器间的连通性。应用层直接使用网际层的ICMP回送请求和回答报文，来检测目的主机是否可达。</li>
+<li>traceroute，用来测试ip数据报从源主机到达目的主机要经过哪些路由器。原理是发送TTL设定值的ICMP回送请求报文，这样TTL为0时，路由器会返回时间超过的ICMP差错报告报文。</li>
+</ol>
+</blockquote>
+<h2 id="虚拟专用网VPN"><a href="#虚拟专用网VPN" class="headerlink" title="虚拟专用网VPN"></a>虚拟专用网VPN</h2><blockquote>
+<p>由于IP地址紧缺，一个机构能申请到的ip地址数往往远小于本机构所拥有的主机数。VPN的idea是在同一个机构中，分配本机构可自由分配的<strong>专用地址</strong>。</p>
+</blockquote>
+<p>专用（私有）地址是规定的：</p>
+<ul>
+<li>10.0.0.0 - 10.255.255.255（10/8地址块）</li>
+<li>172.16.0.0 - 172.31.255.255 （172.16/12地址块）</li>
+<li>192.168.0.0 - 192.168.255.255（192.168/16地址块，是不是很熟悉？）</li>
+</ul>
+<blockquote>
+<p>私有地址只能用于同一机构内的通信，不能和因特网上其它主机通信。因此路由器对所有目的地址是专用地址的ip数据报一律不转发。</p>
+</blockquote>
+<p>各部门都至少需要一个路由器具有全球合法的ip地址，这样各自的专用网才能利用公用的因特网进行通信。</p>
+<img src="/2024/05/09/computer-network/network-layer/vpn1.png" class="" title="vpn1">
+<blockquote>
+<p>有两个首部：内部IP数据报首部，和真正的IP数据报首部。</p>
+</blockquote>
+<h2 id="网络地址转换NAT"><a href="#网络地址转换NAT" class="headerlink" title="网络地址转换NAT"></a>网络地址转换NAT</h2><blockquote>
+<p>NAT的主要思想是将大量使用内部专用地址的用户共享少量的全球合法地址。</p>
+</blockquote>
+<p>假设，使用私有地址的主机要给因特网上使用全球ip地址的另一台主机发送数据报，这时候需要用安装了NAT软件的专用网的路由器进行ip地址转换：</p>
+<img src="/2024/05/09/computer-network/network-layer/nat1.png" class="" title="nat1">
+<p>若多台主机同时采用NAT，路由器内部需要维护一个私有地址到全球IP地址的映射关系：</p>
+<img src="/2024/05/09/computer-network/network-layer/nat2.png" class="" title="nat2">
+<p>如果NAT路由器具有n个全球ip地址，这样的话只能有n个内网主机能够同时和因特网上的主机通信。</p>
+<p>解决方法是使用传输层中TCP和UDP协议的<strong>端口号</strong>，利用运输层的端口号和IP地址一起转换，这种技术叫做NAPT：</p>
+<img src="/2024/05/09/computer-network/network-layer/nat3.png" class="" title="nat3">
+<blockquote>
+<p>NAPT路由器就是我们常用的家用路由器</p>
+</blockquote>
+<p>如果外网需要主动与内网某主机进行通信，这会有问题（根本就不知道ip地址呀），这需要网络应用自己使用一些特殊的NAT穿越技术来解决问题。</p>
+
       
     </div>
 
