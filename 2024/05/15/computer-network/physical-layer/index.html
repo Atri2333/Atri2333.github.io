@@ -19,26 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Fall Guard">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ayy2&#39;s Website">
-<meta property="og:url" content="https://atri2333.github.io/tags/ACM/index.html">
+    <meta name="description" content="计网——物理层复习 物理层考虑的是怎样才能在连接各种计算机的媒体上传输数据比特流。它为数据链路层屏蔽了传输媒体的差异。 最ex的一层，我的评价是看了就忘  物理层的主要任务 机械特性：指明接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置 电气特性：指明在接口电缆的各条线上出现的电压的范围 功能特性：指明某条线上出现的某一电平的电压表示何种意义 过程特性：指明对于不同功能的各种可能事件的出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="physical-layer">
+<meta property="og:url" content="https://atri2333.github.io/2024/05/15/computer-network/physical-layer/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="Fall Guard">
+<meta property="og:description" content="计网——物理层复习 物理层考虑的是怎样才能在连接各种计算机的媒体上传输数据比特流。它为数据链路层屏蔽了传输媒体的差异。 最ex的一层，我的评价是看了就忘  物理层的主要任务 机械特性：指明接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置 电气特性：指明在接口电缆的各条线上出现的电压的范围 功能特性：指明某条线上出现的某一电平的电压表示何种意义 过程特性：指明对于不同功能的各种可能事件的出">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-15T11:11:09.000Z">
+<meta property="article:modified_time" content="2024-05-15T11:34:35.095Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://atri2333.github.io/tags/ACM/">
+<link rel="canonical" href="https://atri2333.github.io/2024/05/15/computer-network/physical-layer/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/ACM/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/15/computer-network/physical-layer/","path":"2024/05/15/computer-network/physical-layer/","title":"physical-layer"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: ACM | Ayy2's Website</title>
+<title>physical-layer | Ayy2's Website</title>
   
 
 
@@ -125,7 +127,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -138,6 +140,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E2%80%94%E2%80%94%E7%89%A9%E7%90%86%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——物理层复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">物理层的主要任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93"><span class="nav-number">1.2.</span> <span class="nav-text">传输媒体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">传输方式</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,51 +184,135 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">ACM
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/15/computer-network/physical-layer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="physical-layer | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          physical-layer
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+      <time title="创建时间：2024-05-15 19:11:09 / 修改时间：19:34:35" itemprop="dateCreated datePublished" datetime="2024-05-15T19:11:09+08:00">2024-05-15</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/15/computer-network/physical-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/15/computer-network/physical-layer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="计网——物理层复习"><a href="#计网——物理层复习" class="headerlink" title="计网——物理层复习"></a>计网——物理层复习</h1><blockquote>
+<p>物理层考虑的是怎样才能在连接各种计算机的媒体上传输数据比特流。它为数据链路层屏蔽了传输媒体的差异。</p>
+<p><del>最ex的一层，我的评价是看了就忘</del></p>
+</blockquote>
+<h2 id="物理层的主要任务"><a href="#物理层的主要任务" class="headerlink" title="物理层的主要任务"></a>物理层的主要任务</h2><ul>
+<li>机械特性：指明接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置</li>
+<li>电气特性：指明在接口电缆的各条线上出现的电压的范围</li>
+<li>功能特性：指明某条线上出现的某一电平的电压表示何种意义</li>
+<li>过程特性：指明对于不同功能的各种可能事件的出现顺序</li>
+</ul>
+<h2 id="传输媒体"><a href="#传输媒体" class="headerlink" title="传输媒体"></a>传输媒体</h2><p>分为导引型传输媒体和非导引型传输媒体。</p>
+<p>导引型：</p>
+<ul>
+<li>同轴电缆</li>
+<li>双绞线</li>
+<li>光纤</li>
+<li>电力线</li>
+</ul>
+<p>非导引型传输媒体是指自由空间：</p>
+<ul>
+<li>无线电波</li>
+<li>微波</li>
+<li>红外线</li>
+<li>可见光，LIFI</li>
+</ul>
+<h2 id="传输方式"><a href="#传输方式" class="headerlink" title="传输方式"></a>传输方式</h2><p>串行传输：数据是一个比特一个比特发送的，因此在发送端和接收端之间，只需要一条传输线路即可。</p>
+<p>并行传输：一次发送n个比特，需要有n条传输线路。然而在计网上一般采用串行传输。</p>
+<p>同步传输：</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-03T22:00:00+08:00"
-              content="2024-04-03">
-          04-03
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/04/03/strhash/" itemprop="url">
-          <span itemprop="name">字符串哈希</span>
-        </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/09/computer-network/network-layer/" rel="prev" title="network-layer">
+                  <i class="fa fa-angle-left"></i> network-layer
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
-  
-  
-
 </div>
   </main>
 
