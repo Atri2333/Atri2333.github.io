@@ -1651,4 +1651,20 @@
 <p>同步传输：</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>关系代数与演算</title>
+    <url>/2024/05/16/database/%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E4%B8%8E%E6%BC%94%E7%AE%97/</url>
+    <content><![CDATA[<blockquote>
+<p>来自《数据库系统概论（第6版）》</p>
+</blockquote>
+<h2 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h2><blockquote>
+<p>假设关系 $R$ 和 $S$ 具有相同的目 $n$ ，且相应的属性取自同一个域，$t$ 是元组变量。</p>
+</blockquote>
+<ul>
+<li>并</li>
+</ul>
+<p>关系 $R$ 和 $S$ 的并记作</p>
+<script type="math/tex; mode=display">
+R \cup S = \{t|t\in R \lor t \in S\}.</script>]]></content>
+  </entry>
 </search>
