@@ -582,7 +582,7 @@ W里的变量，然后判断条件是否为真</p>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-16 21:50:39" itemprop="dateModified" datetime="2024-05-16T21:50:39+08:00">2024-05-16</time>
+      <time title="修改时间：2024-05-17 19:37:33" itemprop="dateModified" datetime="2024-05-17T19:37:33+08:00">2024-05-17</time>
     </span>
 
   
@@ -691,6 +691,51 @@ W里的变量，然后判断条件是否为真</p>
 <h3 id="归零编码">归零编码</h3>
 <img src="/2024/05/15/computer-network/physical-layer/code2.png" class="" title="code2">
 <p>每个码元传输结束后信号都要“归零”，其虽然<strong>自同步</strong>，但<strong>编码效率低</strong>。</p>
+<h3 id="曼切斯特编码">曼切斯特编码</h3>
+<img src="/2024/05/15/computer-network/physical-layer/code3.png" class="" title="code3">
+<p>在每个码元的中间时刻，信号都会发生跳变。</p>
+<ul>
+<li>负跳变表示比特1/0</li>
+<li>正跳变表示比特0/1</li>
+<li>码元中间时刻的跳变<strong>既表示时钟，又表示数据</strong></li>
+</ul>
+<blockquote>
+<p>传统以太网就是使用曼切斯特编码</p>
+</blockquote>
+<h3 id="差分曼切斯特编码">差分曼切斯特编码</h3>
+<img src="/2024/05/15/computer-network/physical-layer/code4.png" class="" title="code4">
+<p>在每个码元的中间时刻，信号都会发生跳变，但与曼切斯特编码不同</p>
+<ul>
+<li>跳变仅表示时钟</li>
+<li><strong>码元开始处电平表示是否变换</strong>表示数据，变化表示1/0，不变化表示0/1</li>
+</ul>
+<h2 id="调制">调制</h2>
+<img src="/2024/05/15/computer-network/physical-layer/sig1.png" class="" title="sig1">
+<blockquote>
+<p>调幅AM：所调制的信号由<strong>两种不同振幅</strong>的基本波形构成，每个基本波形只能表示1bit</p>
+<p>调频FM：所调制的信号由<strong>两种不同频率</strong>的基本波形构成，每个基本波形只能表示1bit</p>
+<p>调相PM：所调制的信号由<strong>两种不同初相位</strong>的基本波形构成，每个基本波形只能表示1bit</p>
+</blockquote>
+<h3 id="混合调制">混合调制</h3>
+<blockquote>
+<p>将上述三种调制方法进行结合</p>
+</blockquote>
+<p>由于频率和相位是相关的（？？？喵），即频率是相位随时间的变化率，所以<strong>一次只能调制频率和相位两个中的一个</strong>。</p>
+<p>通常情况下，相位和振幅可以结合起来一起调制，称为<strong>正交振幅调制QAM</strong>。</p>
+<blockquote>
+<p>设波特率（即码元传输速率，单位时间内数字通信系统所传输的<strong>码元</strong>数）为B，采用m个相位，每个相位有n种振幅，则该QAM的数据传输速率
+<span class="math inline">\(R=B\log_2(mn)\)</span>。</p>
+</blockquote>
+<h2 id="信道的极限容量">信道的极限容量</h2>
+<h3 id="奈氏准则">奈氏准则</h3>
+<img src="/2024/05/15/computer-network/physical-layer/ns.png" class="" title="ns">
+<p>若用V表示每个码元的离散电平数目，则极限数据率为 <span
+class="math inline">\(2W\log_2V\)</span>。</p>
+<h3 id="香农定理">香农定理</h3>
+<img src="/2024/05/15/computer-network/physical-layer/xn.png" class="" title="xn">
+<blockquote>
+<p>这会考我吃</p>
+</blockquote>
 
       
     </div>
