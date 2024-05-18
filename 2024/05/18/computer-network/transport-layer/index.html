@@ -19,28 +19,36 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前面几章就是文科啦，应该不是重点  第一章 软件工程基础 软件工程的定义：  应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件 对1中各种方法的研究  第二章 软件工程的发展 1950s-2000s软件工程的特点 1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件 1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用">
+    <meta name="description" content="计网——运输层复习  从通信和信息处理的角度看，运输层向其上面的应用层提供通信服务，它属于面向通信部分的最高层，同时也是用户功能中的最底层。 当网络的边缘部分中的两个主机使用网络的核心部分的功能进行端到端的通信时，只有位于网络边缘部分的主机的协议栈才有运输层，而网络核心部分中的路由器在转发分组时都只用到三层（网络层）的功能。  从物理层到网络层，实现了主机到主机的通信。但实际上计网中通信">
 <meta property="og:type" content="article">
-<meta property="og:title" content="se">
-<meta property="og:url" content="https://atri2333.github.io/2024/05/09/se/index.html">
+<meta property="og:title" content="transport-layer">
+<meta property="og:url" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="前面几章就是文科啦，应该不是重点  第一章 软件工程基础 软件工程的定义：  应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件 对1中各种方法的研究  第二章 软件工程的发展 1950s-2000s软件工程的特点 1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件 1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用">
+<meta property="og:description" content="计网——运输层复习  从通信和信息处理的角度看，运输层向其上面的应用层提供通信服务，它属于面向通信部分的最高层，同时也是用户功能中的最底层。 当网络的边缘部分中的两个主机使用网络的核心部分的功能进行端到端的通信时，只有位于网络边缘部分的主机的协议栈才有运输层，而网络核心部分中的路由器在转发分组时都只用到三层（网络层）的功能。  从物理层到网络层，实现了主机到主机的通信。但实际上计网中通信">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-09T12:17:57.000Z">
-<meta property="article:modified_time" content="2024-05-09T12:38:43.843Z">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/ts1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/port1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/port2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/ts2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/udp1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/udp2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/tcp1.png">
+<meta property="article:published_time" content="2024-05-18T05:02:42.000Z">
+<meta property="article:modified_time" content="2024-05-18T11:39:21.450Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/ts1.png">
 
 
-<link rel="canonical" href="https://atri2333.github.io/2024/05/09/se/">
+<link rel="canonical" href="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/09/se/","path":"2024/05/09/se/","title":"se"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/18/computer-network/transport-layer/","path":"2024/05/18/computer-network/transport-layer/","title":"transport-layer"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>se | Ayy2's Website</title>
+<title>transport-layer | Ayy2's Website</title>
   
 
 
@@ -140,7 +148,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">第一章 软件工程基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">2.</span> <span class="nav-text">第二章 软件工程的发展</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E8%BF%90%E8%BE%93%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——运输层复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">端口号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%96%B9%E7%9A%84%E5%A4%8D%E7%94%A8%E5%92%8C%E6%8E%A5%E6%94%B6%E6%96%B9%E7%9A%84%E5%88%86%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">发送方的复用和接收方的分用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#udp%E5%92%8Ctcp"><span class="nav-number">1.3.</span> <span class="nav-text">UDP和TCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%8D%8F%E8%AE%AEudp"><span class="nav-number">1.4.</span> <span class="nav-text">用户数据报协议UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AEtcptransmission-control-protocal"><span class="nav-number">1.5.</span> <span class="nav-text">传输控制协议TCP（Transmission
+Control Protocal）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp%E3%81%AE%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">TCPの流量控制</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -195,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/se/">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -208,12 +217,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="se | Ayy2's Website">
+      <meta itemprop="name" content="transport-layer | Ayy2's Website">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          se
+          transport-layer
         </h1>
 
         <div class="post-meta-container">
@@ -225,7 +234,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-05-09 20:17:57 / 修改时间：20:38:43" itemprop="dateCreated datePublished" datetime="2024-05-09T20:17:57+08:00">2024-05-09</time>
+      <time title="创建时间：2024-05-18 13:02:42 / 修改时间：19:39:21" itemprop="dateCreated datePublished" datetime="2024-05-18T13:02:42+08:00">2024-05-18</time>
     </span>
 
   
@@ -237,8 +246,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2024/05/09/se/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/se/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2024/05/18/computer-network/transport-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/18/computer-network/transport-layer/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -251,23 +260,67 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
-<p>前面几章就是文科啦，应该不是重点</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="计网运输层复习">计网——运输层复习</h1>
+<blockquote>
+<p>从通信和信息处理的角度看，运输层向其上面的应用层提供通信服务，<strong>它属于面向通信部分的最高层，同时也是用户功能中的最底层</strong>。</p>
+<p>当网络的边缘部分中的两个主机使用网络的核心部分的功能进行端到端的通信时，只有位于<strong>网络边缘部分的主机的协议栈</strong>才有运输层，而网络核心部分中的路由器在转发分组时都只用到三层（网络层）的功能。</p>
 </blockquote>
-<h2 id="第一章-软件工程基础">第一章 软件工程基础</h2>
-<p><strong>软件工程的定义</strong>：</p>
-<ol type="1">
-<li>应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件</li>
-<li>对1中各种方法的研究</li>
-</ol>
-<h2 id="第二章-软件工程的发展">第二章 软件工程的发展</h2>
-<p>1950s-2000s软件工程的特点</p>
-<p>1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件</p>
-<p>1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用软件工艺的方式生产软件</p>
-<p>1970s：结构化方法；瀑布模型；强调规则和纪律</p>
-<p>1980s：追求生产力最大化；现代结构化方法/面向对象编程广泛应用；重视过程的作用</p>
-<p>1990s：企业为中心的大规模软件系统开发；追求快速开发、可变更性和用户价值；Web应用出现</p>
-<p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
+<p>从物理层到网络层，实现了主机到主机的通信。但实际上计网中通信的真正实体是位于通信两端主机中的<strong>进程</strong>。<strong>如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务，运输层协议又称为端到端协议</strong>。</p>
+<img src="/2024/05/18/computer-network/transport-layer/ts1.png" class="" title="ts1">
+<blockquote>
+<p>在运输层使用<strong>不同的端口</strong>，来对应<strong>不同的应用进程</strong>，然后通过网络层及其下层来传输应用层报文。接收方的运输层通过不同的端口，将收到的应用层报文，交付给应用层中相应的进程。这里的端口是指用来区分不同应用进程的标识符。</p>
+</blockquote>
+<h2 id="端口号">端口号</h2>
+<img src="/2024/05/18/computer-network/transport-layer/port1.png" class="" title="port1">
+<h2 id="发送方的复用和接收方的分用">发送方的复用和接收方的分用</h2>
+<img src="/2024/05/18/computer-network/transport-layer/port2.png" class="" title="port2">
+<blockquote>
+<p>复用：多个进程利用一个运输层协议发送数据</p>
+<p>分用：多个进程利用一个运输层协议接收数据</p>
+</blockquote>
+<h2 id="udp和tcp">UDP和TCP</h2>
+<ul>
+<li>UDP和TCP是TCP/IP体系结构运输层的两个重要协议</li>
+<li>当运输层采用面向连接的TCP协议时，尽管下面的网络是不可靠的（例如无连接的数据报服务），但这种逻辑通信信道相当于一条<strong>全双工的可靠信道</strong>。TCP传输的数据单元是TCP报文段。</li>
+<li>但运输层采用无连接的UDP协议时，这种逻辑信道是一条<strong>不可靠信道</strong>。UDP传输的数据单元是UDP报文或用户数据报。</li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/ts2.png" class="" title="ts2">
+<h2 id="用户数据报协议udp">用户数据报协议UDP</h2>
+<blockquote>
+<p>UDP支持单播、多播以及广播</p>
+<p>UDP对应用进程交下来的报文既不合并也不拆分，而是保留这些报文的边界，即<strong>UDP是面向应用报文的</strong></p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/udp1.png" class="" title="udp1">
+<p>UDP向上层提供无连接不可靠传输服务</p>
+<p>UDP用户数据报结构如下：</p>
+<img src="/2024/05/18/computer-network/transport-layer/udp2.png" class="" title="udp2">
+<blockquote>
+<p>是不是很简单？<del>但是接下来的TCP会难到吐</del></p>
+</blockquote>
+<h2
+id="传输控制协议tcptransmission-control-protocal">传输控制协议TCP（Transmission
+Control Protocal）</h2>
+<p>使用TCP协议的通信双方，在进行数据传输之前，必须使用“三报文握手”建立TCP连接。TCP连接建立成功后，通信双方之间就好像有一条可靠的通信信道，通信双方使用这条基于TCP连接的可靠信道进行通信。</p>
+<blockquote>
+<p>TCP只支持单播。</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp1.png" class="" title="tcp1">
+<blockquote>
+<p>发送方</p>
+<ul>
+<li>TCP会把应用进程交付下来的数据块看作是一串无结构的字节流，TCP并不知道这些字节流的含义</li>
+<li>TCP会将字节流进行编号，并存储在自己的缓存中</li>
+<li>TCP会根据发送策略，提取一定量的字节构建TCP报文并发送</li>
+</ul>
+<p>接收方</p>
+<ul>
+<li>一方面从所接收到的TCP报文段中，取出数据载荷部分并存储在接收缓存中；另一方面将接收缓存中的一些字节交付给应用进程</li>
+<li>TCP不保证接收方应用进程所收到的数据块与发送方发送的数据块具有对应大小的关系（例如，发送方应用进程给发送方的TCP共10个数据块，但接收方的TCP可能只用了4个数据块，就把收到的字节流交付给了上层的应用进程，但接收方的字节流必须和发送方的字节流<strong>完全一样</strong>）</li>
+<li>接收方的应用进程必须有能力识别收到的字节流，并把它还原成有意义的应用层数据</li>
+</ul>
+</blockquote>
+<p>TCP向上层提供面向连接的可靠传输服务</p>
+<h3 id="tcpの流量控制">TCPの流量控制</h3>
 
     </div>
 
@@ -281,14 +334,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/05/08/kmp/" rel="prev" title="kmp">
-                  <i class="fa fa-angle-left"></i> kmp
+                <a href="/2024/05/16/database/relation-algebra/" rel="prev" title="关系代数与演算">
+                  <i class="fa fa-angle-left"></i> 关系代数与演算
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/05/09/computer-network/network-layer/" rel="next" title="network-layer">
-                  network-layer <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

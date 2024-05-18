@@ -2491,4 +2491,70 @@ mode。在这里我们只需要 SIE bit 就行啦。</p>
         <tag>xv6</tag>
       </tags>
   </entry>
+  <entry>
+    <title>transport-layer</title>
+    <url>/2024/05/18/computer-network/transport-layer/</url>
+    <content><![CDATA[<h1 id="计网运输层复习">计网——运输层复习</h1>
+<blockquote>
+<p>从通信和信息处理的角度看，运输层向其上面的应用层提供通信服务，<strong>它属于面向通信部分的最高层，同时也是用户功能中的最底层</strong>。</p>
+<p>当网络的边缘部分中的两个主机使用网络的核心部分的功能进行端到端的通信时，只有位于<strong>网络边缘部分的主机的协议栈</strong>才有运输层，而网络核心部分中的路由器在转发分组时都只用到三层（网络层）的功能。</p>
+</blockquote>
+<p>从物理层到网络层，实现了主机到主机的通信。但实际上计网中通信的真正实体是位于通信两端主机中的<strong>进程</strong>。<strong>如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务，运输层协议又称为端到端协议</strong>。</p>
+<img src="/2024/05/18/computer-network/transport-layer/ts1.png" class="" title="ts1">
+<blockquote>
+<p>在运输层使用<strong>不同的端口</strong>，来对应<strong>不同的应用进程</strong>，然后通过网络层及其下层来传输应用层报文。接收方的运输层通过不同的端口，将收到的应用层报文，交付给应用层中相应的进程。这里的端口是指用来区分不同应用进程的标识符。</p>
+</blockquote>
+<h2 id="端口号">端口号</h2>
+<img src="/2024/05/18/computer-network/transport-layer/port1.png" class="" title="port1">
+<h2 id="发送方的复用和接收方的分用">发送方的复用和接收方的分用</h2>
+<img src="/2024/05/18/computer-network/transport-layer/port2.png" class="" title="port2">
+<blockquote>
+<p>复用：多个进程利用一个运输层协议发送数据</p>
+<p>分用：多个进程利用一个运输层协议接收数据</p>
+</blockquote>
+<h2 id="udp和tcp">UDP和TCP</h2>
+<ul>
+<li>UDP和TCP是TCP/IP体系结构运输层的两个重要协议</li>
+<li>当运输层采用面向连接的TCP协议时，尽管下面的网络是不可靠的（例如无连接的数据报服务），但这种逻辑通信信道相当于一条<strong>全双工的可靠信道</strong>。TCP传输的数据单元是TCP报文段。</li>
+<li>但运输层采用无连接的UDP协议时，这种逻辑信道是一条<strong>不可靠信道</strong>。UDP传输的数据单元是UDP报文或用户数据报。</li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/ts2.png" class="" title="ts2">
+<h2 id="用户数据报协议udp">用户数据报协议UDP</h2>
+<blockquote>
+<p>UDP支持单播、多播以及广播</p>
+<p>UDP对应用进程交下来的报文既不合并也不拆分，而是保留这些报文的边界，即<strong>UDP是面向应用报文的</strong></p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/udp1.png" class="" title="udp1">
+<p>UDP向上层提供无连接不可靠传输服务</p>
+<p>UDP用户数据报结构如下：</p>
+<img src="/2024/05/18/computer-network/transport-layer/udp2.png" class="" title="udp2">
+<blockquote>
+<p>是不是很简单？<del>但是接下来的TCP会难到吐</del></p>
+</blockquote>
+<h2
+id="传输控制协议tcptransmission-control-protocal">传输控制协议TCP（Transmission
+Control Protocal）</h2>
+<p>使用TCP协议的通信双方，在进行数据传输之前，必须使用“三报文握手”建立TCP连接。TCP连接建立成功后，通信双方之间就好像有一条可靠的通信信道，通信双方使用这条基于TCP连接的可靠信道进行通信。</p>
+<blockquote>
+<p>TCP只支持单播。</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp1.png" class="" title="tcp1">
+<blockquote>
+<p>发送方</p>
+<ul>
+<li>TCP会把应用进程交付下来的数据块看作是一串无结构的字节流，TCP并不知道这些字节流的含义</li>
+<li>TCP会将字节流进行编号，并存储在自己的缓存中</li>
+<li>TCP会根据发送策略，提取一定量的字节构建TCP报文并发送</li>
+</ul>
+<p>接收方</p>
+<ul>
+<li>一方面从所接收到的TCP报文段中，取出数据载荷部分并存储在接收缓存中；另一方面将接收缓存中的一些字节交付给应用进程</li>
+<li>TCP不保证接收方应用进程所收到的数据块与发送方发送的数据块具有对应大小的关系（例如，发送方应用进程给发送方的TCP共10个数据块，但接收方的TCP可能只用了4个数据块，就把收到的字节流交付给了上层的应用进程，但接收方的字节流必须和发送方的字节流<strong>完全一样</strong>）</li>
+<li>接收方的应用进程必须有能力识别收到的字节流，并把它还原成有意义的应用层数据</li>
+</ul>
+</blockquote>
+<p>TCP向上层提供面向连接的可靠传输服务</p>
+<h3 id="tcpの流量控制">TCPの流量控制</h3>
+]]></content>
+  </entry>
 </search>
