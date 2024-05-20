@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,123 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/20/database/sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/20/database/sql/" class="post-title-link" itemprop="url">sql</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-05-20 16:56:31 / 修改时间：20:05:32" itemprop="dateCreated datePublished" datetime="2024-05-20T16:56:31+08:00">2024-05-20</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/20/database/sql/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/20/database/sql/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>来自《数据库系统概论（第6版）》第三章</p>
+<p>基于Oracle数据库</p>
+</blockquote>
+<h1 id="sql">SQL</h1>
+<h2 id="模式的定义与删除">模式的定义与删除</h2>
+<blockquote>
+<p>在数据库中，一个模式下通常包括多个表、视图和索引等数据库对象。一个数据库中可以建立多个模式。</p>
+<p>在Oracle数据库中，模式的概念即<strong>用户</strong>。</p>
+</blockquote>
+<p>创建模式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##atri identified <span class="keyword">by</span> xxxxxxxxx;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需在用户名前添加前缀C##</p>
+</blockquote>
+<p>切换模式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> session <span class="keyword">set</span> <span class="built_in">current_schema</span> <span class="operator">=</span> c##atri;</span><br></pre></td></tr></table></figure>
+<p>删除模式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> username CASCADE;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>模式下包含的东西也被删除了。</p>
+</blockquote>
+<h2 id="基本表的建立">基本表的建立</h2>
+<blockquote>
+<p>为了方便后续重点语句的展示，我这里按照书上的二维码，准备几个表。</p>
+</blockquote>
+<p><code>sc.sql</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> Student;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> SC;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> Course;</span><br><span class="line">PURGE  RECYCLEBIN;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student</span><br><span class="line">(</span><br><span class="line">    Sno <span class="type">CHAR</span>(<span class="number">8</span>) <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    Sname <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">UNIQUE</span>,</span><br><span class="line">    Ssex <span class="type">CHAR</span>(<span class="number">6</span>),</span><br><span class="line">    Sbirthday <span class="type">Date</span>,</span><br><span class="line">    Smajor <span class="type">VARCHAR</span>(<span class="number">40</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Course</span><br><span class="line">(</span><br><span class="line">    Cno <span class="type">CHAR</span>(<span class="number">5</span>) <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    Cname <span class="type">VARCHAR</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    Ccredit <span class="type">SMALLINT</span>,</span><br><span class="line">    Cpno <span class="type">CHAR</span>(<span class="number">5</span>),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (Cpno) <span class="keyword">REFERENCES</span> Course(Cno)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> SC</span><br><span class="line">(</span><br><span class="line">    Sno <span class="type">CHAR</span>(<span class="number">8</span>),</span><br><span class="line">    Cno <span class="type">CHAR</span>(<span class="number">5</span>),</span><br><span class="line">    Grade <span class="type">SMALLINT</span>,</span><br><span class="line">    Semester <span class="type">CHAR</span>(<span class="number">5</span>),</span><br><span class="line">    Teachingclass <span class="type">CHAR</span>(<span class="number">8</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY(Sno, Cno),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY(Sno) <span class="keyword">REFERENCES</span> Student (Sno),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY(Cno) <span class="keyword">REFERENCES</span> Course (Cno)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'李勇'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2000-03-08'</span>, <span class="string">'信息安全'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'刘晨'</span>, <span class="string">'女'</span>, <span class="type">DATE</span> <span class="string">'1999-09-01'</span>, <span class="string">'计算机科学与技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180003'</span>, <span class="string">'王敏'</span>, <span class="string">'女'</span>, <span class="type">DATE</span> <span class="string">'2001-08-01'</span>, <span class="string">'计算机科学与技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180004'</span>, <span class="string">'张立'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2000-01-08'</span>, <span class="string">'计算机科学与技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180205'</span>, <span class="string">'陈新奇'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2001-11-01'</span>, <span class="string">'信息管理与信息系统'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180306'</span>, <span class="string">'赵明'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2000-06-12'</span>, <span class="string">'数据科学与大数据技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180307'</span>, <span class="string">'王佳佳'</span>, <span class="string">'女'</span>, <span class="type">DATE</span> <span class="string">'2001-12-07'</span>, <span class="string">'数据科学与大数据技术'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81001'</span>, <span class="string">'程序设计基础与C语言'</span>, <span class="number">4</span>, <span class="keyword">NULL</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81002'</span>, <span class="string">'数据结构'</span>, <span class="number">4</span>, <span class="string">'81001'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81003'</span>, <span class="string">'数据库系统概论'</span>, <span class="number">4</span>, <span class="string">'81002'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81004'</span>, <span class="string">'信息系统概论'</span>, <span class="number">4</span>, <span class="string">'81003'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81005'</span>, <span class="string">'操作系统'</span>, <span class="number">4</span>, <span class="string">'81001'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81006'</span>, <span class="string">'Python语言'</span>, <span class="number">3</span>, <span class="string">'81002'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81007'</span>, <span class="string">'离散数学'</span>, <span class="number">4</span>, <span class="keyword">NULL</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81008'</span>, <span class="string">'大数据技术概论'</span>, <span class="number">4</span>, <span class="string">'81003'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'81001'</span>, <span class="number">85</span>, <span class="string">'20192'</span>, <span class="string">'81001-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'81002'</span>, <span class="number">96</span>, <span class="string">'20201'</span>, <span class="string">'81002-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'81003'</span>, <span class="number">87</span>, <span class="string">'20202'</span>, <span class="string">'81003-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'81001'</span>, <span class="number">80</span>, <span class="string">'20192'</span>, <span class="string">'81001-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'81002'</span>, <span class="number">98</span>, <span class="string">'20201'</span>, <span class="string">'81002-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'81003'</span>, <span class="number">71</span>, <span class="string">'20202'</span>, <span class="string">'81003-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180003'</span>, <span class="string">'81001'</span>, <span class="number">81</span>, <span class="string">'20192'</span>, <span class="string">'81001-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180003'</span>, <span class="string">'81002'</span>, <span class="number">76</span>, <span class="string">'20201'</span>, <span class="string">'81002-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180004'</span>, <span class="string">'81001'</span>, <span class="number">56</span>, <span class="string">'20192'</span>, <span class="string">'81001-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180004'</span>, <span class="string">'81003'</span>, <span class="number">97</span>, <span class="string">'20201'</span>, <span class="string">'81002-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180205'</span>, <span class="string">'81003'</span>, <span class="number">68</span>, <span class="string">'20202'</span>, <span class="string">'81003-01'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+<p>表长这样：</p>
+<img src="/2024/05/20/database/sql/sc.png" class="" title="sc">
+<blockquote>
+<p>关于修改表、删除表什么的，这里就摆了hh</p>
+</blockquote>
+<h2 id="索引的建立与删除">索引的建立与删除</h2>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1385,108 +1502,8 @@ class="math inline">\(n\)</span> 位作为子网号，可以划分出大小相�
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/se/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2's Website">
-      <meta itemprop="description" content="Fall Guard">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/09/se/" class="post-title-link" itemprop="url">se</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-09 20:17:57 / 修改时间：20:38:43" itemprop="dateCreated datePublished" datetime="2024-05-09T20:17:57+08:00">2024-05-09</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/09/se/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/se/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>前面几章就是文科啦，应该不是重点</p>
-</blockquote>
-<h2 id="第一章-软件工程基础">第一章 软件工程基础</h2>
-<p><strong>软件工程的定义</strong>：</p>
-<ol type="1">
-<li>应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件</li>
-<li>对1中各种方法的研究</li>
-</ol>
-<h2 id="第二章-软件工程的发展">第二章 软件工程的发展</h2>
-<p>1950s-2000s软件工程的特点</p>
-<p>1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件</p>
-<p>1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用软件工艺的方式生产软件</p>
-<p>1970s：结构化方法；瀑布模型；强调规则和纪律</p>
-<p>1980s：追求生产力最大化；现代结构化方法/面向对象编程广泛应用；重视过程的作用</p>
-<p>1990s：企业为中心的大规模软件系统开发；追求快速开发、可变更性和用户价值；Web应用出现</p>
-<p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
