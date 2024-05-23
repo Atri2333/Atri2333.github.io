@@ -2605,6 +2605,81 @@ Control Protocal）</h2>
 <p>零窗口探测报文本身也有重传计时器，所以不用担心该报文丢失的情况。</p>
 </blockquote>
 <h3 id="tcpの拥塞控制">TCPの拥塞控制</h3>
+<blockquote>
+<p>在某段时间，若对网络中某一资源（如带宽、交换节点的缓存、处理机等）的需求<strong>超过了该资源所能提供的可用部分</strong>，网络性能就会变差，这种情况叫做<strong>拥塞</strong>。</p>
+<p>若出现拥塞而不进行控制，整个网络的吞吐量将随输入负荷的增大而下降。</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp7.png" class="" title="tcp7">
+<p>拥塞控制的一般原理：</p>
+<ul>
+<li>拥塞控制的前提：网络能够承受现有的网络负荷</li>
+<li>实践证明，拥塞控制是很难设计的，因为它是个动态问题</li>
+<li>分组的丢失是网络拥塞的征兆而不是原因</li>
+<li>在许多情况下，甚至正是拥塞本身成为引起网络性能恶化、甚至发生死锁的原因</li>
+</ul>
+<h4 id="拥塞控制的算法">拥塞控制的算法</h4>
+<img src="/2024/05/18/computer-network/transport-layer/tcp8.png" class="" title="tcp8">
+<img src="/2024/05/18/computer-network/transport-layer/tcp9.png" class="" title="tcp9">
+<blockquote>
+<p>真正的发送窗口值=min（接收方窗口值，拥塞窗口值）</p>
+</blockquote>
+<p>传输轮次：</p>
+<ul>
+<li>发送方给接收方发送数据报文段后，接收方给发送方发回相应的确认报文段</li>
+<li>一个传输轮次所经历的时间其实就是往返时间，往返时间并非是恒定的数值</li>
+<li>使用传输轮次是为了强调把拥塞窗口所允许的报文段都连续发送出去，并收到了对已发送的最后一个报文段的确认</li>
+</ul>
+<p>拥塞窗口：</p>
+<ul>
+<li>它会随网络拥塞程度</li>
+</ul>
+<h4 id="慢开始和拥塞避免">慢开始和拥塞避免</h4>
+<h5 id="慢开始">慢开始</h5>
+<ul>
+<li>目的：用来确定网络的负载能力和拥塞程度</li>
+<li>算法思路：由小到大逐渐增大拥塞窗口数值</li>
+<li>两个变量
+<ul>
+<li>拥塞窗口（cwnd）</li>
+<li>慢开始门限（ssthresh）</li>
+</ul></li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/tcp10.png" class="" title="tcp10">
+<img src="/2024/05/18/computer-network/transport-layer/tcp11.png" class="" title="tcp11">
+<blockquote>
+<p>每经过一个传输轮次，拥塞窗口就加倍</p>
+<p>窗口大小按指数增加</p>
+</blockquote>
+<h5 id="拥塞避免">拥塞避免</h5>
+<ul>
+<li><p>思路：让拥塞窗口cwnd<strong>缓慢</strong>地增大，避免出现拥塞</p></li>
+<li><p>每经过一个传输轮次，拥塞窗口cwnd++</p></li>
+<li><p>cwnd按线性规律缓慢增长</p></li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/tcp12.png" class="" title="tcp12">
+<p>如果在发送过程中出现部分报文段丢失，这会引起发送方对这些报文段的<strong>超时重传</strong>。</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp13.png" class="" title="tcp13">
+<blockquote>
+<p>此时会判断网络出现拥塞，将ssthresh减为当前cwnd值的一半，并将cwnd重新设为1，开始慢开始算法。</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp14.png" class="" title="tcp14">
+<blockquote>
+<p>细节，慢开始cwnd *=2 时需要和ssthresh取min。</p>
+</blockquote>
+<h4 id="快重传和快恢复">快重传和快恢复</h4>
+<blockquote>
+<p>增加的两个新的拥塞控制算法，改进TCP的性能</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp15.png" class="" title="tcp15">
+<h5 id="快重传">快重传</h5>
+<img src="/2024/05/18/computer-network/transport-layer/tcp16.png" class="" title="tcp16">
+<blockquote>
+<p>就是在超时重传的时限前，找机会提前把丢失的报文重传了，如果重传成功的话，说明网络没有出现拥塞，从而防止cwnd降为1并重启慢开始算法.</p>
+</blockquote>
+<h5 id="快恢复">快恢复</h5>
+<img src="/2024/05/18/computer-network/transport-layer/tcp17.png" class="" title="tcp17">
+<h5 id="四个拥塞避免算法总览">四个拥塞避免算法总览</h5>
+<img src="/2024/05/18/computer-network/transport-layer/tcp18.png" class="" title="tcp18">
 ]]></content>
   </entry>
   <entry>
