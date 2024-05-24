@@ -2684,6 +2684,25 @@ Control Protocal）</h2>
 <blockquote>
 <p>emmm，好像不考欸，至少王道书上没有</p>
 </blockquote>
+<h2 id="tcp可靠传输的实现">TCP可靠传输的实现</h2>
+<p>TCP基于<strong>以字节为单位</strong>的滑动窗口来实现可靠传输。</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp19.png" class="" title="tcp19">
+<img src="/2024/05/18/computer-network/transport-layer/tcp20.png" class="" title="tcp20">
+<blockquote>
+<p>使用三指针来维护窗口状态</p>
+</blockquote>
+<p>虽然发送方的发送窗口是根据接收方的接收窗口设置的，但在同一时刻，发送方的发送窗口并不一定总是和接收方的接收窗口一样大。</p>
+<ul>
+<li>网络传送窗口值需要一段时间的时间滞后</li>
+<li>发送方可能还需要根据拥塞情况减小自己的发送窗口尺寸</li>
+</ul>
+<p>对于不按序到达的数据的处理，TCP并无明确规定。</p>
+<p>TCP要求接收方必须要有累计确认和捎带确认机制，这样可以减少传输开销。接收方可以在合适的时候发送确认，也可以在自己有数据要发送时把确认信息顺便捎带上。</p>
+<ul>
+<li>接收方不应过分推迟发送确认，否则会造成不必要的超时重传。</li>
+<li>捎带确认很少使用，因为大多数应用程序很少同时在两个方向上发送数据。</li>
+</ul>
+<p>TCP的通信是全双工通信。</p>
 ]]></content>
   </entry>
   <entry>
