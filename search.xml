@@ -2703,6 +2703,78 @@ Control Protocal）</h2>
 <li>捎带确认很少使用，因为大多数应用程序很少同时在两个方向上发送数据。</li>
 </ul>
 <p>TCP的通信是全双工通信。</p>
+<h2 id="tcp的运输连接管理">TCP的运输连接管理</h2>
+<h3 id="tcpの连接建立">TCPの连接建立</h3>
+<ul>
+<li>TCP建立连接的过程叫做握手</li>
+<li>握手需要在客户和服务器之间交换三个TCP报文段。称之为<strong>三报文握手</strong>。</li>
+<li>采用三次握手主要是为了防止已失效的连接请求报文段突然又传送到了，继而产生错误。</li>
+</ul>
+<p>TCP的连接建立要解决以下三个问题：</p>
+<ul>
+<li>使TCP双方能够确知对方的存在</li>
+<li>使TCP双方能够协商一些参数（如最大窗口值、是否使用窗口扩大选项和时间戳选项以及服务质量等）</li>
+<li>使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目）进行分配</li>
+</ul>
+<p>TCP使用三报文握手建立连接。</p>
+<ul>
+<li>TCP连接的建立采用客户服务器方式</li>
+<li>主动发起连接建立的应用进程叫做TCP客户</li>
+<li>被动等待连接建立的应用进程叫做TCP服务器</li>
+</ul>
+<p>过程</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp21.png" class="" title="tcp21">
+<p>最初两端的TCP进程都处于<strong>关闭</strong>状态。</p>
+<p>一开始，TCP服务器进程首先创建<strong>传输控制块</strong>，用来存储TCP连接中的一些重要信息，例如TCP连接表、指向发送和接收缓存的指针、指向重传队列的指针，当前的发送和接受序号等</p>
+<p>之后，就准备接受TCP客户端进程的连接请求</p>
+<p>此时TCP服务器进程就进入<strong>监听</strong>状态，等待TCP客户端进程的连接请求。</p>
+<blockquote>
+<p>TCP服务器进程是被动等待来自TCP客户端进程的连接请求，因此称为<strong>被动打开</strong>连接。</p>
+</blockquote>
+<p>TCP客户进程也是首先创建传输控制块。</p>
+<blockquote>
+<p>由于TCP连接建立是由TCP客户端主动发起的，因此称为<strong>主动打开</strong>连接。</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp22.png" class="" title="tcp22">
+<p>然后，在打算建立TCP连接时，向TCP服务器进程发送<strong>TCP连接请求报文段</strong>，并进入<strong>同步已发送</strong>状态。</p>
+<p>在TCP连接请求报文段的首部中</p>
+<ul>
+<li>同步位SYN被设置为1，表明这是一个TCP连接请求报文段</li>
+<li>序号字段seq被设置了一个初始值x，作为TCP客户端进程所选择的初始序号</li>
+</ul>
+<blockquote>
+<p>请注意：TCP规定SYN被设置为1的报文段<strong>不能携带数据</strong>，但要<strong>消耗掉一个序号</strong>。</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp23.png" class="" title="tcp23">
+<p>TCP服务器进程收到TCP连接请求报文段后，如果同意建立连接，则向TCP客户进程发送<strong>TCP连接请求确认报文段</strong>，并进入<strong>同步已接收</strong>状态。</p>
+<p>TCP连接请求确认报文段的首部中</p>
+<ul>
+<li>同步位SYN和确认位ACK都设置为1，表明这是一个TCP连接请求确认报文段</li>
+<li>序号字段seq被设置了一个初始值y，作为TCP服务器进程所选择的初始序号</li>
+<li>确认号字段ack的值被设置为了x+1，这是对TCP客户进程所选择的初始序号（seq）的确认</li>
+</ul>
+<blockquote>
+<p>请注意：这个报文段由于SYN被设置为1，因而也不能携带数据，但也要消耗掉一个序号</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp24.png" class="" title="tcp24">
+<p>TCP客户进程收到TCP连接请求确认报文段后，还需要向TCP服务器进程发送一个<strong>普通</strong>的TCP确认报文段，并进入<strong>连接已建立</strong>状态。</p>
+<p>普通的TCP确认报文段首部中</p>
+<ul>
+<li>确认位ACK被设置为1，表明这是一个普通的TCP确认报文段</li>
+<li>序号字段seq被设置为x+1，这是因为TCP客户进程发送的第一个TCP报文段的序号为x，所以TCP客户进程发送的第二个报文段的序号为x+1</li>
+<li>确认号ack被设置为y+1，这是对TCP服务器进程所选择的初始序号的确认</li>
+</ul>
+<blockquote>
+<p>请注意：TCP规定普通的TCP确认报文段可以携带数据，但如果不携带数据，则不消耗序号</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp25.png" class="" title="tcp25">
+<p>TCP服务器进程收到该确认报文段后也进入<strong>连接已建立</strong>状态。</p>
+<p>现在，TCP双方都进入了连接已建立状态，它们可以基于已建立好的TCP连接，进行可靠的数据传输</p>
+<p>TCP连接建议需要第三个报文段：普通确认报文段的目的</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp26.png" class="" title="tcp26">
+<p>为了防止这种情况：客户端进程发出去的第一个连接请求报文段并没有丢失，而因为某些原因，在网络上发生滞留。结果在整个TCP连接建立且释放后，该报文段才到达TCP服务器进程，这会导致TCP服务器进程错误地进入了连接已建立状态，造成资源浪费。</p>
+<p>本质上是TCP服务器进程收到一次连接请求报文就建立连接而造成的资源浪费建立，而如果使用三报文握手的话，就要求TCP服务器进程需要收到两个请求报文，这能有效地防止上述情况的发生。</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp27.png" class="" title="tcp27">
 ]]></content>
   </entry>
   <entry>
