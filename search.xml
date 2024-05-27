@@ -2775,6 +2775,82 @@ Control Protocal）</h2>
 <p>为了防止这种情况：客户端进程发出去的第一个连接请求报文段并没有丢失，而因为某些原因，在网络上发生滞留。结果在整个TCP连接建立且释放后，该报文段才到达TCP服务器进程，这会导致TCP服务器进程错误地进入了连接已建立状态，造成资源浪费。</p>
 <p>本质上是TCP服务器进程收到一次连接请求报文就建立连接而造成的资源浪费建立，而如果使用三报文握手的话，就要求TCP服务器进程需要收到两个请求报文，这能有效地防止上述情况的发生。</p>
 <img src="/2024/05/18/computer-network/transport-layer/tcp27.png" class="" title="tcp27">
+<h3 id="tcpの连接释放">TCPの连接释放</h3>
+<p>TCP通过四报文挥手来释放连接。</p>
+<ul>
+<li>TCP连接的释放采用客户服务器方式</li>
+<li>任何一方都可以在数据传送结束后发出连接释放的通知</li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/tcp28.png" class="" title="tcp28">
+<p>首先通信双方处于连接已建立状态</p>
+<p>TCP客户进程的应用进程通知其主动关闭TCP连接</p>
+<p>TCP客户进程会发送<strong>TCP连接释放报文段</strong>，并进入<strong>终止等待1</strong>状态。</p>
+<p>TCP连接释放报文段首部中</p>
+<ul>
+<li>终止位FIN和确认位ACK的值都被设置为1，表明这是一个TCP连接释放报文段，同时也对之前收到的报文段进行确认</li>
+<li>seq字段的值设置为u，它等于TCP客户进程之前已传送过的数据的最后一个<strong>字节</strong>的序号+1</li>
+<li>ack的值被设置为v，它等于TCP客户进程已收到的数据的最后一个字节的序号+1</li>
+</ul>
+<blockquote>
+<p>请注意：TCP规定终止位FIN等于1的报文段即使不携带数据，也要消耗掉一个序号</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp29.png" class="" title="tcp29">
+<p>TCP服务器进程收到TCP连接释放报文段后，会发送一个<strong>普通</strong>的TCP确认报文段并进入<strong>关闭等待</strong>状态。</p>
+<p>普通的TCP确认报文段首部中</p>
+<ul>
+<li>ACK被设置为1，表明这是一个普通的TCP确认报文段</li>
+<li>seq被设置为v，它等于TCP服务器进程之前已传送的数据的最后一个字节的序号+1，这也与之前收到的TCP连接释放报文段的ack值匹配</li>
+<li>ack的值被设置为u+1，这是对TCP连接释放报文段的确认</li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/tcp30.png" class="" title="tcp30">
+<p>此时TCP服务器进程应该通知高层应用进程，TCP客户进程要断开和自己的连接</p>
+<p>此时，从TCP客户进程到TCP服务器进程这个方向的连接就释放了</p>
+<p>此时TCP连接属于半关闭状态，这是因为TCP服务器进程可能还有数据要发送，也就是说反方向的连接并未关闭</p>
+<p>TCP客户进程收到TCP确认报文段后就进入终止等待2状态，等待TCP服务器进程发出的TCP连接释放报文段</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp31.png" class="" title="tcp31">
+<p>若TCP服务器进程没有数据要发送了，TCP服务器进程就会释放连接，这时TCP服务器进程就会发送<strong>TCP连接释放报文段</strong>并进入<strong>最后确认</strong>状态</p>
+<p>该报文段首部中</p>
+<ul>
+<li>终止位FIN和确认位ACK的值都被设置为1，表明这是一个TCP连接释放报文段</li>
+<li>seq的值为w，这是因为半关闭状态下，服务器进程可能继续发送了一些数据</li>
+<li>ack的值为u+1，这是对之前收到的连接释放报文段的重复确认</li>
+</ul>
+<img src="/2024/05/18/computer-network/transport-layer/tcp32.png" class="" title="tcp32">
+<p>TCP客户进程收到TCP连接释放报文段后，必须针对该报文段发送<strong>普通</strong>的TCP确认报文段，之后进入<strong>时间等待</strong>状态。</p>
+<p>该报文段首部中</p>
+<ul>
+<li>确认位ACK的值被设置为1，表明这是一个普通的TCP确认报文段</li>
+<li>seq被设置为u+1，这是因为TCP客户进程之前发送的TCP连接释放报文段虽然不携带数据，但是要消耗掉一个序号</li>
+<li>ack被设置为w+1，这是对所收到的TCP连接释放报文段的确认</li>
+</ul>
+<p>TCP服务器进程收到该报文段后就进入<strong>关闭</strong>状态，而TCP客户进程还需要经过2MSL后才能进入关闭状态。</p>
+<p>时间等待状态可以确保TCP服务器进程可以收到最后一个TCP确认报文段而进入关闭状态，且在该2MSL时长里，可以使本次连接持续时间内所产生的报文段都从网络中消失，这样在新的TCP连接中，不会出现旧连接的报文段。</p>
+<h3 id="tcp保活计时器">TCP保活计时器</h3>
+<p>TCP双方已建立连接，然而TCP客户进程所在主机出现了故障</p>
+<p>TCP服务器进程以后不能再收到TCP客户端进程发来的数据</p>
+<p>因此，需要有措施让服务器不白白等下去</p>
+<img src="/2024/05/18/computer-network/transport-layer/tcp33.png" class="" title="tcp33">
+<h2 id="tcp报文段首部格式">TCP报文段首部格式</h2>
+<blockquote>
+<p>源、目的端口</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp34.png" class="" title="tcp34">
+<blockquote>
+<p>序号、确认号、确认标志位ACK</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp35.png" class="" title="tcp35">
+<blockquote>
+<p>数据偏移（首部长度）、保留、窗口和校验和</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp36.png" class="" title="tcp36">
+<blockquote>
+<p>同步标志位SYN、终止标志位FIN、复位标志位RST、推送标志位PSH、紧急标志位URG、紧急指针</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp37.png" class="" title="tcp37">
+<blockquote>
+<p>选项和填充</p>
+</blockquote>
+<img src="/2024/05/18/computer-network/transport-layer/tcp38.png" class="" title="tcp38">
 ]]></content>
   </entry>
   <entry>
