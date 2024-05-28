@@ -51,119 +51,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -264,7 +152,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +182,170 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/24/xv6-lab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2's Website">
+      <meta itemprop="description" content="Fall Guard">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/24/xv6-lab/" class="post-title-link" itemprop="url">xv6-lab</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-24 18:14:40 / 修改时间：20:40:29" itemprop="dateCreated datePublished" datetime="2024-04-24T18:14:40+08:00">2024-04-24</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/04/24/xv6-lab/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/24/xv6-lab/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="xv6-摆烂-理解">1. xv6-摆烂-理解</h1>
+<blockquote>
+<p>大三上学期突然很想自学CS，然后在寒假学了CSAPP的大部分后开始了MIT
+6.S081这个课程。用时大概两个月(2.25-4.24)从零开始自学OS到完成了除network外的所有lab，包括2020年和2021年的版本。</p>
+<p>学这东西纯属兴趣，想体验一下科班的感觉（</p>
+</blockquote>
+<h2 id="学习路径">学习路径</h2>
+<p>我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081</p>
+<p>一般就是，先根据课程要求，浏览一遍xv6
+book上对应的章节及源码，然后看上面那个文档，然后再回到xv6
+book当中巩固一下。</p>
+<p>然后lab的话，前期是根据课程安排进行的。但到后面课程会开始讲一些论文，我是在那之前把所有lab给完成的。所以在写这个文章的时候，我其实还没有结束这门课程的学习。如标题所见，这只是我这两个月来对lab的回顾。我会继续后续论文的学习</p>
+<h3 id="lab-1-xv6-and-unix-utilities-20202021">lab 1 Xv6 and Unix
+utilities (2020/2021)</h3>
+<p>这个其实主要目的是让你安装好环境+熟悉一下xv6的代码结构。主要任务是使用xv6自带的系统调用实现一些功能，比较难的可能是
+primes 那个实验，需要你使用多进程通信来完成素数筛。</p>
+<p>我当时的想法大致是给每个进程都维护了一个要筛的素数（通过向管道写入第一个数来完成），如果当前传进来的数没办法整除当前进程所维护的素数，就交付给它的子进程处理。</p>
+<h3 id="lab-2-system-calls-20202021">lab 2 system calls (2020/2021)</h3>
+<p>这个lab就开启了你魔改内核的征程（不是）。你需要实现两个系统调用trace和sysinfo，分别追踪系统调用以及空闲内存与进程的数量。算是最简单的lab之一了，跟着Hint做就行。</p>
+<h3 id="lab-3-page-tables-2021">lab 3 page tables (2021)</h3>
+<p>这个lab主要考察你对RISCV和xv6内页表的理解。由于时间太过遥远，我不太记得清楚其中的细节了。但总之也是一个比较简单的lab。</p>
+<h3 id="lab-3-page-tables-2020">lab 3 page tables (2020)</h3>
+<p>其实这个才是真正的lab3（，2021年的是阉割的版本</p>
+<p>我是到最后才完成的这个lab，原因是它真的非常难！大概耗费了我三天时间</p>
+<p>这个lab要求我们为每个进程都额外维护一个内核页表，来简化
+<code>copyin/copyinstr</code> 函数所需要的内核/进程页表之间的转换。</p>
+<p>你需要为这个进程的内核页表写很多函数，例如初始化，拷贝页表等。</p>
+<p>你还需要兼顾<strong>效率</strong>，即你需要在同一个物理地址上同时为内核页表以及进程的内核页表建立映射，而非直接拷贝物理空间。这涉及到许多细节，可能需要允许一些非法情况发生。</p>
+<h3 id="lab-4-traps-20202021">lab 4 traps (2020/2021)</h3>
+<p>这个lab考察你对xv6内部如何处理trap的细节，相对来说也是比较难的。通过了解xv6如何让trap机制透明来完成该lab中的alarm功能，例如保存上下文，设置pc、ra寄存器等。</p>
+<p>另外顺带一提，在这个lab中，你实现的backtrace函数非常实用，可以直接拷贝到其它lab中，非常方便调试。</p>
+<h3 id="lab-5-xv6-lazy-page-allocation-2020">lab 5 xv6 lazy page
+allocation (2020)</h3>
+<p>这个lab考察你对page fault的理解。通过对特定的page
+fault的处理，使内核能够“按需”分配物理内存。</p>
+<p>同时你也需要修改其它函数，让它能够允许一些非法情况的发生。</p>
+<h3 id="lab-6-copy-on-write-fork-for-xv6-20202021">lab 6 Copy-on-Write
+Fork for xv6 (2020/2021)</h3>
+<p>同样考察page fault的理解。COW fork和lazy page
+allocation都是可以通过处理page
+fault来实现的功能，但是前者可能要更难一些。因为在fork之后，新进程的页表和父进程的页表指向同一块区域，因此需要对page进行计数。这个涉及到一些多线程并发的东西，例如自旋锁来维护每个page的计数的不变性。</p>
+<p>总之也算是比较难的一个lab。</p>
+<h3 id="lab-7-multithreading-20202021">lab 7 Multithreading
+(2020/2021)</h3>
+<p>这个lab有点意思，它不仅考察了你对xv6进程调度的理解，还让你了解了一下
+UNIX pthread 库函数的使用，来实现多线程并发以及barrier。</p>
+<p>多线程并发编程是个老生常谈的话题，我以后大概也会花时间深入了解一下。</p>
+<p>但是lab本身是简单的。</p>
+<h3 id="lab-8-lock-20202021">lab 8 lock (2020/2021)</h3>
+<p>这个lab的主要任务是改善xv6原有的对lock的粗粒度的使用。需要你给出更加细粒度的lock方案。</p>
+<p>对于每个lock，你需要明确它所保护的<strong>不变性</strong>。</p>
+<p>之前无聊的时候写过解法：https://atri2333.github.io/2024/04/12/lock-lab/</p>
+<h3 id="lab-9-file-system-20202021">lab 9 file system (2020/2021)</h3>
+<p>这个lab有两个任务：第一个任务是采用页表分层的思想，将inode的indirect数据block也进行分层，来大幅扩展一个文件所能支持的大小。第二个任务是实现
+symlink
+系统调用，创建一个新的文件类型symlink，并可以通过这个symlink来追踪其它文件或symlink。</p>
+<p>讲真文件系统这章我学的有点仓促，感觉有些东西并没有特别懂，但是对于lab本身还是够用。</p>
+<h3 id="lab-10-mmap-20202021">lab 10 mmap (2020/2021)</h3>
+<p>这个lab要求你实现一个阉割版的mmap系统调用，及其对应的阉割版的munmap系统调用，能让用户可以通过访问内存来同步访问文件。</p>
+<p>算是对前面的lab的总结了，它涉及到了页表、page
+fault、文件系统等知识点。</p>
+<h3 id="杂谈">杂谈</h3>
+<p>关于调试，一般来讲是推荐gdb。但是根据我亲身经历（或者acmer的破习惯），printf调试法更加有用。这可能是由于我gdb用的并不熟练，所以调试起来笨手笨脚的，不如直接打log来的方便与显然（</p>
+<p>另外，有一些lab并不是只靠我一个人完成的，我是适当地参考了一些其它人的做法。特别是2020年的页表那个实验，我发现我的写法和网上很多人都不一样，导致就算看别人的也没办法把自己的bug调试好（</p>
+<p>不过最终也是赶在学校的破实验课开课前把除了network的xv6
+lab都过了一遍，收获挺大的，算是对os有了初步的理解。至少给我一些名词，例如进程、线程、页表等，我都能从xv6的例子中进行联想。</p>
+<p>后面会通过这个系列深入xv6源码：https://www.youtube.com/playlist?list=PLbtzT1TYeoMhTPzyTZboW_j7TPAnjv9XB</p>
+<h2 id="摆烂">摆烂</h2>
+<p>这几周，除了自学这个课程，感觉就没做什么了。</p>
+<p>可能，打了一些比赛</p>
+<p>校赛，虽然acm退役了，但是打了rk4，仅次于三位noi选手</p>
+<p>csp，455，虽然发挥不太好</p>
+<p>蓝桥杯，一般般吧，国赛懒得去了</p>
+<p>天梯赛，国一，但是我比赛期间（不知晓具体规则的情况下）本能地去头文件查了api，感觉要被查作弊了</p>
+<p>codeforces，摆烂了，不想打，只打atcoder，然后1600还没上</p>
+<p>学了点java</p>
+<p>感觉，学国外的公开课，收获确实挺大</p>
+<p>做对应的lab，居然会有点网瘾的感觉</p>
+<p>但是现在却没有当初网瘾的动力了</p>
+<p>好在，认识了一个非常好的人</p>
+<p>所以这几周过的也是非常有意义</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -811,163 +863,6 @@ cache。我们首先在自己哈希值上的链表上找，如果没有则去其
 <code>public static final</code> ：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MALE</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">FEMALE</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>--update 24.4.11</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/09/java/collections/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2's Website">
-      <meta itemprop="description" content="Fall Guard">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2's Website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/09/java/collections/" class="post-title-link" itemprop="url">JAVA速成Day1——集合</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-04-09 20:35:30" itemprop="dateCreated datePublished" datetime="2024-04-09T20:35:30+08:00">2024-04-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-01 19:41:14" itemprop="dateModified" datetime="2024-05-01T19:41:14+08:00">2024-05-01</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/04/09/java/collections/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/09/java/collections/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="java速成day1集合">JAVA速成Day1——集合</h1>
-<p>主要针对南京大学软件学院机试</p>
-<h2 id="list">1. List</h2>
-<p>分为ArrayList和LinkedList</p>
-<p>ArrayList可以理解为C++ STL的vector（</p>
-<p>LinkedList则为链表实现动态数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="comment">// 创建</span></span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// LinkedList&lt;String&gt; list = new LinkedList&lt;&gt;();</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 添加</span></span><br><span class="line">        list.add(<span class="string">"blackbird"</span>);</span><br><span class="line">        list.add(<span class="string">"greybird"</span>);</span><br><span class="line">        list.add(<span class="string">"darkbird"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取第i个元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) {</span><br><span class="line">            <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> list.get(i);</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 迭代器遍历的for each</span></span><br><span class="line">        <span class="keyword">for</span> (String s : list) {</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 删除元素，下标从0开始</span></span><br><span class="line">        list.remove(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (String s : list) {</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 修改元素</span></span><br><span class="line">        list.set(<span class="number">1</span>, <span class="string">"yy"</span>);</span><br><span class="line">        <span class="keyword">for</span> (String s : list) {</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="数组排序">2. 数组排序</h2>
-<p>一般的数组升序排序：（这里的话，是可以指定排序范围的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="type">int</span>[] list = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">110</span>];</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        n = sc.nextInt();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            list[i] = sc.nextInt();</span><br><span class="line">        Arrays.sort(list, <span class="number">0</span>, n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            System.out.print(list[i] + <span class="string">" "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="comment">// 创建</span></span><br><span class="line">        <span class="type">Main</span> <span class="variable">Solution</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Main</span>();</span><br><span class="line">        Solution.sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>降序的话，是需要自定义一个 <code>Comparator</code> 类的。</p>
-<p>但是无论是Array.sort还是Collections.sort都没办法<strong>同时</strong>指定
-<code>Comparator</code>
-和下标范围。因此这里使用动态数组可能更为方便：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    ArrayList&lt;Integer&gt; blackbird = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    Comparator&lt;Integer&gt; cmp = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span> {</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">val</span> <span class="operator">=</span> o2 - o1;</span><br><span class="line">            <span class="keyword">return</span> val.intValue();</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        n = sc.nextInt();</span><br><span class="line">        blackbird.clear();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            blackbird.add(sc.nextInt());</span><br><span class="line"></span><br><span class="line">        Collections.sort(blackbird, cmp);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            System.out.print(blackbird.get(i) + <span class="string">" "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="comment">// 创建</span></span><br><span class="line">        <span class="type">Main</span> <span class="variable">Solution</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Main</span>();</span><br><span class="line">        Solution.sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>对于 <code>Comparator</code> 类中，我们需要重写 <code>compare</code>
-函数。如果参数一根据你想要的定义小于参数二，那么返回负整数。等于返回零。大于返回正整数。</p>
-<p>另外，集合不支持 <code>int</code>
-这种基本数据类型。需要使用对应的对象 <code>Integer</code> 。</p>
-<h2 id="队列">3. 队列</h2>
-<p>在ACM里，队列的使用非常广泛，包括如下：</p>
-<ul>
-<li>BFS</li>
-<li>单调队列，处理滑动窗口模型</li>
-<li>优先队列模拟堆</li>
-</ul>
-<p>个人认为，在ACM场景中，一般使用 <code>LinkedList</code>
-实现普通队列：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="comment">// 创建队列</span></span><br><span class="line">    Queue&lt;String&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        <span class="comment">// 添加元素</span></span><br><span class="line">        q.offer(<span class="string">"blackbird"</span>);</span><br><span class="line">        q.offer(<span class="string">"greybird"</span>);</span><br><span class="line">        q.offer(<span class="string">"darkbird"</span>);</span><br><span class="line">        System.out.println(q);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除元素</span></span><br><span class="line">        q.poll();</span><br><span class="line">        System.out.println(q);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 队首</span></span><br><span class="line">        System.out.println(q.peek());</span><br><span class="line">        System.out.println(q.peek());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 队尾元素的话，Queue是不支持的，可能需要自己维护</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="comment">// 创建</span></span><br><span class="line">        <span class="type">Main</span> <span class="variable">Solution</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Main</span>();</span><br><span class="line">        Solution.sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>关于优先队列，可能需要传入 <code>Comparator</code>
-接口。这里我选择使用java来实现dijkstra+堆优化算法来作为示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">200010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> n, m, S, used=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] head = <span class="keyword">new</span> <span class="title class_">int</span>[N&gt;&gt;<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] point = <span class="keyword">new</span> <span class="title class_">int</span>[N&lt;&lt;<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] nxt = <span class="keyword">new</span> <span class="title class_">int</span>[N&lt;&lt;<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] val = <span class="keyword">new</span> <span class="title class_">int</span>[N&lt;&lt;<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] dis = <span class="keyword">new</span> <span class="title class_">int</span>[N&gt;&gt;<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">boolean</span>[] vis = <span class="keyword">new</span> <span class="title class_">boolean</span>[N&gt;&gt;<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v, <span class="type">int</span> w)</span>{</span><br><span class="line">        point[++used] = v;</span><br><span class="line">        nxt[used] = head[u];</span><br><span class="line">        head[u] = used;</span><br><span class="line">        val[used] = w;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">node</span>{</span><br><span class="line">        <span class="type">int</span> u, d;</span><br><span class="line">        node(){}</span><br><span class="line">        node(<span class="type">int</span> _u, <span class="type">int</span> _dis){u = _u; d = _dis;}</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">Dijkstra</span><span class="params">()</span>{</span><br><span class="line">        Comparator&lt;node&gt; cmp = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;node&gt;() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(node o1, node o2)</span> {</span><br><span class="line">                <span class="keyword">return</span> o1.d - o2.d;</span><br><span class="line">            }</span><br><span class="line">        };</span><br><span class="line">        PriorityQueue&lt;node&gt; q = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(cmp);</span><br><span class="line">        q.add(<span class="keyword">new</span> <span class="title class_">node</span>(S, <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">while</span>(!q.isEmpty()){</span><br><span class="line">            <span class="type">node</span> <span class="variable">nn</span> <span class="operator">=</span> q.poll();</span><br><span class="line">            <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> nn.u, d = nn.d;</span><br><span class="line">            <span class="keyword">if</span>(vis[u]) <span class="keyword">continue</span>;</span><br><span class="line">            vis[u] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> head[u]; k &gt; <span class="number">0</span>; k = nxt[k]){</span><br><span class="line">                <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> point[k];</span><br><span class="line">                <span class="keyword">if</span>(!vis[v] &amp;&amp; dis[v] &gt; dis[u] + val[k]){</span><br><span class="line">                    dis[v] = dis[u] + val[k];</span><br><span class="line">                    q.add(<span class="keyword">new</span> <span class="title class_">node</span>(v, dis[v]));</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        n = sc.nextInt(); m = sc.nextInt(); S = sc.nextInt();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) dis[i] = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        dis[S] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= m; i++){</span><br><span class="line">            <span class="type">int</span> u, v, w;</span><br><span class="line">            u = sc.nextInt(); v = sc.nextInt(); w = sc.nextInt();</span><br><span class="line">            add(u, v, w);</span><br><span class="line">            add(v, u, w);</span><br><span class="line">        }</span><br><span class="line">        Dijkstra();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++){</span><br><span class="line">            System.out.print(dis[i] + <span class="string">" "</span>);</span><br><span class="line">        }</span><br><span class="line">        System.out.println();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>顺带一提，这玩意在洛谷上MLE了（</p>
-<p>关于双端队列，同样采用 <code>LinkedList</code> 接口。</p>
-<p>众所周知，单调队列通常使用双端队列实现，而单调队列的一个典型例子就是实现
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="6.584ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2910 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1752,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mo" transform="translate(2521,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span> 复杂度的多重背包：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">20010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[][] f = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>][N];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> n, V;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        n = sc.nextInt(); V = sc.nextInt();</span><br><span class="line">        <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++){</span><br><span class="line">            <span class="type">int</span> <span class="variable">ii</span> <span class="operator">=</span> i &amp; <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> v, w, s;</span><br><span class="line">            v = sc.nextInt(); w = sc.nextInt(); s = sc.nextInt();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; v; j++){</span><br><span class="line">                Deque&lt;Integer&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> j; k &lt;= V; k += v){</span><br><span class="line">                    <span class="keyword">while</span>(!q.isEmpty() &amp;&amp; k - q.peekFirst() &gt; s * v) q.pollFirst();</span><br><span class="line">                    <span class="keyword">while</span>(!q.isEmpty() &amp;&amp; f[ii^<span class="number">1</span>][q.peekLast()] + (k - q.peekLast()) / v * w &lt; f[ii^<span class="number">1</span>][k])</span><br><span class="line">                        q.pollLast();</span><br><span class="line">                    q.addLast(k);</span><br><span class="line">                    f[ii][k] = f[ii^<span class="number">1</span>][q.peekFirst()] + (k - q.peekFirst()) / v * w;</span><br><span class="line">                    ans = Math.max(ans, f[ii][k]);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        System.out.println(ans);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>可以把dp的式子转化一下，得到可以使用单调队列维护的形式。</p>
-<h2 id="map">4. Map</h2>
-<p>首先java中有 <code>HashMap</code> ，类似于C++中的unordered_map：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">20010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        HashMap&lt;Integer, String&gt; hashmap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// 添加key-value pair</span></span><br><span class="line">        hashmap.put(<span class="number">520</span>, <span class="string">"blackbird"</span>);</span><br><span class="line">        hashmap.put(<span class="number">1314</span>, <span class="string">"love u, "</span>);</span><br><span class="line">        hashmap.put(<span class="number">114514</span>, <span class="string">"acm-icpc"</span>);</span><br><span class="line">        <span class="comment">// 获取值</span></span><br><span class="line">        System.out.println(hashmap.get(<span class="number">1314</span>) + hashmap.get(<span class="number">520</span>));</span><br><span class="line">        <span class="comment">// 修改</span></span><br><span class="line">        hashmap.put(<span class="number">114514</span>, <span class="string">"fwyy"</span>);</span><br><span class="line">        System.out.println(hashmap.get(<span class="number">114514</span>));</span><br><span class="line">        <span class="comment">// 遍历</span></span><br><span class="line">        <span class="keyword">for</span>(Integer key: hashmap.keySet()){</span><br><span class="line">            System.out.println(key + <span class="string">" -&gt; "</span> + hashmap.get(key));</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>但是我们要是想要个有序的map，可以使用 <code>TreeMap</code> ：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">20010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        Comparator&lt;Integer&gt; cmp = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span> {</span><br><span class="line">                <span class="type">Integer</span> <span class="variable">sub</span> <span class="operator">=</span> o1 - o2;</span><br><span class="line">                <span class="keyword">return</span> sub.intValue();</span><br><span class="line">            }</span><br><span class="line">        };</span><br><span class="line">        Map&lt;Integer, String&gt; map = <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(cmp);</span><br><span class="line">        <span class="comment">// 添加key-value pair</span></span><br><span class="line">        map.put(<span class="number">520</span>, <span class="string">"blackbird"</span>);</span><br><span class="line">        map.put(<span class="number">1314</span>, <span class="string">"love u, "</span>);</span><br><span class="line">        map.put(<span class="number">666</span>, <span class="string">"acm-icpc"</span>);</span><br><span class="line">        <span class="comment">// 获取值</span></span><br><span class="line">        <span class="type">Integer</span> <span class="variable">key1314</span> <span class="operator">=</span> <span class="number">1314</span>;</span><br><span class="line">        System.out.println(map.get(<span class="number">1314</span>) + map.get(<span class="number">520</span>));</span><br><span class="line">        <span class="comment">// 修改</span></span><br><span class="line">        map.put(<span class="number">114514</span>, <span class="string">"fwyy"</span>);</span><br><span class="line">        System.out.println(map.get(<span class="number">114514</span>));</span><br><span class="line">        <span class="comment">// 遍历</span></span><br><span class="line">        <span class="keyword">for</span>(Integer key: map.keySet()){</span><br><span class="line">            System.out.println(key + <span class="string">" -&gt; "</span> + map.get(key));</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 查看是否存在键值对</span></span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(<span class="number">520</span>)){</span><br><span class="line">            System.out.println(<span class="string">"!!!!"</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>可以使用自定义的 <code>Comparator</code> 。</p>
-<p><strong>这里我给自己挖了个坑</strong>，直接使用 <code>Map</code>
-来定义。欸，是不是感觉少了点API了呢？hh</p>
-<p>update（24.4.15）：</p>
-<p>方法 <code>getOrDefault(key, v)</code>
-。寻找key，若不存在则返回v。（source：leetcode 49）</p>
-<h2 id="set">5. Set</h2>
-<p>这里我只想讲红黑树实现的 <code>TreeSet</code>
-，毕竟在ACM里一般都把set当平衡树来用（什么）</p>
-<p>这里就不拿 <code>blackbird</code> 什么的当例子了，有点草（</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">20010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">sol</span><span class="params">()</span>{</span><br><span class="line">        TreeSet&lt;Integer&gt; s = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;();</span><br><span class="line">        s.add(<span class="number">1</span>); s.add(<span class="number">3</span>); s.add(<span class="number">1</span>); s.add(<span class="number">4</span>); s.add(<span class="number">5</span>); s.add(<span class="number">2</span>); s.add(<span class="number">0</span>);</span><br><span class="line">        s.add(<span class="number">2333</span>);</span><br><span class="line">        System.out.println(s.contains(<span class="number">114514</span>));</span><br><span class="line">        <span class="keyword">for</span>(Integer num: s){</span><br><span class="line">            System.out.print(num + <span class="string">" "</span>);</span><br><span class="line">        }</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="comment">// 小于等于</span></span><br><span class="line">        System.out.println(s.floor(<span class="number">10</span>)); <span class="comment">// 5</span></span><br><span class="line">        <span class="comment">// 大于等于</span></span><br><span class="line">        System.out.println(s.ceiling(<span class="number">4</span>)); <span class="comment">// 4</span></span><br><span class="line">        <span class="comment">// 小于</span></span><br><span class="line">        System.out.println(s.lower(<span class="number">5</span>)); <span class="comment">// 4</span></span><br><span class="line">        <span class="comment">// 大于</span></span><br><span class="line">        System.out.println(s.higher(<span class="number">5</span>)); <span class="comment">// 2333</span></span><br><span class="line">        <span class="comment">// 删除</span></span><br><span class="line">        s.remove(<span class="number">2333</span>);</span><br><span class="line">        <span class="keyword">for</span>(Integer num: s){</span><br><span class="line">            System.out.print(num + <span class="string">" "</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        sol();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>欸，那java里是否有像C++中 <code>multiset</code>
-类似的数据结构呢？答案是没有（焯！）</p>
-<p>但是根据 <code>stackoverflow</code> 上的解释，可以使用
-<code>TreeMap&lt;E, Integer&gt;</code> 来模拟 <code>multiset</code>
-，其中value是计数器。</p>
-<p>关于java中的集合就先说这么多了。</p>
-<p>晚安</p>
-<hr>
-<p>update 24.5.1</p>
-<p><code>arraylist.toArray(T[] arr)</code></p>
-<p>将Arraylist转化为正宗数组的方法，参数为存数据的数组。未指定默认为
-<code>Object[]</code></p>
-<p>例如 <code>arr.toArray(new int[arr.size()][2]);</code>
-(https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&amp;envId=top-100-liked)</p>
 
       
     </div>

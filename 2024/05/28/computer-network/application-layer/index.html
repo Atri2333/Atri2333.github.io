@@ -19,28 +19,34 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前面几章就是文科啦，应该不是重点  第一章 软件工程基础 软件工程的定义：  应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件 对1中各种方法的研究  第二章 软件工程的发展 1950s-2000s软件工程的特点 1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件 1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用">
+    <meta name="description" content="计网——应用层复习 应用层是计算机网络体系结构的最顶层，是设计和建立计算机网络的最终目的。 客户&#x2F;服务器方式（C&#x2F;S方式）和对等方式（P2P方式） 网络应用程序运行在处于网络边缘的不同的端系统上，通过彼此的通信来共同完成某些任务。 开发一种新的网络应用首先要考虑的问题就是网络应用程序在各种端系统上的组织方式和它们之间的关系。 客户&#x2F;服务器方式  对等方式  动态主机配置协议DHC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="se">
-<meta property="og:url" content="https://atri2333.github.io/2024/05/09/se/index.html">
+<meta property="og:title" content="application-layer">
+<meta property="og:url" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/index.html">
 <meta property="og:site_name" content="Ayy2&#39;s Website">
-<meta property="og:description" content="前面几章就是文科啦，应该不是重点  第一章 软件工程基础 软件工程的定义：  应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件 对1中各种方法的研究  第二章 软件工程的发展 1950s-2000s软件工程的特点 1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件 1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用">
+<meta property="og:description" content="计网——应用层复习 应用层是计算机网络体系结构的最顶层，是设计和建立计算机网络的最终目的。 客户&#x2F;服务器方式（C&#x2F;S方式）和对等方式（P2P方式） 网络应用程序运行在处于网络边缘的不同的端系统上，通过彼此的通信来共同完成某些任务。 开发一种新的网络应用首先要考虑的问题就是网络应用程序在各种端系统上的组织方式和它们之间的关系。 客户&#x2F;服务器方式  对等方式  动态主机配置协议DHC">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-09T12:17:57.000Z">
-<meta property="article:modified_time" content="2024-05-09T12:38:43.843Z">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/cs1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/p2p1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp3.png">
+<meta property="article:published_time" content="2024-05-28T02:32:26.000Z">
+<meta property="article:modified_time" content="2024-05-28T05:39:38.490Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/cs1.png">
 
 
-<link rel="canonical" href="https://atri2333.github.io/2024/05/09/se/">
+<link rel="canonical" href="https://atri2333.github.io/2024/05/28/computer-network/application-layer/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/09/se/","path":"2024/05/09/se/","title":"se"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/05/28/computer-network/application-layer/","path":"2024/05/28/computer-network/application-layer/","title":"application-layer"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>se | Ayy2's Website</title>
+<title>application-layer | Ayy2's Website</title>
   
 
 
@@ -140,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">第一章 软件工程基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">2.</span> <span class="nav-text">第二章 软件工程的发展</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%BA%94%E7%94%A8%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——应用层复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B9%E5%BC%8Fcs%E6%96%B9%E5%BC%8F%E5%92%8C%E5%AF%B9%E7%AD%89%E6%96%B9%E5%BC%8Fp2p%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">客户&#x2F;服务器方式（C&#x2F;S方式）和对等方式（P2P方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">客户&#x2F;服务器方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%AD%89%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">对等方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8D%8F%E8%AE%AEdhcp"><span class="nav-number">1.2.</span> <span class="nav-text">动态主机配置协议DHCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dhcp%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">DHCP工作过程</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -195,7 +201,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/se/">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/28/computer-network/application-layer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -208,12 +214,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="se | Ayy2's Website">
+      <meta itemprop="name" content="application-layer | Ayy2's Website">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          se
+          application-layer
         </h1>
 
         <div class="post-meta-container">
@@ -225,7 +231,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-05-09 20:17:57 / 修改时间：20:38:43" itemprop="dateCreated datePublished" datetime="2024-05-09T20:17:57+08:00">2024-05-09</time>
+      <time title="创建时间：2024-05-28 10:32:26 / 修改时间：13:39:38" itemprop="dateCreated datePublished" datetime="2024-05-28T10:32:26+08:00">2024-05-28</time>
     </span>
 
   
@@ -237,8 +243,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2024/05/09/se/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/se/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2024/05/28/computer-network/application-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/28/computer-network/application-layer/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -251,23 +257,47 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
-<p>前面几章就是文科啦，应该不是重点</p>
-</blockquote>
-<h2 id="第一章-软件工程基础">第一章 软件工程基础</h2>
-<p><strong>软件工程的定义</strong>：</p>
-<ol type="1">
-<li>应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件</li>
-<li>对1中各种方法的研究</li>
-</ol>
-<h2 id="第二章-软件工程的发展">第二章 软件工程的发展</h2>
-<p>1950s-2000s软件工程的特点</p>
-<p>1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件</p>
-<p>1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用软件工艺的方式生产软件</p>
-<p>1970s：结构化方法；瀑布模型；强调规则和纪律</p>
-<p>1980s：追求生产力最大化；现代结构化方法/面向对象编程广泛应用；重视过程的作用</p>
-<p>1990s：企业为中心的大规模软件系统开发；追求快速开发、可变更性和用户价值；Web应用出现</p>
-<p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="计网应用层复习">计网——应用层复习</h1>
+<p>应用层是计算机网络体系结构的最顶层，是设计和建立计算机网络的最终目的。</p>
+<h2
+id="客户服务器方式cs方式和对等方式p2p方式">客户/服务器方式（C/S方式）和对等方式（P2P方式）</h2>
+<p>网络应用程序运行在处于网络边缘的不同的端系统上，通过彼此的通信来共同完成某些任务。</p>
+<p>开发一种新的网络应用首先要考虑的问题就是网络应用程序在<strong>各种端系统上的组织方式和它们之间的关系</strong>。</p>
+<h3 id="客户服务器方式">客户/服务器方式</h3>
+<img src="/2024/05/28/computer-network/application-layer/cs1.png" class="" title="cs1">
+<h3 id="对等方式">对等方式</h3>
+<img src="/2024/05/28/computer-network/application-layer/p2p1.png" class="" title="p2p1">
+<h2 id="动态主机配置协议dhcp">动态主机配置协议DHCP</h2>
+<ul>
+<li>互联网广泛使用的DHCP提供了即插即用联网机制</li>
+<li>这种机制允许一台计算机加入新的网络和获取IP地址，而不用手工配置</li>
+</ul>
+<img src="/2024/05/28/computer-network/application-layer/dhcp1.png" class="" title="dhcp1">
+<h3 id="dhcp工作过程">DHCP工作过程</h3>
+<p>DHCP使用客户-服务器方式</p>
+<ul>
+<li>需要IP地址的主机在启动时就向DHCP服务器广播发送发现报文（DHCP
+DISCOVER），这时该主机就成为DHCP客户。</li>
+<li>本地网络上所有主机都能收到此广播报文，但只有DHCP服务器才回答此广播报文</li>
+<li>DHCP服务器先在其数据库查找该计算机的配置信息。若找到，则返回找到的信息。否则从服务器的IP地址池（address
+pool）中取一个地址给该计算机。DHCP服务器的回答报文叫做提供报文（DHCP
+OFFER）</li>
+</ul>
+<p>DHCP工作方式</p>
+<ul>
+<li>DHCP使用客户-服务器方式，采用请求/应答方式工作。</li>
+<li>DHCP基于UDP工作（因为TCP不支持广播？？？），服务器运行在67号端口，DHCP客户运行在68号端口。</li>
+</ul>
+<p>DHCP交互过程</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp2.png" class="" title="dhcp2">
+<p>首先，DHCP客户广播发送DHCP发现报文，包含</p>
+<ul>
+<li>事务ID</li>
+<li>DHCP客户端的MAC地址</li>
+</ul>
+<p>封装该报文的IP数据报的IP地址位0.0.0.0，目的地址为广播地址255.255.255.255</p>
+<p>DHCP服务器收到DHCP发现报文后，根据其中封装的DHCP客户端的MAC地址来查找自己的数据库，如果查到匹配信息，则使用这些配置信息来构建并发送DHCP提供报文，如果没有则采用默认配置信息来构建报文并发送。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp3.png" class="" title="dhcp3">
 
     </div>
 
@@ -281,14 +311,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/05/08/kmp/" rel="prev" title="kmp">
-                  <i class="fa fa-angle-left"></i> kmp
+                <a href="/2024/05/20/database/sql/" rel="prev" title="sql">
+                  <i class="fa fa-angle-left"></i> sql
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/05/09/computer-network/network-layer/" rel="next" title="network-layer">
-                  network-layer <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

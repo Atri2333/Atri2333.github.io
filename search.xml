@@ -3039,4 +3039,50 @@ Control Protocal）</h2>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> first.cno, second.cpno</span><br><span class="line"><span class="keyword">from</span> course <span class="keyword">first</span>, course <span class="keyword">second</span></span><br><span class="line"><span class="keyword">where</span> first.cpno <span class="operator">=</span> second.cno <span class="keyword">and</span> second.cpno <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
+  <entry>
+    <title>application-layer</title>
+    <url>/2024/05/28/computer-network/application-layer/</url>
+    <content><![CDATA[<h1 id="计网应用层复习">计网——应用层复习</h1>
+<p>应用层是计算机网络体系结构的最顶层，是设计和建立计算机网络的最终目的。</p>
+<h2
+id="客户服务器方式cs方式和对等方式p2p方式">客户/服务器方式（C/S方式）和对等方式（P2P方式）</h2>
+<p>网络应用程序运行在处于网络边缘的不同的端系统上，通过彼此的通信来共同完成某些任务。</p>
+<p>开发一种新的网络应用首先要考虑的问题就是网络应用程序在<strong>各种端系统上的组织方式和它们之间的关系</strong>。</p>
+<h3 id="客户服务器方式">客户/服务器方式</h3>
+<img src="/2024/05/28/computer-network/application-layer/cs1.png" class="" title="cs1">
+<h3 id="对等方式">对等方式</h3>
+<img src="/2024/05/28/computer-network/application-layer/p2p1.png" class="" title="p2p1">
+<h2 id="动态主机配置协议dhcp">动态主机配置协议DHCP</h2>
+<ul>
+<li>互联网广泛使用的DHCP提供了即插即用联网机制</li>
+<li>这种机制允许一台计算机加入新的网络和获取IP地址，而不用手工配置</li>
+</ul>
+<img src="/2024/05/28/computer-network/application-layer/dhcp1.png" class="" title="dhcp1">
+<h3 id="dhcp工作过程">DHCP工作过程</h3>
+<p>DHCP使用客户-服务器方式</p>
+<ul>
+<li>需要IP地址的主机在启动时就向DHCP服务器广播发送发现报文（DHCP
+DISCOVER），这时该主机就成为DHCP客户。</li>
+<li>本地网络上所有主机都能收到此广播报文，但只有DHCP服务器才回答此广播报文</li>
+<li>DHCP服务器先在其数据库查找该计算机的配置信息。若找到，则返回找到的信息。否则从服务器的IP地址池（address
+pool）中取一个地址给该计算机。DHCP服务器的回答报文叫做提供报文（DHCP
+OFFER）</li>
+</ul>
+<p>DHCP工作方式</p>
+<ul>
+<li>DHCP使用客户-服务器方式，采用请求/应答方式工作。</li>
+<li>DHCP基于UDP工作（因为TCP不支持广播？？？），服务器运行在67号端口，DHCP客户运行在68号端口。</li>
+</ul>
+<p>DHCP交互过程</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp2.png" class="" title="dhcp2">
+<p>首先，DHCP客户广播发送DHCP发现报文，包含</p>
+<ul>
+<li>事务ID</li>
+<li>DHCP客户端的MAC地址</li>
+</ul>
+<p>封装该报文的IP数据报的IP地址位0.0.0.0，目的地址为广播地址255.255.255.255</p>
+<p>DHCP服务器收到DHCP发现报文后，根据其中封装的DHCP客户端的MAC地址来查找自己的数据库，如果查到匹配信息，则使用这些配置信息来构建并发送DHCP提供报文，如果没有则采用默认配置信息来构建报文并发送。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp3.png" class="" title="dhcp3">
+]]></content>
+  </entry>
 </search>
