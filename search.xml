@@ -3037,6 +3037,47 @@ Control Protocal）</h2>
 <p>（4）自身连接查询</p>
 <p>查询每一门课的间接先修课（即先修课的先修课）</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> first.cno, second.cpno</span><br><span class="line"><span class="keyword">from</span> course <span class="keyword">first</span>, course <span class="keyword">second</span></span><br><span class="line"><span class="keyword">where</span> first.cpno <span class="operator">=</span> second.cno <span class="keyword">and</span> second.cpno <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>（5）外连接查询</p>
+<blockquote>
+<p>外连接操作以指定表为连接主体，将主体表中不满足连接条件的元组一并输出。</p>
+</blockquote>
+<p>以Student表为主体列出每个学生的基本情况及其选课情况，若某个学生没有选课，则只输出其基本情况的数据，而把选课信息填为空值NULL</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> student.sno, sname, ssex, sbirthdate, smajor, cno, grade</span><br><span class="line"><span class="keyword">from</span> student <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> sc <span class="keyword">on</span>(student.sno <span class="operator">=</span> sc.sno);</span><br></pre></td></tr></table></figure>
+<p>（6）多表连接查询</p>
+<p>两个以上的表的连接。</p>
+<h2 id="嵌套查询">嵌套查询</h2>
+<ul>
+<li><p>一个select-from-where语句称为一个<strong>查询块</strong></p></li>
+<li><p>将一个查询块嵌套到另一个查询块的where子句或having短语的条件中的查询称为<strong>嵌套查询</strong></p></li>
+<li><p>不相关子查询</p></li>
+</ul>
+<blockquote>
+<p>子查询的查询条件不依赖于父查询，可以<strong>由里向外</strong>逐层处理。</p>
+</blockquote>
+<ul>
+<li>相关子查询</li>
+</ul>
+<blockquote>
+<p>首先取<strong>外层</strong>查询表的第一个元组，根据它与内层查询相关的属性值处理内层查询，若where返回真，则加入结果表。然后重复这一过程。</p>
+</blockquote>
+<p>（1）IN谓词</p>
+<p>查询与“刘晨”在同一个主修专业的学生学号、姓名和主修专业</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname, smajor</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> smajor <span class="keyword">in</span>(</span><br><span class="line">	<span class="keyword">select</span> smajor</span><br><span class="line">	<span class="keyword">from</span> student</span><br><span class="line">	<span class="keyword">where</span> sname <span class="operator">=</span> <span class="string">'刘晨'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>查询选修了课程名为“信息系统概论”的学生的学号和姓名</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> sno <span class="keyword">in</span>(</span><br><span class="line">	<span class="keyword">select</span> sno</span><br><span class="line">	<span class="keyword">from</span> sc</span><br><span class="line">	<span class="keyword">where</span> cno <span class="keyword">in</span>(</span><br><span class="line">		<span class="keyword">select</span> sno</span><br><span class="line">		<span class="keyword">from</span> course</span><br><span class="line">		<span class="keyword">where</span> cname <span class="operator">=</span> <span class="string">'信息系统概论'</span></span><br><span class="line">	)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>（2）带有比较运算符的子查询</p>
+<blockquote>
+<p>当能确切知道内层查询返回<strong>单值</strong>时，可用比较运算符。</p>
+</blockquote>
+<p>找出每个学生超过他选修课程平均成绩的课程号</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, cno</span><br><span class="line"><span class="keyword">from</span> sc x</span><br><span class="line"><span class="keyword">where</span> grade <span class="operator">&gt;=</span> (</span><br><span class="line">	<span class="keyword">select</span> <span class="built_in">avg</span>(grade)</span><br><span class="line">	<span class="keyword">from</span> sc y</span><br><span class="line">	<span class="keyword">where</span> x.sno <span class="operator">=</span> y.sno</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>先从外层的元组中取出x.sno，然后再内层中寻找y.sno=x.sno的元组，求avg(grade)，用该值代替内层查询，重新得到外层查询。</p>
+</blockquote>
+<p>（3）带有ANY(SOME)或ALL谓词</p>
+<blockquote>
+<p>必须同时使用比较运算符</p>
+</blockquote>
 ]]></content>
   </entry>
   <entry>
