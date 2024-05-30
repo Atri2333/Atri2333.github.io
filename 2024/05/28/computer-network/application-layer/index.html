@@ -31,8 +31,18 @@
 <meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp1.png">
 <meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp2.png">
 <meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dhcp7.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dns1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dns2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dns3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dns4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dns5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/05/28/computer-network/application-layer/dns6.png">
 <meta property="article:published_time" content="2024-05-28T02:32:26.000Z">
-<meta property="article:modified_time" content="2024-05-28T05:39:38.490Z">
+<meta property="article:modified_time" content="2024-05-30T10:59:40.397Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
@@ -146,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%BA%94%E7%94%A8%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——应用层复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B9%E5%BC%8Fcs%E6%96%B9%E5%BC%8F%E5%92%8C%E5%AF%B9%E7%AD%89%E6%96%B9%E5%BC%8Fp2p%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">客户&#x2F;服务器方式（C&#x2F;S方式）和对等方式（P2P方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">客户&#x2F;服务器方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%AD%89%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">对等方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8D%8F%E8%AE%AEdhcp"><span class="nav-number">1.2.</span> <span class="nav-text">动态主机配置协议DHCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dhcp%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">DHCP工作过程</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%BA%94%E7%94%A8%E5%B1%82%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">计网——应用层复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B9%E5%BC%8Fcs%E6%96%B9%E5%BC%8F%E5%92%8C%E5%AF%B9%E7%AD%89%E6%96%B9%E5%BC%8Fp2p%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">客户&#x2F;服务器方式（C&#x2F;S方式）和对等方式（P2P方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">客户&#x2F;服务器方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%AD%89%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">对等方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8D%8F%E8%AE%AEdhcp"><span class="nav-number">1.2.</span> <span class="nav-text">动态主机配置协议DHCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dhcp%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">DHCP工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dhcp%E4%B8%AD%E7%BB%A7%E4%BB%A3%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">DHCP中继代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9Fdns"><span class="nav-number">1.3.</span> <span class="nav-text">域名系统DNS</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -229,9 +239,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-05-28 10:32:26 / 修改时间：13:39:38" itemprop="dateCreated datePublished" datetime="2024-05-28T10:32:26+08:00">2024-05-28</time>
+      <time title="创建时间：2024-05-28 10:32:26" itemprop="dateCreated datePublished" datetime="2024-05-28T10:32:26+08:00">2024-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-30 18:59:40" itemprop="dateModified" datetime="2024-05-30T18:59:40+08:00">2024-05-30</time>
     </span>
 
   
@@ -298,6 +314,41 @@ OFFER）</li>
 <p>封装该报文的IP数据报的IP地址位0.0.0.0，目的地址为广播地址255.255.255.255</p>
 <p>DHCP服务器收到DHCP发现报文后，根据其中封装的DHCP客户端的MAC地址来查找自己的数据库，如果查到匹配信息，则使用这些配置信息来构建并发送DHCP提供报文，如果没有则采用默认配置信息来构建报文并发送。</p>
 <img src="/2024/05/28/computer-network/application-layer/dhcp3.png" class="" title="dhcp3">
+<p>DHCP服务端将广播发送DHCP提供报文（DHCP OFFER）</p>
+<ul>
+<li>事务ID：DHCP客户端会与之前DHCP发送报文的事务ID进行对比，来判断该DHCP报文是否是自己的</li>
+<li>源IP地址：服务器的IP 目的IP地址：广播地址</li>
+</ul>
+<p>这里DHCP客户可能会收到不止一个DHCP提供报文，会从中选择一个，一般选择先到的，并向所选择的DHCP服务器发送DHCP请求报文。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp4.png" class="" title="dhcp4">
+<p>源地址：0.0.0.0，因为此时DHCP客户需要征求服务器同意，才可使用获得的IP</p>
+<p>目的地址：广播地址，这样可以一次性通知所有DHCP服务器，告知它们是否把它们作为自己的DHCP服务器</p>
+<p>所选择的DHCP服务器接收该请求，向DHCP客户发送DHCP确认报文</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp5.png" class="" title="dhcp5">
+<p>DHCP客户收到该报文后，就可以使用租用的IP地址。在使用前还会进行ARP检测。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp6.png" class="" title="dhcp6">
+<h3 id="dhcp中继代理">DHCP中继代理</h3>
+<p>idea：给路由器配置DHCP服务器的IP地址，使之成为中继代理，这样就不用在每一个网络上都设置DHCP服务器。</p>
+<h3 id="总结">总结</h3>
+<img src="/2024/05/28/computer-network/application-layer/dhcp7.png" class="" title="dhcp7">
+<h2 id="域名系统dns">域名系统DNS</h2>
+<blockquote>
+<p>DNS是一个分布式系统，使大多数域名都能在本地解析。</p>
+</blockquote>
+<p>因特网采用层次树状结构的域名结构。域名的结构由若干的分量构成，各分量之间用“点”隔开，分别代表不同级别的域名：</p>
+<img src="/2024/05/28/computer-network/application-layer/dns1.png" class="" title="dns1">
+<img src="/2024/05/28/computer-network/application-layer/dns2.png" class="" title="dns2">
+<blockquote>
+<p>可以看见，名称相同的域名，其等级未必相同。</p>
+</blockquote>
+<img src="/2024/05/28/computer-network/application-layer/dns3.png" class="" title="dns3">
+<p>DNS使用分布在各地的域名服务器来实现域名到IP地址的转换。</p>
+<p>域名服务器可以划分为以下4个不同的类型：</p>
+<img src="/2024/05/28/computer-network/application-layer/dns4.png" class="" title="dns4">
+<p>域名解析分为递归查询和迭代查询。</p>
+<img src="/2024/05/28/computer-network/application-layer/dns5.png" class="" title="dns5">
+<img src="/2024/05/28/computer-network/application-layer/dns6.png" class="" title="dns6">
+<p>DNS报文使用运输层的UDP协议进行封装，运输层端口号53.</p>
 
     </div>
 
