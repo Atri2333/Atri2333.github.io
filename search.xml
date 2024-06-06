@@ -711,6 +711,52 @@ cache。我们首先在自己哈希值上的链表上找，如果没有则去其
 <p>1980s：追求生产力最大化；现代结构化方法/面向对象编程广泛应用；重视过程的作用</p>
 <p>1990s：企业为中心的大规模软件系统开发；追求快速开发、可变更性和用户价值；Web应用出现</p>
 <p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
+<h2 id="第四章-项目管理基础">第四章 项目管理基础</h2>
+<h3 id="团队结构">团队结构</h3>
+<p>（1）主程序员团队</p>
+<p>特点：主程序员负责领导团队，效率较高，最大限度地保证产品不同元素的一致性</p>
+<p>局限：主程序员的能力是瓶颈；团队成员无法发挥主动性，积极程度不高</p>
+<p>（2）民主团队</p>
+<p>特点：每个成员都可以发挥自己的能动性，所有人都可以在自己擅长的领域工作</p>
+<p>局限：花费在交流，统一思想上的时间成本太大，效率较低</p>
+<p>（3）开放团队</p>
+<p>特点：使用黑箱管理方式，团队内部的交流路径是不可见的，所有成员按照自己的方式进行自我管理</p>
+<p>局限：项目进展没有可视度</p>
+<h3 id="团队的建设措施">团队的建设措施</h3>
+<ul>
+<li>建立团队章程</li>
+<li>持续成功（项目的整体成功，项目的阶段性成功，也可以是无关的团队活动的成功）</li>
+<li>和谐沟通</li>
+<li>避免团队杀手</li>
+</ul>
+<h3 id="质量保障活动">质量保障活动</h3>
+<ul>
+<li>需求评审</li>
+<li>需求度量</li>
+<li>体系结构评审</li>
+<li>集成测试</li>
+<li>详细设计评审</li>
+<li>设计度量</li>
+<li>代码评审</li>
+<li>代码度量</li>
+<li>测试度量</li>
+</ul>
+<h2 id="第五章-软件需求基础">第五章 软件需求基础</h2>
+<h3 id="需求的层次性">需求的层次性</h3>
+<ul>
+<li>业务需求：描述了组织为什么要开发系统（目标）</li>
+<li>用户需求：描述了系统能够帮用户做些什么（任务）</li>
+<li>系统级需求：描述了开发人员需要实现什么（系统行为）</li>
+</ul>
+<h3 id="需求分类">需求分类</h3>
+<ul>
+<li>功能需求：和系统主要工作相关的需求，即不考虑物理约束的情况下，用户希望系统所能执行的活动</li>
+<li>性能需求：定义了系统必须多快、多好地去完成专门的功能</li>
+<li>质量属性：可靠性、可用性、安全性、可维护性、可移植性、易用性</li>
+<li>对外接口：系统和环境中其它系统之间需要建立的接口（用户界面、硬件接口、软件接口、网络通信接口等）</li>
+<li>约束：进行系统构造时，需要遵守的约定（编程语言、硬件设施）</li>
+<li>数据需求（不是标准的需求类别，是功能需求的补充）：通常描述数据库等存储介质</li>
+</ul>
 ]]></content>
   </entry>
   <entry>
@@ -3324,6 +3370,151 @@ OFFER）</li>
 <blockquote>
 <p>完结撒花</p>
 </blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>relation-theory</title>
+    <url>/2024/06/03/database/relation-theory/</url>
+    <content><![CDATA[<blockquote>
+<p>摘自《数据库系统概论》第六章</p>
+</blockquote>
+<h1 id="关系数据理论">关系数据理论</h1>
+<h2 id="问题">1. 问题</h2>
+<p>针对一个具体问题，如何构造一个适合它的数据模式</p>
+<p>即应该构造几个关系，每个关系由哪些属性组成等。</p>
+<p>不好的关系模式：</p>
+<ul>
+<li>数据冗余度太大，浪费存储空间</li>
+<li>更新异常</li>
+<li>插入异常</li>
+<li>删除异常</li>
+</ul>
+<h3 id="数据依赖">数据依赖</h3>
+<p>属性值间的相互关联。<strong>是数据内在的性质，是语义的体现</strong></p>
+<p>主要介绍函数依赖。</p>
+<p>不合适的数据依赖，容易造成上述的4个问题。</p>
+<h2 id="规范化">2. 规范化</h2>
+<h3 id="函数依赖">2.1 函数依赖</h3>
+<p>给定关系模式R(U,
+F)（本章忽略D域，DOM属性到域的映射），X和Y是U的子集。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>db-completeness</title>
+    <url>/2024/06/05/database/db-completeness/</url>
+    <content><![CDATA[<h1 id="数据库完整性">数据库完整性</h1>
+<h2 id="实体完整性">实体完整性</h2>
+<p>create table中用primary key定义</p>
+<p>例：创建学生表Student，将Sno属性定义为主码：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> student(</span><br><span class="line">	sno <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">	sname <span class="type">char</span>(<span class="number">20</span>) <span class="keyword">unique</span>,</span><br><span class="line">	ssex <span class="type">char</span>(<span class="number">6</span>),</span><br><span class="line">	sbirthdate <span class="type">date</span>,</span><br><span class="line">	smajor <span class="type">varchar</span>(<span class="number">40</span>),</span><br><span class="line">	<span class="keyword">primary</span> key(sno)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>插入或对主码列进行更新操作时，关系数据库管理系统按照实体完整性规则自动进行检查。</p>
+<ul>
+<li>检查主码值是否唯一</li>
+<li>检查主码的各个属性是否为空</li>
+</ul>
+<blockquote>
+<p>这种检查操作需要 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>
+遍历每一条记录，十分耗时。因此关系数据库管理系统一般都在主码上自动建立一个索引。例如B+树索引。</p>
+</blockquote>
+<h2 id="参照完整性">参照完整性</h2>
+<p>在create table中用foreign key短语定义哪些列为外码。</p>
+<p>用references短语指明这些外码参照哪些表的主码。</p>
+<p>例：关系SC中（Sno,
+Cno）是主码，Sno、Cno分别参照Student表的主码和Course表的主码。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sc(</span><br><span class="line">	sno <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">	cno <span class="type">char</span>(<span class="number">5</span>),</span><br><span class="line">	grade <span class="type">smallint</span>,</span><br><span class="line">	semester <span class="type">char</span>(<span class="number">5</span>),</span><br><span class="line">	teachingclass <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">	<span class="keyword">primary</span> key (sno, cno),</span><br><span class="line">	<span class="keyword">foreign</span> key (sno) <span class="keyword">references</span> student(sno),</span><br><span class="line">	<span class="keyword">foreign</span> key (cno) <span class="keyword">references</span> course(cno)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>一个参照完整性将两个表中的相应元组联系起来。对被参照表和参照表进行增删改查操作时可能会破坏参照完整性，必须进行检查。</p>
+<p>例：</p>
+<ul>
+<li>向SC表中增加一个元组，该元组的Sno属性值在表Student中找不到一个元组，其Sno属性值与之相等。</li>
+<li>修改SC表中的一个元组，情况如上</li>
+<li>从Student表中删除一个元组，造成SC表中某些元组的Sno属性值在Student中找不到一个元组对应</li>
+<li>修改Student表中的一个元组，情况如上</li>
+</ul>
+<img src="/2024/06/05/database/db-completeness/b1.png" class="" title="b1">
+<p>参照完整性违约处理：</p>
+<ul>
+<li>拒绝执行：一般为默认策略</li>
+<li>级联操作：当删除或修改被参照表的一个元组导致与参照表的不一致，则删除或修改参照表中的所有导致不一致的元组</li>
+<li>设置为空值：当删除或修改被参照表的一个元组导致不一致，则将参照表中所有造成不一致的元组的对应属性设置为空值</li>
+</ul>
+<img src="/2024/06/05/database/db-completeness/b2.png" class="" title="b2">
+<h2 id="用户定义的完整性">用户定义的完整性</h2>
+<blockquote>
+<p>针对某一具体应用的数据必须满足的语义要求。</p>
+</blockquote>
+<h3 id="属性上的约束">属性上的约束</h3>
+<p>create table中定义属性约束</p>
+<ul>
+<li>列值非空 (not null)</li>
+<li>列值唯一 (unique)</li>
+<li>检查列值是否满足一个条件表达式 (check短语)</li>
+</ul>
+<h3 id="元组上的约束">元组上的约束</h3>
+<p>在create table语句中可以用check短语定义元组间不同属性需满足的限制</p>
+<h2 id="完整性约束命名子句">完整性约束命名子句</h2>
+<blockquote>
+<p>constraint &lt;完整性约束名&gt; &lt;完整性约束&gt;</p>
+</blockquote>
+<h3 id="修改表中的完整性限制">修改表中的完整性限制</h3>
+<blockquote>
+<p>使用alter table语句</p>
+</blockquote>
+<p>例：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student</span><br><span class="line"><span class="keyword">add</span> <span class="keyword">constraint</span> c1 <span class="keyword">check</span>(sno <span class="keyword">between</span> <span class="string">'114514'</span> <span class="keyword">and</span> <span class="string">'1919810'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="触发器">触发器</h2>
+<blockquote>
+<p>挖坑</p>
+</blockquote>
+<hr>
+<h1 id="作业">作业</h1>
+<p>假设有下面两个关系模式</p>
+<blockquote>
+<p>职工（职工号，姓名，出生日期，职务，工资，部门号），其中职工号为主码</p>
+<p>部门（部门号，名称，经理姓名，电话），其中部门号为主码</p>
+</blockquote>
+<p>用SQL定义这两个关系模式，要去在模式中完成以下完整性约束的定义：</p>
+<ol type="1">
+<li>定义每个模式的主码</li>
+<li>定义参照完整性约束</li>
+<li>定义职工年龄不超过65岁</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 职工;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 部门;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 部门(</span><br><span class="line">    部门号 <span class="type">char</span>(<span class="number">8</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    名称 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    经理姓名 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    电话 <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 职工(</span><br><span class="line">    职工号 <span class="type">char</span>(<span class="number">8</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    姓名 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    出生日期 <span class="type">date</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    职务 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    工资 <span class="type">decimal</span>(<span class="number">10</span>, <span class="number">2</span>),</span><br><span class="line">    部门号 <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">    <span class="keyword">constraint</span> fk_部门 <span class="keyword">foreign</span> key(部门号) <span class="keyword">references</span> 部门(部门号),</span><br><span class="line">    <span class="keyword">constraint</span> chk_age <span class="keyword">check</span>(<span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> 出生日期) <span class="operator">&lt;=</span> <span class="number">65</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>safety</title>
+    <url>/2024/06/03/database/safety/</url>
+    <content><![CDATA[<h1 id="数据库安全性">数据库安全性</h1>
+<blockquote>
+<p>挖坑</p>
+</blockquote>
+<hr />
+<h2 id="作业">作业（</h2>
+<p>有以下两个关系模式：</p>
+<blockquote>
+<p>职工（职工号，姓名，年龄，职务，工资，部门号）</p>
+<p>部门（部门号，名称，经理名，地址，电话号）</p>
+</blockquote>
+<p>请用SQL的GRANT语句和REVOKE语句（加上视图机制）实现以下授权定义或存取控制功能：</p>
+<p>首先建表：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 职工;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 部门;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 职工(</span><br><span class="line">	职工号 <span class="type">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">	姓名 <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">    年龄 <span class="type">SMALLINT</span>,</span><br><span class="line">    职务 <span class="type">VARCHAR</span>(<span class="number">12</span>),</span><br><span class="line">    工资 <span class="type">NUMERIC</span>(<span class="number">8</span>, <span class="number">2</span>),</span><br><span class="line">    部门号 <span class="type">VARCHAR</span>(<span class="number">10</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 部门(</span><br><span class="line">    部门号 <span class="type">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    名称 <span class="type">VARCHAR</span>(<span class="number">16</span>),</span><br><span class="line">    经理名 <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">    地址 <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    电话号 <span class="type">VARCHAR</span>(<span class="number">11</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">&#x27;001&#x27;</span>, <span class="string">&#x27;王明&#x27;</span>, <span class="number">35</span>, <span class="string">&#x27;总经理&#x27;</span>, <span class="number">8500</span>, <span class="string">&#x27;BM001&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">&#x27;002&#x27;</span>, <span class="string">&#x27;李勇&#x27;</span>, <span class="number">29</span>, <span class="string">&#x27;架构师&#x27;</span>, <span class="number">6200</span>, <span class="string">&#x27;BM002&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">&#x27;003&#x27;</span>, <span class="string">&#x27;刘星&#x27;</span>, <span class="number">30</span>, <span class="string">&#x27;程序员&#x27;</span>, <span class="number">5450</span>, <span class="string">&#x27;BM003&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">&#x27;004&#x27;</span>, <span class="string">&#x27;张新&#x27;</span>, <span class="number">32</span>, <span class="string">&#x27;程序员&#x27;</span>, <span class="number">5850</span>, <span class="string">&#x27;BM003&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">&#x27;005&#x27;</span>, <span class="string">&#x27;周平&#x27;</span>, <span class="number">30</span>, <span class="string">&#x27;管理员&#x27;</span>, <span class="number">6100</span>, <span class="string">&#x27;BM001&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">&#x27;006&#x27;</span>, <span class="string">&#x27;杨兰&#x27;</span>, <span class="number">24</span>, <span class="string">&#x27;设计师&#x27;</span>, <span class="number">4900</span>, <span class="string">&#x27;BM002&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 部门 <span class="keyword">values</span>(<span class="string">&#x27;BM001&#x27;</span>, <span class="string">&#x27;部门一&#x27;</span>, <span class="string">&#x27;经理一&#x27;</span>, <span class="string">&#x27;地址一&#x27;</span>, <span class="string">&#x27;001&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 部门 <span class="keyword">values</span>(<span class="string">&#x27;BM002&#x27;</span>, <span class="string">&#x27;部门二&#x27;</span>, <span class="string">&#x27;经理三&#x27;</span>, <span class="string">&#x27;地址二&#x27;</span>, <span class="string">&#x27;002&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 部门 <span class="keyword">values</span>(<span class="string">&#x27;BM003&#x27;</span>, <span class="string">&#x27;部门三&#x27;</span>, <span class="string">&#x27;经理三&#x27;</span>, <span class="string">&#x27;地址三&#x27;</span>, <span class="string">&#x27;003&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<img src="/2024/06/03/database/safety/hw1.png" class="" title="hw1">
+<p>创建用户：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##wangming identified <span class="keyword">by</span> <span class="number">114514</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##liyong identified <span class="keyword">by</span> <span class="number">114514</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##liuxing identified <span class="keyword">by</span> <span class="number">114514</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##zhangxin identified <span class="keyword">by</span> <span class="number">114514</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##zhoupin identified <span class="keyword">by</span> <span class="number">114514</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##yanglan identified <span class="keyword">by</span> <span class="number">114514</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">connect</span>, resource <span class="keyword">to</span> c##wangming, c##liyong;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">connect</span>, resource <span class="keyword">to</span> c##liuxing, c##zhangxin;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">connect</span>, resource <span class="keyword">to</span> c##zhoupin, c##yanglan;</span><br></pre></td></tr></table></figure>
+<p>（1）用户王明对两个表有select权限。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##wangming;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> 部门 <span class="keyword">to</span> c##wangming;</span><br></pre></td></tr></table></figure>
+<p>（2）用户李勇对两个表有insert和delete权限。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">insert</span>, <span class="keyword">delete</span> <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##liyong;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">insert</span>, <span class="keyword">delete</span> <span class="keyword">on</span> 部门 <span class="keyword">to</span> c##liyong;</span><br></pre></td></tr></table></figure>
+<p>（3）每个职工只对自己的记录有select权限。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_wangming <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 职工 <span class="keyword">where</span> 姓名 <span class="operator">=</span> <span class="string">&#x27;王明&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_wangming <span class="keyword">to</span> c##wangming;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_liyong <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 职工 <span class="keyword">where</span> 姓名 <span class="operator">=</span> <span class="string">&#x27;李勇&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_liyong <span class="keyword">to</span> c##liyong;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_liuxing <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 职工 <span class="keyword">where</span> 姓名 <span class="operator">=</span> <span class="string">&#x27;刘星&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_liuxing <span class="keyword">to</span> c##liuxing;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_zhangxin <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 职工 <span class="keyword">where</span> 姓名 <span class="operator">=</span> <span class="string">&#x27;张新&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_zhangxin <span class="keyword">to</span> c##zhangxin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_zhoupin <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 职工 <span class="keyword">where</span> 姓名 <span class="operator">=</span> <span class="string">&#x27;周平&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_zhoupin <span class="keyword">to</span> c##zhoupin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_yanglan <span class="keyword">as</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 职工 <span class="keyword">where</span> 姓名 <span class="operator">=</span> <span class="string">&#x27;杨兰&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> view_yanglan <span class="keyword">to</span> c##yanglan;</span><br></pre></td></tr></table></figure>
+<p>（4）用户刘星对职工表有select权限，对工资字段有更新权限。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##liuxing;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">update</span>(工资) <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##liuxing;</span><br></pre></td></tr></table></figure>
+<p>（5）用户张新具有修改这两个表的结构的权限。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">alter</span> <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##zhangxin;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">alter</span> <span class="keyword">on</span> 部门 <span class="keyword">to</span> c##zhangxin;</span><br></pre></td></tr></table></figure>
+<p>（6）用户周平具有对两个表的所有权限，并具有给其他用户授权的权限。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##zhoupin <span class="keyword">with</span> <span class="keyword">grant</span> option;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> 部门 <span class="keyword">to</span> c##zhoupin <span class="keyword">with</span> <span class="keyword">grant</span> option;</span><br></pre></td></tr></table></figure>
+<p>（7）用户杨兰具有从每个部门职工中select最高、最低、平均工资的权限，但不能查看每个人的工资：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> emp_sal <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> 部门号, <span class="built_in">max</span>(工资) &quot;最高工资&quot;, <span class="built_in">min</span>(工资) &quot;最低工资&quot;, <span class="built_in">avg</span>(工资) &quot;平均工资&quot;</span><br><span class="line"><span class="keyword">from</span> 职工</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> 部门号;</span><br><span class="line"></span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> emp_val <span class="keyword">to</span> c##yanglan;</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
 </search>
