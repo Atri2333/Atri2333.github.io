@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,185 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/03/xv6-kernel/spinlock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/03/xv6-kernel/spinlock/" class="post-title-link" itemprop="url">spinlock</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-05-03 18:57:45 / 修改时间：20:05:51" itemprop="dateCreated datePublished" datetime="2024-05-03T18:57:45+08:00">2024-05-03</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/03/xv6-kernel/spinlock/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/03/xv6-kernel/spinlock/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="xv6-kernel-spinlock">Xv6 kernel Spinlock</h1>
+<p>Xv6操作系统内核为我们提供了两类锁：自旋锁（spinlock）和睡眠锁（sleeplock）。它们虽然都有锁的特性，但是它们具有不同的特点，应用场景也不相同。</p>
+<p>今天我们先来讨论xv6内部spinlock的实现，首先来看
+<code>spinlock.h</code> 内对spinlock的声明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mutual exclusion lock.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> &#123;</span></span><br><span class="line">  uint locked;       <span class="comment">// Is the lock held?</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// For debugging:</span></span><br><span class="line">  <span class="type">char</span> *name;        <span class="comment">// Name of lock.</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> *<span class="title">cpu</span>;</span>   <span class="comment">// The cpu holding the lock.</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>十分简单，不是吗？除去debugging部分，就一个变量 <code>locked</code>
+记录这个lock是否被某个CPU给占用。</p>
+<p>在xv6中，lock的locked字段为0表示该lock没有被占用，字段为1表示该lock被占用了。</p>
+<p>这可以通过 <code>spinlock.c</code> 中的 <code>initlock</code>
+方法看出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">initlock</span><span class="params">(<span class="keyword">struct</span> spinlock *lk, <span class="type">char</span> *name)</span></span><br><span class="line">&#123;</span><br><span class="line">  lk-&gt;name = name;</span><br><span class="line">  lk-&gt;locked = <span class="number">0</span>;</span><br><span class="line">  lk-&gt;cpu = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于一个给定的 <code>spinlock</code> ，我们需要一组函数
+<code>acquire</code> 和 <code>release</code> 来分别获取与释放锁。</p>
+<p>对于 <code>acquire</code> 方法，我们需要检测当前锁的
+<code>locked</code>
+变量值，若为1则继续循环（这就是自旋这个词的由来），为0则获取锁，将
+<code>locked</code> 更改为1。</p>
+<p>因为 <code>spinlock</code>
+本身就是<strong>共享资源</strong>（即多个CPU的多个进程共享内存中的同一个资源），任何进程对同一个自旋锁需要互斥地访问。因此以下
+<code>for</code>
+循环体内部的代码需要转换为<strong>原子操作</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">acquire</span><span class="params">(<span class="keyword">struct</span> spinlock *lk)</span>  </span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">		<span class="keyword">if</span>(lk-&gt;locked == <span class="number">0</span>) &#123;</span><br><span class="line">			lk-&gt;locked = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>for</code> 就是自旋。</p>
+<p>xv6使用了RISCV的 <code>amoswap</code>
+指令。从字面意义上看，就是原子交换操作。</p>
+<p>具体来讲，xv6在acquire内部使用了指令
+<code>amoswap.w.aq a5, a5, (s1)</code> 。这段指令的含义是从内存地址
+<code>(s1)</code> 中读取一个32位的值（根据<code>amoswap.w.aq</code>
+中第一个点后的 <code>w</code> 看出，实际上内存地址
+<code>(s1)</code>对应的是 <code>spinlock</code> 中 <code>uint</code>
+类型（刚好32位）的 <code>locked</code> 值），与寄存器 <code>a5</code>
+内部存储的值进行交换。寄存器 <code>a5</code>
+存的值在执行该指令之前就被设置为1了。也就是说，交换过后的
+<code>locked</code> 值必然为1，而代码会根据交换过后的寄存器
+<code>a5</code> 的值是否为0来获取锁。</p>
+<p>来看看xv6内部 <code>acquire</code> 的实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Acquire the lock.</span></span><br><span class="line"><span class="comment">// Loops (spins) until the lock is acquired.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">acquire</span><span class="params">(<span class="keyword">struct</span> spinlock *lk)</span></span><br><span class="line">&#123;</span><br><span class="line">  push_off(); <span class="comment">// disable interrupts to avoid deadlock.</span></span><br><span class="line">  <span class="keyword">if</span>(holding(lk))</span><br><span class="line">    panic(<span class="string">&quot;acquire&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// On RISC-V, sync_lock_test_and_set turns into an atomic swap:</span></span><br><span class="line">  <span class="comment">//   a5 = 1</span></span><br><span class="line">  <span class="comment">//   s1 = &amp;lk-&gt;locked</span></span><br><span class="line">  <span class="comment">//   amoswap.w.aq a5, a5, (s1)</span></span><br><span class="line">  <span class="keyword">while</span>(__sync_lock_test_and_set(&amp;lk-&gt;locked, <span class="number">1</span>) != <span class="number">0</span>)</span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Tell the C compiler and the processor to not move loads or stores</span></span><br><span class="line">  <span class="comment">// past this point, to ensure that the critical section&#x27;s memory</span></span><br><span class="line">  <span class="comment">// references happen strictly after the lock is acquired.</span></span><br><span class="line">  <span class="comment">// On RISC-V, this emits a fence instruction.</span></span><br><span class="line">  __sync_synchronize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Record info about lock acquisition for holding() and debugging.</span></span><br><span class="line">  lk-&gt;cpu = mycpu();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点在于 <code>__sync_lock_test_and_set(&amp;lk-&gt;locked, 1)</code>
+这个函数。通过 gdb 可以看出其对应的汇编代码：</p>
+<img src="/2024/05/03/xv6-kernel/spinlock/1.png" class="" width="1">
+<p>在这里我们看到了我们熟悉的 <code>amoswap</code> 指令。</p>
+<p>另外，后面一行的 <code>__sync_synchronize();</code>
+是一个栅栏指令，它用于告诉编译器不要对指令进行重新排序以进行优化。</p>
+<p>例如以下场景：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">acquire(&amp;lock);</span><br><span class="line">x = <span class="number">1</span>;</span><br><span class="line">release(&amp;lock);</span><br></pre></td></tr></table></figure>
+<p>通过编译器优化，可能会重排指令，把 <code>x=1</code>
+放到加锁前或者释放锁之后。这显然是不被允许的。</p>
+<p><code>__sync_synchronize();</code> 的作用是强制将其前后的
+<code>load/store</code> 指令进行分隔。因此<code>acquire</code> 函数与
+<code>release</code> 函数内部使用了该指令来保证 <code>x=1</code>
+不会跑出去。</p>
+<p>另外，<code>acquire</code> 函数开头调用了 <code>push_off()</code>
+方法。根据注释说明，它是关闭了中断。</p>
+<p>我操？为啥要关闭中断？这个锁跟中断有什么勾八关系？</p>
+<p>这个其实是xv6内部实现的问题。因为在xv6内部，有一些设备中断会和内核内部的代码使用同一个
+<code>spinlock</code> ，例如 xv6 book 提到的 <code>tickslock</code>
+，用于保护各CPU时钟内部的 <code>ticks</code> 时间帧的不变量。</p>
+<p>对于计时器中断，会调用下面函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">clockintr</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  acquire(&amp;tickslock);</span><br><span class="line">  ticks++;</span><br><span class="line">  wakeup(&amp;ticks);</span><br><span class="line">  release(&amp;tickslock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是xv6的sleep系统调用也使用了该锁：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sleep</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  uint ticks0;</span><br><span class="line"></span><br><span class="line">  argint(<span class="number">0</span>, &amp;n);</span><br><span class="line">  acquire(&amp;tickslock);</span><br><span class="line">  ticks0 = ticks;</span><br><span class="line">  <span class="keyword">while</span>(ticks - ticks0 &lt; n)&#123;</span><br><span class="line">    <span class="keyword">if</span>(killed(myproc()))&#123;</span><br><span class="line">      release(&amp;tickslock);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(&amp;ticks, &amp;tickslock);</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;tickslock);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这会出现什么问题？</p>
+<p>假设 <code>sys_sleep</code> 首先获取了 <code>tickslock</code>
+，然后进入了 <code>sleep(&amp;ticks, &amp;tickslock)</code>
+进入阻塞状态。</p>
+<p>然后对应的CPU的计时器产生中断，想获取锁，但是被阻止，因此进入自旋。</p>
+<p>但是只有计时器获取了锁，才能进入临界区，执行 <code>ticks++;</code>
+来增加时间戳，从而才有 <code>sys_sleep</code> 从阻塞状态恢复的可能。</p>
+<p>也就是说，产生了死锁。</p>
+<p>为了防止这种情况，我们应当防止一个 <code>spinlock</code>
+在能被中断处理函数获取时，在获取期间允许中断。xv6为了实现方便，直接对所有的
+<code>spinlock</code> 在被占用时，直接关闭了中断。并在对应的
+<code>release</code> 函数尾部重新开放中断：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Release the lock.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">release</span><span class="params">(<span class="keyword">struct</span> spinlock *lk)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(!holding(lk))</span><br><span class="line">    panic(<span class="string">&quot;release&quot;</span>);</span><br><span class="line"></span><br><span class="line">  lk-&gt;cpu = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Tell the C compiler and the CPU to not move loads or stores</span></span><br><span class="line">  <span class="comment">// past this point, to ensure that all the stores in the critical</span></span><br><span class="line">  <span class="comment">// section are visible to other CPUs before the lock is released,</span></span><br><span class="line">  <span class="comment">// and that loads in the critical section occur strictly before</span></span><br><span class="line">  <span class="comment">// the lock is released.</span></span><br><span class="line">  <span class="comment">// On RISC-V, this emits a fence instruction.</span></span><br><span class="line">  __sync_synchronize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Release the lock, equivalent to lk-&gt;locked = 0.</span></span><br><span class="line">  <span class="comment">// This code doesn&#x27;t use a C assignment, since the C standard</span></span><br><span class="line">  <span class="comment">// implies that an assignment might be implemented with</span></span><br><span class="line">  <span class="comment">// multiple store instructions.</span></span><br><span class="line">  <span class="comment">// On RISC-V, sync_lock_release turns into an atomic swap:</span></span><br><span class="line">  <span class="comment">//   s1 = &amp;lk-&gt;locked</span></span><br><span class="line">  <span class="comment">//   amoswap.w zero, zero, (s1)</span></span><br><span class="line">  __sync_lock_release(&amp;lk-&gt;locked); </span><br><span class="line"></span><br><span class="line">  pop_off();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>pop_off</code> 方法就是开放中断。</p>
+<p>在 <code>spinlock</code> 被占用期间关闭中断有以下好处：一个
+<code>spinlock</code>
+不应当被占用太久。因此在处理一个关键的任务时，对其加锁，会阻止时间片轮转，使该进程能享受所有CPU资源来集中处理当前任务，这样的化
+<code>spinlock</code> 就不会自旋太久。</p>
+<p>但是如果我们在某些代码中可能会同时获取多个锁，对应的会释放多个锁。那么我们在释放第一个锁的时候，是不能直接开放中断的，要等所有锁被释放后才能中断。</p>
+<p>因此我们对于每个CPU都要有一个计数器，来统计当前CPU获取了多少个锁。关于每个CPU的结构体声明在
+<code>proc.h</code> 下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Per-CPU state.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">proc</span>;</span>          <span class="comment">// The process running on this cpu, or null.</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">context</span> <span class="title">context</span>;</span>     <span class="comment">// swtch() here to enter scheduler().</span></span><br><span class="line">  <span class="type">int</span> noff;                   <span class="comment">// Depth of push_off() nesting.</span></span><br><span class="line">  <span class="type">int</span> intena;                 <span class="comment">// Were interrupts enabled before push_off()?</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>noff</code> 字段就是我们需要的计数器。而
+<code>intena</code> 则代表着获取第一个锁之前，CPU的中断状态。</p>
+<p>接下来我们来看 <code>push_off</code> 和 <code>pop_off</code>
+方法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// push_off/pop_off are like intr_off()/intr_on() except that they are matched:</span></span><br><span class="line"><span class="comment">// it takes two pop_off()s to undo two push_off()s.  Also, if interrupts</span></span><br><span class="line"><span class="comment">// are initially off, then push_off, pop_off leaves them off.</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">push_off</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> old = intr_get();</span><br><span class="line"></span><br><span class="line">  intr_off();</span><br><span class="line">  <span class="keyword">if</span>(mycpu()-&gt;noff == <span class="number">0</span>)</span><br><span class="line">    mycpu()-&gt;intena = old;</span><br><span class="line">  mycpu()-&gt;noff += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">pop_off</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> *<span class="title">c</span> =</span> mycpu();</span><br><span class="line">  <span class="keyword">if</span>(intr_get())</span><br><span class="line">    panic(<span class="string">&quot;pop_off - interruptible&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(c-&gt;noff &lt; <span class="number">1</span>)</span><br><span class="line">    panic(<span class="string">&quot;pop_off&quot;</span>);</span><br><span class="line">  c-&gt;noff -= <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(c-&gt;noff == <span class="number">0</span> &amp;&amp; c-&gt;intena)</span><br><span class="line">    intr_on();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现，一切都清晰了很多。在 <code>push_off</code>
+中，如果第一次获取锁，我们会先记录一下当前的中断状态。方法是调用
+<code>intr_get</code> ，它在 <code>riscv.h</code> 中声明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// are device interrupts enabled?</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">int</span></span><br><span class="line"><span class="title function_">intr_get</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  uint64 x = r_sstatus();</span><br><span class="line">  <span class="keyword">return</span> (x &amp; SSTATUS_SIE) != <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 SSTATUS 是一个特殊的寄存器，里面有 SIE bit
+来记录是否开启中断，有 SPP bit 来记录当前mode是user mode还是 supervisor
+mode。在这里我们只需要 SIE bit 就行啦。</p>
+<p>关于 <code>spinlock</code> 在xv6的实现细节，就讲这么多。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -339,7 +518,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-22 15:37:50" itemprop="dateModified" datetime="2024-06-22T15:37:50+08:00">2024-06-22</time>
+      <time title="修改时间：2024-06-23 20:22:49" itemprop="dateModified" datetime="2024-06-23T20:22:49+08:00">2024-06-23</time>
     </span>
 
   
@@ -500,8 +679,12 @@ signal写代码。这个东西很无聊，只能记得自己多练，记住一�
 <p>答：</p>
 <h2 id="英语">英语</h2>
 <p>问：用英文介绍自己最满意的项目。</p>
-<p>答：</p>
+<p>答：I'm sorry to say I didn't do any valuable projects during my
+undergraduate years. If I must say so, I will introduce a online
+operating-system related project proposed by MIT.</p>
 <p>问：你觉得最骄傲的一件事情</p>
+<p>问：介绍一下你的学校？为什么来我们学校？</p>
+<p>问：介绍一下你的家乡？</p>
 <h2 id="机试">机试</h2>
 <blockquote>
 <p>作为ACMer，也要在意机试。<strong>不要自视甚高，眼高手低。</strong></p>
@@ -522,19 +705,19 @@ signal写代码。这个东西很无聊，只能记得自己多练，记住一�
 <p>只输出一个方案的话可以搞个背包。</p>
 <h2 id="杂项">杂项</h2>
 <p>问：你如果遇到无法解决的事情会怎么办</p>
-<p>答：</p>
+<p>答：如果是学习或科研方面的工作，我会借助chatgpt这类工具以及一些网络上的资源来获得解答。如果是生活中的事情，我会求助于身边人，并且通过这件事情进行反思。</p>
 <p>问：你认为你的缺点？并如何改善</p>
-<p>答：</p>
+<p>答：我是个比较敏感的人，这可能并不能算做一个严格意义上的缺点。对于一件事情，我可能会提前想象出它的结果，从而导致犹豫，造成没办法在有效的时间内做出比较有效的结果。换句话说，我不是那种敢于做出突破自我的工作的人。我认为这是因为我没有专心于行动本身，从而导致自己喜欢浪费时间胡思乱想，或许这就是
+终日而思，不如须臾之所学也。</p>
 <p>问：你认为的自己的优点有哪些？</p>
-<p>答：</p>
+<p>答：我认为我的自我学习能力比较强。在大学期间，我在没有任何人带我教我的情况下从零开始入坑算法竞赛，并在自我努力下能力逐渐变强，最后获得一系列ICPC等奖项。其次我是一个兴趣驱动的人，对于我感兴趣的东西，我会花时间一步一步的去弄懂它的原理，我认为因为兴趣本身，学习才会变成一个快乐的过程。</p>
 <p>问：介绍一下你最近了解的时政（逆天</p>
-<p>答：</p>
+<p>答：阿赛jumping？<del>好的985也不比中专差。</del></p>
 <h1 id="模拟面试">模拟面试</h1>
-<p>以下问题是根据我复习的情况，自己想到的可能会在面试中出现的问题，可以和别人模拟面试时使用。</p>
 <p>1、正交矩阵有什么性质？</p>
 <p>答：正交矩阵和它自身的转置相乘为单位矩阵。几何意义上，它所对应的线性变换为空间中的旋转和反射，即向量在正交矩阵变换下的长度和夹角保持不变。</p>
 <p>2、矩阵的迹有什么性质？</p>
-<p>答：矩阵的迹为矩阵对角元的和。</p>
+<p>答：矩阵的迹为矩阵对角元的和。也是所有特征值的和。对于若干的向量或矩阵相乘所得矩阵，它们相互之间轮换得到的矩阵的迹是相等的。</p>
 <p>3、说一下你对特征值和特征向量的理解。</p>
 <p>答：定义上，一个方阵的特征值是满足以下方程的解 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="8.228ex" height="1.805ex" role="img" focusable="false" viewBox="0 -716 3636.6 798"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="mi" transform="translate(750,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mo" transform="translate(1512.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2568.6,0)"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g><g data-mml-node="mi" transform="translate(3151.6,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g></g></g></svg></mjx-container></span>，其中 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.027ex;" xmlns="http://www.w3.org/2000/svg" width="1.319ex" height="1.597ex" role="img" focusable="false" viewBox="0 -694 583 706"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g></g></g></svg></mjx-container></span> 为特征值，<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.097ex" height="1.027ex" role="img" focusable="false" viewBox="0 -443 485 454"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g></g></g></svg></mjx-container></span>
 为其对应的特征向量。几何意义上，特征向量在方阵A上进行线性变换等价于进行
@@ -545,6 +728,8 @@ signal写代码。这个东西很无聊，只能记得自己多练，记住一�
 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.452ex" role="img" focusable="false" viewBox="0 -833.9 2577.6 1083.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>的，在图稀疏的时候可以采用堆优化将复杂度变为
 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="11.105ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 4908.3 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(2196.7,0)"><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(278,0)"></path><path data-c="67" d="M329 409Q373 453 429 453Q459 453 472 434T485 396Q485 382 476 371T449 360Q416 360 412 390Q410 404 415 411Q415 412 416 414V415Q388 412 363 393Q355 388 355 386Q355 385 359 381T368 369T379 351T388 325T392 292Q392 230 343 187T222 143Q172 143 123 171Q112 153 112 133Q112 98 138 81Q147 75 155 75T227 73Q311 72 335 67Q396 58 431 26Q470 -13 470 -72Q470 -139 392 -175Q332 -206 250 -206Q167 -206 107 -175Q29 -140 29 -75Q29 -39 50 -15T92 18L103 24Q67 55 67 108Q67 155 96 193Q52 237 52 292Q52 355 102 398T223 442Q274 442 318 416L329 409ZM299 343Q294 371 273 387T221 404Q192 404 171 388T145 343Q142 326 142 292Q142 248 149 227T179 192Q196 182 222 182Q244 182 260 189T283 207T294 227T299 242Q302 258 302 292T299 343ZM403 -75Q403 -50 389 -34T348 -11T299 -2T245 0H218Q151 0 138 -6Q118 -15 107 -34T95 -74Q95 -84 101 -97T122 -127T170 -155T250 -167Q319 -167 361 -139T403 -75Z" transform="translate(778,0)"></path></g><g data-mml-node="mo" transform="translate(3474.7,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mi" transform="translate(3641.3,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(4519.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>。</p>
 <p>多源最短路采用floyd算法，它是基于动态规划的思想，通过枚举中转结点来转移状态：<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.666ex;" xmlns="http://www.w3.org/2000/svg" width="21.648ex" height="2.363ex" role="img" focusable="false" viewBox="0 -750 9568.5 1044.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="TeXAtom" transform="translate(523,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(345,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(623,0)"><path data-c="1D457" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1582.6,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="munder" transform="translate(2638.4,0)"><g data-mml-node="mo"><path data-c="6D" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q351 442 364 440T387 434T406 426T421 417T432 406T441 395T448 384T452 374T455 366L457 361L460 365Q463 369 466 373T475 384T488 397T503 410T523 422T546 432T572 439T603 442Q729 442 740 329Q741 322 741 190V104Q741 66 743 59T754 49Q775 46 803 46H819V0H811L788 1Q764 2 737 2T699 3Q596 3 587 0H579V46H595Q656 46 656 62Q657 64 657 200Q656 335 655 343Q649 371 635 385T611 402T585 404Q540 404 506 370Q479 343 472 315T464 232V168V108Q464 78 465 68T468 55T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(833,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(1111,0)"></path></g><g data-mml-node="mi" transform="translate(1700,-150) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g><g data-mml-node="mo" transform="translate(4756.8,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(5145.8,0)"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="TeXAtom" transform="translate(523,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(345,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(623,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1604.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="msub" transform="translate(2604.4,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="TeXAtom" transform="translate(523,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mo" transform="translate(521,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(799,0)"><path data-c="1D457" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path></g></g></g></g><g data-mml-node="mo" transform="translate(9179.5,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>。时间复杂度为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.451ex" role="img" focusable="false" viewBox="0 -833.2 2577.6 1083.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>。</p>
+<p>5、介绍一下你的项目。</p>
+<p>答：</p>
 
       
     </div>
@@ -976,110 +1161,8 @@ lab都过了一遍，收获挺大的，算是对os有了初步的理解。至少
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/17/java/java-strategy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2">
-      <meta itemprop="description" content="爱你，vv。❤">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/17/java/java-strategy/" class="post-title-link" itemprop="url">java-strategy</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-04-17 16:22:38 / 修改时间：16:52:52" itemprop="dateCreated datePublished" datetime="2024-04-17T16:22:38+08:00">2024-04-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/04/17/java/java-strategy/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/17/java/java-strategy/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="java速成day5策略模式">JAVA速成Day5——策略模式</h1>
-<blockquote>
-<p>源自于Head First 设计模式 第一章</p>
-</blockquote>
-<p>具体的idea是将一组算法封装到一个对象中。一个常见的例子是之前接触过的
-<code>Comparator</code> ：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Integer&gt; cmp = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span> &#123;</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">val</span> <span class="operator">=</span> o2 - o1;</span><br><span class="line">            <span class="keyword">return</span> val.intValue();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
-<p>自己实现策略模式的排序：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        String[] array = &#123; <span class="string">&quot;apple&quot;</span>, <span class="string">&quot;Pear&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;orange&quot;</span> &#125;;</span><br><span class="line">        sort(array, String::compareToIgnoreCase);</span><br><span class="line">        System.out.println(Arrays.toString(array));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(T[] a, Comparator&lt;? <span class="built_in">super</span> T&gt; c)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; a.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (c.compare(a[j], a[j + <span class="number">1</span>]) &gt; <span class="number">0</span>) &#123; <span class="comment">// 注意这里比较两个元素的大小依赖传入的策略</span></span><br><span class="line">                    <span class="type">T</span> <span class="variable">temp</span> <span class="operator">=</span> a[j];</span><br><span class="line">                    a[j] = a[j + <span class="number">1</span>];</span><br><span class="line">                    a[j + <span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>而排序的规则，并不直接体现在 <code>sort</code>
-内部。这就<strong>避免了面向实现编程</strong>。</p>
-<p>例如，我们要实现不同的排序规则，我们可以首先定义一个接口：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">sortStrategy</span>&#123;</span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span>[] array)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后可以定义多个排序算法，实现该接口：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuickSort</span> <span class="keyword">implements</span> <span class="title class_">sortStrategy</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span>[] array)</span>&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MergeSort</span> <span class="keyword">implements</span> <span class="title class_">sortStrategy</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span>[] array)</span>&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>要应用策略的话，可以通过多态特性：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">sortStrategy</span> <span class="variable">my_sort</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">QuickSort</span>();</span><br></pre></td></tr></table></figure>
-<p>如果该接口是一个类的字段，可以通过 <code>setter</code>
-方式，很方便地修改其算法行为。这就是策略模式的精髓所在。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
