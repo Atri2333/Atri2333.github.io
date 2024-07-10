@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,105 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/07/10/cpp/cpp-self-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/10/cpp/cpp-self-study/" class="post-title-link" itemprop="url">cpp_self_study</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-07-10 17:24:23 / 修改时间：17:41:05" itemprop="dateCreated datePublished" datetime="2024-07-10T17:24:23+08:00">2024-07-10</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/07/10/cpp/cpp-self-study/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/10/cpp/cpp-self-study/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>记录自己自学C++中的重点</p>
+</blockquote>
+<h2 id="引用">引用</h2>
+<blockquote>
+<p>这里先只谈左值引用。引用和被引用变量<strong>是一回事</strong>，个人认为实质上是二者所代表的变量<strong>地址相同</strong>。</p>
+</blockquote>
+<h3 id="函数返回值是引用">函数返回值是引用</h3>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="function"><span class="type">int</span> &amp;<span class="title">fuck</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> n;&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">fuck</span>() = <span class="number">2</span>;</span><br><span class="line">    std::cout &lt;&lt; n; <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以将函数调用作为赋值对象。</p>
+<h3 id="常引用">常引用</h3>
+<p>指的是
+<code>const int &amp;</code>，不能通过常引用去修改其引用的变量。</p>
+<p>不能将常引用初始化给非常引用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;p = n;</span><br><span class="line"><span class="type">int</span> &amp;q = p;</span><br><span class="line"><span class="comment">// compile error</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -333,7 +432,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-07-06 19:41:15 / 修改时间：21:07:44" itemprop="dateCreated datePublished" datetime="2024-07-06T19:41:15+08:00">2024-07-06</time>
+      <time title="创建时间：2024-07-06 19:41:15 / 修改时间：21:44:53" itemprop="dateCreated datePublished" datetime="2024-07-06T19:41:15+08:00">2024-07-06</time>
     </span>
 
   
@@ -499,9 +598,10 @@ mjx-container[display="true"] + br {
 <p>南软考核也比较全，笔试+机试+面试。</p>
 <p>笔试的内容有五项，顺序依次为离散数学（群论+图论的证明题）、软件工程（画状态图，软件测试）、操作系统（页式内存，PV操作）、计算机网络（DNS，ALOHA协议，求极限（啊？））和数据库系统（B+树索引，递归查询sql语句，事务undo+redo），各占20分。开卷，但是考的很偏，我很多都没做出来。</p>
 <p>机试的话，今年是四道算法题，没有了往年的面向对象题。今年南软的机试题普遍反映非常难，和隔壁南计的机试题（没有算法题）形成鲜明对比，我记得第一题是给定已有的面额值
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.937ex" height="1.355ex" role="img" focusable="false" viewBox="0 -441 856 598.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span>，要求你求出<strong>最少</strong>的<strong>其余</strong>的面额值的个数，在每个面额值的使用次数<strong>小于等于一个给定值</strong>
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.937ex" height="1.355ex" role="img" focusable="false" viewBox="0 -441 856 598.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span>，要求你求出<strong>最少</strong>的需要补充的<strong>额外</strong>面额值的<strong>个数</strong>，在每个面额值的使用次数<strong>小于等于一个给定值</strong>
 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.097ex" height="1.027ex" role="img" focusable="false" viewBox="0 -443 485 454"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g></g></g></svg></mjx-container></span>
-的情况下，能够<strong>相加组合</strong>得到所有小于等于给定值的数 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.382ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2378.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mn" transform="translate(278,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(1222.7,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2100.7,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></svg></mjx-container></span>。第二题是要你用两个平行于坐标轴的不相交矩形来包围给定的二维点集，要求两个矩形的面积和最小。第三题是给定一个坐标轴，坐标轴的第二象限有
+的情况下，能够<strong>相加组合</strong>得到范围 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.382ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2378.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mn" transform="translate(278,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(1222.7,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2100.7,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></svg></mjx-container></span>
+内的所有数。第二题是要你用两个平行于坐标轴的不相交矩形来包围给定的二维点集，要求两个矩形的面积和最小。第三题是给定一个坐标轴，坐标轴的第二象限有
 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></span>
 头牛，每头牛占据一个单位长度，左开右闭，并按照 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.837ex" height="1.359ex" role="img" focusable="false" viewBox="0 -443 812 600.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(518,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span> 的速度（这里的速度是每 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.837ex" height="1.359ex" role="img" focusable="false" viewBox="0 -443 812 600.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(518,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span>
 秒<strong>瞬移</strong>一个单位，<strong>注意</strong>）朝着 +x
@@ -1255,251 +1355,6 @@ F)中为F所逻辑蕴含的函数依赖的全体叫做F的闭包，记为 <span 
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> 职工 <span class="keyword">to</span> c##zhoupin <span class="keyword">with</span> <span class="keyword">grant</span> option;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> 部门 <span class="keyword">to</span> c##zhoupin <span class="keyword">with</span> <span class="keyword">grant</span> option;</span><br></pre></td></tr></table></figure>
 <p>（7）用户杨兰具有从每个部门职工中select最高、最低、平均工资的权限，但不能查看每个人的工资：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> emp_sal <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> 部门号, <span class="built_in">max</span>(工资) &quot;最高工资&quot;, <span class="built_in">min</span>(工资) &quot;最低工资&quot;, <span class="built_in">avg</span>(工资) &quot;平均工资&quot;</span><br><span class="line"><span class="keyword">from</span> 职工</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> 部门号;</span><br><span class="line"></span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> emp_val <span class="keyword">to</span> c##yanglan;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/28/computer-network/application-layer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2">
-      <meta itemprop="description" content="爱你，vv。❤">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/28/computer-network/application-layer/" class="post-title-link" itemprop="url">application-layer</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-28 10:32:26" itemprop="dateCreated datePublished" datetime="2024-05-28T10:32:26+08:00">2024-05-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-31 19:55:04" itemprop="dateModified" datetime="2024-05-31T19:55:04+08:00">2024-05-31</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/28/computer-network/application-layer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/28/computer-network/application-layer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="计网应用层复习">计网——应用层复习</h1>
-<p>应用层是计算机网络体系结构的最顶层，是设计和建立计算机网络的最终目的。</p>
-<h2
-id="客户服务器方式cs方式和对等方式p2p方式">客户/服务器方式（C/S方式）和对等方式（P2P方式）</h2>
-<p>网络应用程序运行在处于网络边缘的不同的端系统上，通过彼此的通信来共同完成某些任务。</p>
-<p>开发一种新的网络应用首先要考虑的问题就是网络应用程序在<strong>各种端系统上的组织方式和它们之间的关系</strong>。</p>
-<h3 id="客户服务器方式">客户/服务器方式</h3>
-<img src="/2024/05/28/computer-network/application-layer/cs1.png" class="" title="cs1">
-<h3 id="对等方式">对等方式</h3>
-<img src="/2024/05/28/computer-network/application-layer/p2p1.png" class="" title="p2p1">
-<h2 id="动态主机配置协议dhcp">动态主机配置协议DHCP</h2>
-<ul>
-<li>互联网广泛使用的DHCP提供了即插即用联网机制</li>
-<li>这种机制允许一台计算机加入新的网络和获取IP地址，而不用手工配置</li>
-</ul>
-<img src="/2024/05/28/computer-network/application-layer/dhcp1.png" class="" title="dhcp1">
-<h3 id="dhcp工作过程">DHCP工作过程</h3>
-<p>DHCP使用客户-服务器方式</p>
-<ul>
-<li>需要IP地址的主机在启动时就向DHCP服务器广播发送发现报文（DHCP
-DISCOVER），这时该主机就成为DHCP客户。</li>
-<li>本地网络上所有主机都能收到此广播报文，但只有DHCP服务器才回答此广播报文</li>
-<li>DHCP服务器先在其数据库查找该计算机的配置信息。若找到，则返回找到的信息。否则从服务器的IP地址池（address
-pool）中取一个地址给该计算机。DHCP服务器的回答报文叫做提供报文（DHCP
-OFFER）</li>
-</ul>
-<p>DHCP工作方式</p>
-<ul>
-<li>DHCP使用客户-服务器方式，采用请求/应答方式工作。</li>
-<li>DHCP基于UDP工作（因为TCP不支持广播？？？），服务器运行在67号端口，DHCP客户运行在68号端口。</li>
-</ul>
-<p>DHCP交互过程</p>
-<img src="/2024/05/28/computer-network/application-layer/dhcp2.png" class="" title="dhcp2">
-<p>首先，DHCP客户广播发送DHCP发现报文，包含</p>
-<ul>
-<li>事务ID</li>
-<li>DHCP客户端的MAC地址</li>
-</ul>
-<p>封装该报文的IP数据报的IP地址位0.0.0.0，目的地址为广播地址255.255.255.255</p>
-<p>DHCP服务器收到DHCP发现报文后，根据其中封装的DHCP客户端的MAC地址来查找自己的数据库，如果查到匹配信息，则使用这些配置信息来构建并发送DHCP提供报文，如果没有则采用默认配置信息来构建报文并发送。</p>
-<img src="/2024/05/28/computer-network/application-layer/dhcp3.png" class="" title="dhcp3">
-<p>DHCP服务端将广播发送DHCP提供报文（DHCP OFFER）</p>
-<ul>
-<li>事务ID：DHCP客户端会与之前DHCP发送报文的事务ID进行对比，来判断该DHCP报文是否是自己的</li>
-<li>源IP地址：服务器的IP 目的IP地址：广播地址</li>
-</ul>
-<p>这里DHCP客户可能会收到不止一个DHCP提供报文，会从中选择一个，一般选择先到的，并向所选择的DHCP服务器发送DHCP请求报文。</p>
-<img src="/2024/05/28/computer-network/application-layer/dhcp4.png" class="" title="dhcp4">
-<p>源地址：0.0.0.0，因为此时DHCP客户需要征求服务器同意，才可使用获得的IP</p>
-<p>目的地址：广播地址，这样可以一次性通知所有DHCP服务器，告知它们是否把它们作为自己的DHCP服务器</p>
-<p>所选择的DHCP服务器接收该请求，向DHCP客户发送DHCP确认报文</p>
-<img src="/2024/05/28/computer-network/application-layer/dhcp5.png" class="" title="dhcp5">
-<p>DHCP客户收到该报文后，就可以使用租用的IP地址。在使用前还会进行ARP检测。</p>
-<img src="/2024/05/28/computer-network/application-layer/dhcp6.png" class="" title="dhcp6">
-<h3 id="dhcp中继代理">DHCP中继代理</h3>
-<p>idea：给路由器配置DHCP服务器的IP地址，使之成为中继代理，这样就不用在每一个网络上都设置DHCP服务器。</p>
-<h3 id="总结">总结</h3>
-<img src="/2024/05/28/computer-network/application-layer/dhcp7.png" class="" title="dhcp7">
-<h2 id="域名系统dns">域名系统DNS</h2>
-<blockquote>
-<p>DNS是一个分布式系统，使大多数域名都能在本地解析。</p>
-</blockquote>
-<p>因特网采用层次树状结构的域名结构。域名的结构由若干的分量构成，各分量之间用“点”隔开，分别代表不同级别的域名：</p>
-<img src="/2024/05/28/computer-network/application-layer/dns1.png" class="" title="dns1">
-<img src="/2024/05/28/computer-network/application-layer/dns2.png" class="" title="dns2">
-<blockquote>
-<p>可以看见，名称相同的域名，其等级未必相同。</p>
-</blockquote>
-<img src="/2024/05/28/computer-network/application-layer/dns3.png" class="" title="dns3">
-<p>DNS使用分布在各地的域名服务器来实现域名到IP地址的转换。</p>
-<p>域名服务器可以划分为以下4个不同的类型：</p>
-<img src="/2024/05/28/computer-network/application-layer/dns4.png" class="" title="dns4">
-<p>域名解析分为递归查询和迭代查询。</p>
-<img src="/2024/05/28/computer-network/application-layer/dns5.png" class="" title="dns5">
-<img src="/2024/05/28/computer-network/application-layer/dns6.png" class="" title="dns6">
-<p>DNS报文使用运输层的UDP协议进行封装，运输层端口号53.</p>
-<h2 id="文件传送协议ftp">文件传送协议FTP</h2>
-<ul>
-<li>FTP是因特网上使用得最广泛的文件传送协议
-<ul>
-<li>FTP提供交互式的访问，允许客户指明文件的类型和格式，并允许文件具有存取权限</li>
-<li>FTP屏蔽各计算机系统的细节，因而适合于在异构网络中任意计算机之间传送文件</li>
-</ul></li>
-</ul>
-<p>FTP采用C/S方式</p>
-<p>FTP客户计算机可将各种类型的文件上传到FTP服务器计算机，也可以从FTP服务器计算机下载文件。</p>
-<h3 id="ftp基本工作原理">FTP基本工作原理</h3>
-<p>FTP服务器监听熟知端口（端口号21），使客户进程能够连接上。</p>
-<p>FTP客户随机选择一个临时端口号与其建立TCP连接，这条TCP连接用于FTP客户和服务器之间传送FTP相关<strong>控制命令</strong>。</p>
-<img src="/2024/05/28/computer-network/application-layer/ftp1.png" class="" title="ftp1">
-<p>FTP服务器使用自己的熟知端口号20与客户建立TCP连接，用于<strong>传送文件</strong>。</p>
-<img src="/2024/05/28/computer-network/application-layer/ftp2.png" class="" title="ftp2">
-<blockquote>
-<p>这是主动模式：建立数据通道时，FTP服务器主动连接客户。</p>
-</blockquote>
-<img src="/2024/05/28/computer-network/application-layer/ftp4.png" class="" title="ftp4">
-<blockquote>
-<p>对比，被动模式的端口号由协商决定</p>
-</blockquote>
-<h2 id="电子邮件">电子邮件</h2>
-<img src="/2024/05/28/computer-network/application-layer/mail1.png" class="" title="mail1">
-<h3 id="邮件发送和接收过程">邮件发送和接收过程</h3>
-<img src="/2024/05/28/computer-network/application-layer/mail2.png" class="" title="mail2">
-<h3 id="简单邮件传送协议smtp">简单邮件传送协议（SMTP）</h3>
-<img src="/2024/05/28/computer-network/application-layer/mail3.png" class="" title="mail3">
-<blockquote>
-<p>可以发现，非常麻烦，根本记不住</p>
-</blockquote>
-<h3 id="电子邮件的信息格式">电子邮件的信息格式</h3>
-<img src="/2024/05/28/computer-network/application-layer/mail4.png" class="" title="mail4">
-<h3 id="邮件读取">邮件读取</h3>
-<img src="/2024/05/28/computer-network/application-layer/mail5.png" class="" title="mail5">
-<h3 id="基于万维网的电子邮件">基于万维网的电子邮件</h3>
-<img src="/2024/05/28/computer-network/application-layer/mail6.png" class="" title="mail6">
-<h2 id="万维网www">万维网WWW</h2>
-<ul>
-<li><p>万维网是一个大规模的、联机式的信息储藏所</p></li>
-<li><p>万维网用链接的方法可以非常方便地从互联网的一个站点访问另一个站点，这种访问方式称为“链接”</p></li>
-<li><p>万维网以C/S方式工作，浏览器是客户程序，万维网文档所在计算机运行服务器程序</p></li>
-</ul>
-<h3 id="url">URL</h3>
-<img src="/2024/05/28/computer-network/application-layer/www1.png" class="" title="www1">
-<h3 id="超文本传输协议http">超文本传输协议HTTP</h3>
-<h4 id="传输过程">传输过程</h4>
-<ul>
-<li>在万维网客户程序与万维网服务器程序之间进行交互的协议</li>
-<li>使用TCP连接</li>
-<li>每个万维网网点都有一个服务器进程，它不断地监听TCP的端口80，以便发现是否有浏览器向它发出连接建立请求</li>
-<li>一旦监听到连接建立请求并建立了TCP连接后，浏览器就向万维网服务器发出浏览某个页面的请求</li>
-</ul>
-<img src="/2024/05/28/computer-network/application-layer/www2.png" class="" title="www2">
-<img src="/2024/05/28/computer-network/application-layer/www3.png" class="" title="www3">
-<h4 id="http报文格式">HTTP报文格式</h4>
-<p>请求报文：</p>
-<img src="/2024/05/28/computer-network/application-layer/www4.png" class="" title="www4">
-<p>响应报文：</p>
-<img src="/2024/05/28/computer-network/application-layer/www5.png" class="" title="www5">
-<h3 id="cookie">Cookie</h3>
-<blockquote>
-<p>在原有的无状态的http协议上增添了功能</p>
-</blockquote>
-<img src="/2024/05/28/computer-network/application-layer/www6.png" class="" title="www6">
-<h3 id="万维网cache和代理服务器">万维网cache和代理服务器</h3>
-<ul>
-<li>在万维网中还可以使用缓存机制以提高万维网的效率</li>
-<li>万维网缓存也称为Web缓存，可位于客户机，亦可位于中间系统上（代理服务器）</li>
-<li>Web缓存把最近的一些请求和响应暂存在本地磁盘中。当新请求到达时，若发现这个请求与暂时存放的请求相同，就返回暂存的响应，而不需要按照URL的地址去访问因特网的资源。</li>
-</ul>
-<p>假设原始服务器的文档被修改，这时候代理服务器的文档就过期了。因此原始服务器通常会为每个响应的对象设置一个<strong>修改时间字段</strong>和<strong>有效日期字段</strong>。</p>
-<p>若过期，但代理服务器的文档与原始服务器的文档一致，则原始服务器发送不带主体的响应：</p>
-<img src="/2024/05/28/computer-network/application-layer/www7.png" class="" title="www7">
-<p>若不一致，则需要发送封装有最新文档的报文：</p>
-<img src="/2024/05/28/computer-network/application-layer/www8.png" class="" title="www8">
-<blockquote>
-<p>完结撒花</p>
-</blockquote>
 
       
     </div>

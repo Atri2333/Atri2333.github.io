@@ -19,29 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Who am I ? I am Yao Yuan, an undergraduate majoring in AI. My interests span algorithms (ACM-ICPC), computer systems, software development and game engines. Though AI takes over most of my school l">
-<meta property="og:type" content="website">
-<meta property="og:title" content="自我介绍">
-<meta property="og:url" content="https://atri2333.github.io/about/index.html">
+    <meta name="description" content="记录自己自学C++中的重点  引用  这里先只谈左值引用。引用和被引用变量是一回事，个人认为实质上是二者所代表的变量地址相同。  函数返回值是引用 例如： 12345678#include&lt;iostream&gt;int n;int &amp;fuck()&#123;return n;&#125;int main()&#123;    fuck() &#x3D; 2;    std">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp_self_study">
+<meta property="og:url" content="https://atri2333.github.io/2024/07/10/cpp/cpp-self-study/index.html">
 <meta property="og:site_name" content="Ayy2">
-<meta property="og:description" content="Who am I ? I am Yao Yuan, an undergraduate majoring in AI. My interests span algorithms (ACM-ICPC), computer systems, software development and game engines. Though AI takes over most of my school l">
+<meta property="og:description" content="记录自己自学C++中的重点  引用  这里先只谈左值引用。引用和被引用变量是一回事，个人认为实质上是二者所代表的变量地址相同。  函数返回值是引用 例如： 12345678#include&lt;iostream&gt;int n;int &amp;fuck()&#123;return n;&#125;int main()&#123;    fuck() &#x3D; 2;    std">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-04T04:35:43.000Z">
-<meta property="article:modified_time" content="2024-05-18T13:55:32.471Z">
+<meta property="article:published_time" content="2024-07-10T09:24:23.000Z">
+<meta property="article:modified_time" content="2024-07-10T09:41:05.011Z">
 <meta property="article:author" content="Ayy2">
 <meta property="article:tag" content="acm, system, software">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://atri2333.github.io/about/">
+<link rel="canonical" href="https://atri2333.github.io/2024/07/10/cpp/cpp-self-study/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/about/index.html","path":"about/index.html","title":"自我介绍"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/07/10/cpp/cpp-self-study/","path":"2024/07/10/cpp/cpp-self-study/","title":"cpp_self_study"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>自我介绍 | Ayy2
-</title>
+<title>cpp_self_study | Ayy2</title>
   
 
 
@@ -141,7 +140,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#who-am-i"><span class="nav-number">1.</span> <span class="nav-text">Who am I ?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#my-tech-stack"><span class="nav-number">1.1.</span> <span class="nav-text">My Tech Stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect-with-me"><span class="nav-number">1.2.</span> <span class="nav-text">Connect with Me ?</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%BC%95%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">函数返回值是引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E5%BC%95%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">常引用</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -185,74 +184,116 @@
 
     </div>
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
 
 
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/07/10/cpp/cpp-self-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cpp_self_study | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp_self_study
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-07-10 17:24:23 / 修改时间：17:41:05" itemprop="dateCreated datePublished" datetime="2024-07-10T17:24:23+08:00">2024-07-10</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
     
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
     
-    
-    <div class="post-block" lang="zh-CN"><header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">自我介绍
-</h1>
-
-<div class="post-meta-container">
+    <a title="disqus" href="/2024/07/10/cpp/cpp-self-study/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/10/cpp/cpp-self-study/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      <div class="post-body">
-          <h1 id="who-am-i">Who am I ?</h1>
-<p>I am Yao Yuan, an undergraduate majoring in AI. My interests span
-algorithms (ACM-ICPC), computer systems, software development and game
-engines. Though AI takes over most of my school lifetime (for some
-reasons, I have to get a good GPA, and luckily I ranked 1st during the
-first five semesters), I still have a passion for learning knowledges of
-my interests. I just finished CSAPP and MIT6.S081 Labs. Now I am goint
-to devote myself to CMU15445 and MIT6.824. Not only for fun, but
-strengthening my CS skills as well.</p>
-<p>In my spare time, I usually relax myself by playing galgame,
-listening to EDM, doing CP (Competitive Programming), crying alone, etc.
-For galgame, Atri is my only love. And both future bass and melodic
-dubstep are my favorite EDM style. For CP, I began learning algorithms
-on my own from freshman year and got Candidate Master at Codeforces.
-These activities fuel my creativity and lead me to a more beautiful
-life.</p>
-<h2 id="my-tech-stack">My Tech Stack</h2>
-<p><del>NULL</del></p>
-<blockquote>
-<p>Blame to yy, he is a lazy idiot.</p>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>记录自己自学C++中的重点</p>
 </blockquote>
-<h2 id="connect-with-me">Connect with Me ?</h2>
-<p>qq：1908920796</p>
-<p>Mail：AtriKawaii@outlook.com</p>
-<p>steam：<a
-target="_blank" rel="noopener" href="https://steamcommunity.com/profiles/76561198449761869/">Atri</a></p>
-<p>Codeforces：<a
-target="_blank" rel="noopener" href="https://codeforces.com/profile/Atri_My_Dear_Moments">Atri_My_Dear_Moments</a>,
-<a target="_blank" rel="noopener" href="https://codeforces.com/profile/Ayy2">Ayy2</a></p>
-<p>AtCoder：<a target="_blank" rel="noopener" href="https://atcoder.jp/users/Atri">Atri</a></p>
-<p>Nowcoder：<a
-target="_blank" rel="noopener" href="https://www.nowcoder.com/users/838286150">Atri</a></p>
-<p>Luogu：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/119958">Ayy2</a></p>
-<p>LeetCode：<a target="_blank" rel="noopener" href="https://leetcode.cn/u/iloveyuqiuwan/">Ayy2</a></p>
-<p>bilibili：<a
-target="_blank" rel="noopener" href="https://space.bilibili.com/399385073">Ayy2_</a></p>
-<p>zhihu：<a
-target="_blank" rel="noopener" href="https://www.zhihu.com/people/quicksilverx-6">Atri</a></p>
-<p>网易云：<a
-target="_blank" rel="noopener" href="https://music.163.com/#/user/home?id=1675042300">Ayy2_</a></p>
+<h2 id="引用">引用</h2>
+<blockquote>
+<p>这里先只谈左值引用。引用和被引用变量<strong>是一回事</strong>，个人认为实质上是二者所代表的变量<strong>地址相同</strong>。</p>
+</blockquote>
+<h3 id="函数返回值是引用">函数返回值是引用</h3>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="function"><span class="type">int</span> &amp;<span class="title">fuck</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> n;&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">fuck</span>() = <span class="number">2</span>;</span><br><span class="line">    std::cout &lt;&lt; n; <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以将函数调用作为赋值对象。</p>
+<h3 id="常引用">常引用</h3>
+<p>指的是
+<code>const int &amp;</code>，不能通过常引用去修改其引用的变量。</p>
+<p>不能将常引用初始化给非常引用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;p = n;</span><br><span class="line"><span class="type">int</span> &amp;q = p;</span><br><span class="line"><span class="comment">// compile error</span></span><br></pre></td></tr></table></figure>
 
-      </div>
-      
-      
-      
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/" rel="prev" title="保研记录">
+                  <i class="fa fa-angle-left"></i> 保研记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
 
 
     
