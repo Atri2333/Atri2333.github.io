@@ -432,7 +432,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-12 19:19:51" itemprop="dateModified" datetime="2024-07-12T19:19:51+08:00">2024-07-12</time>
+      <time title="修改时间：2024-07-16 20:49:02" itemprop="dateModified" datetime="2024-07-16T20:49:02+08:00">2024-07-16</time>
     </span>
 
   
@@ -460,7 +460,7 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>记录自己自学C++中的重点</p>
+<p>查缺补漏，重点整理</p>
 </blockquote>
 <h2 id="引用">引用</h2>
 <blockquote>
@@ -479,6 +479,8 @@ mjx-container[display="true"] + br {
 <blockquote>
 <p>这里重载的定义是：函数名相同，函数参数个数或参数类型不同。</p>
 <p>因此，函数<strong>参数列表相同但返回值不同</strong>，是<strong>不允许重载</strong>的。</p>
+<p>如果在类里，还可以通过分别定义非常量成员函数和常量成员函数（函数定义后面加
+<code>const</code> ）来重载。</p>
 </blockquote>
 <p>例：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">fuck</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="keyword">return</span> n;&#125;</span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">fuck</span><span class="params">(<span class="type">int</span> m)</span></span>&#123;<span class="keyword">return</span> <span class="number">1ll</span> * m * m;&#125;</span><br><span class="line"><span class="comment">// 1.cpp:4:11: error: ambiguating new declaration of &#x27;long long int fuck(int)&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -501,6 +503,7 @@ mjx-container[display="true"] + br {
 <blockquote>
 <p>指的是形如 <code>T (T &amp;)</code> 或 <code>T (const T &amp;)</code>
 这样的用另一个对象的<strong>引用</strong>来初始化该对象的构造函数。如果不自己定义，会自动生成一个默认的复制构造函数。</p>
+<p>新增tip：对于封闭类，编译器为其生成默认的复制构造函数时，会按照先调用其成员对象的<strong>复制构造函数</strong>的规则生成，而不是无参构造函数。</p>
 </blockquote>
 <p>复制构造函数在三种情况下起作用：</p>
 <ul>
@@ -519,6 +522,19 @@ mjx-container[display="true"] + br {
 <p>这样无论是使用 <code>=</code>
 进行赋值还是初始化，可以进行自动类型转换。具体看例子吧：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">double</span> real, imag;</span><br><span class="line">    <span class="built_in">Complex</span>(<span class="type">int</span> i)&#123; <span class="comment">// 类型转换构造函数</span></span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;IntConstructor called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        real = i; imag = <span class="number">0</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="built_in">Complex</span>(<span class="type">double</span> r, <span class="type">double</span> i)&#123;</span><br><span class="line">        real = r;</span><br><span class="line">        imag = i;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;CommonConstructor called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">Complex <span class="title">c1</span><span class="params">(<span class="number">7</span>, <span class="number">8</span>)</span></span>;</span><br><span class="line">    Complex c2 = <span class="number">12</span>;</span><br><span class="line">    c1 = <span class="number">9</span>; <span class="comment">// 9被转换成一个临时Complex对象，然后赋值给c1，在前面转换的过程中会调用类型转换构造函数</span></span><br><span class="line">    std::cout &lt;&lt; c1.real &lt;&lt; <span class="string">&quot;,&quot;</span> &lt;&lt; c1.imag &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="静态成员">静态成员</h3>
+<p>对于类的静态变量，需要在定义类的文件中对其进行一次说明或初始化，否则会发生<strong>链接错误</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Complex</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">double</span> real, imag;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> total_number;</span><br><span class="line">    <span class="built_in">Complex</span>(<span class="type">int</span> i)&#123; <span class="comment">// 类型转换构造函数</span></span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;IntConstructor called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        real = i; imag = <span class="number">0</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="built_in">Complex</span>(<span class="type">double</span> r, <span class="type">double</span> i)&#123;</span><br><span class="line">        real = r;</span><br><span class="line">        imag = i;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;CommonConstructor called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Complex</span>()&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destructor called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">Complex <span class="title">fun</span><span class="params">(Complex tmp)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> Complex::total_number = <span class="number">0</span>; <span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; Complex::total_number;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>思考：如何维护这个total_number呢？应该在怎么样的构造函数和析构函数来实时维护该变量？</p>
+</blockquote>
+<h3 id="封闭类构造函数析构函数">封闭类构造函数/析构函数</h3>
+<blockquote>
+<p>封闭类：含有<strong>成员对象</strong>的类</p>
+</blockquote>
+<p>封闭类对象生成时，先执行所有对象成员的构造函数（按照类中的说明次序，与初始化列表顺序无关），然后执行封闭类的构造函数。</p>
+<p>封闭类对象消亡时，先执行封闭类对象的析构函数，再执行成员对象的析构函数（按照构造函数调用的反序）。</p>
+<h3 id="section"></h3>
 
       
     </div>
