@@ -438,7 +438,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-16 20:49:02" itemprop="dateModified" datetime="2024-07-16T20:49:02+08:00">2024-07-16</time>
+      <time title="修改时间：2024-07-20 16:06:33" itemprop="dateModified" datetime="2024-07-20T16:06:33+08:00">2024-07-20</time>
     </span>
 
   
@@ -484,7 +484,7 @@ mjx-container[display="true"] + br {
 <h2 id="函数重载">函数重载</h2>
 <blockquote>
 <p>这里重载的定义是：函数名相同，函数参数个数或参数类型不同。</p>
-<p>因此，函数<strong>参数列表相同但返回值不同</strong>，是<strong>不允许重载</strong>的。</p>
+<p>因此，函数<strong>参数列表相同但返回值类型不同</strong>，是<strong>不允许重载</strong>的。</p>
 <p>如果在类里，还可以通过分别定义非常量成员函数和常量成员函数（函数定义后面加
 <code>const</code> ）来重载。</p>
 </blockquote>
@@ -540,7 +540,17 @@ mjx-container[display="true"] + br {
 </blockquote>
 <p>封闭类对象生成时，先执行所有对象成员的构造函数（按照类中的说明次序，与初始化列表顺序无关），然后执行封闭类的构造函数。</p>
 <p>封闭类对象消亡时，先执行封闭类对象的析构函数，再执行成员对象的析构函数（按照构造函数调用的反序）。</p>
-<h3 id="section"></h3>
+<h3 id="重载自增自减运算符">重载自增自减运算符</h3>
+<p>Tip：C++约定俗成的规则，就是前置形式的 <code>++c</code> 返回的是对象
+<code>c</code> 的引用，<code>c++</code> 返回的是新的对象。</p>
+<p>因此可以这么写 <code>(++c)=1</code> 。重载的时候注意返回值类型。</p>
+<blockquote>
+<p>可以注意到前置的自增自减运算符效率更高，因为后置的情况会导致对象的拷贝。这也是为什么我喜欢在acm中写for循环喜欢写
+<code>for(int i = 0; i &lt; n; ++i)</code>
+，当然对于内置整形变量其实无所谓了，更看个人风格。</p>
+</blockquote>
+<h3 id="protected">protected</h3>
+<p>派生类可以访问的是当前对象的基类对象的protected成员，而不能访问<strong>非当前对象</strong>的protected成员。</p>
 
       
     </div>
