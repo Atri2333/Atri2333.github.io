@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="games101学习笔记 1. 线性代数 1.1. 线性变换  二维举例  二维线性变换可以写为： \[ x^{&#39;}&#x3D;ax+by\\ y^{&#39;}&#x3D;cx+dy\\ \] 可以用矩阵 \(M\) 来表示： \[ \begin{bmatrix} x^{&#39;}\\y^{&#39;} \end{bmatrix}&#x3D; \begin{bmatrix} a &amp;am">
+<meta property="og:type" content="article">
+<meta property="og:title" content="games101">
+<meta property="og:url" content="https://atri2333.github.io/2024/10/01/games101/index.html">
+<meta property="og:site_name" content="Ayy2">
+<meta property="og:description" content="games101学习笔记 1. 线性代数 1.1. 线性变换  二维举例  二维线性变换可以写为： \[ x^{&#39;}&#x3D;ax+by\\ y^{&#39;}&#x3D;cx+dy\\ \] 可以用矩阵 \(M\) 来表示： \[ \begin{bmatrix} x^{&#39;}\\y^{&#39;} \end{bmatrix}&#x3D; \begin{bmatrix} a &amp;am">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj4.png">
+<meta property="article:published_time" content="2024-10-01T11:09:09.000Z">
+<meta property="article:modified_time" content="2024-10-03T11:47:50.352Z">
+<meta property="article:author" content="Ayy2">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/10/01/games101/proj1.png">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2024/10/01/games101/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/10/01/games101/","path":"2024/10/01/games101/","title":"games101"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>games101 | Ayy2</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy2</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#games101%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">games101学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1. 线性代数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 线性变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87homogeneous-coordinates"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2. 齐次坐标（Homogeneous
+Coordinates）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3. 复合变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4. 三维变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5. 视图变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6. 投影变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">1.6.1. 正交投影</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%8F%E8%A7%86%E6%8A%95%E5%BD%B1"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">1.6.2. 透视投影</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ayy2"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ayy2</p>
+  <div class="site-description" itemprop="description">爱你，vv。❤</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/quicksilverx-6" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;quicksilverx-6" rel="noopener me" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://codeforces.com/profile/Atri_My_Dear_Moments" title="Codeforces → https:&#x2F;&#x2F;codeforces.com&#x2F;profile&#x2F;Atri_My_Dear_Moments" rel="noopener me" target="_blank"><i class="fa fa-code fa-fw"></i>Codeforces</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/10/01/games101/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="games101 | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          games101
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-01 19:09:09" itemprop="dateCreated datePublished" datetime="2024-10-01T19:09:09+08:00">2024-10-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-03 19:47:50" itemprop="dateModified" datetime="2024-10-03T19:47:50+08:00">2024-10-03</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/10/01/games101/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/10/01/games101/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="games101学习笔记">games101学习笔记</h1>
+<h2 id="线性代数">1. 线性代数</h2>
+<h3 id="线性变换">1.1. 线性变换</h3>
+<blockquote>
+<p>二维举例</p>
+</blockquote>
+<p>二维线性变换可以写为： <span class="math display">\[
+x^{&#39;}=ax+by\\
+y^{&#39;}=cx+dy\\
+\]</span> 可以用矩阵 <span class="math inline">\(M\)</span> 来表示：
+<span class="math display">\[
+\begin{bmatrix}
+x^{&#39;}\\y^{&#39;}
+\end{bmatrix}=
+\begin{bmatrix}
+a &amp; b\\c &amp; d
+\end{bmatrix}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}
+\]</span> 可以带入两个基向量 <span
+class="math inline">\((1,0),(0,1)\)</span>，得知 <span
+class="math inline">\((a,c)\)</span> 和 <span
+class="math inline">\((b,d)\)</span>
+分别是这两个向量经过线性变换后在原坐标系的坐标值。可以用这个结论很快地得出矩阵
+<span class="math inline">\(M\)</span> 。</p>
+<h3 id="齐次坐标homogeneous-coordinates">1.2. 齐次坐标（Homogeneous
+Coordinates）</h3>
+<blockquote>
+<p>在线性变换的基础上添加平移变换</p>
+</blockquote>
+<p>线性变换不能表示平移： <span class="math display">\[
+\begin{bmatrix}
+x^{&#39;}\\y^{&#39;}
+\end{bmatrix}=
+\begin{bmatrix}
+a &amp; b\\c &amp; d
+\end{bmatrix}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}+
+\begin{bmatrix}
+t_x\\t_y
+\end{bmatrix}
+\]</span>
+为了将平移也加入一般的变换形式，提出齐次坐标，即在原有的坐标上添加一维
+<span class="math inline">\(w\)</span>（二维举例）：</p>
+<ul>
+<li>2D点：<span class="math inline">\((x, y, 1)^T\)</span></li>
+<li>2D向量：<span class="math inline">\((x, y, 0)^T\)</span></li>
+</ul>
+<p>这样就可以只用矩阵乘法来表示线性变换+平移（先变换后平移）： <span
+class="math display">\[
+\begin{bmatrix}
+x^{&#39;}\\y^{&#39;}\\1
+\end{bmatrix}=
+\begin{bmatrix}
+a &amp; b &amp; t_x\\c &amp; d &amp; t_y \\ 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x\\y\\1
+\end{bmatrix}
+\]</span> 对于矩阵 <span class="math inline">\(M\)</span>
+求逆可得还原矩阵 <span class="math inline">\(M^{-1}\)</span>。</p>
+<h3 id="复合变换">1.3. 复合变换</h3>
+<p>由于采用右手坐标系，因此变换为矩阵左乘，变换顺序由右往左： <span
+class="math display">\[
+A_n(...A_2(A_1(x))) = A_n\cdots A_2 \cdot A_1 \cdot  
+\begin{pmatrix}
+x\\y\\1
+\end{pmatrix}
+\]</span></p>
+<h3 id="三维变换">1.4. 三维变换</h3>
+<p>三维旋转矩阵（非齐次坐标），绕轴 <span
+class="math inline">\(n\)</span> 转 <span
+class="math inline">\(\alpha\)</span>： <span class="math display">\[
+R(n,\alpha)=\cos(\alpha)I+(1-\cos(\alpha))nn^T+\sin(\alpha)
+\begin{pmatrix}
+0&amp;-n_z&amp;n_y\\
+n_z&amp;0&amp;-n_x\\
+-n_y&amp;n_x&amp;0
+\end{pmatrix}
+\]</span></p>
+<h3 id="视图变换">1.5. 视图变换</h3>
+<blockquote>
+<p>MVP变换的V。或者MV。</p>
+<p>想象你拿着相机进行拍照，需要哪些步骤</p>
+</blockquote>
+<p>首先设置相机：</p>
+<ul>
+<li>选择位置 <span class="math inline">\(e\)</span></li>
+<li>选择观察方向 <span class="math inline">\(g\)</span></li>
+<li>选择相机朝上的方向 <span class="math inline">\(t\)</span></li>
+</ul>
+<p>为了方便，我们将相机移动到原点，观察 <span
+class="math inline">\(-z\)</span>，上方向为 <span
+class="math inline">\(y\)</span>。这可以采用复合变换实现：</p>
+<ul>
+<li>将 <span class="math inline">\(e\)</span> 平移至原点</li>
+<li>将 <span class="math inline">\(g\)</span> 旋转至 <span
+class="math inline">\(-z\)</span></li>
+<li>将 <span class="math inline">\(t\)</span> 旋转至 <span
+class="math inline">\(y\)</span></li>
+<li>将 <span class="math inline">\((g \times t)\)</span> 旋转至 <span
+class="math inline">\(x\)</span>
+(事实上不需要这步，只不过方便后续数学推导表示)</li>
+</ul>
+<p>上述变换除了第一步，后面旋转用矩阵难以实现，考虑逆复合变换。</p>
+<p>假设矩阵为 <span
+class="math inline">\(M_{view}=R_{view}T_{view}\)</span>，其中平移矩阵很简单：
+<span class="math display">\[
+T_{view} =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; -x_e\\
+0 &amp; 1 &amp; 0 &amp; -y_e\\
+0 &amp; 0 &amp; 1 &amp; -z_e\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span> 对于旋转矩阵，考虑其逆变换：<span
+class="math inline">\(x\)</span> 旋转至 <span class="math inline">\((g
+\times t)\)</span>，<span class="math inline">\(y\)</span> 旋转至 <span
+class="math inline">\(t\)</span> ，<span
+class="math inline">\(z\)</span> 旋转至 <span
+class="math inline">\(-g\)</span>： <span class="math display">\[
+R_{view}^{-1} =
+\begin{bmatrix}
+x_{g\times t} &amp; x_t &amp; x_{-g} &amp; 0\\
+y_{g\times t} &amp; y_t &amp; y_{-g} &amp; 0\\
+z_{g\times t} &amp; z_t &amp; z_{-g} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span> 不难发现这是个正交矩阵，因此可以直接转置得到 <span
+class="math inline">\(R_{view}\)</span>： <span class="math display">\[
+R_{view} =
+\begin{bmatrix}
+x_{g\times t} &amp; y_{g\times t} &amp; z_{g\times t} &amp; 0\\
+x_t &amp; y_t &amp; z_t &amp; 0\\
+x_{-g} &amp; y_{-g} &amp; z_{-g} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<h3 id="投影变换">1.6. 投影变换</h3>
+<blockquote>
+<p>MVP中的P，将3D转换为2D</p>
+<p>分为正交投影和透视投影</p>
+</blockquote>
+<p>二者区别如下，直接截图了：</p>
+<img src="/2024/10/01/games101/proj1.png" class="" title="proj1">
+<h4 id="正交投影">1.6.1. 正交投影</h4>
+<p>一种简单的方式：</p>
+<ul>
+<li>首先用视图变换，让相机移动到原点，观察 <span
+class="math inline">\(-z\)</span>，上方向为 <span
+class="math inline">\(y\)</span>。</li>
+<li>然后去掉 <span class="math inline">\(z\)</span> 轴</li>
+<li>缩放至 <span
+class="math inline">\([-1,1]^2\)</span>（讲真我不是很理解这步）</li>
+</ul>
+<p>一般方式，在原来的基础上多了个平移变换：</p>
+<img src="/2024/10/01/games101/proj2.png" class="" title="proj2">
+<p>其对应的变换矩阵为： <span class="math display">\[
+M_{ortho}=
+\begin{bmatrix}
+\frac{2}{r-l} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; \frac{2}{t-b} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; \frac{2}{n-f} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; -\frac{r+l}{2}\\
+0 &amp; 1 &amp; 0 &amp; -\frac{t+b}{2}\\
+0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2}\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}
+\]</span></p>
+<h4 id="透视投影">1.6.2. 透视投影</h4>
+<blockquote>
+<p>远的物体更小，平行线不再不行。</p>
+</blockquote>
+<p>首先将锉面压缩成长方体 <span
+class="math inline">\(M_{persp\rightarrow
+ortho}\)</span>，然后可以使用上述正交投影 <span
+class="math inline">\(M_{ortho}\)</span>。</p>
+<img src="/2024/10/01/games101/proj3.png" class="" title="proj3">
+<blockquote>
+<p>这里应该假设这个锉面是通过视线形成的，即中心轴为 <span
+class="math inline">\(-z\)</span>，因此不需要先作平移变换。</p>
+</blockquote>
+<p>主要的idea是上述提到过的“找出向量经过线性变换后在原坐标系的坐标值”。</p>
+<p>首先考虑 <span class="math inline">\(y\)</span>
+，这个很简单，根据相似三角形直接求出 <span
+class="math inline">\(y^{&#39;}=\frac{n}{z}y\)</span>：</p>
+<img src="/2024/10/01/games101/proj4.png" class="" title="proj4">
+<p>将坐标系绕 <span class="math inline">\(z\)</span>
+轴旋转90度，可以发现对于 <span class="math inline">\(x\)</span>
+也一样：<span
+class="math inline">\(x^{&#39;}=\frac{n}{z}x\)</span>。</p>
+<p>根据目前的信息，用齐次坐标表示变换前后的坐标： <span
+class="math display">\[
+\begin{pmatrix}
+x\\y\\z\\1
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+nx/z\\ny/z\\unknown\\1
+\end{pmatrix}
+==
+\begin{pmatrix}
+nx\\ny\\unknown\\z
+\end{pmatrix}
+\]</span> 考虑根据变换前后，推出矩阵 <span
+class="math inline">\(M_{persp\rightarrow ortho}^{4\times 4}\)</span>：
+<span class="math display">\[
+M_{persp\rightarrow ortho}^{4\times 4}
+\begin{pmatrix}
+x\\y\\z\\1
+\end{pmatrix}=
+\begin{pmatrix}
+nx\\ny\\unknown\\z
+\end{pmatrix}
+\]</span> 注意到 <span class="math inline">\(x,y,z\)</span>
+都是变量，矩阵内部不能有这些变量，因此可以直接推出一些元素： <span
+class="math display">\[
+M_{persp\rightarrow ortho} =
+\begin{pmatrix}
+n &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; n &amp; 0 &amp; 0\\
+? &amp; ? &amp; ? &amp; ?\\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{pmatrix}
+\]</span></p>
+<blockquote>
+<p>可以发现这个似乎不是仿射变换矩阵的形式（最后一行前面都是0最后一个是1）。因此学到这里的时候，我知道，至少对于
+<span class="math inline">\(z\)</span> ，它的变换肯定不是线性的。</p>
+<p>因此我有个疑问，就是明知道变换前后不是线性的，但为什么还能假定可以用<strong>矩阵</strong>来表示呢？矩阵可以表示齐次坐标的任意变换吗？</p>
+</blockquote>
+<p>如何求出这些未知元素呢？这里我们考虑将坐标的 <span
+class="math inline">\(z\)</span> 代入一些特殊值。</p>
+<p>首先令 <span class="math inline">\(z=n\)</span> ： <span
+class="math display">\[
+\begin{pmatrix}
+x\\y\\n\\1
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+nx\\ny\\n^2\\n
+\end{pmatrix}
+\]</span> 可以得出矩阵第三行为： <span class="math display">\[
+\begin{pmatrix}
+0&amp;0&amp;A&amp;B
+\end{pmatrix}
+\begin{pmatrix}
+x\\y\\n\\1
+\end{pmatrix}
+=n^2
+\]</span> 且可以得出： <span class="math display">\[
+An+B=n^2
+\]</span> 然后我们需要再来一个方程。我们知道所有在 <span
+class="math inline">\(f\)</span> 面（即最后面的那一面）上的 <span
+class="math inline">\(z\)</span> 前后是不会变的，因此有 <span
+class="math display">\[
+\begin{pmatrix}
+0\\0\\f\\1
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+0\\0\\f^2\\f
+\end{pmatrix}
+\]</span> 因此得到第二个方程： <span class="math display">\[
+Af+B=f^2
+\]</span> 可以解得 <span class="math display">\[
+A=n+f\\B=-nf
+\]</span> 因此成功求出了 <span class="math inline">\(M_{persp\rightarrow
+ortho}\)</span>。</p>
+<blockquote>
+<p>对于一般的 <span class="math inline">\(z\)</span>
+，变换前后是变大还是变小了？（换句话说，更近还是更远了呢）</p>
+<p>根据上述求解可以得知 <span
+class="math inline">\(z^{&#39;}=n+f-\dfrac{nf}{z}\)</span>，直接算 <span
+class="math inline">\(z-z{&#39;}\)</span>，乘 <span
+class="math inline">\(z\)</span> 后可以求得 <span
+class="math inline">\(z^2-(n+f)z+nf&lt;0\space(f&lt;z&lt;n)\)</span>。</p>
+<p>但因为 <span class="math inline">\(z&lt;0\)</span> ，所以 <span
+class="math inline">\(z &gt; z^{&#39;}\)</span>，变换后的 <span
+class="math inline">\(z\)</span> 更小，即更远了。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/12/%E6%9A%91%E6%9C%9F%E8%AE%A1%E5%88%92/" rel="prev" title="暑期计划">
+                  <i class="fa fa-angle-left"></i> 暑期计划
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy2</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"atri2333","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
