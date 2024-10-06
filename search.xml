@@ -5202,6 +5202,96 @@ class="math inline">\(z^2-(n+f)z+nf&lt;0\space(f&lt;z&lt;n)\)</span>。</p>
 class="math inline">\(z &gt; z^{&#39;}\)</span>，变换后的 <span
 class="math inline">\(z\)</span> 更小，即更远了。</p>
 </blockquote>
+<h2 id="光栅化">2. 光栅化</h2>
+<blockquote>
+<p>根据上面的MVP变换，我们得到了一个 <span
+class="math inline">\([-1,1]^3\)</span>
+的正方体。光栅化就是把这个正方体映射到二维屏幕上。</p>
+</blockquote>
+<p>假设我们的屏幕为 <span class="math inline">\([0,width] \times [0,
+height]\)</span>。每一个方格代表一个像素，这里假设每个像素都是纯色。</p>
+<p>一种可以直接想到的简单方法是，不管 <span
+class="math inline">\(z\)</span> 坐标，先变换 <span
+class="math inline">\(xy\)</span> 平面，可以直接写出变换矩阵： <span
+class="math display">\[
+M_{viewport} =
+\begin{pmatrix}
+\frac{width}{2} &amp; 0 &amp; 0 &amp; \frac{width}{2}\\
+0 &amp; \frac{height}{2} &amp; 0 &amp; \frac{height}{2}\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+\]</span></p>
+<h3 id="三角形的离散化">2.1. 三角形的离散化</h3>
+<p>为什么选择三角形：</p>
+<ul>
+<li>最简单的多边形，可以组合成其它多边形</li>
+<li>是2D的</li>
+<li>是凸的</li>
+<li>方便重心插值</li>
+</ul>
+<p>对于像素 <span class="math inline">\((x,
+y)\)</span>，我们通过采样的方式决定是否填充： <span
+class="math display">\[
+inside(t,x,y) =
+\begin{cases}
+1 &amp; (x,y)在三角形t内\\
+0 &amp; otherwise
+\end{cases}
+\]</span> 而像素的中心实际上为 <span
+class="math inline">\((x+0.5,y+0.5)\)</span>，我们只需要判断这个中心是否在三角形内部即可，这可以用<strong>叉积</strong>实现，判断该点是否都在三个方向一致的边向量的左边/右边。</p>
+<h3 id="走样信号与滤波">2.2. 走样、信号与滤波</h3>
+<p>只通过上述对像素中心进行采样的光栅化方式，会产生锯齿（走样）。</p>
+<p><strong>采样</strong>在计算机图形学中是个十分常用的概念，但其往往却会产生一系列问题，称之为artifacts：</p>
+<img src="/2024/10/01/games101/samp1.png" class="" title="samp1">
+<p>经典的走样包括锯齿、摩尔纹、车轮效应，前两者是空间上采用的问题，后者是时间上采样的问题。究其本质，是<strong>采样的速度跟不上信号变化的速度</strong>。</p>
+<p><strong>傅里叶级数展开</strong>：任何周期函数都可以展开为不同频率的正余弦函数的线性组合加上一个常数。</p>
+<p><strong>傅里叶（逆）变换</strong>：可以将时域信号与频域信号相互转换。</p>
+<img src="/2024/10/01/games101/fourier.png" class="" title="fourier">
+<p>对于低频率的信号，采用低频率的采样方式，我们可以根据采用点重建原信号。</p>
+<p>而对于高频率的信号，采用低频率的采样方式，我们可能会错误地重建一个低频率信号。（这事实上就是摩尔纹出现的原理，对原图片进行降采样，可能会得到一个变化较少的纹路）</p>
+<img src="/2024/10/01/games101/samp2.png" class="" title="samp2">
+<p><strong>滤波</strong>：删除原信号在某些频率上的内容。</p>
+<p>滤掉低频，原图片剩下高频的内容，对应的大概率是边界部分。</p>
+<p>滤掉高频，原图片显眼的部分被去除，产生类似于模糊的效果。</p>
+<p><strong>卷积</strong>：<del>这个学过CNN的多少都有点印象，在图形学中也是一样，</del>拿个卷积核在那对每个像素作加权平均。</p>
+<p><strong>卷积定理</strong>：空间域的卷积等于频域的乘积，反之亦然。</p>
+<p>因此在原图片上进行卷积，相当于先用傅里叶变换将图片变为频谱，然后和卷积核的频谱形式进行相乘，最后用傅里叶逆变换变化回来。</p>
+<img src="/2024/10/01/games101/conv.png" class="" title="conv">
+<blockquote>
+<p>值得注意的是，这里的均值滤波器经过傅里叶变换后得到的是一个低通滤波器。</p>
+<p>而滤波器尺寸越大，所得到的低通滤波器越集中于低频率。</p>
+</blockquote>
+<h3 id="抗锯齿反走样">2.3. 抗锯齿（反走样）</h3>
+<p>前面提到，我们产生走样的原因是<strong>采样频率低于信号频率</strong>。</p>
+<p>用上述信号的原理来解释，可以理解为下图：</p>
+<img src="/2024/10/01/games101/samp3.png" class="" title="samp3">
+<p>这里(a)是我们的采样函数，(c)是我们的采样点（冲激函数），(e)是我们最终采样得到的函数。右边是它们经过傅里叶变换后的频谱形式。</p>
+<p>可以看出，对一个函数进行采样，在频率上<strong>相当于重复原函数的频谱内容</strong>。</p>
+<p>而走样在频率上，是重复频谱之间的混合交叉：</p>
+<img src="/2024/10/01/games101/samp4.png" class="" title="samp4">
+<blockquote>
+<p>tip：采样频率越高（冲激函数频率越高），在频谱形式中频率越低，越不容易产生交叉。</p>
+</blockquote>
+<p>所以我们想要反走样，可以从两步考虑：</p>
+<ul>
+<li>提升采样频率，这毫无意义</li>
+<li>降低采样函数频率（这样会让函数在频谱上显得更"窄"）</li>
+</ul>
+<img src="/2024/10/01/games101/samp5.png" class="" title="samp5">
+<p>上面也提到了，降低频率相当于在空间域上使用滤波，因此这里的抗锯齿方案是：</p>
+<blockquote>
+<p>对进行光栅化的三角形提前<strong>模糊</strong>，然后再采样。</p>
+</blockquote>
+<p>具体实现是针对每个像素而言的（相当于1x1滤波器），本质为二值平均。</p>
+<img src="/2024/10/01/games101/samp6.png" class="" title="samp6">
+<p>当然要计算三角形在每个像素中覆盖的比例是件很耗性能的工作，因此有了一种近似的模糊方法MSAA。</p>
+<h4 id="msaa-超采样">2.3.1. MSAA 超采样</h4>
+<p>原理很简单，对每个像素，不再是只对中心进行采样，而是取若干坐标，进行混合平均。</p>
+<img src="/2024/10/01/games101/samp7.png" class="" title="samp7">
+<img src="/2024/10/01/games101/samp8.png" class="" title="samp8">
+<p>事实上MSAA在拟合模糊的时候已经把采样也给做了，因此就省了一个步骤。</p>
+<p>MSAA的问题也很明显，就是超采样方式带来的性能损耗。因此还有其它的方式，例如FXAA、TAA以及你最喜欢的DLSS。</p>
 ]]></content>
   </entry>
 </search>
