@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,1194 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/computer-network/network-layer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/09/computer-network/network-layer/" class="post-title-link" itemprop="url">network-layer</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-09 20:54:32" itemprop="dateCreated datePublished" datetime="2024-05-09T20:54:32+08:00">2024-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-14 11:31:02" itemprop="dateModified" datetime="2024-05-14T11:31:02+08:00">2024-05-14</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/09/computer-network/network-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/computer-network/network-layer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="计网网络层复习">计网——网络层复习</h1>
+<p>网络层的主要任务是实现<strong>网络互联</strong>，进而实现数据报在<strong>各</strong>网络之间的传输。</p>
+<p>网络层需要解决以下三个问题：</p>
+<ol type="1">
+<li>网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输”）</li>
+<li>网络层寻址问题</li>
+<li>路由选择问题</li>
+</ol>
+<p>因特网使用TCP/IP协议栈，使用网际协议IP</p>
+<h2 id="两种服务">两种服务</h2>
+<h3 id="面向连接的虚电路服务">面向连接的虚电路服务</h3>
+<p>通信之前先建立虚电路，以保证通信双方所需的一切网络资源。虚电路只是一条<strong>逻辑</strong>上的连接</p>
+<p>发送方发送给接收方的所有分组都沿着同一条虚电路传送</p>
+<img src="/2024/05/09/computer-network/network-layer/VC1.png" class="" title="VC1">
+<h3 id="无连接的数据报服务">无连接的数据报服务</h3>
+<p>只向上层提供<strong>无连接的、尽最大努力交付</strong>的数据报服务</p>
+<p>发送前无需建立连接。每一个分组（即ip数据报）独立发送</p>
+<img src="/2024/05/09/computer-network/network-layer/ip1.png" class="" title="ip1">
+<h2 id="ipv4">IPv4</h2>
+<p>IPv4地址是给因特网（Internet）上的<strong>每一台主机（或路由器）的每一个接口</strong>分配一个在全世界范围内是<strong>唯一的32比特的标识符</strong>。</p>
+<p>IPv4编址方法的三个历史阶段：分类编址-&gt;划分子网-&gt;无分类编址</p>
+<p>IPv4：<strong>点分十进制</strong>表示方法</p>
+<h3 id="分类编址">1. 分类编址</h3>
+<img src="/2024/05/09/computer-network/network-layer/ip2.png" class="" title="ip2">
+<p>A类地址，最小网络号为0，但是保留，<strong>不指派</strong>。</p>
+<p>第一个可指派的网络号是1，<strong>网络地址</strong>是1.0.0.0。</p>
+<p>最大网络号127，但是作为<strong>本地环回测试地址</strong>，<strong>不指派</strong>。</p>
+<p>最后一个可指派的网络号是126，<strong>网络地址</strong>是126.0.0.0。</p>
+<p>可指派的网络数量为126。</p>
+<p>每个网络中可分配的IP地址数量为 <span
+class="math inline">\(2^{24}-2=16777214\)</span>
+（除去<strong>主机号全0的网络地址</strong>和<strong>全1的广播地址</strong>）</p>
+<hr />
+<p>B类地址，最小网络号也是第一个可指派的网络号是128.0，网络地址是128.0.0.0。</p>
+<p>最大网络号也是最后一个可指派的网络号是191.255，网络地址是191.255.0.0。</p>
+<p>可指派的网络数量为 <span
+class="math inline">\(2^{16-2}=16384\)</span></p>
+<p>每个网络中可分配的IP地址数量为 <span
+class="math inline">\(2^{16}-2=65534\)</span>。</p>
+<hr />
+<p>C类地址，最小网络号也是第一个可指派的网络号是192.0.0，网络地址是192.0.0.0。</p>
+<p>最大网络号也是最后一个可指派的网络号是223.255.255，网络地址是223.255.255.0。</p>
+<p>可指派的网络数量为 <span
+class="math inline">\(2^{24-3}=2097152\)</span></p>
+<p>每个网络中可分配的IP地址数量为 <span
+class="math inline">\(2^{8}-2=254\)</span>。</p>
+<hr />
+<h3 id="划分子网">2. 划分子网</h3>
+<blockquote>
+<p>将原有的两级IP地址变为三级的IP地址</p>
+</blockquote>
+<p>划分子网<strong>纯属是一个单位内部的事情</strong>，对外仍然表现为没有划分子网的网络。它的idea是从主机号中借用若干个bit作为<strong>子网号</strong>（subnet-id）。</p>
+<p>子网掩码：连续的1对应网络号和子网号，0对应主机号。即（IP地址）AND（子网掩码）=
+网络地址</p>
+<h3 id="无分类编址">3. 无分类编址</h3>
+<p>无分类域间路由选择CIDR：消除了传统的A、B、C类地址以及划分子网的概念，使用<strong>各种长度的网络前缀</strong>来代替网络号和子网号。</p>
+<p>CIDR使用斜线记法，即在IPv4地址后面加上斜线“/”，写上网络前缀所占比特数量。例如
+128.14.25.7/20</p>
+<p>CIDR实际上是将网络前缀都相同的连续IP地址组成一个“<strong>CIDR地址块</strong>”。我们只要知道一个CIDR地址块中的任何一个地址，就可以知道该地址块的全部细节：</p>
+<ul>
+<li>地址块的最小、最大地址</li>
+<li>地址块的地址数量</li>
+<li>地址块聚合某类网络（A、B、C类）的数量</li>
+<li>地址掩码（也可继续称为子网掩码）</li>
+</ul>
+<blockquote>
+<p>有点抽象，这里偷个例子看看</p>
+</blockquote>
+<img src="/2024/05/09/computer-network/network-layer/CIDR1.png" class="" title="CIDR1">
+<p><strong>路由聚合</strong>：将路由器中路由表的多个CIDR记录找<strong>最大公共前缀</strong>（<del>这不是Trie吗，ACMer特有的感知</del>），合并成一个记录</p>
+<img src="/2024/05/09/computer-network/network-layer/CIDR2.png" class="" title="CIDR2">
+<h2 id="ipv4地址的应用规划">IPv4地址的应用规划</h2>
+<blockquote>
+<p>王道p146</p>
+</blockquote>
+<p>给定一个IPv4地址块，将其划分成几个更小的地址块，分配给不同的网络</p>
+<h3 id="定长的子网掩码flsm">定长的子网掩码FLSM</h3>
+<p>就是划分子网的方式，从主机号部分借用 <span
+class="math inline">\(n\)</span> 位作为子网号，可以划分出大小相等的
+<span class="math inline">\(2^n\)</span> 个不同的网络。</p>
+<h3 id="变长的子网掩码vlsm">变长的子网掩码VLSM</h3>
+<p>就是无分类编址的方式。这里给出一个例子</p>
+<img src="/2024/05/09/computer-network/network-layer/ip3.png" class="" title="ip3">
+<blockquote>
+<p>划分方案不唯一，建议从大的子网（主机号多的）开始划分。</p>
+</blockquote>
+<h2 id="地址解析协议arp">地址解析协议ARP</h2>
+<blockquote>
+<p>从IP地址找出其对应的MAC地址</p>
+</blockquote>
+<p>每台主机都设有一个ARP高速缓存，用于存放<strong>本局域网</strong>上各主机和路由器的IP地址到MAC地址的映射表，即ARP表。</p>
+<p>若未查到目的主机的MAC地址，则通过使用目的MAC地址为FF-FF-FF-FF-FF-FF的帧来<strong>封装并广播ARP请求分组</strong>。目的主机收到ARP请求后，向源主机发送<strong>ARP响应</strong>（单播MAC帧，包含目的主机的IP地址和MAC地址）。源主机收到ARP相应后，记录到ARP表中。</p>
+<blockquote>
+<p>ARP表中的IP地址与MAC地址的对应关系记录，是<strong>会定期自动删除的</strong>，<strong>因为IP地址与MAC地址的对应关系不是永久性的</strong></p>
+</blockquote>
+<h2 id="ip数据报的发送和转发">IP数据报的发送和转发</h2>
+<blockquote>
+<p>忽略ARP过程和交换机自学习流程</p>
+</blockquote>
+<p>获取目的网络地址：将目的地址IP和<strong>源地址</strong>的子网掩码进行逻辑与运算</p>
+<ul>
+<li>如果目的网络地址和源网络地址相同，则属于同一个网络，<strong>直接交付</strong></li>
+<li>否则属于<strong>间接交付</strong>，需要将IP数据报传输给主机所在网络的<strong>默认网关</strong>（路由器）</li>
+</ul>
+<p>默认网关：为了让本网络中的主机能和其它网络中的主机进行通信，就必须指定本网络的一个路由器的接口，由该路由器帮忙转发</p>
+<p>路由器收到IP数据报后如何转发？</p>
+<ul>
+<li>检查IP数据报首部是否出错：
+<ul>
+<li>若出错，则直接丢弃该IP数据报并通告源主机</li>
+<li>若没有出错，则进行转发</li>
+</ul></li>
+<li>根据IP数据报的目的地址在路由表中查找匹配的条目：
+<ul>
+<li>若找到匹配的条目，则转发给条目中指示的下一跳</li>
+<li>若找不到，则<strong>丢弃该数据报</strong>并通告源主机</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>检查路由条目：将目的地址与<strong>路由条目</strong>中的地址掩码进行逻辑与运算得到目的网络地址，并和路由条目中的目的网络进行比较，如果相同，则该条目就是匹配的条目。根据该条目的下一跳指示，进行转发。（补充，按前缀长度的顺序进行检查）</p>
+<p>路由器是<strong>隔离广播域</strong>的。</p>
+</blockquote>
+<h2 id="路由算法与路由协议">路由算法与路由协议</h2>
+<h3 id="静态路由配置">静态路由配置</h3>
+<p>由网络管理员手工配置每一条路由。</p>
+<blockquote>
+<p>默认路由0.0.0.0/0，与所有IP匹配，但是优先级也是最低的。</p>
+<p>特定主机路由，例如192.168.2.1/32，优先级是最高的。</p>
+<p>黑洞路由，匹配后分组就没了</p>
+</blockquote>
+<h3 id="路由选择协议">路由选择协议</h3>
+<p>因特网采用<strong>分层次</strong>的路由选择协议</p>
+<ul>
+<li>自治系统AS：在单一的技术管理下的一组路由器，这些路由器使用一种<strong>AS内部</strong>的<strong>路由选择协议</strong>和<strong>共同的度量</strong>以确定分组在该AS中的路由，同时还使用一种<strong>AS之间</strong>的路由选择协议来确定AS之间的路由。</li>
+<li><img src="/2024/05/09/computer-network/network-layer/route2.png" class="" title="route2"></li>
+</ul>
+<img src="/2024/05/09/computer-network/network-layer/route1.png" class="" title="route1">
+<h4 id="路由信息协议rip">路由信息协议RIP</h4>
+<blockquote>
+<p>这个玩意运行在传输层的UDP协议之上。疑问：路由器不是只实现了网络层吗？</p>
+</blockquote>
+<p>RIP要求自治系统AS内的每一个路由器都要维护它自己到AS内其它每一个网络的距离记录。这是一组距离，称为“距离向量D-V”</p>
+<p>RIP使用<strong>跳数</strong>作为距离的度量。</p>
+<ul>
+<li>路由器到直连网络的距离定义为1</li>
+<li>到非直连网络的距离定义为经过的路由器数加1</li>
+<li><strong>允许一条路径最多只能包含15个路由器。“距离”为16时相当于不可达。</strong></li>
+</ul>
+<p>RIP认为距离短的路由就是好的路由。当到达同一网络有多条距离相等的路由时，可以进行“等价负载均衡”。</p>
+<p>RIP包含以下三个要点：</p>
+<ul>
+<li>仅和<strong>相邻</strong>路由器交换信息</li>
+<li>交换信息为自己的路由表</li>
+<li>周期性交换信息</li>
+</ul>
+<p>RIP工作举例：</p>
+<img src="/2024/05/09/computer-network/network-layer/rip1.png" class="" title="rip1">
+<img src="/2024/05/09/computer-network/network-layer/rip2.png" class="" title="rip2">
+<ul>
+<li>相同下一跳，更新</li>
+<li>新网络，添加</li>
+<li>不同下一跳但是有路由优势（距离短），更新</li>
+<li>不同下一跳且距离相同，等价负载均衡，添加</li>
+<li>不同下一跳且劣势，不更新</li>
+</ul>
+<p>RIP存在“坏消息传播慢”的问题，又称路由环路或距离无穷问题，这是距离向量算法的一个固有问题。假设某网络N1故障，其直连路由器开始传播N1不可达的RIP更新信息，但是发的慢了，会被其余认为N1可达的信息误导，这会导致路由环路，使路由收敛减慢：</p>
+<img src="/2024/05/09/computer-network/network-layer/rip3.png" class="" title="rip3">
+<h3 id="开放最短路径优先ospf">开放最短路径优先OSPF</h3>
+<p>OSPF是基于链路状态的路由算法协议，采用SPF最短路算法计算路由，因此在算法上保证了不会产生路由环路。</p>
+<p><strong>链路状态</strong>：指本路由器都和哪些路由器<strong>相邻</strong>，以及相应链路的“<strong>代价</strong>”</p>
+<blockquote>
+<p><del>嗯？这不是每个点的邻接表吗（雾</del></p>
+</blockquote>
+<p><strong>问候分组Hello</strong>：OSPF相邻路由器通过交互问候分组，建立和维护<strong>邻居关系</strong>。</p>
+<img src="/2024/05/09/computer-network/network-layer/ospf1.png" class="" title="ospf1">
+<blockquote>
+<p>在IP数据报的首部字段的协议号中标注为89，表明数据载荷为OSPF分组</p>
+</blockquote>
+<p><strong>链路状态通告LSA</strong>：包含以下内容</p>
+<ul>
+<li>直连网络的链路状态信息</li>
+<li>邻居路由器的链路状态信息</li>
+</ul>
+<p>LSA被封装在<strong>链路状态更新分组LSU</strong>中，用洪泛法发送</p>
+<img src="/2024/05/09/computer-network/network-layer/ospf2.png" class="" title="ospf2">
+<p><strong>链路状态数据库LSDB</strong>：存储各路由器的LSA</p>
+<img src="/2024/05/09/computer-network/network-layer/ospf3.png" class="" title="ospf3">
+<p>通过LSDB构造带权有向图，就可以使用SPF算法计算各自路由器到达其它路由器的最短路径：</p>
+<img src="/2024/05/09/computer-network/network-layer/ospf4.png" class="" title="ospf4">
+<p>OSPF共有以下五种分组类型：</p>
+<ol type="1">
+<li>问候分组，Hello</li>
+<li>数据库描述分组，向邻站给出自己的LSDB中所有链路状态项目的摘要信息</li>
+<li>链路状态请求分组，向对方请求发送某些链路状态项目的详细信息</li>
+<li>链路状态更新分组，LSU，<strong>它是OSPF最核心的部分</strong></li>
+<li>链路状态确认分组</li>
+</ol>
+<p>为了使OSPF能够用于规模很大的网络，OSPF将一个自治系统AS再划分为若干更小的范围，称为<strong>区域</strong>。这样做的目的是将LSU的广播仅限于每一个区域内，减少网络上的通信量。</p>
+<h3 id="边界网关协议bgp">边界网关协议BGP</h3>
+<p>BGP是不同AS的路由器之间交换路由信息的协议。</p>
+<blockquote>
+<p>不同AS之间必然没有统一的路由评价标准。因此BGP只能是寻求一条能够到达目的网络且比较好的路由，而非找到最佳路由。</p>
+<p>BGP运行在传输层的TCP之上</p>
+</blockquote>
+<p>BGP的主要idea是，每个AS的管理员需要在配置BGP的时候选择至少一个路由器，作为该AS的“<strong>BGP发言人</strong>”（往往就是边界路由器）</p>
+<p>一个BGP代言人要和其它AS的代言人交换信息，需要先建立TCP连接，然后在此基础上交换BGP报文以建立BGP会话，来交换路由信息。当BGP各代言人互相交换网络可达性的信息后，就根据各自所用的策略，各自找出到达各AS的较好的路由。</p>
+<blockquote>
+<p>这会形成一个树形结构</p>
+</blockquote>
+<p>BGP-4共使用4种报文：</p>
+<ol type="1">
+<li>打开（Open）报文。用来和相邻的另一个BGP代言人建立关系，使通信初始化</li>
+<li>更新（Update）报文。用来通知某一路由的信息，以及列出要撤销的多条路由</li>
+<li>保活（Keepalive）报文。用来周期性地证实邻站的连通性</li>
+<li>通知（Notification）报文。用来发送检测到的差错。</li>
+</ol>
+<img src="/2024/05/09/computer-network/network-layer/bgp1.png" class="" title="bgp1">
+<h2 id="ipv4数据报格式">IPv4数据报格式</h2>
+<p>直接上图</p>
+<img src="/2024/05/09/computer-network/network-layer/ip4.png" class="" title="ip4">
+<ul>
+<li>一个IP数据报由<strong>首部</strong>和<strong>数据</strong>两部分组成</li>
+<li>首部的前一部分是<strong>固定长度，为20字节</strong></li>
+<li>首部后面部分是可选字段，其长度可变</li>
+<li>首部长度一定是<strong>4字节的整数倍</strong>，填充部分用于确保这一条件</li>
+</ul>
+<p>每一行由32个比特组成，每个小格子称为字段或者域，用来表达IP协议的相关功能：</p>
+<ul>
+<li>版本：4比特，表示ip协议的版本</li>
+<li>首部长度：4比特，表示ip数据报首部的长度，<strong>以4字节为单位</strong></li>
+<li>可选字段：1字节到40字节不等，用来支持其它功能</li>
+<li>填充字段：确保首部长度为4字节的整数倍，用全0填充</li>
+<li>区分服务：利用该字段的数值可提供不同等级的服务质量，不过一般情况不使用该字段</li>
+<li>总长度：16比特，以<strong>字节</strong>为单位</li>
+<li>标识：占16比特，属于同一个数据报的<strong>各分片数据报</strong>应该具有<strong>相同的标识</strong></li>
+<li>标志：3比特，DF位（1表示不允许分片，0表示允许分片），MF位（1表示后面还有分片，0表示这是最后一个分片），保留位（必须为0）</li>
+<li>片偏移：13比特，以8个字节为单位，指出分片数据报的<strong>数据载荷部分</strong>偏移其原数据报的数据载荷位置多少个单位</li>
+</ul>
+<blockquote>
+<p>这要求分片的数据载荷部分，除了最后一个分片，都要保证其大小为8个字节的整数倍？</p>
+</blockquote>
+<ul>
+<li><p>生存时间TTL：占8比特，现在以<strong>跳数</strong>为单位，路由器转发IP数据报时，将IP数据报首部中的<strong>该字段的值减1</strong>，若不为0则转发，否则丢弃</p></li>
+<li><p>协议：占8比特，指明IP数据报部分是何种协议数据单元：</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">协议名称</th>
+<th style="text-align: center;">ICMP</th>
+<th style="text-align: center;">IGMP</th>
+<th style="text-align: center;">TCP</th>
+<th style="text-align: center;">UDP</th>
+<th style="text-align: center;">IPv6</th>
+<th style="text-align: center;">OSPF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">协议字段值</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">41</td>
+<td style="text-align: center;">89</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这里不仅有网络层协议，还有传输层协议捏。咦，传输层和网络层之间是有关联的吗，为什么要把传输层的信息封装在IP首部中？这不是违背了分层的idea了吗？</p>
+</blockquote>
+<ul>
+<li>首部检验和：占16比特，用来检测首部在传输过程中<strong>是否存在差错</strong>。比CRC简单。IP数据报每经过一个路由器，都要重新计算该字段，因为某些字段（TTL、标志、片偏移等）可能发生变化</li>
+<li>源/目的IP地址：各占32比特</li>
+</ul>
+<h2 id="网际控制报文协议icmp">网际控制报文协议ICMP</h2>
+<blockquote>
+<p>ICMP的作用是让主机或者路由器报告<strong>差错和异常</strong>情况，提高IP数据报交付的机会。</p>
+</blockquote>
+<p>ICMP报文有两种：ICMP<strong>差错报告报文</strong>和ICMP<strong>询问报文</strong>。</p>
+<p>ICMP<strong>差错报告报文</strong>用于目标主机或目标路径上的路由器，向源主机报告差错和异常情况。共5种常用类型：</p>
+<ol type="1">
+<li>终点不可达。当路由器或主机不能交付数据报时，发送该报文</li>
+<li>源点抑制。当路由器或主机<strong>由于拥塞</strong>，而丢弃数据报时，发送该报文，使源点知道应该把数据报的<strong>发送速率降低</strong></li>
+<li>时间超过。当路由器收到TTL为零的数据报时，除丢弃数据报外，还需要向源点发送时间超过报文。另外一种情况是终点在<strong>规定时间</strong>内不能收到一个数据报的全部数据报片时，就把已有数据报丢弃，也会向源点发送该报文。</li>
+<li>参数问题。当路由器或目标主机收到的数据报的首部中，有的字段值不正确时，丢弃该数据报，发送参数问题报文</li>
+<li>改变路由（重定向）。路由器把该报文发送给主机，让主机知道下次应将数据报发送另外的路由器。</li>
+</ol>
+<p>以下情况不应发送ICMP差错报告报文：</p>
+<ul>
+<li>对ICMP差错报告报文，不发送ICMP差错报告报文（不然就套娃了不是吗</li>
+<li>对第一个分片的数据报片的所有后续数据报片，不发送ICMP差错报告报文（不然就太多了？</li>
+<li>对具有多播地址的数据报，不发送</li>
+<li>对具有特殊地址（如环回地址127.0.0.0或者0.0.0.0），不发送</li>
+</ul>
+<p>ICMP询问报文，常见的有2种：</p>
+<ol type="1">
+<li>回送请求和回答。向特定的目的主机发出询问，目的主机收到该报文后必须给源主机或发送ICMP回送回答报文。一般用于测试目的站是否可达。</li>
+<li>时间戳请求或回答。请求某个主机或路由器当前的日期和时间，通常用于进行时钟同步和测量时间。</li>
+</ol>
+<blockquote>
+<p>ICMP应用：</p>
+<ol type="1">
+<li>PING，用来测试主机或路由器间的连通性。应用层直接使用网际层的ICMP回送请求和回答报文，来检测目的主机是否可达。</li>
+<li>traceroute，用来测试ip数据报从源主机到达目的主机要经过哪些路由器。原理是发送TTL设定值的ICMP回送请求报文，这样TTL为0时，路由器会返回时间超过的ICMP差错报告报文。</li>
+</ol>
+</blockquote>
+<h2 id="虚拟专用网vpn">虚拟专用网VPN</h2>
+<blockquote>
+<p>由于IP地址紧缺，一个机构能申请到的ip地址数往往远小于本机构所拥有的主机数。VPN的idea是在同一个机构中，分配本机构可自由分配的<strong>专用地址</strong>。</p>
+</blockquote>
+<p>专用（私有）地址是规定的：</p>
+<ul>
+<li>10.0.0.0 - 10.255.255.255（10/8地址块）</li>
+<li>172.16.0.0 - 172.31.255.255 （172.16/12地址块）</li>
+<li>192.168.0.0 -
+192.168.255.255（192.168/16地址块，是不是很熟悉？）</li>
+</ul>
+<blockquote>
+<p>私有地址只能用于同一机构内的通信，不能和因特网上其它主机通信。因此路由器对所有目的地址是专用地址的ip数据报一律不转发。</p>
+</blockquote>
+<p>各部门都至少需要一个路由器具有全球合法的ip地址，这样各自的专用网才能利用公用的因特网进行通信。</p>
+<img src="/2024/05/09/computer-network/network-layer/vpn1.png" class="" title="vpn1">
+<blockquote>
+<p>有两个首部：内部IP数据报首部，和真正的IP数据报首部。</p>
+</blockquote>
+<h2 id="网络地址转换nat">网络地址转换NAT</h2>
+<blockquote>
+<p>NAT的主要思想是将大量使用内部专用地址的用户共享少量的全球合法地址。</p>
+</blockquote>
+<p>假设，使用私有地址的主机要给因特网上使用全球ip地址的另一台主机发送数据报，这时候需要用安装了NAT软件的专用网的路由器进行ip地址转换：</p>
+<img src="/2024/05/09/computer-network/network-layer/nat1.png" class="" title="nat1">
+<p>若多台主机同时采用NAT，路由器内部需要维护一个私有地址到全球IP地址的映射关系：</p>
+<img src="/2024/05/09/computer-network/network-layer/nat2.png" class="" title="nat2">
+<p>如果NAT路由器具有n个全球ip地址，这样的话只能有n个内网主机能够同时和因特网上的主机通信。</p>
+<p>解决方法是使用传输层中TCP和UDP协议的<strong>端口号</strong>，利用运输层的端口号和IP地址一起转换，这种技术叫做NAPT：</p>
+<img src="/2024/05/09/computer-network/network-layer/nat3.png" class="" title="nat3">
+<blockquote>
+<p>NAPT路由器就是我们常用的家用路由器</p>
+</blockquote>
+<p>如果外网需要主动与内网某主机进行通信，这会有问题（根本就不知道ip地址呀），这需要网络应用自己使用一些特殊的NAT穿越技术来解决问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/se/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/09/se/" class="post-title-link" itemprop="url">se</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-09 20:17:57" itemprop="dateCreated datePublished" datetime="2024-05-09T20:17:57+08:00">2024-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-19 19:53:55" itemprop="dateModified" datetime="2024-06-19T19:53:55+08:00">2024-06-19</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/09/se/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/se/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>前面几章就是文科啦，应该不是重点</p>
+</blockquote>
+<h2 id="第一章-软件工程基础">第一章 软件工程基础</h2>
+<p><strong>软件工程的定义</strong>：</p>
+<ol type="1">
+<li>应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件</li>
+<li>对1中各种方法的研究</li>
+</ol>
+<h2 id="第二章-软件工程的发展">第二章 软件工程的发展</h2>
+<p>1950s-2000s软件工程的特点</p>
+<p>1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件</p>
+<p>1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用软件工艺的方式生产软件</p>
+<p>1970s：结构化方法；瀑布模型；强调规则和纪律</p>
+<p>1980s：追求生产力最大化；现代结构化方法/面向对象编程广泛应用；重视过程的作用</p>
+<p>1990s：企业为中心的大规模软件系统开发；追求快速开发、可变更性和用户价值；Web应用出现</p>
+<p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
+<ul>
+<li>瀑布模型：</li>
+</ul>
+<p>将软件生命周期中的各个活动规定为线性连接的模型，包括需求分析、设计、编码、测试、维护等，相邻的步骤之间相互衔接，强调一个阶段结束后对其制品进行验证和检验。优点：容易理解，管理成本低，强调开放的阶段性早期计划和产品测试
+缺点：客户必须能够完整、正确和清晰地描述他的需要，开始阶段难以评估项目进度，项目结束后会出现大量集成和测试工作，需求或设计中的错误往往只有到了项目后期才被发现（对风险的控制能力较弱）</p>
+<ul>
+<li><p>演化模型：迭代的过程，适用于软件需求缺乏准确认识的情况</p>
+<ul>
+<li>原型模型：</li>
+</ul>
+<p>是预期系统的一个可执行版本，反映的是系统性的一个选定子集，一个原型不必满足目标软件的所有约束。</p>
+<img src="/2024/05/09/se/mod1.png" class="" title="mod1">
+<p>原型模型开始于沟通，其目的是定义软件的总体目标，标识需求，然后快速制定原型开发的计划，确定原型的目标和范围，采用快速设计的方式对其进行建模，并构建原型。</p>
+<p>可将原型分为三种：1、探索性原型：目的是弄清目标的需求，确定所希望的特性，并探讨多种方案的可能性；2、实验性原型：目的是验证方案或算法的合理性，是在大规模开发前，用于考察方案是否可靠的方法；3、演化性原型：将原型作为目标系统的一部分，通过多次改进，逐步演化为最终的目标系统。</p>
+<ul>
+<li>螺旋模型：将瀑布模型和演化模型相结合。螺旋模型将开发过程分为几个螺旋周期，每个螺旋周期大致和瀑布模型相符合：</li>
+</ul>
+<img src="/2024/05/09/se/mod2.png" class="" title="mod2">
+<p>螺旋模型强调风险分析，使得开发人员和用户对每个演化层出现的风险有所了解。</p></li>
+<li><p>敏捷开发：应对快速变化的需求的一种软件开发方法，更强调程序员团队和专家之间的紧密协作、面对面沟通、频繁地交互新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法。适用于团队规模较小的队伍。</p></li>
+</ul>
+<h2 id="第四章-项目管理基础">第四章 项目管理基础</h2>
+<h3 id="团队结构">团队结构</h3>
+<p>（1）主程序员团队</p>
+<p>特点：主程序员负责领导团队，效率较高，最大限度地保证产品不同元素的一致性</p>
+<p>局限：主程序员的能力是瓶颈；团队成员无法发挥主动性，积极程度不高</p>
+<p>（2）民主团队</p>
+<p>特点：每个成员都可以发挥自己的能动性，所有人都可以在自己擅长的领域工作</p>
+<p>局限：花费在交流，统一思想上的时间成本太大，效率较低</p>
+<p>（3）开放团队</p>
+<p>特点：使用黑箱管理方式，团队内部的交流路径是不可见的，所有成员按照自己的方式进行自我管理，最大发挥团队成员的创新能力</p>
+<p>局限：项目进展没有可视度</p>
+<h3 id="团队的建设措施">团队的建设措施</h3>
+<ul>
+<li>建立团队章程</li>
+<li>持续成功（项目的整体成功，项目的阶段性成功，也可以是无关的团队活动的成功）</li>
+<li>和谐沟通</li>
+<li>避免团队杀手</li>
+</ul>
+<h3 id="质量保障活动">质量保障活动</h3>
+<ul>
+<li>需求评审</li>
+<li>体系结构评审</li>
+<li>详细设计评审</li>
+<li>代码评审</li>
+<li>需求度量</li>
+<li>设计度量</li>
+<li>代码度量</li>
+<li>测试度量</li>
+<li>集成测试</li>
+</ul>
+<p><strong>题目</strong>：结合实验，说明一个项目的质量保障包括哪些活动？</p>
+<h3 id="配置管理活动">配置管理活动</h3>
+<ul>
+<li>标识配置项
+<ul>
+<li>首先要确定有哪些配置项需要被保存和管理，其次要给配置项确定标识，设置唯一的ID，最后要说明配置项的特征，包括生产者、基线建立时间、使用者等</li>
+</ul></li>
+<li>版本管理
+<ul>
+<li>为每一个刚纳入配置管理的配置项赋予一个初始的版本号，并在发生变更的时候更新版本号</li>
+</ul></li>
+<li>变更控制
+<ul>
+<li>已经纳入配置管理中的配置项发生变化时，需要根据变更控制过程进行处理</li>
+</ul></li>
+<li>配置审计
+<ul>
+<li>目标是确定一个项目满足需求的功能和物理特征的程度，确保软件开发工作按照需求和设计特征进行，验证配置项的完整性、正确性、一致性和可跟踪性</li>
+</ul></li>
+<li>状态报告
+<ul>
+<li>标识、收集和维持演化中的配置状态信息，也就是对在动态演化着的配置项信息及其度量取快照</li>
+</ul></li>
+<li>软件发布管理
+<ul>
+<li>将软件配置项发布到开发活动之外，例如发布给客户</li>
+</ul></li>
+</ul>
+<h2 id="第五章-软件需求基础">第五章 软件需求基础</h2>
+<h3 id="需求">需求</h3>
+<p>（1）用户为了解决问题或达到某种目标所需要的条件和能力</p>
+<p>（2）系统或系统部件为了满足合同、标准、规范或其它正式文档所规定的要求而需要具备的条件或能力</p>
+<p>（3）对（1）或（2）中的一个条件或一种能力的一种文档化表述</p>
+<h3 id="需求的层次性">需求的层次性</h3>
+<ul>
+<li>业务需求：描述了组织为什么要开发系统（目标）</li>
+<li>用户需求：描述了系统能够帮用户做些什么（任务）</li>
+<li>系统级需求：描述了开发人员需要实现什么（系统行为）</li>
+</ul>
+<h3 id="需求分类">需求分类</h3>
+<ul>
+<li>功能需求：和系统主要工作相关的需求，即不考虑物理约束的情况下，用户希望系统所能执行的活动</li>
+<li>性能需求：定义了系统必须多快、多好地去完成专门的功能</li>
+<li>质量属性：可靠性、可用性、安全性、可维护性、可移植性、易用性</li>
+<li>对外接口：系统和环境中其它系统之间需要建立的接口（用户界面、硬件接口、软件接口、网络通信接口等）</li>
+<li>约束：进行系统构造时，需要遵守的约定（编程语言、硬件设施）</li>
+<li>数据需求（不是标准的需求类别，是功能需求的补充）：通常描述数据库等存储介质</li>
+</ul>
+<h2 id="第六章-需求分析方法">第六章 需求分析方法</h2>
+<blockquote>
+<p>怎么画用例图、概念类图</p>
+</blockquote>
+<h3 id="结构化方法">结构化方法</h3>
+<h4 id="数据流图dfd">数据流图（DFD）</h4>
+<ul>
+<li>外部实体：待构建软件系统之外的实体，它们不受系统的控制。它们作为软件系统的<strong>数据源</strong>或<strong>数据目的地</strong>。</li>
+<li>过程：指施加于数据的动作或者行为，它们使得数据发生变化，<strong>必须有输入和输出，且二者应存在差异</strong>。</li>
+<li>数据流：指数据的运动。DFD的数据流<strong>必须要和过程产生关联</strong>。</li>
+<li>数据存储：软件系统需要在内部保存供以后使用的数据集合。</li>
+</ul>
+<p>练习（谢谢blackbird宝宝！）：</p>
+<img src="/2024/05/09/se/dad1.png" class="" title="dad1">
+<img src="/2024/05/09/se/dad2.png" class="" title="dad2">
+<h3 id="面向对象分析方法">面向对象分析方法</h3>
+<blockquote>
+<p>主要采用统一建模语言（UML）技术。</p>
+</blockquote>
+<h4 id="用例图p94">用例图（P94）</h4>
+<ul>
+<li>用例：用例模型中最重要的元素，使用一个水平的椭圆表示。</li>
+<li>参与者：一个小人，代表同系统进行交互的角色。</li>
+</ul>
+<h4 id="概念类图p98">概念类图（P98）</h4>
+<ul>
+<li>对象：对具体问题域事物的抽象。
+<ul>
+<li>标识符：使用对象的引用作为标识符，用以唯一地标识和识别对象。</li>
+<li>状态：对对象的<strong>特征描述</strong>，包括对象的属性和属性的取值。</li>
+<li>行为：对象在其状态改变或者接收到外界消息时所采取的行动。</li>
+</ul></li>
+<li>类：对对象分类思想的结果，是共享相同属性和行为的对象的集合，为属于该类的对象提供统一的描述。</li>
+<li>链接：对象之间互相合作的关系</li>
+<li>关联：类之间的关系
+<ul>
+<li>UML使用类（对象）之间的直线来表示关联（链接），它可以是单向的和双向的。</li>
+<li>聚合：表示部分与整体之间的关系（如商品列表与商品），在“整体”的关联端使用空心菱形来表示。</li>
+<li>组合：更强的聚合，部分相对于其整体无法单独存在，整体对该部分有完全的管理职责。</li>
+</ul></li>
+<li>继承：用三角形箭头的实线表示，子类-&gt;父类。</li>
+</ul>
+<p>建立概念类图：</p>
+<ul>
+<li>对每个用例文本描述，建立局部的概念类图
+<ul>
+<li>识别候选类</li>
+<li>确定概念类</li>
+<li>识别关联</li>
+<li>识别重要属性</li>
+</ul></li>
+<li>合并局部概念类图，建立软件系统的整体概念类图</li>
+<li>识别关联</li>
+<li>识别重要属性</li>
+</ul>
+<p>练习：P100-104 //不是哥们，这玩意太难了</p>
+<blockquote>
+<p>有空的话可以画一画课后习题</p>
+</blockquote>
+<p><strong>题目</strong>：给一段材料，要求建立用例模型，画出各种图</p>
+<h2 id="第七章-需求文档化与验证">第七章 需求文档化与验证</h2>
+<h3 id="为什么要进行需求规格说明">为什么要进行需求规格说明</h3>
+<p>需求规格说明文档是项目交流的最重要内容，众多开发人员都需要以其为基础进行工作。如果软件需求规格说明文档存在错误，那么会给后续开发工作带来很多问题，再修复的代价就会很高。</p>
+<h3
+id="对给定的需求示例判定并修正其错误">对给定的需求示例，判定并修正其错误</h3>
+<ul>
+<li>使用用户术语
+<ul>
+<li>对用户易读，不要使用计算机术语</li>
+</ul></li>
+<li>可验性
+<ul>
+<li>描述模糊或过于抽象的需求都是不可验证的（如：用户查询的界面应该友好，不可验证；用户完成查询时鼠标点击不超过五次，可验证）</li>
+</ul></li>
+<li>可行性
+<ul>
+<li>系统必须每周7天，每天24小时可用（显然不可行）</li>
+</ul></li>
+</ul>
+<h3
+id="对给定的需求示例设计功能测试用例">对给定的需求示例，设计功能测试用例</h3>
+<blockquote>
+<p>看书</p>
+</blockquote>
+<p>写输入，写出预期输出，中间再做一些说明</p>
+<h2 id="第八章-软件设计基础">第八章 软件设计基础</h2>
+<h3 id="软件设计">软件设计</h3>
+<p>是关于整个软件对象的设计。软件设计既指软件对象实现的规格说明，也指产生这个规格说明的过程。</p>
+<h3 id="软件设计的核心思想">软件设计的核心思想</h3>
+<p>抽象和分解</p>
+<p>抽象是在纵向上聚焦各子系统的接口。这里的接口和实现相对，是各子系统之间交流的契约，是整个系统的关键所在。抽象可以分离接口和实现，让人更好地关注系统本身，从而降低复杂度</p>
+<p>分解是在横向上将系统分割为几个相对简单的子系统以及各子系统之间的关系。分解之后每次只需要关注经过抽象的相对简单的子系统及其相互间的关系，从而降低复杂度</p>
+<h3 id="软件设计的分层">软件设计的分层</h3>
+<p>高层：基于反映软件高层抽象的构建层次，描述系统的高层结构、关注点和设计决策</p>
+<p>中层：更加关注组成构建的模块的划分、导入/导出、过程之间的调用关系或者类之间的协作</p>
+<p>低层：深入模块和类的内部，关注具体的数据结构、算法、类型、语句和控制结构等</p>
+<h2 id="第九章-软件体系结构基础">第九章 软件体系结构基础</h2>
+<h3 id="体系结构的概念">体系结构的概念</h3>
+<p>软件体系结构 = {部件、连接件、配置}</p>
+<ul>
+<li>部件是软件体系结构的基本组成单位之一，承载系统的主要功能，包括处理与数据</li>
+<li>连接件是软件体系结构的另一个基本组成单位，定义了部件的交互，是连接的抽象表示</li>
+<li>配置是对形式的发展，定义了部件以及连接件之间的关联方式，将它们组织成系统的总体结构</li>
+</ul>
+<h3 id="体系风格的优缺点">体系风格的优缺点</h3>
+<p>主程序/子程序：</p>
+<ul>
+<li>优点：
+<ul>
+<li>流程清晰，易于理解（符合分解和分治的思想）</li>
+<li>强控制性（很容易保证正确性）</li>
+</ul></li>
+<li>缺点：
+<ul>
+<li>程序调用是一种强耦合的连接方式，非常依赖交互方的接口规格，这会使系统难以修改和复用</li>
+<li>程序调用的连接方式限制了各部件之间的数据交互，可能会使不同部件使用隐含的共享数据交流，产生不必要的公共耦合，进而破坏它的“正确性”控制能力</li>
+</ul></li>
+</ul>
+<p>面向对象式：</p>
+<ul>
+<li>优点：
+<ul>
+<li>内部实现的可修改性（隐藏内部实现）</li>
+<li>易开发、易理解、易复用的结构组织（契合模块化思想）</li>
+</ul></li>
+<li>缺点：
+<ul>
+<li>接口的耦合性（由于方法调用机制，接口的耦合性无法消除）</li>
+<li>标识的耦合性（一个对象要和其它对象交互，必须知道标识）</li>
+<li>副作用（难以实现程序的“正确性”）</li>
+</ul></li>
+</ul>
+<p>分层：</p>
+<ul>
+<li>优点：
+<ul>
+<li>设计机制清晰，易于理解（抽象层次分离，隔离复杂度）</li>
+<li>支持并行开发（层次之间遵守成熟稳定的接口）</li>
+<li>更好的可复用性和可修改性（接口的稳定性，不同层次的部件能够相互替换）</li>
+</ul></li>
+<li>缺点：
+<ul>
+<li>交互协议难以修改（可能需要改变所有的层次，接口具有强耦合性）</li>
+<li>性能损失（禁止跨层调用）</li>
+<li>难以确定层次数量和粒度</li>
+</ul></li>
+</ul>
+<p>MVC：</p>
+<ul>
+<li>优点：
+<ul>
+<li>易开发性（分别抽象了业务逻辑，表现和控制机制清晰，易于开发）</li>
+<li>视图和控制的可修改性（一个模型可以同时建立并支持多个视图）</li>
+<li>适宜于网络系统开发的特征</li>
+</ul></li>
+<li>缺点：
+<ul>
+<li>复杂性（不利于理解任务实现）</li>
+<li>模型修改困难（视图和控制均依赖于模型）</li>
+</ul></li>
+</ul>
+<h2 id="第十章-软件体系结构设计与构建">第十章
+软件体系结构设计与构建</h2>
+<h3 id="体系结构的设计过程">体系结构的设计过程</h3>
+<p>（1）分析关键需求和项目约束</p>
+<p>（2）选择体系结构风格</p>
+<p>（3）进行软件体系结构逻辑（抽象）设计</p>
+<p>（4）依赖逻辑设计进行软件体系结构物理（实现）设计</p>
+<p>（5）完善软件体系结构设计</p>
+<p>（6）定义构件接口</p>
+<p>（7）迭代过程（3）到（6）</p>
+<h3 id="包设计原则">包设计原则</h3>
+<ul>
+<li>共同封闭原则（CCP）：一起改的类应该在一起</li>
+<li>共同重用原则（CRP）：一起重用的包应该放在一起</li>
+<li>重用发布等价原则（REP）：重用的单元就是发布的单元</li>
+<li>无环依赖原则（ADP）：包的依赖结构是一个有向无环</li>
+<li>稳定依赖原则（SDP）：依赖关系应该随着稳定的方向</li>
+<li>稳定抽象原则（SAP）：稳定包应该是抽象包，不稳定包是具体包</li>
+</ul>
+<h3 id="体系结构构件之间接口的定义">体系结构构件之间接口的定义</h3>
+<p>书P174</p>
+<p>能够根据用例写出某层的接口，需求分配的过程</p>
+<h3 id="体系结构开发集成测试用例">体系结构开发集成测试用例</h3>
+<p>书P177</p>
+<p>桩：在软件测试里用来替换某些模块的，模仿下层模块，测试上层</p>
+<p>驱动：模仿上层模块，测试下层</p>
+<h2 id="第十一章-人机交互设计">第十一章 人机交互设计</h2>
+<h3 id="可用性">可用性</h3>
+<p>书上叫易用性（usability）</p>
+<p>可用性分为五个维度：</p>
+<ul>
+<li>易学性：新手用户容易学习，能够很快使用系统</li>
+<li>易记性：以前使用该软件的用户，能够有效记忆或者快速重新学会使用</li>
+<li>效率：熟练用户能够高效地完成任务</li>
+<li>出错率：用户使用系统时，会犯多少错，错误有多严重，以及能够从错误中很容易地恢复</li>
+<li>主观满意度：让用户有良好的体验</li>
+</ul>
+<h3 id="人机交互设计原则">人机交互设计原则</h3>
+<ul>
+<li>简洁设计：图片比描述文字更清晰</li>
+<li>一致性设计：相似的任务，一致的交互机制</li>
+<li>低出错率：帮助用户避免犯错</li>
+<li>易记性设计：历史记录</li>
+</ul>
+<p>题目：给你几张图，分析体现或违反了哪些人机交互原则，详细解释</p>
+<h3 id="精神模型差异性">精神模型、差异性</h3>
+<p>书P185-186</p>
+<p>精神模型：用户在进行人机交互时头脑中的人物模型</p>
+<p>差异性：不同的用户群体，差异化的交互机制</p>
+<h3 id="导航反馈协作式设计">导航、反馈、协作式设计</h3>
+<p>导航：目的是为用户提供一个很好的完成任务的入口</p>
+<p>反馈：让用户意识到行为的结果（声音、效果）</p>
+<p>协作式设计：调整计算机因素以便更好地适应并帮助用户的设计方式</p>
+<h2 id="第十二章-详细设计的基础">第十二章 详细设计的基础</h2>
+<h3 id="详细设计的出发点">详细设计的出发点</h3>
+<p>以需求开发的结果（需求规格说明和需求分析模型）和软件体系结构的结果（软件体系结构设计方案与原型）为出发点</p>
+<p>书P197、建造桥梁</p>
+<h3 id="协作">协作</h3>
+<p>抽象对象之间的协作</p>
+<ul>
+<li>从小到大，将对象的小职责聚合成大职责</li>
+<li>从大到小，将大职责分配给小对象</li>
+</ul>
+<p>上面两种方法一般同时运用，共同来完成对协作的抽象。</p>
+<h3 id="控制风格">控制风格</h3>
+<p>选择合适的控制风格：</p>
+<ul>
+<li>为了完成某一个大的职责，需要对职责的分配做很多决策，控制风格决定了决策由谁来做和怎么做</li>
+<li>逻辑层的接口依据需求来创建</li>
+<li>分散式</li>
+<li>集中式</li>
+<li>委托式（授权式）</li>
+</ul>
+<h3 id="建立设计类图">建立设计类图</h3>
+<p>P203，注意表12-2</p>
+<h3 id="建立详细顺序图">建立详细顺序图</h3>
+<p>P206，表12-3</p>
+<p>题目：给出用例描述，用集中控制的方式画出设计类图和顺序图</p>
+<h3 id="协作的测试">协作的测试</h3>
+<p>Mock Project：类间协作的桩程序</p>
+<h2 id="第十三章-详细设计中的模块化与信息隐藏">第十三章
+详细设计中的模块化与信息隐藏</h2>
+<blockquote>
+<p>重点</p>
+</blockquote>
+<h3 id="结构化设计中的耦合">结构化设计中的耦合</h3>
+<p>耦合：描述两个模块间关系的复杂程度</p>
+<p>分类（耦合性从高到底）：</p>
+<ul>
+<li>内容管理：一个模块直接修改或者依赖于另一个模块的内容（goto）</li>
+<li>公共耦合：模块间共享全局的数据（全局变量）</li>
+<li>重复耦合：模块间有同样逻辑的代码</li>
+<li>控制耦合：一个模块给另一个模块传递控制信息</li>
+<li>印记耦合：共享了一个数据结构，但是却只用了其中一部分（传了整个记录，只需要一个字段）</li>
+<li>数据耦合：两个模块的所有参数是同类型的数据项（传一个整数给一个计算平方根的函数）</li>
+</ul>
+<blockquote>
+<p>前三个耦合是不可接受的。</p>
+</blockquote>
+<h3 id="结构化设计中的内聚">结构化设计中的内聚</h3>
+<p>内聚：一个模块内部的联系的紧密性</p>
+<p>分类（从低到高）：</p>
+<ul>
+<li>偶然内聚：模块执行多个完全不相关的操作
+<ul>
+<li>修车、烤面包、遛狗、看电影</li>
+</ul></li>
+<li>逻辑内聚：模块执行一系列相关操作，每个操作的调用由其它模块决定
+<ul>
+<li>开车去上撤硕，坐火车上厕所</li>
+</ul></li>
+<li>时间内聚：模块执行一系列有关<strong>时间</strong>的操作
+<ul>
+<li>起床刷牙洗脸吃南航</li>
+</ul></li>
+<li>过程内聚：模块执行一系列与<strong>步骤顺序</strong>有关的操作
+<ul>
+<li>返校：院系经办人审核、院系领导审核、校职能部审核</li>
+</ul></li>
+<li>通信内聚：模块执行一系列与步骤顺序有关的操作，并且这些操作在相同的数据上进行
+<ul>
+<li>查书的名字、查书的作者、查书的出版商</li>
+</ul></li>
+<li>功能内聚：模块只执行一个操作或达到单一目的
+<ul>
+<li>只计算平方根</li>
+</ul></li>
+<li>信息内聚：模块进行许多操作，各有各的入口点，每个操作的代码相对独立，所有操作都是在相同的数据结构上完成
+<ul>
+<li>栈（push pop等）</li>
+</ul></li>
+</ul>
+<h3 id="信息隐藏的基本思想">信息隐藏的基本思想</h3>
+<p>每个模块都隐藏着一个重要的设计决策，每个模块都承担一定的职责。对外表现为一份契约，并且在这份契约之下隐藏着只有这个模块知道的设计决策或者秘密，决策实现的细节（特别是容易改变的细节）只有模块自己知道。</p>
+<h3 id="两种常见的信息隐藏决策">两种常见的信息隐藏决策</h3>
+<ul>
+<li>根据需求分配的职责</li>
+<li>内部实现机制</li>
+</ul>
+<h2 id="第十四章-详细设计中面向对象方法下的模块化">第十四章
+详细设计中面向对象方法下的模块化</h2>
+<h3 id="模块化设计原则">模块化设计原则</h3>
+<ol type="1">
+<li>不要用全局变量</li>
+<li>显式（explicit），显示的清楚一点，内容明确（代码写清楚点？？？）</li>
+<li>不要有代码重复</li>
+<li>针对接口编程</li>
+<li>迪米特法则</li>
+<li>接口分离原则（ISP）</li>
+<li>里氏替换原则</li>
+<li>使用组合代替继承</li>
+<li>单一职责原则（SRP）</li>
+</ol>
+<p>题目：给个例子，找出其违反的原则并进行修正。</p>
+<h3 id="访问耦合">访问耦合</h3>
+<p>类A拥有对类B的引用，则A可以访问B，存在耦合</p>
+<p>分类（从高到低）：</p>
+<ul>
+<li>隐式访问：B既没有在A的规格中出现，也没有在实现中出现（连续的方法调用，方法套娃）</li>
+<li>实现中访问：B的引用是A方法中的局部变量</li>
+<li>成员变量访问：B的引用是A的成员变量</li>
+<li>参数变量访问：B的引用是A的方法的参数变量</li>
+<li>无访问：理论最优，无关联耦合，维护时不需要对方任何信息</li>
+</ul>
+<p>降低访问耦合的方法：</p>
+<ul>
+<li>针对接口编程</li>
+<li>接口最小化/接口分离原则</li>
+<li>访问耦合的合理范围/迪米特法则</li>
+</ul>
+<h3 id="继承耦合">继承耦合</h3>
+<p>继承里，父类和子类之间存在耦合</p>
+<p>类型（从高到低）</p>
+<ul>
+<li>修改
+<ul>
+<li>规格：子类修改继承回来的方法的接口</li>
+<li>实现：子类修改继承回来的方法的实现</li>
+</ul></li>
+<li>精化：
+<ul>
+<li>规格：子类根据定义好的规则来修改父类的方法，且至少有一个方法的接口被改动</li>
+<li>实现：子类根据定义好的规则来修改父类的方法，但是只改动了方法的实现</li>
+</ul></li>
+<li>扩展：子类只增加新的方法和成员变量，不对从父类继承回来的成员做任何修改</li>
+<li>无：两个类之间没有继承关系</li>
+</ul>
+<p>降低继承耦合的方法：</p>
+<ul>
+<li>里氏替换原则</li>
+<li>使用组合代替继承</li>
+</ul>
+<h3 id="内聚">内聚</h3>
+<p>分类</p>
+<ul>
+<li>方法内聚：和结构化中的函数内聚一致，体现方法实现时语句之间的内聚性</li>
+<li>类的内聚：衡量类的成员变量和方法之间的内聚</li>
+<li>继承内聚：继承树中类之间的内聚</li>
+</ul>
+<p>提高内聚的方法：</p>
+<ul>
+<li>集中信息与行为</li>
+<li>单一职责原则</li>
+</ul>
+<h2 id="第十五章-详细设计中面向对象方法下的信息隐藏">第十五章
+详细设计中面向对象方法下的信息隐藏</h2>
+<h3 id="信息隐藏的含义">信息隐藏的含义</h3>
+<ul>
+<li>封装类的职责，隐藏职责的实现</li>
+<li>预计将会发生的变更，抽象它的接口，隐藏内部实现机制</li>
+</ul>
+<h3 id="封装">封装</h3>
+<p>分离接口和实现</p>
+<p>含义：</p>
+<ul>
+<li>将数据和行为同时包含在类中</li>
+<li>分离对外接口与内部实现</li>
+</ul>
+<p>实现细节：</p>
+<ul>
+<li>封装数据与行为</li>
+<li>封装内部结构</li>
+<li>封装其它对象的引用</li>
+<li>封装类型信息</li>
+<li>封装潜在变更</li>
+</ul>
+<h3 id="开闭原则ocp">开闭原则（OCP）</h3>
+<p>是面向对象设计的一个指导性、方阵性原则</p>
+<p>具体内容：</p>
+<ul>
+<li>好的设计应该对扩展开放</li>
+<li>好的设计应该对修改关闭</li>
+</ul>
+<p>简单来说，发生变更时，好的设计只需要添加新的代码，而不需要修改原有的代码</p>
+<h3 id="依赖倒置原则dip">依赖倒置原则（DIP）</h3>
+<p>内容：</p>
+<ul>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象。因为抽象是稳定的，细节是不稳定的。</li>
+<li>高层模块不应该依赖于低层模块，而是双方都依赖于抽象。因为抽象是稳定的，而高层模块和低层模块都可能是不稳定的。</li>
+</ul>
+<p>题目：给张类图，问运用了或违反了哪条面向对象设计原则？问某个类是什么内聚？</p>
+<h2 id="第十六章-详细设计的设计模式">第十六章 详细设计的设计模式</h2>
+<h3
+id="如何实现可修改性可扩展性灵活性">如何实现可修改性、可扩展性、灵活性</h3>
+<p>实现接口和实现分离</p>
+<ul>
+<li>通过接口和实现该接口的类完成分离</li>
+<li>通过子类继承父类，将父类的接口与子类的实现分离</li>
+</ul>
+<blockquote>
+<p>代码</p>
+</blockquote>
+<h3 id="策略模式">策略模式</h3>
+<p>减少耦合、依赖倒置</p>
+<h3 id="抽象工厂模式">抽象工厂模式</h3>
+<p>职责抽象、接口和重用</p>
+<h3 id="单例模式">单例模式</h3>
+<p>职责抽象</p>
+<h3 id="迭代器模式">迭代器模式</h3>
+<p>减少耦合、依赖倒置</p>
+<p>题目：给定场景，应用设计模式并写出代码；给出代码，要求用设计模式改写</p>
+<h2 id="第十七章-软件构造">第十七章 软件构造</h2>
+<h3 id="构造包含的活动">构造包含的活动</h3>
+<p>详细设计、编程、测试、调试、代码评审、集成与构建、构造与管理</p>
+<h3 id="名词解释">名词解释</h3>
+<p>重构、测试驱动开发、结对编程</p>
+<h2 id="第十八章-代码设计">第十八章 代码设计</h2>
+<h3
+id="给定代码段示例对其进行改进或者发现其中的问题">给定代码段示例，对其进行改进或者发现其中的问题</h3>
+<ul>
+<li>简洁性/可维护性</li>
+<li>使用数据结构消减复杂判定</li>
+<li>控制结构</li>
+<li>变量的使用</li>
+<li>语句处理</li>
+<li>如何写不可维护的代码</li>
+<li>防御和错误处理</li>
+</ul>
+<h3 id="单元测试用例的设计">单元测试用例的设计</h3>
+<ul>
+<li>基于规格的测试技术开发测试用例，等价类划分和边界值分析</li>
+<li>基于代码的测试技术开发测试用例，关键复杂代码：路径覆盖；复杂代码：分支覆盖；简单代码：语句覆盖</li>
+</ul>
+<h3 id="表驱动编程">表驱动编程</h3>
+<p>if-else —&gt; 一张表</p>
+<h3 id="契约式设计">契约式设计</h3>
+<p>断言式设计</p>
+<p>基本思想：如果一个函数和方法，在前置条件满足的情况下开始执行，完成后能够满足后置条件，那么这个函数或方法就是正确、可靠的</p>
+<p>常见方式：异常和断言（assert）</p>
+<p>检查很多外来信息的有效性：</p>
+<ul>
+<li>输入参数，是否合法</li>
+<li>用户输入，是否有效</li>
+<li>外部文件，是否存在</li>
+<li>...</li>
+</ul>
+<h3 id="防御式编程">防御式编程</h3>
+<p>基本思想：在一个地方与其它方法、操作系统、硬件等外界环境交互时，不能确保外界都是正确的，所以要在外界发生错误时，保护内部方法不受损害</p>
+<h2 id="第十九章-软件测试">第十九章 软件测试</h2>
+<p>单元测试、集成测试、系统测试</p>
+<h3 id="黑盒测试">黑盒测试</h3>
+<p>基于规格的技术，把测试对象看作一个黑盒子，完全基于输入和输出来判定测试对象的正确性。测试使用测试对象的规格说明来设计输入和输出数据</p>
+<p>常见方法：</p>
+<ul>
+<li>等价类划分（把输入按照等价类划分，包括有效和无效）</li>
+<li>边界值分析</li>
+<li>决策表（表驱动）</li>
+<li>状态转换</li>
+</ul>
+<h3 id="白盒测试">白盒测试</h3>
+<p>基于代码的技术，将测试对象看成透明的，不关心测试对象的规格，而是按照测试对象内部的程序结构来设计测试用例进行测试工作</p>
+<p>方法：</p>
+<ul>
+<li>语句覆盖：确保被测试对象的每一行程序代码都至少执行一次</li>
+<li>条件覆盖：确保程序中每个判断的每个结果都至少满足一次</li>
+<li>路径覆盖：确保程序中每条独立的执行路径都至少执行一次</li>
+</ul>
+<p>题目：</p>
+<p>白盒测试和黑盒测试的常见方法，并比较优缺点</p>
+<p>能解释并区别白盒测试的三种不同的方法</p>
+<p>给出一个场景，判断应该使用哪种测试方法，如何去写</p>
+<ul>
+<li>给出功能需求——写功能测试用例</li>
+<li>给出设计图——写集成测试用例、Stub和Driver</li>
+<li>给出方法描述——写单元测试用例、Mock Project</li>
+<li>JUnit的使用</li>
+</ul>
+<h2 id="第二十章-软件交付">第二十章 软件交付</h2>
+<h3 id="用户文档和系统文档">用户文档和系统文档</h3>
+<h2 id="第二十一章-软件维护与演化">第二十一章 软件维护与演化</h2>
+<h3 id="如何理解软件维护的重要性">如何理解软件维护的重要性</h3>
+<p>修改代价</p>
+<h3 id="开发可维护软件的方法">开发可维护软件的方法</h3>
+<ul>
+<li>考虑软件的可变更性
+<ul>
+<li>分析需求的易变性</li>
+<li>为变更进行设计</li>
+</ul></li>
+<li>为降低维护困难而开发
+<ul>
+<li>编写详细的技术文档并保持及时更新</li>
+<li>保证代码的可读性</li>
+<li>维护需求跟踪链</li>
+<li>维护回归测试基线</li>
+</ul></li>
+</ul>
+<h3 id="软件演化生命周期模型">软件演化生命周期模型</h3>
+<p>初步开发、演化、服务、逐步淘汰、停止</p>
+<h3 id="逆向工程再工程">逆向工程、再工程</h3>
+<h2 id="第二十二章-软件开发过程模型">第二十二章 软件开发过程模型</h2>
+<h3 id="软件生命周期模型">软件生命周期模型</h3>
+<ol type="1">
+<li>需求工程</li>
+<li>软件设计</li>
+<li>软件实现</li>
+<li>软件测试</li>
+<li>软件交付</li>
+<li>软件维护</li>
+</ol>
+<p>对给定场景，判断适用的开发过程模型（要求、特征描述、优缺点）</p>
+<blockquote>
+<p>补充？</p>
+</blockquote>
+<h3 id="瀑布模型">瀑布模型</h3>
+<p>对于软件开发活动有明确阶段划分，每个阶段的结果都必须验证，使得该模型是“文档驱动”</p>
+<p>优点：对于软件开发活动有明确的阶段划分，有利于开发者以关注点分离的方式更好地进行复杂软件项目的开发</p>
+<p>缺点：</p>
+<ul>
+<li>对文档期望过高</li>
+<li>对开发活动的线性顺序假设具有局限性</li>
+<li>客户、用户参与度具有局限性</li>
+<li>里程碑力度过粗（软件复杂使得每个阶段时间长，无法尽早发现缺陷）</li>
+</ul>
+<p>适用性：</p>
+<ul>
+<li>需求非常成熟、稳定，没有不确定的内容，也不会发生变化</li>
+<li>所需的技术成熟，可靠，没有不确定的技术难点，也没有开发人员不熟悉的技术问题</li>
+<li>复杂度适中，不至于产生太大的文档负担和过粗的里程碑</li>
+</ul>
+<h3 id="螺旋模型">螺旋模型</h3>
+<p>风险驱动</p>
+<p>风险：指因为不确定性（对未来知识了解有限）而可能给项目带来损失的情况</p>
+<p>基本思想：尽早解决比较高的风险，如果有些问题实在无法解决，那么早发现比项目结束时再发现要更好，至少损失会小很多</p>
+<p>优点：降低风险，减少因风险而造成的损失</p>
+<p>缺点：</p>
+<ul>
+<li>使用原型方法，为自身带来风险</li>
+<li>模型过于复杂，不利于管理者依据其组织软件开发活动</li>
+</ul>
+<p>适用性：高风险的大规模软件系统开发</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -806,299 +1994,8 @@ S 站发送比特1.</p>
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/04/manacher/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2">
-      <meta itemprop="description" content="爱你，vv。❤">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/04/manacher/" class="post-title-link" itemprop="url">manacher</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-04 16:32:17" itemprop="dateCreated datePublished" datetime="2024-05-04T16:32:17+08:00">2024-05-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-05 16:31:39" itemprop="dateModified" datetime="2024-05-05T16:31:39+08:00">2024-05-05</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/04/manacher/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/04/manacher/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="manacher">Manacher</h1>
-<p>求回文串的一个 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>
-的算法。笔者退役太久忘记了一些细节，这里重新回顾一下。</p>
-<p>首先马拉车只能求奇回文串，因此需要在原串相邻字符间加符号，具体是这么干的：</p>
-<p>mambaout -&gt; $#m#a#m#b#a#o#u#t#</p>
-<p>这样的话，原串的以字母为中心的奇回文串对应处理后的串中以字母为中心的长度为
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="6.207ex" height="1.756ex" role="img" focusable="false" viewBox="0 -694 2743.4 776"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mo" transform="translate(1243.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(2243.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container></span> 的奇回文串。</p>
-<p>原串的以字母之间的间隔为中心的偶回文串对应处理后的串中以 #
-为中心的长度为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="6.207ex" height="1.756ex" role="img" focusable="false" viewBox="0 -694 2743.4 776"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mo" transform="translate(1243.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(2243.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container></span>
-的奇回文串。</p>
-<p>然后考虑马拉车算法。马拉车主要基于dp的思想。</p>
-<p>遍历处理后的串，假设当前遍历到位置 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.781ex" height="1.52ex" role="img" focusable="false" viewBox="0 -661 345 672"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></span> 。</p>
-<p>然后在处理的同时维护一个变量 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.957ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 865 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container></span>
-和变量 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.281ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 1450 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(878,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span> ，代表以 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.957ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 865 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container></span> 为中心的回文串，其右边界最远，为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.281ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 1450 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(878,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span>。</p>
-<p>然后考虑转移，如果 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.09ex;" xmlns="http://www.w3.org/2000/svg" width="7.078ex" height="1.586ex" role="img" focusable="false" viewBox="0 -661 3128.6 701"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(622.8,0)"><path data-c="3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"></path></g><g data-mml-node="mi" transform="translate(1678.6,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(2556.6,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span>，则暴力计算 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.781ex" height="1.52ex" role="img" focusable="false" viewBox="0 -661 345 672"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></span>
-的情况，然后把 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.957ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 865 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container></span> 更新为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.781ex" height="1.52ex" role="img" focusable="false" viewBox="0 -661 345 672"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></span> ，<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.281ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 1450 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(878,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span> 更新为对应的右边界。</p>
-<p>否则可以得知 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.781ex" height="1.52ex" role="img" focusable="false" viewBox="0 -661 345 672"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></span>
-最短的回文串的情况为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.65ex;" xmlns="http://www.w3.org/2000/svg" width="15.746ex" height="2.347ex" role="img" focusable="false" viewBox="0 -750 6959.9 1037.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="6D" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q351 442 364 440T387 434T406 426T421 417T432 406T441 395T448 384T452 374T455 366L457 361L460 365Q463 369 466 373T475 384T488 397T503 410T523 422T546 432T572 439T603 442Q729 442 740 329Q741 322 741 190V104Q741 66 743 59T754 49Q775 46 803 46H819V0H811L788 1Q764 2 737 2T699 3Q596 3 587 0H579V46H595Q656 46 656 62Q657 64 657 200Q656 335 655 343Q649 371 635 385T611 402T585 404Q540 404 506 370Q479 343 472 315T464 232V168V108Q464 78 465 68T468 55T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(833,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(1111,0)"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1833.7,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(389,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="TeXAtom" transform="translate(523,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(845,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(1365,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(2143,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2488,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(2766,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(3644,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(4216,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(4994,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g><g data-mml-node="mo" transform="translate(4737.2,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></svg></mjx-container></span>。然后继续暴力拓展。</p>
-<p>如果拓展后的右边界大于 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.281ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 1450 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(878,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span> 则更新
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.957ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 865 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container></span> 和 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.281ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 1450 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(878,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span>。</p>
-<p>代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Manacher</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="type">int</span> l = <span class="number">0</span>;</span><br><span class="line">    Ma[l++] = <span class="string">'$'</span>;</span><br><span class="line">    Ma[l++] = <span class="string">'#'</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i){</span><br><span class="line">        Ma[l++] = A[i];</span><br><span class="line">        Ma[l++] = <span class="string">'#'</span>;</span><br><span class="line">    }</span><br><span class="line">    Ma[l] = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> mx = <span class="number">0</span>, id = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; l; ++i){</span><br><span class="line">        Mp[i] = mx &gt; i ? <span class="built_in">min</span>(Mp[<span class="number">2</span>*id-i], mx-i):<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &gt;= Mp[i] &amp;&amp; i+Mp[i] &lt; l &amp;&amp; Ma[i+Mp[i]] == Ma[i-Mp[i]]) Mp[i]++;</span><br><span class="line">        <span class="keyword">if</span>(i + Mp[i] &gt; mx){</span><br><span class="line">            mx = i + Mp[i];</span><br><span class="line">            id = i;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>由于 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.281ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 1450 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(878,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></svg></mjx-container></span> 最多被更新 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span> 次，因此该算法复杂度为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/03/xv6-kernel/spinlock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2">
-      <meta itemprop="description" content="爱你，vv。❤">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/03/xv6-kernel/spinlock/" class="post-title-link" itemprop="url">spinlock</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-03 18:57:45 / 修改时间：20:05:51" itemprop="dateCreated datePublished" datetime="2024-05-03T18:57:45+08:00">2024-05-03</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/03/xv6-kernel/spinlock/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/03/xv6-kernel/spinlock/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="xv6-kernel-spinlock">Xv6 kernel Spinlock</h1>
-<p>Xv6操作系统内核为我们提供了两类锁：自旋锁（spinlock）和睡眠锁（sleeplock）。它们虽然都有锁的特性，但是它们具有不同的特点，应用场景也不相同。</p>
-<p>今天我们先来讨论xv6内部spinlock的实现，首先来看
-<code>spinlock.h</code> 内对spinlock的声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mutual exclusion lock.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> &#123;</span></span><br><span class="line">  uint locked;       <span class="comment">// Is the lock held?</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// For debugging:</span></span><br><span class="line">  <span class="type">char</span> *name;        <span class="comment">// Name of lock.</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> *<span class="title">cpu</span>;</span>   <span class="comment">// The cpu holding the lock.</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>十分简单，不是吗？除去debugging部分，就一个变量 <code>locked</code>
-记录这个lock是否被某个CPU给占用。</p>
-<p>在xv6中，lock的locked字段为0表示该lock没有被占用，字段为1表示该lock被占用了。</p>
-<p>这可以通过 <code>spinlock.c</code> 中的 <code>initlock</code>
-方法看出：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">initlock</span><span class="params">(<span class="keyword">struct</span> spinlock *lk, <span class="type">char</span> *name)</span></span><br><span class="line">&#123;</span><br><span class="line">  lk-&gt;name = name;</span><br><span class="line">  lk-&gt;locked = <span class="number">0</span>;</span><br><span class="line">  lk-&gt;cpu = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于一个给定的 <code>spinlock</code> ，我们需要一组函数
-<code>acquire</code> 和 <code>release</code> 来分别获取与释放锁。</p>
-<p>对于 <code>acquire</code> 方法，我们需要检测当前锁的
-<code>locked</code>
-变量值，若为1则继续循环（这就是自旋这个词的由来），为0则获取锁，将
-<code>locked</code> 更改为1。</p>
-<p>因为 <code>spinlock</code>
-本身就是<strong>共享资源</strong>（即多个CPU的多个进程共享内存中的同一个资源），任何进程对同一个自旋锁需要互斥地访问。因此以下
-<code>for</code>
-循环体内部的代码需要转换为<strong>原子操作</strong>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">acquire</span><span class="params">(<span class="keyword">struct</span> spinlock *lk)</span>  </span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">		<span class="keyword">if</span>(lk-&gt;locked == <span class="number">0</span>) &#123;</span><br><span class="line">			lk-&gt;locked = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的 <code>for</code> 就是自旋。</p>
-<p>xv6使用了RISCV的 <code>amoswap</code>
-指令。从字面意义上看，就是原子交换操作。</p>
-<p>具体来讲，xv6在acquire内部使用了指令
-<code>amoswap.w.aq a5, a5, (s1)</code> 。这段指令的含义是从内存地址
-<code>(s1)</code> 中读取一个32位的值（根据<code>amoswap.w.aq</code>
-中第一个点后的 <code>w</code> 看出，实际上内存地址
-<code>(s1)</code>对应的是 <code>spinlock</code> 中 <code>uint</code>
-类型（刚好32位）的 <code>locked</code> 值），与寄存器 <code>a5</code>
-内部存储的值进行交换。寄存器 <code>a5</code>
-存的值在执行该指令之前就被设置为1了。也就是说，交换过后的
-<code>locked</code> 值必然为1，而代码会根据交换过后的寄存器
-<code>a5</code> 的值是否为0来获取锁。</p>
-<p>来看看xv6内部 <code>acquire</code> 的实现：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Acquire the lock.</span></span><br><span class="line"><span class="comment">// Loops (spins) until the lock is acquired.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">acquire</span><span class="params">(<span class="keyword">struct</span> spinlock *lk)</span></span><br><span class="line">&#123;</span><br><span class="line">  push_off(); <span class="comment">// disable interrupts to avoid deadlock.</span></span><br><span class="line">  <span class="keyword">if</span>(holding(lk))</span><br><span class="line">    panic(<span class="string">&quot;acquire&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// On RISC-V, sync_lock_test_and_set turns into an atomic swap:</span></span><br><span class="line">  <span class="comment">//   a5 = 1</span></span><br><span class="line">  <span class="comment">//   s1 = &amp;lk-&gt;locked</span></span><br><span class="line">  <span class="comment">//   amoswap.w.aq a5, a5, (s1)</span></span><br><span class="line">  <span class="keyword">while</span>(__sync_lock_test_and_set(&amp;lk-&gt;locked, <span class="number">1</span>) != <span class="number">0</span>)</span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Tell the C compiler and the processor to not move loads or stores</span></span><br><span class="line">  <span class="comment">// past this point, to ensure that the critical section&#x27;s memory</span></span><br><span class="line">  <span class="comment">// references happen strictly after the lock is acquired.</span></span><br><span class="line">  <span class="comment">// On RISC-V, this emits a fence instruction.</span></span><br><span class="line">  __sync_synchronize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Record info about lock acquisition for holding() and debugging.</span></span><br><span class="line">  lk-&gt;cpu = mycpu();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重点在于 <code>__sync_lock_test_and_set(&amp;lk-&gt;locked, 1)</code>
-这个函数。通过 gdb 可以看出其对应的汇编代码：</p>
-<img src="/2024/05/03/xv6-kernel/spinlock/1.png" class="" width="1">
-<p>在这里我们看到了我们熟悉的 <code>amoswap</code> 指令。</p>
-<p>另外，后面一行的 <code>__sync_synchronize();</code>
-是一个栅栏指令，它用于告诉编译器不要对指令进行重新排序以进行优化。</p>
-<p>例如以下场景：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">acquire(&amp;lock);</span><br><span class="line">x = <span class="number">1</span>;</span><br><span class="line">release(&amp;lock);</span><br></pre></td></tr></table></figure>
-<p>通过编译器优化，可能会重排指令，把 <code>x=1</code>
-放到加锁前或者释放锁之后。这显然是不被允许的。</p>
-<p><code>__sync_synchronize();</code> 的作用是强制将其前后的
-<code>load/store</code> 指令进行分隔。因此<code>acquire</code> 函数与
-<code>release</code> 函数内部使用了该指令来保证 <code>x=1</code>
-不会跑出去。</p>
-<p>另外，<code>acquire</code> 函数开头调用了 <code>push_off()</code>
-方法。根据注释说明，它是关闭了中断。</p>
-<p>我操？为啥要关闭中断？这个锁跟中断有什么勾八关系？</p>
-<p>这个其实是xv6内部实现的问题。因为在xv6内部，有一些设备中断会和内核内部的代码使用同一个
-<code>spinlock</code> ，例如 xv6 book 提到的 <code>tickslock</code>
-，用于保护各CPU时钟内部的 <code>ticks</code> 时间帧的不变量。</p>
-<p>对于计时器中断，会调用下面函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">clockintr</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  acquire(&amp;tickslock);</span><br><span class="line">  ticks++;</span><br><span class="line">  wakeup(&amp;ticks);</span><br><span class="line">  release(&amp;tickslock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是xv6的sleep系统调用也使用了该锁：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sleep</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  uint ticks0;</span><br><span class="line"></span><br><span class="line">  argint(<span class="number">0</span>, &amp;n);</span><br><span class="line">  acquire(&amp;tickslock);</span><br><span class="line">  ticks0 = ticks;</span><br><span class="line">  <span class="keyword">while</span>(ticks - ticks0 &lt; n)&#123;</span><br><span class="line">    <span class="keyword">if</span>(killed(myproc()))&#123;</span><br><span class="line">      release(&amp;tickslock);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(&amp;ticks, &amp;tickslock);</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;tickslock);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这会出现什么问题？</p>
-<p>假设 <code>sys_sleep</code> 首先获取了 <code>tickslock</code>
-，然后进入了 <code>sleep(&amp;ticks, &amp;tickslock)</code>
-进入阻塞状态。</p>
-<p>然后对应的CPU的计时器产生中断，想获取锁，但是被阻止，因此进入自旋。</p>
-<p>但是只有计时器获取了锁，才能进入临界区，执行 <code>ticks++;</code>
-来增加时间戳，从而才有 <code>sys_sleep</code> 从阻塞状态恢复的可能。</p>
-<p>也就是说，产生了死锁。</p>
-<p>为了防止这种情况，我们应当防止一个 <code>spinlock</code>
-在能被中断处理函数获取时，在获取期间允许中断。xv6为了实现方便，直接对所有的
-<code>spinlock</code> 在被占用时，直接关闭了中断。并在对应的
-<code>release</code> 函数尾部重新开放中断：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Release the lock.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">release</span><span class="params">(<span class="keyword">struct</span> spinlock *lk)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(!holding(lk))</span><br><span class="line">    panic(<span class="string">&quot;release&quot;</span>);</span><br><span class="line"></span><br><span class="line">  lk-&gt;cpu = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Tell the C compiler and the CPU to not move loads or stores</span></span><br><span class="line">  <span class="comment">// past this point, to ensure that all the stores in the critical</span></span><br><span class="line">  <span class="comment">// section are visible to other CPUs before the lock is released,</span></span><br><span class="line">  <span class="comment">// and that loads in the critical section occur strictly before</span></span><br><span class="line">  <span class="comment">// the lock is released.</span></span><br><span class="line">  <span class="comment">// On RISC-V, this emits a fence instruction.</span></span><br><span class="line">  __sync_synchronize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Release the lock, equivalent to lk-&gt;locked = 0.</span></span><br><span class="line">  <span class="comment">// This code doesn&#x27;t use a C assignment, since the C standard</span></span><br><span class="line">  <span class="comment">// implies that an assignment might be implemented with</span></span><br><span class="line">  <span class="comment">// multiple store instructions.</span></span><br><span class="line">  <span class="comment">// On RISC-V, sync_lock_release turns into an atomic swap:</span></span><br><span class="line">  <span class="comment">//   s1 = &amp;lk-&gt;locked</span></span><br><span class="line">  <span class="comment">//   amoswap.w zero, zero, (s1)</span></span><br><span class="line">  __sync_lock_release(&amp;lk-&gt;locked); </span><br><span class="line"></span><br><span class="line">  pop_off();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的 <code>pop_off</code> 方法就是开放中断。</p>
-<p>在 <code>spinlock</code> 被占用期间关闭中断有以下好处：一个
-<code>spinlock</code>
-不应当被占用太久。因此在处理一个关键的任务时，对其加锁，会阻止时间片轮转，使该进程能享受所有CPU资源来集中处理当前任务，这样的化
-<code>spinlock</code> 就不会自旋太久。</p>
-<p>但是如果我们在某些代码中可能会同时获取多个锁，对应的会释放多个锁。那么我们在释放第一个锁的时候，是不能直接开放中断的，要等所有锁被释放后才能中断。</p>
-<p>因此我们对于每个CPU都要有一个计数器，来统计当前CPU获取了多少个锁。关于每个CPU的结构体声明在
-<code>proc.h</code> 下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Per-CPU state.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">proc</span>;</span>          <span class="comment">// The process running on this cpu, or null.</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">context</span> <span class="title">context</span>;</span>     <span class="comment">// swtch() here to enter scheduler().</span></span><br><span class="line">  <span class="type">int</span> noff;                   <span class="comment">// Depth of push_off() nesting.</span></span><br><span class="line">  <span class="type">int</span> intena;                 <span class="comment">// Were interrupts enabled before push_off()?</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里的 <code>noff</code> 字段就是我们需要的计数器。而
-<code>intena</code> 则代表着获取第一个锁之前，CPU的中断状态。</p>
-<p>接下来我们来看 <code>push_off</code> 和 <code>pop_off</code>
-方法：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// push_off/pop_off are like intr_off()/intr_on() except that they are matched:</span></span><br><span class="line"><span class="comment">// it takes two pop_off()s to undo two push_off()s.  Also, if interrupts</span></span><br><span class="line"><span class="comment">// are initially off, then push_off, pop_off leaves them off.</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">push_off</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> old = intr_get();</span><br><span class="line"></span><br><span class="line">  intr_off();</span><br><span class="line">  <span class="keyword">if</span>(mycpu()-&gt;noff == <span class="number">0</span>)</span><br><span class="line">    mycpu()-&gt;intena = old;</span><br><span class="line">  mycpu()-&gt;noff += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">pop_off</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> *<span class="title">c</span> =</span> mycpu();</span><br><span class="line">  <span class="keyword">if</span>(intr_get())</span><br><span class="line">    panic(<span class="string">&quot;pop_off - interruptible&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(c-&gt;noff &lt; <span class="number">1</span>)</span><br><span class="line">    panic(<span class="string">&quot;pop_off&quot;</span>);</span><br><span class="line">  c-&gt;noff -= <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(c-&gt;noff == <span class="number">0</span> &amp;&amp; c-&gt;intena)</span><br><span class="line">    intr_on();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以发现，一切都清晰了很多。在 <code>push_off</code>
-中，如果第一次获取锁，我们会先记录一下当前的中断状态。方法是调用
-<code>intr_get</code> ，它在 <code>riscv.h</code> 中声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// are device interrupts enabled?</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">int</span></span><br><span class="line"><span class="title function_">intr_get</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  uint64 x = r_sstatus();</span><br><span class="line">  <span class="keyword">return</span> (x &amp; SSTATUS_SIE) != <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的 SSTATUS 是一个特殊的寄存器，里面有 SIE bit
-来记录是否开启中断，有 SPP bit 来记录当前mode是user mode还是 supervisor
-mode。在这里我们只需要 SIE bit 就行啦。</p>
-<p>关于 <code>spinlock</code> 在xv6的实现细节，就讲这么多。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

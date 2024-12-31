@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,647 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/28/computer-network/application-layer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/28/computer-network/application-layer/" class="post-title-link" itemprop="url">application-layer</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-28 10:32:26" itemprop="dateCreated datePublished" datetime="2024-05-28T10:32:26+08:00">2024-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-31 19:55:04" itemprop="dateModified" datetime="2024-05-31T19:55:04+08:00">2024-05-31</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/28/computer-network/application-layer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/28/computer-network/application-layer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="计网应用层复习">计网——应用层复习</h1>
+<p>应用层是计算机网络体系结构的最顶层，是设计和建立计算机网络的最终目的。</p>
+<h2
+id="客户服务器方式cs方式和对等方式p2p方式">客户/服务器方式（C/S方式）和对等方式（P2P方式）</h2>
+<p>网络应用程序运行在处于网络边缘的不同的端系统上，通过彼此的通信来共同完成某些任务。</p>
+<p>开发一种新的网络应用首先要考虑的问题就是网络应用程序在<strong>各种端系统上的组织方式和它们之间的关系</strong>。</p>
+<h3 id="客户服务器方式">客户/服务器方式</h3>
+<img src="/2024/05/28/computer-network/application-layer/cs1.png" class="" title="cs1">
+<h3 id="对等方式">对等方式</h3>
+<img src="/2024/05/28/computer-network/application-layer/p2p1.png" class="" title="p2p1">
+<h2 id="动态主机配置协议dhcp">动态主机配置协议DHCP</h2>
+<ul>
+<li>互联网广泛使用的DHCP提供了即插即用联网机制</li>
+<li>这种机制允许一台计算机加入新的网络和获取IP地址，而不用手工配置</li>
+</ul>
+<img src="/2024/05/28/computer-network/application-layer/dhcp1.png" class="" title="dhcp1">
+<h3 id="dhcp工作过程">DHCP工作过程</h3>
+<p>DHCP使用客户-服务器方式</p>
+<ul>
+<li>需要IP地址的主机在启动时就向DHCP服务器广播发送发现报文（DHCP
+DISCOVER），这时该主机就成为DHCP客户。</li>
+<li>本地网络上所有主机都能收到此广播报文，但只有DHCP服务器才回答此广播报文</li>
+<li>DHCP服务器先在其数据库查找该计算机的配置信息。若找到，则返回找到的信息。否则从服务器的IP地址池（address
+pool）中取一个地址给该计算机。DHCP服务器的回答报文叫做提供报文（DHCP
+OFFER）</li>
+</ul>
+<p>DHCP工作方式</p>
+<ul>
+<li>DHCP使用客户-服务器方式，采用请求/应答方式工作。</li>
+<li>DHCP基于UDP工作（因为TCP不支持广播？？？），服务器运行在67号端口，DHCP客户运行在68号端口。</li>
+</ul>
+<p>DHCP交互过程</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp2.png" class="" title="dhcp2">
+<p>首先，DHCP客户广播发送DHCP发现报文，包含</p>
+<ul>
+<li>事务ID</li>
+<li>DHCP客户端的MAC地址</li>
+</ul>
+<p>封装该报文的IP数据报的IP地址位0.0.0.0，目的地址为广播地址255.255.255.255</p>
+<p>DHCP服务器收到DHCP发现报文后，根据其中封装的DHCP客户端的MAC地址来查找自己的数据库，如果查到匹配信息，则使用这些配置信息来构建并发送DHCP提供报文，如果没有则采用默认配置信息来构建报文并发送。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp3.png" class="" title="dhcp3">
+<p>DHCP服务端将广播发送DHCP提供报文（DHCP OFFER）</p>
+<ul>
+<li>事务ID：DHCP客户端会与之前DHCP发送报文的事务ID进行对比，来判断该DHCP报文是否是自己的</li>
+<li>源IP地址：服务器的IP 目的IP地址：广播地址</li>
+</ul>
+<p>这里DHCP客户可能会收到不止一个DHCP提供报文，会从中选择一个，一般选择先到的，并向所选择的DHCP服务器发送DHCP请求报文。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp4.png" class="" title="dhcp4">
+<p>源地址：0.0.0.0，因为此时DHCP客户需要征求服务器同意，才可使用获得的IP</p>
+<p>目的地址：广播地址，这样可以一次性通知所有DHCP服务器，告知它们是否把它们作为自己的DHCP服务器</p>
+<p>所选择的DHCP服务器接收该请求，向DHCP客户发送DHCP确认报文</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp5.png" class="" title="dhcp5">
+<p>DHCP客户收到该报文后，就可以使用租用的IP地址。在使用前还会进行ARP检测。</p>
+<img src="/2024/05/28/computer-network/application-layer/dhcp6.png" class="" title="dhcp6">
+<h3 id="dhcp中继代理">DHCP中继代理</h3>
+<p>idea：给路由器配置DHCP服务器的IP地址，使之成为中继代理，这样就不用在每一个网络上都设置DHCP服务器。</p>
+<h3 id="总结">总结</h3>
+<img src="/2024/05/28/computer-network/application-layer/dhcp7.png" class="" title="dhcp7">
+<h2 id="域名系统dns">域名系统DNS</h2>
+<blockquote>
+<p>DNS是一个分布式系统，使大多数域名都能在本地解析。</p>
+</blockquote>
+<p>因特网采用层次树状结构的域名结构。域名的结构由若干的分量构成，各分量之间用“点”隔开，分别代表不同级别的域名：</p>
+<img src="/2024/05/28/computer-network/application-layer/dns1.png" class="" title="dns1">
+<img src="/2024/05/28/computer-network/application-layer/dns2.png" class="" title="dns2">
+<blockquote>
+<p>可以看见，名称相同的域名，其等级未必相同。</p>
+</blockquote>
+<img src="/2024/05/28/computer-network/application-layer/dns3.png" class="" title="dns3">
+<p>DNS使用分布在各地的域名服务器来实现域名到IP地址的转换。</p>
+<p>域名服务器可以划分为以下4个不同的类型：</p>
+<img src="/2024/05/28/computer-network/application-layer/dns4.png" class="" title="dns4">
+<p>域名解析分为递归查询和迭代查询。</p>
+<img src="/2024/05/28/computer-network/application-layer/dns5.png" class="" title="dns5">
+<img src="/2024/05/28/computer-network/application-layer/dns6.png" class="" title="dns6">
+<p>DNS报文使用运输层的UDP协议进行封装，运输层端口号53.</p>
+<h2 id="文件传送协议ftp">文件传送协议FTP</h2>
+<ul>
+<li>FTP是因特网上使用得最广泛的文件传送协议
+<ul>
+<li>FTP提供交互式的访问，允许客户指明文件的类型和格式，并允许文件具有存取权限</li>
+<li>FTP屏蔽各计算机系统的细节，因而适合于在异构网络中任意计算机之间传送文件</li>
+</ul></li>
+</ul>
+<p>FTP采用C/S方式</p>
+<p>FTP客户计算机可将各种类型的文件上传到FTP服务器计算机，也可以从FTP服务器计算机下载文件。</p>
+<h3 id="ftp基本工作原理">FTP基本工作原理</h3>
+<p>FTP服务器监听熟知端口（端口号21），使客户进程能够连接上。</p>
+<p>FTP客户随机选择一个临时端口号与其建立TCP连接，这条TCP连接用于FTP客户和服务器之间传送FTP相关<strong>控制命令</strong>。</p>
+<img src="/2024/05/28/computer-network/application-layer/ftp1.png" class="" title="ftp1">
+<p>FTP服务器使用自己的熟知端口号20与客户建立TCP连接，用于<strong>传送文件</strong>。</p>
+<img src="/2024/05/28/computer-network/application-layer/ftp2.png" class="" title="ftp2">
+<blockquote>
+<p>这是主动模式：建立数据通道时，FTP服务器主动连接客户。</p>
+</blockquote>
+<img src="/2024/05/28/computer-network/application-layer/ftp4.png" class="" title="ftp4">
+<blockquote>
+<p>对比，被动模式的端口号由协商决定</p>
+</blockquote>
+<h2 id="电子邮件">电子邮件</h2>
+<img src="/2024/05/28/computer-network/application-layer/mail1.png" class="" title="mail1">
+<h3 id="邮件发送和接收过程">邮件发送和接收过程</h3>
+<img src="/2024/05/28/computer-network/application-layer/mail2.png" class="" title="mail2">
+<h3 id="简单邮件传送协议smtp">简单邮件传送协议（SMTP）</h3>
+<img src="/2024/05/28/computer-network/application-layer/mail3.png" class="" title="mail3">
+<blockquote>
+<p>可以发现，非常麻烦，根本记不住</p>
+</blockquote>
+<h3 id="电子邮件的信息格式">电子邮件的信息格式</h3>
+<img src="/2024/05/28/computer-network/application-layer/mail4.png" class="" title="mail4">
+<h3 id="邮件读取">邮件读取</h3>
+<img src="/2024/05/28/computer-network/application-layer/mail5.png" class="" title="mail5">
+<h3 id="基于万维网的电子邮件">基于万维网的电子邮件</h3>
+<img src="/2024/05/28/computer-network/application-layer/mail6.png" class="" title="mail6">
+<h2 id="万维网www">万维网WWW</h2>
+<ul>
+<li><p>万维网是一个大规模的、联机式的信息储藏所</p></li>
+<li><p>万维网用链接的方法可以非常方便地从互联网的一个站点访问另一个站点，这种访问方式称为“链接”</p></li>
+<li><p>万维网以C/S方式工作，浏览器是客户程序，万维网文档所在计算机运行服务器程序</p></li>
+</ul>
+<h3 id="url">URL</h3>
+<img src="/2024/05/28/computer-network/application-layer/www1.png" class="" title="www1">
+<h3 id="超文本传输协议http">超文本传输协议HTTP</h3>
+<h4 id="传输过程">传输过程</h4>
+<ul>
+<li>在万维网客户程序与万维网服务器程序之间进行交互的协议</li>
+<li>使用TCP连接</li>
+<li>每个万维网网点都有一个服务器进程，它不断地监听TCP的端口80，以便发现是否有浏览器向它发出连接建立请求</li>
+<li>一旦监听到连接建立请求并建立了TCP连接后，浏览器就向万维网服务器发出浏览某个页面的请求</li>
+</ul>
+<img src="/2024/05/28/computer-network/application-layer/www2.png" class="" title="www2">
+<img src="/2024/05/28/computer-network/application-layer/www3.png" class="" title="www3">
+<h4 id="http报文格式">HTTP报文格式</h4>
+<p>请求报文：</p>
+<img src="/2024/05/28/computer-network/application-layer/www4.png" class="" title="www4">
+<p>响应报文：</p>
+<img src="/2024/05/28/computer-network/application-layer/www5.png" class="" title="www5">
+<h3 id="cookie">Cookie</h3>
+<blockquote>
+<p>在原有的无状态的http协议上增添了功能</p>
+</blockquote>
+<img src="/2024/05/28/computer-network/application-layer/www6.png" class="" title="www6">
+<h3 id="万维网cache和代理服务器">万维网cache和代理服务器</h3>
+<ul>
+<li>在万维网中还可以使用缓存机制以提高万维网的效率</li>
+<li>万维网缓存也称为Web缓存，可位于客户机，亦可位于中间系统上（代理服务器）</li>
+<li>Web缓存把最近的一些请求和响应暂存在本地磁盘中。当新请求到达时，若发现这个请求与暂时存放的请求相同，就返回暂存的响应，而不需要按照URL的地址去访问因特网的资源。</li>
+</ul>
+<p>假设原始服务器的文档被修改，这时候代理服务器的文档就过期了。因此原始服务器通常会为每个响应的对象设置一个<strong>修改时间字段</strong>和<strong>有效日期字段</strong>。</p>
+<p>若过期，但代理服务器的文档与原始服务器的文档一致，则原始服务器发送不带主体的响应：</p>
+<img src="/2024/05/28/computer-network/application-layer/www7.png" class="" title="www7">
+<p>若不一致，则需要发送封装有最新文档的报文：</p>
+<img src="/2024/05/28/computer-network/application-layer/www8.png" class="" title="www8">
+<blockquote>
+<p>完结撒花</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/20/database/sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Ayy2">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy2">
+      <meta itemprop="description" content="爱你，vv。❤">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy2">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/20/database/sql/" class="post-title-link" itemprop="url">sql</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-20 16:56:31" itemprop="dateCreated datePublished" datetime="2024-05-20T16:56:31+08:00">2024-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-01 11:28:05" itemprop="dateModified" datetime="2024-06-01T11:28:05+08:00">2024-06-01</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/20/database/sql/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/20/database/sql/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>来自《数据库系统概论（第6版）》第三章</p>
+<p>基于Oracle 19数据库</p>
+</blockquote>
+<h1 id="sql">SQL</h1>
+<h2 id="模式的定义与删除">模式的定义与删除</h2>
+<blockquote>
+<p>在数据库中，一个模式下通常包括多个表、视图和索引等数据库对象。一个数据库中可以建立多个模式。</p>
+<p>在Oracle数据库中，模式的概念即<strong>用户</strong>。</p>
+</blockquote>
+<p>创建模式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> c##atri identified <span class="keyword">by</span> xxxxxxxxx;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需在用户名前添加前缀C##</p>
+</blockquote>
+<p>切换模式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> session <span class="keyword">set</span> <span class="built_in">current_schema</span> <span class="operator">=</span> c##atri;</span><br></pre></td></tr></table></figure>
+<p>删除模式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> username CASCADE;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>模式下包含的东西也被删除了。</p>
+</blockquote>
+<h2 id="基本表的建立">基本表的建立</h2>
+<blockquote>
+<p>为了方便后续重点语句的展示，我这里按照书上的二维码，准备几个表。</p>
+</blockquote>
+<p><code>sc.sql</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> SC;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> Course;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> Student;</span><br><span class="line">PURGE  RECYCLEBIN;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student</span><br><span class="line">(</span><br><span class="line">    Sno <span class="type">CHAR</span>(<span class="number">8</span>) <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    Sname <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">UNIQUE</span>,</span><br><span class="line">    Ssex <span class="type">CHAR</span>(<span class="number">6</span>),</span><br><span class="line">    Sbirthdate <span class="type">Date</span>,</span><br><span class="line">    Smajor <span class="type">VARCHAR</span>(<span class="number">40</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Course</span><br><span class="line">(</span><br><span class="line">    Cno <span class="type">CHAR</span>(<span class="number">5</span>) <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    Cname <span class="type">VARCHAR</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    Ccredit <span class="type">SMALLINT</span>,</span><br><span class="line">    Cpno <span class="type">CHAR</span>(<span class="number">5</span>),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (Cpno) <span class="keyword">REFERENCES</span> Course(Cno)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> SC</span><br><span class="line">(</span><br><span class="line">    Sno <span class="type">CHAR</span>(<span class="number">8</span>),</span><br><span class="line">    Cno <span class="type">CHAR</span>(<span class="number">5</span>),</span><br><span class="line">    Grade <span class="type">SMALLINT</span>,</span><br><span class="line">    Semester <span class="type">CHAR</span>(<span class="number">5</span>),</span><br><span class="line">    Teachingclass <span class="type">CHAR</span>(<span class="number">8</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY(Sno, Cno),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY(Sno) <span class="keyword">REFERENCES</span> Student (Sno),</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY(Cno) <span class="keyword">REFERENCES</span> Course (Cno)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'李勇'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2000-03-08'</span>, <span class="string">'信息安全'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'刘晨'</span>, <span class="string">'女'</span>, <span class="type">DATE</span> <span class="string">'1999-09-01'</span>, <span class="string">'计算机科学与技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180003'</span>, <span class="string">'王敏'</span>, <span class="string">'女'</span>, <span class="type">DATE</span> <span class="string">'2001-08-01'</span>, <span class="string">'计算机科学与技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180004'</span>, <span class="string">'张立'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2000-01-08'</span>, <span class="string">'计算机科学与技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180205'</span>, <span class="string">'陈新奇'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2001-11-01'</span>, <span class="string">'信息管理与信息系统'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180306'</span>, <span class="string">'赵明'</span>, <span class="string">'男'</span>, <span class="type">DATE</span> <span class="string">'2000-06-12'</span>, <span class="string">'数据科学与大数据技术'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student <span class="keyword">values</span>(<span class="string">'20180307'</span>, <span class="string">'王佳佳'</span>, <span class="string">'女'</span>, <span class="type">DATE</span> <span class="string">'2001-12-07'</span>, <span class="string">'数据科学与大数据技术'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81001'</span>, <span class="string">'程序设计基础与C语言'</span>, <span class="number">4</span>, <span class="keyword">NULL</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81002'</span>, <span class="string">'数据结构'</span>, <span class="number">4</span>, <span class="string">'81001'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81003'</span>, <span class="string">'数据库系统概论'</span>, <span class="number">4</span>, <span class="string">'81002'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81004'</span>, <span class="string">'信息系统概论'</span>, <span class="number">4</span>, <span class="string">'81003'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81005'</span>, <span class="string">'操作系统'</span>, <span class="number">4</span>, <span class="string">'81001'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81006'</span>, <span class="string">'Python语言'</span>, <span class="number">3</span>, <span class="string">'81002'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81007'</span>, <span class="string">'离散数学'</span>, <span class="number">4</span>, <span class="keyword">NULL</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course <span class="keyword">values</span>(<span class="string">'81008'</span>, <span class="string">'大数据技术概论'</span>, <span class="number">4</span>, <span class="string">'81003'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'81001'</span>, <span class="number">85</span>, <span class="string">'20192'</span>, <span class="string">'81001-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'81002'</span>, <span class="number">96</span>, <span class="string">'20201'</span>, <span class="string">'81002-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180001'</span>, <span class="string">'81003'</span>, <span class="number">87</span>, <span class="string">'20202'</span>, <span class="string">'81003-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'81001'</span>, <span class="number">80</span>, <span class="string">'20192'</span>, <span class="string">'81001-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'81002'</span>, <span class="number">98</span>, <span class="string">'20201'</span>, <span class="string">'81002-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180002'</span>, <span class="string">'81003'</span>, <span class="number">71</span>, <span class="string">'20202'</span>, <span class="string">'81003-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180003'</span>, <span class="string">'81001'</span>, <span class="number">81</span>, <span class="string">'20192'</span>, <span class="string">'81001-01'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180003'</span>, <span class="string">'81002'</span>, <span class="number">76</span>, <span class="string">'20201'</span>, <span class="string">'81002-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180004'</span>, <span class="string">'81001'</span>, <span class="number">56</span>, <span class="string">'20192'</span>, <span class="string">'81001-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180004'</span>, <span class="string">'81003'</span>, <span class="number">97</span>, <span class="string">'20201'</span>, <span class="string">'81002-02'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SC <span class="keyword">values</span>(<span class="string">'20180205'</span>, <span class="string">'81003'</span>, <span class="number">68</span>, <span class="string">'20202'</span>, <span class="string">'81003-01'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+<p>表长这样：</p>
+<img src="/2024/05/20/database/sql/sc.png" class="" title="sc">
+<blockquote>
+<p>关于修改表、删除表什么的，这里就摆了hh</p>
+</blockquote>
+<h2 id="索引的建立与删除">索引的建立与删除</h2>
+<blockquote>
+<p>也摆了，Coming soon(???)</p>
+</blockquote>
+<h1 id="数据查询">数据查询</h1>
+<h2 id="单表查询">单表查询</h2>
+<blockquote>
+<p>例子学习法，学习之前请先导入上面的sql文件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sql</span><span class="operator">&gt;</span> @ $path_to_sc.sql</span><br></pre></td></tr></table></figure>
+<p><strong>重点</strong></p>
+</blockquote>
+<p>（1）查询指定列</p>
+<p>查询全体学生的学号与姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname</span><br><span class="line"><span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+<p>（2）查询全部列</p>
+<p>查询全体学生的详细记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+<p>（3）查询经过计算的值</p>
+<blockquote>
+<p>select子句的<strong>目标列表达式</strong>可以是<strong>算术表达式、字符串常量、函数</strong>等</p>
+</blockquote>
+<p>查询全体学生的年龄</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, (<span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate)) "年龄"</span><br><span class="line"><span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+<p>查询全体学生的姓名、出生日期和主修专业</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, <span class="string">'Date of birth:'</span>, sbirthdate, smajor</span><br><span class="line"><span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/sql1.png" class="" title="sql1">
+<p>（4）消除取值重复的行</p>
+<p>查询选修了课程的学生学号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> sno <span class="keyword">from</span> sc;</span><br></pre></td></tr></table></figure>
+<p>（5）查询满足条件的元组</p>
+<blockquote>
+<p>比较：=,&gt;,&lt;,.&gt;=,&lt;=,!=,&lt;&gt;,!&gt;,!&lt;,NOT+</p>
+</blockquote>
+<p>查询主修计算机科学与技术专业全体学生的姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> smajor <span class="operator">=</span> <span class="string">'计算机科学与技术'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询所有2000年后（包括2000年）出生的学生姓名及其性别</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, ssex</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate) <span class="operator">&gt;=</span> <span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
+<p>查询考试成绩不及格的学生的学号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> sno</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">where</span> grade <span class="operator">&lt;</span> <span class="number">60</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>确定范围：(not) between ... and ...</p>
+</blockquote>
+<p>查询年龄在20~23岁（包括20岁和23岁）之间的学生的学生的姓名、出生年月和主修专业</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, sbirthdate, smajor</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate) <span class="keyword">between</span> <span class="number">20</span> <span class="keyword">and</span> <span class="number">23</span>;</span><br></pre></td></tr></table></figure>
+<p>查询年龄不在20~23岁（包括20岁和23岁）之间的学生的学生的姓名、出生年月和主修专业</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, sbirthdate, smajor</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate) <span class="keyword">not</span> <span class="keyword">between</span> <span class="number">20</span> <span class="keyword">and</span> <span class="number">23</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>确定集合</p>
+<p>谓词：in &lt;值表&gt;, not in &lt;值表&gt;</p>
+</blockquote>
+<p>查询计算机科学与技术专业和信息安全专业学生的姓名和性别</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, ssex</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> smajor <span class="keyword">in</span> (<span class="string">'计算机科学与技术'</span>, <span class="string">'信息安全'</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>字符匹配</p>
+<p>[not] like '&lt;匹配串&gt;' [escape '&lt;换码字符&gt;']</p>
+<p>%：任意长度（可以为0）的字符串</p>
+<p>_：任意单个字符</p>
+</blockquote>
+<p>查询学号为20180003的学生的详细情况</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> sno <span class="keyword">like</span> <span class="string">'20180003'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询所有姓刘学生的姓名、学号和性别</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, sno, ssex</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> sname <span class="keyword">like</span> <span class="string">'刘%'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询2018级学生的学号和姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> sno <span class="keyword">like</span> <span class="string">'2018%'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询课程号为81开头，最后一位是6的课程名称和课程号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> cname, cno</span><br><span class="line"><span class="keyword">from</span> course</span><br><span class="line"><span class="keyword">where</span> cno <span class="keyword">like</span> <span class="string">'81__6'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询DB_Design课程的课程号和学分</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> cno, ccredit</span><br><span class="line"><span class="keyword">from</span> course</span><br><span class="line"><span class="keyword">where</span> cname <span class="keyword">like</span> <span class="string">'DB\_Design'</span> <span class="keyword">escape</span> <span class="string">'\'</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>涉及空值的查询：is [not] NULL</p>
+<p>is 不能用 = 代替</p>
+</blockquote>
+<p>某些学生选修课程后没有参加考试，有选课记录，但没有考试成绩。查询缺少成绩的学生的学号和相应的课程号。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, cno</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">where</span> grade <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>多重条件查询：and or，and优先级高于or</p>
+</blockquote>
+<p>查询主修计算机科学与技术专业2000年（包括2000年）以后出生的学生学号、姓名和性别。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname, ssex</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> smajor <span class="operator">=</span> <span class="string">'计算机科学与技术'</span></span><br><span class="line"><span class="keyword">and</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate) <span class="operator">&gt;=</span> <span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>order by:
+按一个或多个属性值升序（降序）排列，对于<strong>空值的实现依具体系统实现决定</strong></p>
+</blockquote>
+<p>查询选修了81003号课程的学生的学号及其成绩，查询结果按分数的降序排列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, grade</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">where</span> cno <span class="operator">=</span> <span class="string">'81003'</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> grade <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<p>查询全体学生选修课程情况，查询结果先按照课程号升序排列，同一课程中按成绩降序排列。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> cno, grade <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>聚集函数</strong></p>
+<p>统计元组个数：count(*)</p>
+<p>统计一列中值的个数：count([distinct|all] 列名)</p>
+<p>计算一列值的总和（此列必须为数值型）：sum([distinct|all] 列名)</p>
+<p>计算一列值的平均值（此列必须为数值型）：avg([distinct|all] 列名)</p>
+<p>求一列中的最大值和最小值：max/min([distinct|all] 列名)</p>
+</blockquote>
+<p>查询选修了课程的学生人数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> sno)</span><br><span class="line"><span class="keyword">from</span> sc;</span><br></pre></td></tr></table></figure>
+<p>计算选修81001号课程的学生平均成绩</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(grade)</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">where</span> cno <span class="operator">=</span> <span class="string">'81001'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询选修1号课程的学生最高分数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">max</span>(grade)</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">where</span> cno <span class="operator">=</span> <span class="string">'81001'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询学号为20180003学生选修课程的总学分数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(ccredit)</span><br><span class="line"><span class="keyword">from</span> sc, course</span><br><span class="line"><span class="keyword">where</span> sno <span class="operator">=</span> <span class="string">'20180003'</span> <span class="keyword">and</span> sc.cno <span class="operator">=</span> course.cno;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>group by子句分组：</p>
+<ul>
+<li>按指定的一列或多列值分组，<strong>值相等的为一组</strong></li>
+<li>如果未对查询结果分组，聚集函数将作用于整个查询结果</li>
+<li><strong>分组后，聚集函数将作用于每一个组</strong></li>
+</ul>
+</blockquote>
+<p>求各个课程号及选修该课程的人数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> cno, <span class="built_in">count</span>(sno)</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> cno;</span><br></pre></td></tr></table></figure>
+<p>查询2019年第2学期选修了10门以上课程的学生学号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno</span><br><span class="line"><span class="keyword">from</span> sc</span><br><span class="line"><span class="keyword">where</span> semester <span class="operator">=</span> <span class="string">'20192'</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> sno</span><br><span class="line"><span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>having 和 where 的区别：</p>
+<ul>
+<li>where子句作用于基表或视图，从中选择满足条件的<strong>元组</strong></li>
+<li>having短语作用于组，从中选择满足条件的<strong>组</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>limit：限制元组数量</p>
+</blockquote>
+<p>查询选修了数据库系统概论课程的成绩排名前10名的学生学号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno</span><br><span class="line"><span class="keyword">from</span> sc, course</span><br><span class="line"><span class="keyword">where</span> course.cname <span class="operator">=</span> <span class="string">'数据库系统概论'</span></span><br><span class="line"><span class="keyword">and</span> sc.cno <span class="operator">=</span> course.cno</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> grade <span class="keyword">desc</span></span><br><span class="line">limit <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>limit关键字在oracle数据库是不支持的，需要用rownum来实现相同功能：</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line">    <span class="keyword">select</span> sno, grade</span><br><span class="line">    <span class="keyword">from</span> sc, course</span><br><span class="line">    <span class="keyword">where</span> course.cname <span class="operator">=</span> <span class="string">'数据库系统概论'</span></span><br><span class="line">    <span class="keyword">and</span> sc.cno <span class="operator">=</span> course.cno</span><br><span class="line">    <span class="keyword">order</span> <span class="keyword">by</span> grade <span class="keyword">desc</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">where</span> rownum <span class="operator">&lt;=</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="连接查询">连接查询</h2>
+<p>即同时涉及两个以上的表的查询</p>
+<p>（1）等值与非等值连接查询</p>
+<p>查询每个学生及其选修课程的情况</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> student.<span class="operator">*</span>, sc.<span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> student, sc</span><br><span class="line"><span class="keyword">where</span> student.sno <span class="operator">=</span> sc.sno;</span><br></pre></td></tr></table></figure>
+<p>（2）自然连接查询</p>
+<p>查询每个学生的学号、姓名、性别、出生日期、主修专业及该学生选修课程的课程号与成绩</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> student.sno, sname, ssex, sbirthdate, smajor, cno, grade</span><br><span class="line"><span class="keyword">from</span> student, sc</span><br><span class="line"><span class="keyword">where</span> student.sno <span class="operator">=</span> sc.sno;</span><br></pre></td></tr></table></figure>
+<p>（3）复合条件连接查询</p>
+<blockquote>
+<p>在连接谓词的基础上增加选择谓词，组成复合条件</p>
+</blockquote>
+<p>查询选修81002号课程且成绩在90分以上的所有学生的学号和姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> student.sno, sname</span><br><span class="line"><span class="keyword">from</span> student, sc</span><br><span class="line"><span class="keyword">where</span> student.sno <span class="operator">=</span> sc.sno</span><br><span class="line"><span class="keyword">and</span> sc.cno <span class="operator">=</span> <span class="string">'81002'</span></span><br><span class="line"><span class="keyword">and</span> sc.grade <span class="operator">&gt;</span> <span class="number">90</span>;</span><br></pre></td></tr></table></figure>
+<p>（4）自身连接查询</p>
+<p>查询每一门课的间接先修课（即先修课的先修课）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> first.cno, second.cpno</span><br><span class="line"><span class="keyword">from</span> course <span class="keyword">first</span>, course <span class="keyword">second</span></span><br><span class="line"><span class="keyword">where</span> first.cpno <span class="operator">=</span> second.cno <span class="keyword">and</span> second.cpno <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>（5）外连接查询</p>
+<blockquote>
+<p>外连接操作以指定表为连接主体，将主体表中不满足连接条件的元组一并输出。</p>
+</blockquote>
+<p>以Student表为主体列出每个学生的基本情况及其选课情况，若某个学生没有选课，则只输出其基本情况的数据，而把选课信息填为空值NULL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> student.sno, sname, ssex, sbirthdate, smajor, cno, grade</span><br><span class="line"><span class="keyword">from</span> student <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> sc <span class="keyword">on</span>(student.sno <span class="operator">=</span> sc.sno);</span><br></pre></td></tr></table></figure>
+<p>（6）多表连接查询</p>
+<p>两个以上的表的连接。</p>
+<h2 id="嵌套查询">嵌套查询</h2>
+<ul>
+<li><p>一个select-from-where语句称为一个<strong>查询块</strong></p></li>
+<li><p>将一个查询块嵌套到另一个查询块的where子句或having短语的条件中的查询称为<strong>嵌套查询</strong></p></li>
+<li><p>不相关子查询</p></li>
+</ul>
+<blockquote>
+<p>子查询的查询条件不依赖于父查询，可以<strong>由里向外</strong>逐层处理。</p>
+</blockquote>
+<ul>
+<li>相关子查询</li>
+</ul>
+<blockquote>
+<p>首先取<strong>外层</strong>查询表的第一个元组，根据它与内层查询相关的属性值处理内层查询，若where返回真，则加入结果表。然后重复这一过程。</p>
+</blockquote>
+<p>（1）IN谓词</p>
+<p>查询与“刘晨”在同一个主修专业的学生学号、姓名和主修专业</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname, smajor</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> smajor <span class="keyword">in</span>(</span><br><span class="line">	<span class="keyword">select</span> smajor</span><br><span class="line">	<span class="keyword">from</span> student</span><br><span class="line">	<span class="keyword">where</span> sname <span class="operator">=</span> <span class="string">'刘晨'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>查询选修了课程名为“信息系统概论”的学生的学号和姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, sname</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> sno <span class="keyword">in</span>(</span><br><span class="line">	<span class="keyword">select</span> sno</span><br><span class="line">	<span class="keyword">from</span> sc</span><br><span class="line">	<span class="keyword">where</span> cno <span class="keyword">in</span>(</span><br><span class="line">		<span class="keyword">select</span> sno</span><br><span class="line">		<span class="keyword">from</span> course</span><br><span class="line">		<span class="keyword">where</span> cname <span class="operator">=</span> <span class="string">'信息系统概论'</span></span><br><span class="line">	)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>（2）带有比较运算符的子查询</p>
+<blockquote>
+<p>当能确切知道内层查询返回<strong>单值</strong>时，可用比较运算符。</p>
+</blockquote>
+<p>找出每个学生超过他选修课程平均成绩的课程号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, cno</span><br><span class="line"><span class="keyword">from</span> sc x</span><br><span class="line"><span class="keyword">where</span> grade <span class="operator">&gt;=</span> (</span><br><span class="line">	<span class="keyword">select</span> <span class="built_in">avg</span>(grade)</span><br><span class="line">	<span class="keyword">from</span> sc y</span><br><span class="line">	<span class="keyword">where</span> x.sno <span class="operator">=</span> y.sno</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>先从外层的元组中取出x.sno，然后再内层中寻找y.sno=x.sno的元组，求avg(grade)，用该值代替内层查询，重新得到外层查询。</p>
+</blockquote>
+<p>（3）带有ANY(SOME)或ALL谓词</p>
+<blockquote>
+<p>必须同时使用比较运算符</p>
+</blockquote>
+<p>查询非计算机科学技术专业中比计算机科学技术专业任意一个学生年龄小（出生日期晚）的学生的姓名、出生日期和主修专业</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname, sbirthdate, smajor</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> sbirthdate <span class="operator">&gt;</span> <span class="keyword">any</span>(</span><br><span class="line">	<span class="keyword">select</span> sbirthdate</span><br><span class="line">	<span class="keyword">from</span> student</span><br><span class="line">	<span class="keyword">where</span> smajor <span class="operator">=</span> <span class="string">'计算机科学与技术'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">and</span> smajor <span class="operator">&lt;&gt;</span> <span class="string">'计算机科学与技术'</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以和一些聚集函数进行等价转换。</p>
+</blockquote>
+<img src="/2024/05/20/database/sql/sql2.png" class="" title="sql2">
+<p>（4）EXISTS谓词</p>
+<p>带有EXISTS谓词的子查询只产生逻辑真值 <code>true</code> 或
+<code>false</code> ，取决于内层查询是否非空。</p>
+<p>查询没有选修81001号课程的学生姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(</span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">	<span class="keyword">from</span> sc</span><br><span class="line">	<span class="keyword">where</span> sno <span class="operator">=</span> student.sno <span class="keyword">and</span> cno <span class="operator">=</span> <span class="string">'81001'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>可用 exists/not exists 实现全称量词（难点）： <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="20.447ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 9037.6 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="2200" d="M0 673Q0 684 7 689T20 694Q32 694 38 680T82 567L126 451H430L473 566Q483 593 494 622T512 668T519 685Q524 694 538 694Q556 692 556 674Q556 670 426 329T293 -15Q288 -22 278 -22T263 -15Q260 -11 131 328T0 673ZM414 410Q414 411 278 411T142 410L278 55L414 410Z"></path></g><g data-mml-node="mi" transform="translate(945,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(1517,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mi" transform="translate(1906,0)"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="mo" transform="translate(2934.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(3990.6,0)"><path data-c="AC" d="M56 323T56 336T70 356H596Q603 353 611 343V102Q598 89 591 89Q587 89 584 90T579 94T575 98T572 102L571 209V316H70Q56 323 56 336Z"></path></g><g data-mml-node="mo" transform="translate(4657.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(5046.6,0)"><path data-c="2203" d="M56 661T56 674T70 694H487Q497 686 500 679V15Q497 10 487 1L279 0H70Q56 7 56 20T70 40H460V327H84Q70 334 70 347T84 367H460V654H70Q56 661 56 674Z"></path></g><g data-mml-node="mi" transform="translate(5602.6,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(6174.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(6563.6,0)"><path data-c="AC" d="M56 323T56 336T70 356H596Q603 353 611 343V102Q598 89 591 89Q587 89 584 90T579 94T575 98T572 102L571 209V316H70Q56 323 56 336Z"></path></g><g data-mml-node="mi" transform="translate(7230.6,0)"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="mo" transform="translate(7981.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(8370.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(8759.6,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path></g></g></g></svg></mjx-container></span> 查询选修了全部课程的学生姓名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sname</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(</span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">	<span class="keyword">from</span> course</span><br><span class="line">	<span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(</span><br><span class="line">		<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">		<span class="keyword">from</span> sc</span><br><span class="line">		<span class="keyword">where</span> sno <span class="operator">=</span> student.sno <span class="keyword">and</span> cno <span class="operator">=</span> course.cno</span><br><span class="line">	)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>转换，不存在没有被该学生选修的课程，双重否定。</p>
+</blockquote>
+<p>可用exists/not exists实现逻辑蕴涵（难点） <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="15.547ex" height="1.792ex" role="img" focusable="false" viewBox="0 -598 6871.6 792"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path></g><g data-mml-node="mo" transform="translate(780.8,0)"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(2058.6,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(2796.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(3852.1,0)"><path data-c="AC" d="M56 323T56 336T70 356H596Q603 353 611 343V102Q598 89 591 89Q587 89 584 90T579 94T575 98T572 102L571 209V316H70Q56 323 56 336Z"></path></g><g data-mml-node="mi" transform="translate(4519.1,0)"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path></g><g data-mml-node="mo" transform="translate(5244.3,0)"><path data-c="2228" d="M55 580Q56 587 61 592T75 598Q86 598 96 580L333 48L570 580Q579 596 586 597Q588 598 591 598Q609 598 611 580Q611 574 546 426T415 132T348 -15Q343 -22 333 -22T318 -15Q317 -14 252 131T121 425T55 580Z"></path></g><g data-mml-node="mi" transform="translate(6133.6,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(6593.6,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path></g></g></g></svg></mjx-container></span> 查询至少选修了学生20180002选修的全部课程的学生的学号</p>
+<blockquote>
+<p>用逻辑蕴含来表达：查询学号为x的学生，对所有的课程y，只要20180002号学生选修了课程y，那么x也选修了y。</p>
+<p>用p表示谓词“学生20180002选修了课程y”</p>
+<p>用q表示谓词“学生x选修了课程y”</p>
+<p>则上述查询为 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.048ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2231 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(879,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mi" transform="translate(1268,0)"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path></g><g data-mml-node="mi" transform="translate(1771,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container>.</p>
+<p>可等价转换为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="11.838ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 5232.4 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="AC" d="M56 323T56 336T70 356H596Q603 353 611 343V102Q598 89 591 89Q587 89 584 90T579 94T575 98T572 102L571 209V316H70Q56 323 56 336Z"></path></g><g data-mml-node="mi" transform="translate(667,0)"><path data-c="2203" d="M56 661T56 674T70 694H487Q497 686 500 679V15Q497 10 487 1L279 0H70Q56 7 56 20T70 40H460V327H84Q70 334 70 347T84 367H460V654H70Q56 661 56 674Z"></path></g><g data-mml-node="mi" transform="translate(1223,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1713,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(2102,0)"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path></g><g data-mml-node="mo" transform="translate(2827.2,0)"><path data-c="2227" d="M318 591Q325 598 333 598Q344 598 348 591Q349 590 414 445T545 151T611 -4Q609 -22 591 -22Q588 -22 586 -21T581 -20T577 -17T575 -13T572 -9T570 -4L333 528L96 -4Q87 -20 80 -21Q78 -22 75 -22Q57 -22 55 -4Q55 2 120 150T251 444T318 591Z"></path></g><g data-mml-node="mi" transform="translate(3716.4,0)"><path data-c="AC" d="M56 323T56 336T70 356H596Q603 353 611 343V102Q598 89 591 89Q587 89 584 90T579 94T575 98T572 102L571 209V316H70Q56 323 56 336Z"></path></g><g data-mml-node="mi" transform="translate(4383.4,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(4843.4,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>.</p>
+<p>语义为：不存在（第一个not
+exists）这样的课程y，它即被20180002选修，但不被（第二个not
+exists）x选修。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(</span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">	<span class="keyword">from</span> sc scx</span><br><span class="line">	<span class="keyword">where</span> scx.sno <span class="operator">=</span> <span class="string">'20180002'</span> <span class="keyword">and</span></span><br><span class="line">	<span class="keyword">not</span> <span class="keyword">exists</span>(</span><br><span class="line">		<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">		<span class="keyword">from</span> sc scy</span><br><span class="line">		<span class="keyword">where</span> scy.sno <span class="operator">=</span> student.sno <span class="keyword">and</span> scy.cno <span class="operator">=</span> scx.cno</span><br><span class="line">	)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其实我也不是很理解，这真的很抽象。</p>
+</blockquote>
+<h2 id="集合查询">集合查询</h2>
+<blockquote>
+<p>UNION、INTERSECT、EXCEPT</p>
+</blockquote>
+<p>查询计算机科学与技术专业的学生及年龄不大于19岁（包括等于19岁）的学生</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student <span class="keyword">where</span> smajor <span class="operator">=</span> <span class="string">'计算机科学与技术'</span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> (<span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate)) <span class="operator">&lt;=</span> <span class="number">19</span>;</span><br></pre></td></tr></table></figure>
+<p>查询计算机科学与技术专业的学生与年龄不大于19岁的学生的交集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student <span class="keyword">where</span> smajor <span class="operator">=</span> <span class="string">'计算机科学与技术'</span></span><br><span class="line"><span class="keyword">intersect</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> (<span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> sbirthdate)) <span class="operator">&lt;=</span> <span class="number">19</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="基于派生表的查询">基于派生表的查询</h2>
+<p>子查询不止可以出现在where子句中，还可以出现在from子句中。</p>
+<p>找出每个学生超过他自己选修课程平均成绩的课程号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sno, cno</span><br><span class="line"><span class="keyword">from</span> sc, (<span class="keyword">select</span> sno <span class="keyword">as</span> avg_sno, <span class="built_in">avg</span>(grade) <span class="keyword">as</span> avg_grade <span class="keyword">from</span> sc <span class="keyword">group</span> <span class="keyword">by</span> sno) avg_sc</span><br><span class="line"><span class="keyword">where</span> sc.sno <span class="operator">=</span> avg_sc.avg_sno <span class="keyword">and</span> sc.grade <span class="operator">&gt;=</span> avg_sc.avg_grade;</span><br></pre></td></tr></table></figure>
+<h1 id="数据更新">数据更新</h1>
+<hr>
+<h1 id="sql语言练习">sql语言练习</h1>
+<p>首先运行该 <code>emp.sql</code> 文件：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>在<span class="keyword">SQL</span><span class="operator">*</span>PLUS里用@命令执行</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>例如：假设此程序保存在D盘根目录下，.<span class="keyword">sql</span>后缀可省略</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> <span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="variable">@D</span>:\demo</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> EMP;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> DEPT;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> BONUS;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> SALGRADE;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> DEPT</span><br><span class="line">       (DEPTNO NUMBER(<span class="number">2</span>),</span><br><span class="line">        DNAME VARCHAR2(<span class="number">14</span>),</span><br><span class="line">        LOC VARCHAR2(<span class="number">13</span>),</span><br><span class="line">        <span class="keyword">CONSTRAINT</span> dept_dname_uk <span class="keyword">UNIQUE</span> (dname),</span><br><span class="line">        <span class="keyword">CONSTRAINT</span> dept_deptno_pk <span class="keyword">PRIMARY</span> KEY (deptno) );</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT <span class="keyword">VALUES</span> (<span class="number">10</span>, <span class="string">'ACCOUNTING'</span>, <span class="string">'NEW YORK'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT <span class="keyword">VALUES</span> (<span class="number">20</span>, <span class="string">'RESEARCH'</span>,   <span class="string">'DALLAS'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT <span class="keyword">VALUES</span> (<span class="number">30</span>, <span class="string">'SALES'</span>,      <span class="string">'CHICAGO'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT <span class="keyword">VALUES</span> (<span class="number">40</span>, <span class="string">'OPERATIONS'</span>, <span class="string">'BOSTON'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> EMP</span><br><span class="line">       (EMPNO NUMBER(<span class="number">4</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">        ENAME VARCHAR2(<span class="number">10</span>),</span><br><span class="line">        JOB VARCHAR2(<span class="number">9</span>),</span><br><span class="line">        MGR NUMBER(<span class="number">4</span>),</span><br><span class="line">        HIREDATE <span class="type">DATE</span>,</span><br><span class="line">        SAL NUMBER(<span class="number">7</span>, <span class="number">2</span>),</span><br><span class="line">        COMM NUMBER(<span class="number">7</span>, <span class="number">2</span>),</span><br><span class="line">        DEPTNO NUMBER(<span class="number">2</span>),</span><br><span class="line">        <span class="keyword">CONSTRAINT</span> emp_empno_pk <span class="keyword">PRIMARY</span> KEY (empno)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7369</span>, <span class="string">'SMITH'</span>,  <span class="string">'CLERK'</span>,     <span class="number">7902</span>,</span><br><span class="line">        TO_DATE(<span class="string">'17-12月-1980'</span>, <span class="string">'DD-MON-YYYY'</span>),  <span class="number">800</span>, <span class="keyword">NULL</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7499</span>, <span class="string">'ALLEN'</span>,  <span class="string">'SALESMAN'</span>,  <span class="number">7698</span>,</span><br><span class="line">        TO_DATE(<span class="string">'20-2月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">1600</span>,  <span class="number">300</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7521</span>, <span class="string">'WARD'</span>,   <span class="string">'SALESMAN'</span>,  <span class="number">7698</span>,</span><br><span class="line">        TO_DATE(<span class="string">'22-2月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">1250</span>,  <span class="number">500</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7566</span>, <span class="string">'JONES'</span>,  <span class="string">'MANAGER'</span>,   <span class="number">7839</span>,</span><br><span class="line">        TO_DATE(<span class="string">'2-4月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>),  <span class="number">2975</span>, <span class="keyword">NULL</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7654</span>, <span class="string">'MARTIN'</span>, <span class="string">'SALESMAN'</span>,  <span class="number">7698</span>,</span><br><span class="line">        TO_DATE(<span class="string">'28-9月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">1250</span>, <span class="number">1400</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7698</span>, <span class="string">'BLAKE'</span>,  <span class="string">'MANAGER'</span>,   <span class="number">7839</span>,</span><br><span class="line">        TO_DATE(<span class="string">'1-5月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>),  <span class="number">2850</span>, <span class="keyword">NULL</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7782</span>, <span class="string">'CLARK'</span>,  <span class="string">'MANAGER'</span>,   <span class="number">7839</span>,</span><br><span class="line">        TO_DATE(<span class="string">'9-6月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>),  <span class="number">2450</span>, <span class="keyword">NULL</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7788</span>, <span class="string">'SCOTT'</span>,  <span class="string">'ANALYST'</span>,   <span class="number">7566</span>,</span><br><span class="line">        TO_DATE(<span class="string">'09-12月-1982'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">3000</span>, <span class="keyword">NULL</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7839</span>, <span class="string">'KING'</span>,   <span class="string">'PRESIDENT'</span>, <span class="keyword">NULL</span>,</span><br><span class="line">        TO_DATE(<span class="string">'17-11月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">5000</span>, <span class="keyword">NULL</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7844</span>, <span class="string">'TURNER'</span>, <span class="string">'SALESMAN'</span>,  <span class="number">7698</span>,</span><br><span class="line">        TO_DATE(<span class="string">'8-9月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>),  <span class="number">1500</span>,    <span class="number">0</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7876</span>, <span class="string">'ADAMS'</span>,  <span class="string">'CLERK'</span>,     <span class="number">7788</span>,</span><br><span class="line">        TO_DATE(<span class="string">'12-1月-1983'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">1100</span>, <span class="keyword">NULL</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7900</span>, <span class="string">'JAMES'</span>,  <span class="string">'CLERK'</span>,     <span class="number">7698</span>,</span><br><span class="line">        TO_DATE(<span class="string">'3-12月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>),   <span class="number">950</span>, <span class="keyword">NULL</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7902</span>, <span class="string">'FORD'</span>,   <span class="string">'ANALYST'</span>,   <span class="number">7566</span>,</span><br><span class="line">        TO_DATE(<span class="string">'3-12月-1981'</span>, <span class="string">'DD-MON-YYYY'</span>),  <span class="number">3000</span>, <span class="keyword">NULL</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> EMP <span class="keyword">VALUES</span></span><br><span class="line">        (<span class="number">7934</span>, <span class="string">'MILLER'</span>, <span class="string">'CLERK'</span>,     <span class="number">7782</span>,</span><br><span class="line">        TO_DATE(<span class="string">'23-1月-1982'</span>, <span class="string">'DD-MON-YYYY'</span>), <span class="number">1300</span>, <span class="keyword">NULL</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> BONUS</span><br><span class="line">        (ENAME VARCHAR2(<span class="number">10</span>),</span><br><span class="line">         JOB   VARCHAR2(<span class="number">9</span>),</span><br><span class="line">         SAL   NUMBER,</span><br><span class="line">         COMM  NUMBER);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> SALGRADE</span><br><span class="line">        (GRADE NUMBER,</span><br><span class="line">         LOSAL NUMBER,</span><br><span class="line">         HISAL NUMBER);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SALGRADE <span class="keyword">VALUES</span> (<span class="number">1</span>,  <span class="number">700</span>, <span class="number">1200</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SALGRADE <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">1201</span>, <span class="number">1400</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SALGRADE <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="number">1401</span>, <span class="number">2000</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SALGRADE <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="number">2001</span>, <span class="number">3000</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> SALGRADE <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">3001</span>, <span class="number">9999</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/sql3.png" class="" title="sql3">
+<p>（1）在emp表上添加如下约束：入职时间不得晚于2021年7月8日，工资不能为负值，deptno为emp的外码。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">add</span> <span class="keyword">constraint</span> hiredate_chk <span class="keyword">check</span>(hiredate <span class="operator">&lt;=</span> <span class="type">DATE</span> <span class="string">'2021-07-08'</span>);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">add</span> <span class="keyword">constraint</span> salary_chk <span class="keyword">check</span>(sal <span class="operator">&gt;=</span> <span class="number">0</span>);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">add</span> <span class="keyword">constraint</span> deptno_forkey <span class="keyword">foreign</span> key(deptno) <span class="keyword">references</span> dept(deptno);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查询数据字典，可查看EMP表（需大写）所有约束。</p>
+</blockquote>
+<img src="/2024/05/20/database/sql/hw1.png" class="" title="hw1">
+<p>（2）查询比他/她的经理工资高且雇佣时间长的雇员的雇员号、雇员名以及工资。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.empno, a.ename, a.sal</span><br><span class="line"><span class="keyword">from</span> emp a, emp b</span><br><span class="line"><span class="keyword">where</span> a.mgr <span class="operator">=</span> b.empno</span><br><span class="line"><span class="keyword">and</span> a.sal <span class="operator">&gt;</span> b.sal</span><br><span class="line"><span class="keyword">and</span> a.hiredate <span class="operator">&lt;</span> b.hiredate;</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw2.png" class="" title="hw2">
+<p>（3）查询雇佣人数最多的经理名。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename</span><br><span class="line"><span class="keyword">from</span> emp e1</span><br><span class="line"><span class="keyword">where</span> e1.empno <span class="operator">=</span> (</span><br><span class="line">	<span class="keyword">select</span> mgr</span><br><span class="line">    <span class="keyword">from</span> emp e2</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> e2.mgr</span><br><span class="line">    <span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">=</span> (</span><br><span class="line">        <span class="keyword">select</span> <span class="built_in">max</span>(<span class="built_in">count</span>(<span class="operator">*</span>))</span><br><span class="line">        <span class="keyword">from</span> emp e3</span><br><span class="line">        <span class="keyword">group</span> <span class="keyword">by</span> e3.mgr</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw3.png" class="" title="hw3">
+<p>（4）创建CS部门工资在4000~9000元间的姓“张”的雇员视图empv(eid, ename,
+salary)。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> empv(eid, ename, salary) <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> empno, ename, sal</span><br><span class="line"><span class="keyword">from</span> emp, dept</span><br><span class="line"><span class="keyword">where</span> sal <span class="keyword">between</span> <span class="number">4000</span> <span class="keyword">and</span> <span class="number">9000</span></span><br><span class="line"><span class="keyword">and</span> ename <span class="keyword">like</span> <span class="string">'张%'</span></span><br><span class="line"><span class="keyword">and</span> emp.deptno <span class="operator">=</span> dept.deptno</span><br><span class="line"><span class="keyword">and</span> dept.dname <span class="operator">=</span> <span class="string">'CS'</span>;</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw4.png" class="" title="hw4">
+<p>（5）查询所有部门没有雇员的工资大于3000元的部门名。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> dname</span><br><span class="line"><span class="keyword">from</span> dept</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(</span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">	<span class="keyword">from</span> emp</span><br><span class="line">	<span class="keyword">where</span> emp.deptno <span class="operator">=</span> dept.deptno</span><br><span class="line">	<span class="keyword">and</span> emp.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw5.png" class="" title="hw5">
+<p>（6）查询与雇员“SMITH”同一职业的雇员号和雇员名。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> empno, ename</span><br><span class="line"><span class="keyword">from</span> emp</span><br><span class="line"><span class="keyword">where</span> job <span class="operator">=</span> (</span><br><span class="line">	<span class="keyword">select</span> job</span><br><span class="line">	<span class="keyword">from</span> emp e</span><br><span class="line">	<span class="keyword">where</span> e.ename <span class="operator">=</span> <span class="string">'SMITH'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw6.png" class="" title="hw6">
+<p>（7）查询雇员工资最高的雇员号、雇员名和工资。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> empno, ename, sal</span><br><span class="line"><span class="keyword">from</span> emp e1</span><br><span class="line"><span class="keyword">where</span> e1.sal <span class="operator">=</span> (</span><br><span class="line">	<span class="keyword">select</span> <span class="built_in">max</span>(sal)</span><br><span class="line">	<span class="keyword">from</span> emp e2</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw7.png" class="" title="hw7">
+<p>（8）删除“sales"部门的雇员信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> emp</span><br><span class="line"><span class="keyword">where</span> deptno <span class="operator">=</span> (</span><br><span class="line">	<span class="keyword">select</span> deptno <span class="keyword">from</span> dept</span><br><span class="line">	<span class="keyword">where</span> dept.dname <span class="operator">=</span> <span class="string">'SALES'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw8.png" class="" title="hw8">
+<p>（9）修改7782号雇员的职业和部门号与7788号雇员相同。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> emp</span><br><span class="line"><span class="keyword">set</span>(job, deptno) <span class="operator">=</span> (</span><br><span class="line">	<span class="keyword">select</span> job, deptno</span><br><span class="line">	<span class="keyword">from</span> emp</span><br><span class="line">	<span class="keyword">where</span> empno <span class="operator">=</span> <span class="number">7788</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">where</span> empno <span class="operator">=</span> <span class="string">'7782'</span>;</span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw9.png" class="" title="hw9">
+<p>（10）创建一个函数，给定一个雇员号，返回该雇员所在部门比他/她工资高的雇员数目。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> replace <span class="keyword">function</span> get_higher_sal_cnt(p_empno <span class="keyword">in</span> number)</span><br><span class="line"><span class="keyword">return</span> number</span><br><span class="line"><span class="keyword">is</span></span><br><span class="line">	v_deptno emp.deptno<span class="operator">%</span>type;</span><br><span class="line">	v_sal emp.sal<span class="operator">%</span>type;</span><br><span class="line">	v_cnt number;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">select</span> deptno, sal</span><br><span class="line">	<span class="keyword">into</span> v_deptno, v_sal</span><br><span class="line">	<span class="keyword">from</span> emp</span><br><span class="line">	<span class="keyword">where</span> empno <span class="operator">=</span> p_empno;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line">	<span class="keyword">into</span> v_cnt</span><br><span class="line">	<span class="keyword">from</span> emp</span><br><span class="line">	<span class="keyword">where</span> deptno <span class="operator">=</span> v_deptno</span><br><span class="line">	<span class="keyword">and</span> sal <span class="operator">&gt;</span> v_sal;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> v_cnt;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="operator">/</span></span><br></pre></td></tr></table></figure>
+<p>调用函数：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span></span><br><span class="line">	v_empno number :<span class="operator">=</span> <span class="number">7782</span>;</span><br><span class="line">	v_cnt number;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	v_cnt :<span class="operator">=</span> get_higher_sal_cnt(v_empno);</span><br><span class="line">	DBMS_OUTPUT.PUT_LINE(<span class="string">'number of higher-sal employees:'</span> <span class="operator">||</span> v_cnt);</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="operator">/</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/20/database/sql/hw10.png" class="" title="hw10">
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1232,1196 +1873,8 @@ class="math inline">\(2W\log_2V\)</span>。</p>
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/computer-network/network-layer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2">
-      <meta itemprop="description" content="爱你，vv。❤">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/09/computer-network/network-layer/" class="post-title-link" itemprop="url">network-layer</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-09 20:54:32" itemprop="dateCreated datePublished" datetime="2024-05-09T20:54:32+08:00">2024-05-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-14 11:31:02" itemprop="dateModified" datetime="2024-05-14T11:31:02+08:00">2024-05-14</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/09/computer-network/network-layer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/computer-network/network-layer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="计网网络层复习">计网——网络层复习</h1>
-<p>网络层的主要任务是实现<strong>网络互联</strong>，进而实现数据报在<strong>各</strong>网络之间的传输。</p>
-<p>网络层需要解决以下三个问题：</p>
-<ol type="1">
-<li>网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输”）</li>
-<li>网络层寻址问题</li>
-<li>路由选择问题</li>
-</ol>
-<p>因特网使用TCP/IP协议栈，使用网际协议IP</p>
-<h2 id="两种服务">两种服务</h2>
-<h3 id="面向连接的虚电路服务">面向连接的虚电路服务</h3>
-<p>通信之前先建立虚电路，以保证通信双方所需的一切网络资源。虚电路只是一条<strong>逻辑</strong>上的连接</p>
-<p>发送方发送给接收方的所有分组都沿着同一条虚电路传送</p>
-<img src="/2024/05/09/computer-network/network-layer/VC1.png" class="" title="VC1">
-<h3 id="无连接的数据报服务">无连接的数据报服务</h3>
-<p>只向上层提供<strong>无连接的、尽最大努力交付</strong>的数据报服务</p>
-<p>发送前无需建立连接。每一个分组（即ip数据报）独立发送</p>
-<img src="/2024/05/09/computer-network/network-layer/ip1.png" class="" title="ip1">
-<h2 id="ipv4">IPv4</h2>
-<p>IPv4地址是给因特网（Internet）上的<strong>每一台主机（或路由器）的每一个接口</strong>分配一个在全世界范围内是<strong>唯一的32比特的标识符</strong>。</p>
-<p>IPv4编址方法的三个历史阶段：分类编址-&gt;划分子网-&gt;无分类编址</p>
-<p>IPv4：<strong>点分十进制</strong>表示方法</p>
-<h3 id="分类编址">1. 分类编址</h3>
-<img src="/2024/05/09/computer-network/network-layer/ip2.png" class="" title="ip2">
-<p>A类地址，最小网络号为0，但是保留，<strong>不指派</strong>。</p>
-<p>第一个可指派的网络号是1，<strong>网络地址</strong>是1.0.0.0。</p>
-<p>最大网络号127，但是作为<strong>本地环回测试地址</strong>，<strong>不指派</strong>。</p>
-<p>最后一个可指派的网络号是126，<strong>网络地址</strong>是126.0.0.0。</p>
-<p>可指派的网络数量为126。</p>
-<p>每个网络中可分配的IP地址数量为 <span
-class="math inline">\(2^{24}-2=16777214\)</span>
-（除去<strong>主机号全0的网络地址</strong>和<strong>全1的广播地址</strong>）</p>
-<hr />
-<p>B类地址，最小网络号也是第一个可指派的网络号是128.0，网络地址是128.0.0.0。</p>
-<p>最大网络号也是最后一个可指派的网络号是191.255，网络地址是191.255.0.0。</p>
-<p>可指派的网络数量为 <span
-class="math inline">\(2^{16-2}=16384\)</span></p>
-<p>每个网络中可分配的IP地址数量为 <span
-class="math inline">\(2^{16}-2=65534\)</span>。</p>
-<hr />
-<p>C类地址，最小网络号也是第一个可指派的网络号是192.0.0，网络地址是192.0.0.0。</p>
-<p>最大网络号也是最后一个可指派的网络号是223.255.255，网络地址是223.255.255.0。</p>
-<p>可指派的网络数量为 <span
-class="math inline">\(2^{24-3}=2097152\)</span></p>
-<p>每个网络中可分配的IP地址数量为 <span
-class="math inline">\(2^{8}-2=254\)</span>。</p>
-<hr />
-<h3 id="划分子网">2. 划分子网</h3>
-<blockquote>
-<p>将原有的两级IP地址变为三级的IP地址</p>
-</blockquote>
-<p>划分子网<strong>纯属是一个单位内部的事情</strong>，对外仍然表现为没有划分子网的网络。它的idea是从主机号中借用若干个bit作为<strong>子网号</strong>（subnet-id）。</p>
-<p>子网掩码：连续的1对应网络号和子网号，0对应主机号。即（IP地址）AND（子网掩码）=
-网络地址</p>
-<h3 id="无分类编址">3. 无分类编址</h3>
-<p>无分类域间路由选择CIDR：消除了传统的A、B、C类地址以及划分子网的概念，使用<strong>各种长度的网络前缀</strong>来代替网络号和子网号。</p>
-<p>CIDR使用斜线记法，即在IPv4地址后面加上斜线“/”，写上网络前缀所占比特数量。例如
-128.14.25.7/20</p>
-<p>CIDR实际上是将网络前缀都相同的连续IP地址组成一个“<strong>CIDR地址块</strong>”。我们只要知道一个CIDR地址块中的任何一个地址，就可以知道该地址块的全部细节：</p>
-<ul>
-<li>地址块的最小、最大地址</li>
-<li>地址块的地址数量</li>
-<li>地址块聚合某类网络（A、B、C类）的数量</li>
-<li>地址掩码（也可继续称为子网掩码）</li>
-</ul>
-<blockquote>
-<p>有点抽象，这里偷个例子看看</p>
-</blockquote>
-<img src="/2024/05/09/computer-network/network-layer/CIDR1.png" class="" title="CIDR1">
-<p><strong>路由聚合</strong>：将路由器中路由表的多个CIDR记录找<strong>最大公共前缀</strong>（<del>这不是Trie吗，ACMer特有的感知</del>），合并成一个记录</p>
-<img src="/2024/05/09/computer-network/network-layer/CIDR2.png" class="" title="CIDR2">
-<h2 id="ipv4地址的应用规划">IPv4地址的应用规划</h2>
-<blockquote>
-<p>王道p146</p>
-</blockquote>
-<p>给定一个IPv4地址块，将其划分成几个更小的地址块，分配给不同的网络</p>
-<h3 id="定长的子网掩码flsm">定长的子网掩码FLSM</h3>
-<p>就是划分子网的方式，从主机号部分借用 <span
-class="math inline">\(n\)</span> 位作为子网号，可以划分出大小相等的
-<span class="math inline">\(2^n\)</span> 个不同的网络。</p>
-<h3 id="变长的子网掩码vlsm">变长的子网掩码VLSM</h3>
-<p>就是无分类编址的方式。这里给出一个例子</p>
-<img src="/2024/05/09/computer-network/network-layer/ip3.png" class="" title="ip3">
-<blockquote>
-<p>划分方案不唯一，建议从大的子网（主机号多的）开始划分。</p>
-</blockquote>
-<h2 id="地址解析协议arp">地址解析协议ARP</h2>
-<blockquote>
-<p>从IP地址找出其对应的MAC地址</p>
-</blockquote>
-<p>每台主机都设有一个ARP高速缓存，用于存放<strong>本局域网</strong>上各主机和路由器的IP地址到MAC地址的映射表，即ARP表。</p>
-<p>若未查到目的主机的MAC地址，则通过使用目的MAC地址为FF-FF-FF-FF-FF-FF的帧来<strong>封装并广播ARP请求分组</strong>。目的主机收到ARP请求后，向源主机发送<strong>ARP响应</strong>（单播MAC帧，包含目的主机的IP地址和MAC地址）。源主机收到ARP相应后，记录到ARP表中。</p>
-<blockquote>
-<p>ARP表中的IP地址与MAC地址的对应关系记录，是<strong>会定期自动删除的</strong>，<strong>因为IP地址与MAC地址的对应关系不是永久性的</strong></p>
-</blockquote>
-<h2 id="ip数据报的发送和转发">IP数据报的发送和转发</h2>
-<blockquote>
-<p>忽略ARP过程和交换机自学习流程</p>
-</blockquote>
-<p>获取目的网络地址：将目的地址IP和<strong>源地址</strong>的子网掩码进行逻辑与运算</p>
-<ul>
-<li>如果目的网络地址和源网络地址相同，则属于同一个网络，<strong>直接交付</strong></li>
-<li>否则属于<strong>间接交付</strong>，需要将IP数据报传输给主机所在网络的<strong>默认网关</strong>（路由器）</li>
-</ul>
-<p>默认网关：为了让本网络中的主机能和其它网络中的主机进行通信，就必须指定本网络的一个路由器的接口，由该路由器帮忙转发</p>
-<p>路由器收到IP数据报后如何转发？</p>
-<ul>
-<li>检查IP数据报首部是否出错：
-<ul>
-<li>若出错，则直接丢弃该IP数据报并通告源主机</li>
-<li>若没有出错，则进行转发</li>
-</ul></li>
-<li>根据IP数据报的目的地址在路由表中查找匹配的条目：
-<ul>
-<li>若找到匹配的条目，则转发给条目中指示的下一跳</li>
-<li>若找不到，则<strong>丢弃该数据报</strong>并通告源主机</li>
-</ul></li>
-</ul>
-<blockquote>
-<p>检查路由条目：将目的地址与<strong>路由条目</strong>中的地址掩码进行逻辑与运算得到目的网络地址，并和路由条目中的目的网络进行比较，如果相同，则该条目就是匹配的条目。根据该条目的下一跳指示，进行转发。（补充，按前缀长度的顺序进行检查）</p>
-<p>路由器是<strong>隔离广播域</strong>的。</p>
-</blockquote>
-<h2 id="路由算法与路由协议">路由算法与路由协议</h2>
-<h3 id="静态路由配置">静态路由配置</h3>
-<p>由网络管理员手工配置每一条路由。</p>
-<blockquote>
-<p>默认路由0.0.0.0/0，与所有IP匹配，但是优先级也是最低的。</p>
-<p>特定主机路由，例如192.168.2.1/32，优先级是最高的。</p>
-<p>黑洞路由，匹配后分组就没了</p>
-</blockquote>
-<h3 id="路由选择协议">路由选择协议</h3>
-<p>因特网采用<strong>分层次</strong>的路由选择协议</p>
-<ul>
-<li>自治系统AS：在单一的技术管理下的一组路由器，这些路由器使用一种<strong>AS内部</strong>的<strong>路由选择协议</strong>和<strong>共同的度量</strong>以确定分组在该AS中的路由，同时还使用一种<strong>AS之间</strong>的路由选择协议来确定AS之间的路由。</li>
-<li><img src="/2024/05/09/computer-network/network-layer/route2.png" class="" title="route2"></li>
-</ul>
-<img src="/2024/05/09/computer-network/network-layer/route1.png" class="" title="route1">
-<h4 id="路由信息协议rip">路由信息协议RIP</h4>
-<blockquote>
-<p>这个玩意运行在传输层的UDP协议之上。疑问：路由器不是只实现了网络层吗？</p>
-</blockquote>
-<p>RIP要求自治系统AS内的每一个路由器都要维护它自己到AS内其它每一个网络的距离记录。这是一组距离，称为“距离向量D-V”</p>
-<p>RIP使用<strong>跳数</strong>作为距离的度量。</p>
-<ul>
-<li>路由器到直连网络的距离定义为1</li>
-<li>到非直连网络的距离定义为经过的路由器数加1</li>
-<li><strong>允许一条路径最多只能包含15个路由器。“距离”为16时相当于不可达。</strong></li>
-</ul>
-<p>RIP认为距离短的路由就是好的路由。当到达同一网络有多条距离相等的路由时，可以进行“等价负载均衡”。</p>
-<p>RIP包含以下三个要点：</p>
-<ul>
-<li>仅和<strong>相邻</strong>路由器交换信息</li>
-<li>交换信息为自己的路由表</li>
-<li>周期性交换信息</li>
-</ul>
-<p>RIP工作举例：</p>
-<img src="/2024/05/09/computer-network/network-layer/rip1.png" class="" title="rip1">
-<img src="/2024/05/09/computer-network/network-layer/rip2.png" class="" title="rip2">
-<ul>
-<li>相同下一跳，更新</li>
-<li>新网络，添加</li>
-<li>不同下一跳但是有路由优势（距离短），更新</li>
-<li>不同下一跳且距离相同，等价负载均衡，添加</li>
-<li>不同下一跳且劣势，不更新</li>
-</ul>
-<p>RIP存在“坏消息传播慢”的问题，又称路由环路或距离无穷问题，这是距离向量算法的一个固有问题。假设某网络N1故障，其直连路由器开始传播N1不可达的RIP更新信息，但是发的慢了，会被其余认为N1可达的信息误导，这会导致路由环路，使路由收敛减慢：</p>
-<img src="/2024/05/09/computer-network/network-layer/rip3.png" class="" title="rip3">
-<h3 id="开放最短路径优先ospf">开放最短路径优先OSPF</h3>
-<p>OSPF是基于链路状态的路由算法协议，采用SPF最短路算法计算路由，因此在算法上保证了不会产生路由环路。</p>
-<p><strong>链路状态</strong>：指本路由器都和哪些路由器<strong>相邻</strong>，以及相应链路的“<strong>代价</strong>”</p>
-<blockquote>
-<p><del>嗯？这不是每个点的邻接表吗（雾</del></p>
-</blockquote>
-<p><strong>问候分组Hello</strong>：OSPF相邻路由器通过交互问候分组，建立和维护<strong>邻居关系</strong>。</p>
-<img src="/2024/05/09/computer-network/network-layer/ospf1.png" class="" title="ospf1">
-<blockquote>
-<p>在IP数据报的首部字段的协议号中标注为89，表明数据载荷为OSPF分组</p>
-</blockquote>
-<p><strong>链路状态通告LSA</strong>：包含以下内容</p>
-<ul>
-<li>直连网络的链路状态信息</li>
-<li>邻居路由器的链路状态信息</li>
-</ul>
-<p>LSA被封装在<strong>链路状态更新分组LSU</strong>中，用洪泛法发送</p>
-<img src="/2024/05/09/computer-network/network-layer/ospf2.png" class="" title="ospf2">
-<p><strong>链路状态数据库LSDB</strong>：存储各路由器的LSA</p>
-<img src="/2024/05/09/computer-network/network-layer/ospf3.png" class="" title="ospf3">
-<p>通过LSDB构造带权有向图，就可以使用SPF算法计算各自路由器到达其它路由器的最短路径：</p>
-<img src="/2024/05/09/computer-network/network-layer/ospf4.png" class="" title="ospf4">
-<p>OSPF共有以下五种分组类型：</p>
-<ol type="1">
-<li>问候分组，Hello</li>
-<li>数据库描述分组，向邻站给出自己的LSDB中所有链路状态项目的摘要信息</li>
-<li>链路状态请求分组，向对方请求发送某些链路状态项目的详细信息</li>
-<li>链路状态更新分组，LSU，<strong>它是OSPF最核心的部分</strong></li>
-<li>链路状态确认分组</li>
-</ol>
-<p>为了使OSPF能够用于规模很大的网络，OSPF将一个自治系统AS再划分为若干更小的范围，称为<strong>区域</strong>。这样做的目的是将LSU的广播仅限于每一个区域内，减少网络上的通信量。</p>
-<h3 id="边界网关协议bgp">边界网关协议BGP</h3>
-<p>BGP是不同AS的路由器之间交换路由信息的协议。</p>
-<blockquote>
-<p>不同AS之间必然没有统一的路由评价标准。因此BGP只能是寻求一条能够到达目的网络且比较好的路由，而非找到最佳路由。</p>
-<p>BGP运行在传输层的TCP之上</p>
-</blockquote>
-<p>BGP的主要idea是，每个AS的管理员需要在配置BGP的时候选择至少一个路由器，作为该AS的“<strong>BGP发言人</strong>”（往往就是边界路由器）</p>
-<p>一个BGP代言人要和其它AS的代言人交换信息，需要先建立TCP连接，然后在此基础上交换BGP报文以建立BGP会话，来交换路由信息。当BGP各代言人互相交换网络可达性的信息后，就根据各自所用的策略，各自找出到达各AS的较好的路由。</p>
-<blockquote>
-<p>这会形成一个树形结构</p>
-</blockquote>
-<p>BGP-4共使用4种报文：</p>
-<ol type="1">
-<li>打开（Open）报文。用来和相邻的另一个BGP代言人建立关系，使通信初始化</li>
-<li>更新（Update）报文。用来通知某一路由的信息，以及列出要撤销的多条路由</li>
-<li>保活（Keepalive）报文。用来周期性地证实邻站的连通性</li>
-<li>通知（Notification）报文。用来发送检测到的差错。</li>
-</ol>
-<img src="/2024/05/09/computer-network/network-layer/bgp1.png" class="" title="bgp1">
-<h2 id="ipv4数据报格式">IPv4数据报格式</h2>
-<p>直接上图</p>
-<img src="/2024/05/09/computer-network/network-layer/ip4.png" class="" title="ip4">
-<ul>
-<li>一个IP数据报由<strong>首部</strong>和<strong>数据</strong>两部分组成</li>
-<li>首部的前一部分是<strong>固定长度，为20字节</strong></li>
-<li>首部后面部分是可选字段，其长度可变</li>
-<li>首部长度一定是<strong>4字节的整数倍</strong>，填充部分用于确保这一条件</li>
-</ul>
-<p>每一行由32个比特组成，每个小格子称为字段或者域，用来表达IP协议的相关功能：</p>
-<ul>
-<li>版本：4比特，表示ip协议的版本</li>
-<li>首部长度：4比特，表示ip数据报首部的长度，<strong>以4字节为单位</strong></li>
-<li>可选字段：1字节到40字节不等，用来支持其它功能</li>
-<li>填充字段：确保首部长度为4字节的整数倍，用全0填充</li>
-<li>区分服务：利用该字段的数值可提供不同等级的服务质量，不过一般情况不使用该字段</li>
-<li>总长度：16比特，以<strong>字节</strong>为单位</li>
-<li>标识：占16比特，属于同一个数据报的<strong>各分片数据报</strong>应该具有<strong>相同的标识</strong></li>
-<li>标志：3比特，DF位（1表示不允许分片，0表示允许分片），MF位（1表示后面还有分片，0表示这是最后一个分片），保留位（必须为0）</li>
-<li>片偏移：13比特，以8个字节为单位，指出分片数据报的<strong>数据载荷部分</strong>偏移其原数据报的数据载荷位置多少个单位</li>
-</ul>
-<blockquote>
-<p>这要求分片的数据载荷部分，除了最后一个分片，都要保证其大小为8个字节的整数倍？</p>
-</blockquote>
-<ul>
-<li><p>生存时间TTL：占8比特，现在以<strong>跳数</strong>为单位，路由器转发IP数据报时，将IP数据报首部中的<strong>该字段的值减1</strong>，若不为0则转发，否则丢弃</p></li>
-<li><p>协议：占8比特，指明IP数据报部分是何种协议数据单元：</p></li>
-</ul>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">协议名称</th>
-<th style="text-align: center;">ICMP</th>
-<th style="text-align: center;">IGMP</th>
-<th style="text-align: center;">TCP</th>
-<th style="text-align: center;">UDP</th>
-<th style="text-align: center;">IPv6</th>
-<th style="text-align: center;">OSPF</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">协议字段值</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">17</td>
-<td style="text-align: center;">41</td>
-<td style="text-align: center;">89</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>这里不仅有网络层协议，还有传输层协议捏。咦，传输层和网络层之间是有关联的吗，为什么要把传输层的信息封装在IP首部中？这不是违背了分层的idea了吗？</p>
-</blockquote>
-<ul>
-<li>首部检验和：占16比特，用来检测首部在传输过程中<strong>是否存在差错</strong>。比CRC简单。IP数据报每经过一个路由器，都要重新计算该字段，因为某些字段（TTL、标志、片偏移等）可能发生变化</li>
-<li>源/目的IP地址：各占32比特</li>
-</ul>
-<h2 id="网际控制报文协议icmp">网际控制报文协议ICMP</h2>
-<blockquote>
-<p>ICMP的作用是让主机或者路由器报告<strong>差错和异常</strong>情况，提高IP数据报交付的机会。</p>
-</blockquote>
-<p>ICMP报文有两种：ICMP<strong>差错报告报文</strong>和ICMP<strong>询问报文</strong>。</p>
-<p>ICMP<strong>差错报告报文</strong>用于目标主机或目标路径上的路由器，向源主机报告差错和异常情况。共5种常用类型：</p>
-<ol type="1">
-<li>终点不可达。当路由器或主机不能交付数据报时，发送该报文</li>
-<li>源点抑制。当路由器或主机<strong>由于拥塞</strong>，而丢弃数据报时，发送该报文，使源点知道应该把数据报的<strong>发送速率降低</strong></li>
-<li>时间超过。当路由器收到TTL为零的数据报时，除丢弃数据报外，还需要向源点发送时间超过报文。另外一种情况是终点在<strong>规定时间</strong>内不能收到一个数据报的全部数据报片时，就把已有数据报丢弃，也会向源点发送该报文。</li>
-<li>参数问题。当路由器或目标主机收到的数据报的首部中，有的字段值不正确时，丢弃该数据报，发送参数问题报文</li>
-<li>改变路由（重定向）。路由器把该报文发送给主机，让主机知道下次应将数据报发送另外的路由器。</li>
-</ol>
-<p>以下情况不应发送ICMP差错报告报文：</p>
-<ul>
-<li>对ICMP差错报告报文，不发送ICMP差错报告报文（不然就套娃了不是吗</li>
-<li>对第一个分片的数据报片的所有后续数据报片，不发送ICMP差错报告报文（不然就太多了？</li>
-<li>对具有多播地址的数据报，不发送</li>
-<li>对具有特殊地址（如环回地址127.0.0.0或者0.0.0.0），不发送</li>
-</ul>
-<p>ICMP询问报文，常见的有2种：</p>
-<ol type="1">
-<li>回送请求和回答。向特定的目的主机发出询问，目的主机收到该报文后必须给源主机或发送ICMP回送回答报文。一般用于测试目的站是否可达。</li>
-<li>时间戳请求或回答。请求某个主机或路由器当前的日期和时间，通常用于进行时钟同步和测量时间。</li>
-</ol>
-<blockquote>
-<p>ICMP应用：</p>
-<ol type="1">
-<li>PING，用来测试主机或路由器间的连通性。应用层直接使用网际层的ICMP回送请求和回答报文，来检测目的主机是否可达。</li>
-<li>traceroute，用来测试ip数据报从源主机到达目的主机要经过哪些路由器。原理是发送TTL设定值的ICMP回送请求报文，这样TTL为0时，路由器会返回时间超过的ICMP差错报告报文。</li>
-</ol>
-</blockquote>
-<h2 id="虚拟专用网vpn">虚拟专用网VPN</h2>
-<blockquote>
-<p>由于IP地址紧缺，一个机构能申请到的ip地址数往往远小于本机构所拥有的主机数。VPN的idea是在同一个机构中，分配本机构可自由分配的<strong>专用地址</strong>。</p>
-</blockquote>
-<p>专用（私有）地址是规定的：</p>
-<ul>
-<li>10.0.0.0 - 10.255.255.255（10/8地址块）</li>
-<li>172.16.0.0 - 172.31.255.255 （172.16/12地址块）</li>
-<li>192.168.0.0 -
-192.168.255.255（192.168/16地址块，是不是很熟悉？）</li>
-</ul>
-<blockquote>
-<p>私有地址只能用于同一机构内的通信，不能和因特网上其它主机通信。因此路由器对所有目的地址是专用地址的ip数据报一律不转发。</p>
-</blockquote>
-<p>各部门都至少需要一个路由器具有全球合法的ip地址，这样各自的专用网才能利用公用的因特网进行通信。</p>
-<img src="/2024/05/09/computer-network/network-layer/vpn1.png" class="" title="vpn1">
-<blockquote>
-<p>有两个首部：内部IP数据报首部，和真正的IP数据报首部。</p>
-</blockquote>
-<h2 id="网络地址转换nat">网络地址转换NAT</h2>
-<blockquote>
-<p>NAT的主要思想是将大量使用内部专用地址的用户共享少量的全球合法地址。</p>
-</blockquote>
-<p>假设，使用私有地址的主机要给因特网上使用全球ip地址的另一台主机发送数据报，这时候需要用安装了NAT软件的专用网的路由器进行ip地址转换：</p>
-<img src="/2024/05/09/computer-network/network-layer/nat1.png" class="" title="nat1">
-<p>若多台主机同时采用NAT，路由器内部需要维护一个私有地址到全球IP地址的映射关系：</p>
-<img src="/2024/05/09/computer-network/network-layer/nat2.png" class="" title="nat2">
-<p>如果NAT路由器具有n个全球ip地址，这样的话只能有n个内网主机能够同时和因特网上的主机通信。</p>
-<p>解决方法是使用传输层中TCP和UDP协议的<strong>端口号</strong>，利用运输层的端口号和IP地址一起转换，这种技术叫做NAPT：</p>
-<img src="/2024/05/09/computer-network/network-layer/nat3.png" class="" title="nat3">
-<blockquote>
-<p>NAPT路由器就是我们常用的家用路由器</p>
-</blockquote>
-<p>如果外网需要主动与内网某主机进行通信，这会有问题（根本就不知道ip地址呀），这需要网络应用自己使用一些特殊的NAT穿越技术来解决问题。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/09/se/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Ayy2">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy2">
-      <meta itemprop="description" content="爱你，vv。❤">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy2">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/09/se/" class="post-title-link" itemprop="url">se</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-09 20:17:57" itemprop="dateCreated datePublished" datetime="2024-05-09T20:17:57+08:00">2024-05-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-19 19:53:55" itemprop="dateModified" datetime="2024-06-19T19:53:55+08:00">2024-06-19</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/09/se/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/09/se/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>前面几章就是文科啦，应该不是重点</p>
-</blockquote>
-<h2 id="第一章-软件工程基础">第一章 软件工程基础</h2>
-<p><strong>软件工程的定义</strong>：</p>
-<ol type="1">
-<li>应用系统的、规范的、可量化的方法来开发、运行和维护软件，即将工程应用到软件</li>
-<li>对1中各种方法的研究</li>
-</ol>
-<h2 id="第二章-软件工程的发展">第二章 软件工程的发展</h2>
-<p>1950s-2000s软件工程的特点</p>
-<p>1950s：科学计算；以机器为中心进行编程；像生产硬件一样生产软件</p>
-<p>1960s：业务应用（批量数据处理和事务计算）；软件不同于硬件；用软件工艺的方式生产软件</p>
-<p>1970s：结构化方法；瀑布模型；强调规则和纪律</p>
-<p>1980s：追求生产力最大化；现代结构化方法/面向对象编程广泛应用；重视过程的作用</p>
-<p>1990s：企业为中心的大规模软件系统开发；追求快速开发、可变更性和用户价值；Web应用出现</p>
-<p>2000s：大规模Web应用；大量面向大众的Web产品；追求快速开发、可变更性和用户价值和创新</p>
-<ul>
-<li>瀑布模型：</li>
-</ul>
-<p>将软件生命周期中的各个活动规定为线性连接的模型，包括需求分析、设计、编码、测试、维护等，相邻的步骤之间相互衔接，强调一个阶段结束后对其制品进行验证和检验。优点：容易理解，管理成本低，强调开放的阶段性早期计划和产品测试
-缺点：客户必须能够完整、正确和清晰地描述他的需要，开始阶段难以评估项目进度，项目结束后会出现大量集成和测试工作，需求或设计中的错误往往只有到了项目后期才被发现（对风险的控制能力较弱）</p>
-<ul>
-<li><p>演化模型：迭代的过程，适用于软件需求缺乏准确认识的情况</p>
-<ul>
-<li>原型模型：</li>
-</ul>
-<p>是预期系统的一个可执行版本，反映的是系统性的一个选定子集，一个原型不必满足目标软件的所有约束。</p>
-<img src="/2024/05/09/se/mod1.png" class="" title="mod1">
-<p>原型模型开始于沟通，其目的是定义软件的总体目标，标识需求，然后快速制定原型开发的计划，确定原型的目标和范围，采用快速设计的方式对其进行建模，并构建原型。</p>
-<p>可将原型分为三种：1、探索性原型：目的是弄清目标的需求，确定所希望的特性，并探讨多种方案的可能性；2、实验性原型：目的是验证方案或算法的合理性，是在大规模开发前，用于考察方案是否可靠的方法；3、演化性原型：将原型作为目标系统的一部分，通过多次改进，逐步演化为最终的目标系统。</p>
-<ul>
-<li>螺旋模型：将瀑布模型和演化模型相结合。螺旋模型将开发过程分为几个螺旋周期，每个螺旋周期大致和瀑布模型相符合：</li>
-</ul>
-<img src="/2024/05/09/se/mod2.png" class="" title="mod2">
-<p>螺旋模型强调风险分析，使得开发人员和用户对每个演化层出现的风险有所了解。</p></li>
-<li><p>敏捷开发：应对快速变化的需求的一种软件开发方法，更强调程序员团队和专家之间的紧密协作、面对面沟通、频繁地交互新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法。适用于团队规模较小的队伍。</p></li>
-</ul>
-<h2 id="第四章-项目管理基础">第四章 项目管理基础</h2>
-<h3 id="团队结构">团队结构</h3>
-<p>（1）主程序员团队</p>
-<p>特点：主程序员负责领导团队，效率较高，最大限度地保证产品不同元素的一致性</p>
-<p>局限：主程序员的能力是瓶颈；团队成员无法发挥主动性，积极程度不高</p>
-<p>（2）民主团队</p>
-<p>特点：每个成员都可以发挥自己的能动性，所有人都可以在自己擅长的领域工作</p>
-<p>局限：花费在交流，统一思想上的时间成本太大，效率较低</p>
-<p>（3）开放团队</p>
-<p>特点：使用黑箱管理方式，团队内部的交流路径是不可见的，所有成员按照自己的方式进行自我管理，最大发挥团队成员的创新能力</p>
-<p>局限：项目进展没有可视度</p>
-<h3 id="团队的建设措施">团队的建设措施</h3>
-<ul>
-<li>建立团队章程</li>
-<li>持续成功（项目的整体成功，项目的阶段性成功，也可以是无关的团队活动的成功）</li>
-<li>和谐沟通</li>
-<li>避免团队杀手</li>
-</ul>
-<h3 id="质量保障活动">质量保障活动</h3>
-<ul>
-<li>需求评审</li>
-<li>体系结构评审</li>
-<li>详细设计评审</li>
-<li>代码评审</li>
-<li>需求度量</li>
-<li>设计度量</li>
-<li>代码度量</li>
-<li>测试度量</li>
-<li>集成测试</li>
-</ul>
-<p><strong>题目</strong>：结合实验，说明一个项目的质量保障包括哪些活动？</p>
-<h3 id="配置管理活动">配置管理活动</h3>
-<ul>
-<li>标识配置项
-<ul>
-<li>首先要确定有哪些配置项需要被保存和管理，其次要给配置项确定标识，设置唯一的ID，最后要说明配置项的特征，包括生产者、基线建立时间、使用者等</li>
-</ul></li>
-<li>版本管理
-<ul>
-<li>为每一个刚纳入配置管理的配置项赋予一个初始的版本号，并在发生变更的时候更新版本号</li>
-</ul></li>
-<li>变更控制
-<ul>
-<li>已经纳入配置管理中的配置项发生变化时，需要根据变更控制过程进行处理</li>
-</ul></li>
-<li>配置审计
-<ul>
-<li>目标是确定一个项目满足需求的功能和物理特征的程度，确保软件开发工作按照需求和设计特征进行，验证配置项的完整性、正确性、一致性和可跟踪性</li>
-</ul></li>
-<li>状态报告
-<ul>
-<li>标识、收集和维持演化中的配置状态信息，也就是对在动态演化着的配置项信息及其度量取快照</li>
-</ul></li>
-<li>软件发布管理
-<ul>
-<li>将软件配置项发布到开发活动之外，例如发布给客户</li>
-</ul></li>
-</ul>
-<h2 id="第五章-软件需求基础">第五章 软件需求基础</h2>
-<h3 id="需求">需求</h3>
-<p>（1）用户为了解决问题或达到某种目标所需要的条件和能力</p>
-<p>（2）系统或系统部件为了满足合同、标准、规范或其它正式文档所规定的要求而需要具备的条件或能力</p>
-<p>（3）对（1）或（2）中的一个条件或一种能力的一种文档化表述</p>
-<h3 id="需求的层次性">需求的层次性</h3>
-<ul>
-<li>业务需求：描述了组织为什么要开发系统（目标）</li>
-<li>用户需求：描述了系统能够帮用户做些什么（任务）</li>
-<li>系统级需求：描述了开发人员需要实现什么（系统行为）</li>
-</ul>
-<h3 id="需求分类">需求分类</h3>
-<ul>
-<li>功能需求：和系统主要工作相关的需求，即不考虑物理约束的情况下，用户希望系统所能执行的活动</li>
-<li>性能需求：定义了系统必须多快、多好地去完成专门的功能</li>
-<li>质量属性：可靠性、可用性、安全性、可维护性、可移植性、易用性</li>
-<li>对外接口：系统和环境中其它系统之间需要建立的接口（用户界面、硬件接口、软件接口、网络通信接口等）</li>
-<li>约束：进行系统构造时，需要遵守的约定（编程语言、硬件设施）</li>
-<li>数据需求（不是标准的需求类别，是功能需求的补充）：通常描述数据库等存储介质</li>
-</ul>
-<h2 id="第六章-需求分析方法">第六章 需求分析方法</h2>
-<blockquote>
-<p>怎么画用例图、概念类图</p>
-</blockquote>
-<h3 id="结构化方法">结构化方法</h3>
-<h4 id="数据流图dfd">数据流图（DFD）</h4>
-<ul>
-<li>外部实体：待构建软件系统之外的实体，它们不受系统的控制。它们作为软件系统的<strong>数据源</strong>或<strong>数据目的地</strong>。</li>
-<li>过程：指施加于数据的动作或者行为，它们使得数据发生变化，<strong>必须有输入和输出，且二者应存在差异</strong>。</li>
-<li>数据流：指数据的运动。DFD的数据流<strong>必须要和过程产生关联</strong>。</li>
-<li>数据存储：软件系统需要在内部保存供以后使用的数据集合。</li>
-</ul>
-<p>练习（谢谢blackbird宝宝！）：</p>
-<img src="/2024/05/09/se/dad1.png" class="" title="dad1">
-<img src="/2024/05/09/se/dad2.png" class="" title="dad2">
-<h3 id="面向对象分析方法">面向对象分析方法</h3>
-<blockquote>
-<p>主要采用统一建模语言（UML）技术。</p>
-</blockquote>
-<h4 id="用例图p94">用例图（P94）</h4>
-<ul>
-<li>用例：用例模型中最重要的元素，使用一个水平的椭圆表示。</li>
-<li>参与者：一个小人，代表同系统进行交互的角色。</li>
-</ul>
-<h4 id="概念类图p98">概念类图（P98）</h4>
-<ul>
-<li>对象：对具体问题域事物的抽象。
-<ul>
-<li>标识符：使用对象的引用作为标识符，用以唯一地标识和识别对象。</li>
-<li>状态：对对象的<strong>特征描述</strong>，包括对象的属性和属性的取值。</li>
-<li>行为：对象在其状态改变或者接收到外界消息时所采取的行动。</li>
-</ul></li>
-<li>类：对对象分类思想的结果，是共享相同属性和行为的对象的集合，为属于该类的对象提供统一的描述。</li>
-<li>链接：对象之间互相合作的关系</li>
-<li>关联：类之间的关系
-<ul>
-<li>UML使用类（对象）之间的直线来表示关联（链接），它可以是单向的和双向的。</li>
-<li>聚合：表示部分与整体之间的关系（如商品列表与商品），在“整体”的关联端使用空心菱形来表示。</li>
-<li>组合：更强的聚合，部分相对于其整体无法单独存在，整体对该部分有完全的管理职责。</li>
-</ul></li>
-<li>继承：用三角形箭头的实线表示，子类-&gt;父类。</li>
-</ul>
-<p>建立概念类图：</p>
-<ul>
-<li>对每个用例文本描述，建立局部的概念类图
-<ul>
-<li>识别候选类</li>
-<li>确定概念类</li>
-<li>识别关联</li>
-<li>识别重要属性</li>
-</ul></li>
-<li>合并局部概念类图，建立软件系统的整体概念类图</li>
-<li>识别关联</li>
-<li>识别重要属性</li>
-</ul>
-<p>练习：P100-104 //不是哥们，这玩意太难了</p>
-<blockquote>
-<p>有空的话可以画一画课后习题</p>
-</blockquote>
-<p><strong>题目</strong>：给一段材料，要求建立用例模型，画出各种图</p>
-<h2 id="第七章-需求文档化与验证">第七章 需求文档化与验证</h2>
-<h3 id="为什么要进行需求规格说明">为什么要进行需求规格说明</h3>
-<p>需求规格说明文档是项目交流的最重要内容，众多开发人员都需要以其为基础进行工作。如果软件需求规格说明文档存在错误，那么会给后续开发工作带来很多问题，再修复的代价就会很高。</p>
-<h3
-id="对给定的需求示例判定并修正其错误">对给定的需求示例，判定并修正其错误</h3>
-<ul>
-<li>使用用户术语
-<ul>
-<li>对用户易读，不要使用计算机术语</li>
-</ul></li>
-<li>可验性
-<ul>
-<li>描述模糊或过于抽象的需求都是不可验证的（如：用户查询的界面应该友好，不可验证；用户完成查询时鼠标点击不超过五次，可验证）</li>
-</ul></li>
-<li>可行性
-<ul>
-<li>系统必须每周7天，每天24小时可用（显然不可行）</li>
-</ul></li>
-</ul>
-<h3
-id="对给定的需求示例设计功能测试用例">对给定的需求示例，设计功能测试用例</h3>
-<blockquote>
-<p>看书</p>
-</blockquote>
-<p>写输入，写出预期输出，中间再做一些说明</p>
-<h2 id="第八章-软件设计基础">第八章 软件设计基础</h2>
-<h3 id="软件设计">软件设计</h3>
-<p>是关于整个软件对象的设计。软件设计既指软件对象实现的规格说明，也指产生这个规格说明的过程。</p>
-<h3 id="软件设计的核心思想">软件设计的核心思想</h3>
-<p>抽象和分解</p>
-<p>抽象是在纵向上聚焦各子系统的接口。这里的接口和实现相对，是各子系统之间交流的契约，是整个系统的关键所在。抽象可以分离接口和实现，让人更好地关注系统本身，从而降低复杂度</p>
-<p>分解是在横向上将系统分割为几个相对简单的子系统以及各子系统之间的关系。分解之后每次只需要关注经过抽象的相对简单的子系统及其相互间的关系，从而降低复杂度</p>
-<h3 id="软件设计的分层">软件设计的分层</h3>
-<p>高层：基于反映软件高层抽象的构建层次，描述系统的高层结构、关注点和设计决策</p>
-<p>中层：更加关注组成构建的模块的划分、导入/导出、过程之间的调用关系或者类之间的协作</p>
-<p>低层：深入模块和类的内部，关注具体的数据结构、算法、类型、语句和控制结构等</p>
-<h2 id="第九章-软件体系结构基础">第九章 软件体系结构基础</h2>
-<h3 id="体系结构的概念">体系结构的概念</h3>
-<p>软件体系结构 = {部件、连接件、配置}</p>
-<ul>
-<li>部件是软件体系结构的基本组成单位之一，承载系统的主要功能，包括处理与数据</li>
-<li>连接件是软件体系结构的另一个基本组成单位，定义了部件的交互，是连接的抽象表示</li>
-<li>配置是对形式的发展，定义了部件以及连接件之间的关联方式，将它们组织成系统的总体结构</li>
-</ul>
-<h3 id="体系风格的优缺点">体系风格的优缺点</h3>
-<p>主程序/子程序：</p>
-<ul>
-<li>优点：
-<ul>
-<li>流程清晰，易于理解（符合分解和分治的思想）</li>
-<li>强控制性（很容易保证正确性）</li>
-</ul></li>
-<li>缺点：
-<ul>
-<li>程序调用是一种强耦合的连接方式，非常依赖交互方的接口规格，这会使系统难以修改和复用</li>
-<li>程序调用的连接方式限制了各部件之间的数据交互，可能会使不同部件使用隐含的共享数据交流，产生不必要的公共耦合，进而破坏它的“正确性”控制能力</li>
-</ul></li>
-</ul>
-<p>面向对象式：</p>
-<ul>
-<li>优点：
-<ul>
-<li>内部实现的可修改性（隐藏内部实现）</li>
-<li>易开发、易理解、易复用的结构组织（契合模块化思想）</li>
-</ul></li>
-<li>缺点：
-<ul>
-<li>接口的耦合性（由于方法调用机制，接口的耦合性无法消除）</li>
-<li>标识的耦合性（一个对象要和其它对象交互，必须知道标识）</li>
-<li>副作用（难以实现程序的“正确性”）</li>
-</ul></li>
-</ul>
-<p>分层：</p>
-<ul>
-<li>优点：
-<ul>
-<li>设计机制清晰，易于理解（抽象层次分离，隔离复杂度）</li>
-<li>支持并行开发（层次之间遵守成熟稳定的接口）</li>
-<li>更好的可复用性和可修改性（接口的稳定性，不同层次的部件能够相互替换）</li>
-</ul></li>
-<li>缺点：
-<ul>
-<li>交互协议难以修改（可能需要改变所有的层次，接口具有强耦合性）</li>
-<li>性能损失（禁止跨层调用）</li>
-<li>难以确定层次数量和粒度</li>
-</ul></li>
-</ul>
-<p>MVC：</p>
-<ul>
-<li>优点：
-<ul>
-<li>易开发性（分别抽象了业务逻辑，表现和控制机制清晰，易于开发）</li>
-<li>视图和控制的可修改性（一个模型可以同时建立并支持多个视图）</li>
-<li>适宜于网络系统开发的特征</li>
-</ul></li>
-<li>缺点：
-<ul>
-<li>复杂性（不利于理解任务实现）</li>
-<li>模型修改困难（视图和控制均依赖于模型）</li>
-</ul></li>
-</ul>
-<h2 id="第十章-软件体系结构设计与构建">第十章
-软件体系结构设计与构建</h2>
-<h3 id="体系结构的设计过程">体系结构的设计过程</h3>
-<p>（1）分析关键需求和项目约束</p>
-<p>（2）选择体系结构风格</p>
-<p>（3）进行软件体系结构逻辑（抽象）设计</p>
-<p>（4）依赖逻辑设计进行软件体系结构物理（实现）设计</p>
-<p>（5）完善软件体系结构设计</p>
-<p>（6）定义构件接口</p>
-<p>（7）迭代过程（3）到（6）</p>
-<h3 id="包设计原则">包设计原则</h3>
-<ul>
-<li>共同封闭原则（CCP）：一起改的类应该在一起</li>
-<li>共同重用原则（CRP）：一起重用的包应该放在一起</li>
-<li>重用发布等价原则（REP）：重用的单元就是发布的单元</li>
-<li>无环依赖原则（ADP）：包的依赖结构是一个有向无环</li>
-<li>稳定依赖原则（SDP）：依赖关系应该随着稳定的方向</li>
-<li>稳定抽象原则（SAP）：稳定包应该是抽象包，不稳定包是具体包</li>
-</ul>
-<h3 id="体系结构构件之间接口的定义">体系结构构件之间接口的定义</h3>
-<p>书P174</p>
-<p>能够根据用例写出某层的接口，需求分配的过程</p>
-<h3 id="体系结构开发集成测试用例">体系结构开发集成测试用例</h3>
-<p>书P177</p>
-<p>桩：在软件测试里用来替换某些模块的，模仿下层模块，测试上层</p>
-<p>驱动：模仿上层模块，测试下层</p>
-<h2 id="第十一章-人机交互设计">第十一章 人机交互设计</h2>
-<h3 id="可用性">可用性</h3>
-<p>书上叫易用性（usability）</p>
-<p>可用性分为五个维度：</p>
-<ul>
-<li>易学性：新手用户容易学习，能够很快使用系统</li>
-<li>易记性：以前使用该软件的用户，能够有效记忆或者快速重新学会使用</li>
-<li>效率：熟练用户能够高效地完成任务</li>
-<li>出错率：用户使用系统时，会犯多少错，错误有多严重，以及能够从错误中很容易地恢复</li>
-<li>主观满意度：让用户有良好的体验</li>
-</ul>
-<h3 id="人机交互设计原则">人机交互设计原则</h3>
-<ul>
-<li>简洁设计：图片比描述文字更清晰</li>
-<li>一致性设计：相似的任务，一致的交互机制</li>
-<li>低出错率：帮助用户避免犯错</li>
-<li>易记性设计：历史记录</li>
-</ul>
-<p>题目：给你几张图，分析体现或违反了哪些人机交互原则，详细解释</p>
-<h3 id="精神模型差异性">精神模型、差异性</h3>
-<p>书P185-186</p>
-<p>精神模型：用户在进行人机交互时头脑中的人物模型</p>
-<p>差异性：不同的用户群体，差异化的交互机制</p>
-<h3 id="导航反馈协作式设计">导航、反馈、协作式设计</h3>
-<p>导航：目的是为用户提供一个很好的完成任务的入口</p>
-<p>反馈：让用户意识到行为的结果（声音、效果）</p>
-<p>协作式设计：调整计算机因素以便更好地适应并帮助用户的设计方式</p>
-<h2 id="第十二章-详细设计的基础">第十二章 详细设计的基础</h2>
-<h3 id="详细设计的出发点">详细设计的出发点</h3>
-<p>以需求开发的结果（需求规格说明和需求分析模型）和软件体系结构的结果（软件体系结构设计方案与原型）为出发点</p>
-<p>书P197、建造桥梁</p>
-<h3 id="协作">协作</h3>
-<p>抽象对象之间的协作</p>
-<ul>
-<li>从小到大，将对象的小职责聚合成大职责</li>
-<li>从大到小，将大职责分配给小对象</li>
-</ul>
-<p>上面两种方法一般同时运用，共同来完成对协作的抽象。</p>
-<h3 id="控制风格">控制风格</h3>
-<p>选择合适的控制风格：</p>
-<ul>
-<li>为了完成某一个大的职责，需要对职责的分配做很多决策，控制风格决定了决策由谁来做和怎么做</li>
-<li>逻辑层的接口依据需求来创建</li>
-<li>分散式</li>
-<li>集中式</li>
-<li>委托式（授权式）</li>
-</ul>
-<h3 id="建立设计类图">建立设计类图</h3>
-<p>P203，注意表12-2</p>
-<h3 id="建立详细顺序图">建立详细顺序图</h3>
-<p>P206，表12-3</p>
-<p>题目：给出用例描述，用集中控制的方式画出设计类图和顺序图</p>
-<h3 id="协作的测试">协作的测试</h3>
-<p>Mock Project：类间协作的桩程序</p>
-<h2 id="第十三章-详细设计中的模块化与信息隐藏">第十三章
-详细设计中的模块化与信息隐藏</h2>
-<blockquote>
-<p>重点</p>
-</blockquote>
-<h3 id="结构化设计中的耦合">结构化设计中的耦合</h3>
-<p>耦合：描述两个模块间关系的复杂程度</p>
-<p>分类（耦合性从高到底）：</p>
-<ul>
-<li>内容管理：一个模块直接修改或者依赖于另一个模块的内容（goto）</li>
-<li>公共耦合：模块间共享全局的数据（全局变量）</li>
-<li>重复耦合：模块间有同样逻辑的代码</li>
-<li>控制耦合：一个模块给另一个模块传递控制信息</li>
-<li>印记耦合：共享了一个数据结构，但是却只用了其中一部分（传了整个记录，只需要一个字段）</li>
-<li>数据耦合：两个模块的所有参数是同类型的数据项（传一个整数给一个计算平方根的函数）</li>
-</ul>
-<blockquote>
-<p>前三个耦合是不可接受的。</p>
-</blockquote>
-<h3 id="结构化设计中的内聚">结构化设计中的内聚</h3>
-<p>内聚：一个模块内部的联系的紧密性</p>
-<p>分类（从低到高）：</p>
-<ul>
-<li>偶然内聚：模块执行多个完全不相关的操作
-<ul>
-<li>修车、烤面包、遛狗、看电影</li>
-</ul></li>
-<li>逻辑内聚：模块执行一系列相关操作，每个操作的调用由其它模块决定
-<ul>
-<li>开车去上撤硕，坐火车上厕所</li>
-</ul></li>
-<li>时间内聚：模块执行一系列有关<strong>时间</strong>的操作
-<ul>
-<li>起床刷牙洗脸吃南航</li>
-</ul></li>
-<li>过程内聚：模块执行一系列与<strong>步骤顺序</strong>有关的操作
-<ul>
-<li>返校：院系经办人审核、院系领导审核、校职能部审核</li>
-</ul></li>
-<li>通信内聚：模块执行一系列与步骤顺序有关的操作，并且这些操作在相同的数据上进行
-<ul>
-<li>查书的名字、查书的作者、查书的出版商</li>
-</ul></li>
-<li>功能内聚：模块只执行一个操作或达到单一目的
-<ul>
-<li>只计算平方根</li>
-</ul></li>
-<li>信息内聚：模块进行许多操作，各有各的入口点，每个操作的代码相对独立，所有操作都是在相同的数据结构上完成
-<ul>
-<li>栈（push pop等）</li>
-</ul></li>
-</ul>
-<h3 id="信息隐藏的基本思想">信息隐藏的基本思想</h3>
-<p>每个模块都隐藏着一个重要的设计决策，每个模块都承担一定的职责。对外表现为一份契约，并且在这份契约之下隐藏着只有这个模块知道的设计决策或者秘密，决策实现的细节（特别是容易改变的细节）只有模块自己知道。</p>
-<h3 id="两种常见的信息隐藏决策">两种常见的信息隐藏决策</h3>
-<ul>
-<li>根据需求分配的职责</li>
-<li>内部实现机制</li>
-</ul>
-<h2 id="第十四章-详细设计中面向对象方法下的模块化">第十四章
-详细设计中面向对象方法下的模块化</h2>
-<h3 id="模块化设计原则">模块化设计原则</h3>
-<ol type="1">
-<li>不要用全局变量</li>
-<li>显式（explicit），显示的清楚一点，内容明确（代码写清楚点？？？）</li>
-<li>不要有代码重复</li>
-<li>针对接口编程</li>
-<li>迪米特法则</li>
-<li>接口分离原则（ISP）</li>
-<li>里氏替换原则</li>
-<li>使用组合代替继承</li>
-<li>单一职责原则（SRP）</li>
-</ol>
-<p>题目：给个例子，找出其违反的原则并进行修正。</p>
-<h3 id="访问耦合">访问耦合</h3>
-<p>类A拥有对类B的引用，则A可以访问B，存在耦合</p>
-<p>分类（从高到低）：</p>
-<ul>
-<li>隐式访问：B既没有在A的规格中出现，也没有在实现中出现（连续的方法调用，方法套娃）</li>
-<li>实现中访问：B的引用是A方法中的局部变量</li>
-<li>成员变量访问：B的引用是A的成员变量</li>
-<li>参数变量访问：B的引用是A的方法的参数变量</li>
-<li>无访问：理论最优，无关联耦合，维护时不需要对方任何信息</li>
-</ul>
-<p>降低访问耦合的方法：</p>
-<ul>
-<li>针对接口编程</li>
-<li>接口最小化/接口分离原则</li>
-<li>访问耦合的合理范围/迪米特法则</li>
-</ul>
-<h3 id="继承耦合">继承耦合</h3>
-<p>继承里，父类和子类之间存在耦合</p>
-<p>类型（从高到低）</p>
-<ul>
-<li>修改
-<ul>
-<li>规格：子类修改继承回来的方法的接口</li>
-<li>实现：子类修改继承回来的方法的实现</li>
-</ul></li>
-<li>精化：
-<ul>
-<li>规格：子类根据定义好的规则来修改父类的方法，且至少有一个方法的接口被改动</li>
-<li>实现：子类根据定义好的规则来修改父类的方法，但是只改动了方法的实现</li>
-</ul></li>
-<li>扩展：子类只增加新的方法和成员变量，不对从父类继承回来的成员做任何修改</li>
-<li>无：两个类之间没有继承关系</li>
-</ul>
-<p>降低继承耦合的方法：</p>
-<ul>
-<li>里氏替换原则</li>
-<li>使用组合代替继承</li>
-</ul>
-<h3 id="内聚">内聚</h3>
-<p>分类</p>
-<ul>
-<li>方法内聚：和结构化中的函数内聚一致，体现方法实现时语句之间的内聚性</li>
-<li>类的内聚：衡量类的成员变量和方法之间的内聚</li>
-<li>继承内聚：继承树中类之间的内聚</li>
-</ul>
-<p>提高内聚的方法：</p>
-<ul>
-<li>集中信息与行为</li>
-<li>单一职责原则</li>
-</ul>
-<h2 id="第十五章-详细设计中面向对象方法下的信息隐藏">第十五章
-详细设计中面向对象方法下的信息隐藏</h2>
-<h3 id="信息隐藏的含义">信息隐藏的含义</h3>
-<ul>
-<li>封装类的职责，隐藏职责的实现</li>
-<li>预计将会发生的变更，抽象它的接口，隐藏内部实现机制</li>
-</ul>
-<h3 id="封装">封装</h3>
-<p>分离接口和实现</p>
-<p>含义：</p>
-<ul>
-<li>将数据和行为同时包含在类中</li>
-<li>分离对外接口与内部实现</li>
-</ul>
-<p>实现细节：</p>
-<ul>
-<li>封装数据与行为</li>
-<li>封装内部结构</li>
-<li>封装其它对象的引用</li>
-<li>封装类型信息</li>
-<li>封装潜在变更</li>
-</ul>
-<h3 id="开闭原则ocp">开闭原则（OCP）</h3>
-<p>是面向对象设计的一个指导性、方阵性原则</p>
-<p>具体内容：</p>
-<ul>
-<li>好的设计应该对扩展开放</li>
-<li>好的设计应该对修改关闭</li>
-</ul>
-<p>简单来说，发生变更时，好的设计只需要添加新的代码，而不需要修改原有的代码</p>
-<h3 id="依赖倒置原则dip">依赖倒置原则（DIP）</h3>
-<p>内容：</p>
-<ul>
-<li>抽象不应该依赖于细节，细节应该依赖于抽象。因为抽象是稳定的，细节是不稳定的。</li>
-<li>高层模块不应该依赖于低层模块，而是双方都依赖于抽象。因为抽象是稳定的，而高层模块和低层模块都可能是不稳定的。</li>
-</ul>
-<p>题目：给张类图，问运用了或违反了哪条面向对象设计原则？问某个类是什么内聚？</p>
-<h2 id="第十六章-详细设计的设计模式">第十六章 详细设计的设计模式</h2>
-<h3
-id="如何实现可修改性可扩展性灵活性">如何实现可修改性、可扩展性、灵活性</h3>
-<p>实现接口和实现分离</p>
-<ul>
-<li>通过接口和实现该接口的类完成分离</li>
-<li>通过子类继承父类，将父类的接口与子类的实现分离</li>
-</ul>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<h3 id="策略模式">策略模式</h3>
-<p>减少耦合、依赖倒置</p>
-<h3 id="抽象工厂模式">抽象工厂模式</h3>
-<p>职责抽象、接口和重用</p>
-<h3 id="单例模式">单例模式</h3>
-<p>职责抽象</p>
-<h3 id="迭代器模式">迭代器模式</h3>
-<p>减少耦合、依赖倒置</p>
-<p>题目：给定场景，应用设计模式并写出代码；给出代码，要求用设计模式改写</p>
-<h2 id="第十七章-软件构造">第十七章 软件构造</h2>
-<h3 id="构造包含的活动">构造包含的活动</h3>
-<p>详细设计、编程、测试、调试、代码评审、集成与构建、构造与管理</p>
-<h3 id="名词解释">名词解释</h3>
-<p>重构、测试驱动开发、结对编程</p>
-<h2 id="第十八章-代码设计">第十八章 代码设计</h2>
-<h3
-id="给定代码段示例对其进行改进或者发现其中的问题">给定代码段示例，对其进行改进或者发现其中的问题</h3>
-<ul>
-<li>简洁性/可维护性</li>
-<li>使用数据结构消减复杂判定</li>
-<li>控制结构</li>
-<li>变量的使用</li>
-<li>语句处理</li>
-<li>如何写不可维护的代码</li>
-<li>防御和错误处理</li>
-</ul>
-<h3 id="单元测试用例的设计">单元测试用例的设计</h3>
-<ul>
-<li>基于规格的测试技术开发测试用例，等价类划分和边界值分析</li>
-<li>基于代码的测试技术开发测试用例，关键复杂代码：路径覆盖；复杂代码：分支覆盖；简单代码：语句覆盖</li>
-</ul>
-<h3 id="表驱动编程">表驱动编程</h3>
-<p>if-else —&gt; 一张表</p>
-<h3 id="契约式设计">契约式设计</h3>
-<p>断言式设计</p>
-<p>基本思想：如果一个函数和方法，在前置条件满足的情况下开始执行，完成后能够满足后置条件，那么这个函数或方法就是正确、可靠的</p>
-<p>常见方式：异常和断言（assert）</p>
-<p>检查很多外来信息的有效性：</p>
-<ul>
-<li>输入参数，是否合法</li>
-<li>用户输入，是否有效</li>
-<li>外部文件，是否存在</li>
-<li>...</li>
-</ul>
-<h3 id="防御式编程">防御式编程</h3>
-<p>基本思想：在一个地方与其它方法、操作系统、硬件等外界环境交互时，不能确保外界都是正确的，所以要在外界发生错误时，保护内部方法不受损害</p>
-<h2 id="第十九章-软件测试">第十九章 软件测试</h2>
-<p>单元测试、集成测试、系统测试</p>
-<h3 id="黑盒测试">黑盒测试</h3>
-<p>基于规格的技术，把测试对象看作一个黑盒子，完全基于输入和输出来判定测试对象的正确性。测试使用测试对象的规格说明来设计输入和输出数据</p>
-<p>常见方法：</p>
-<ul>
-<li>等价类划分（把输入按照等价类划分，包括有效和无效）</li>
-<li>边界值分析</li>
-<li>决策表（表驱动）</li>
-<li>状态转换</li>
-</ul>
-<h3 id="白盒测试">白盒测试</h3>
-<p>基于代码的技术，将测试对象看成透明的，不关心测试对象的规格，而是按照测试对象内部的程序结构来设计测试用例进行测试工作</p>
-<p>方法：</p>
-<ul>
-<li>语句覆盖：确保被测试对象的每一行程序代码都至少执行一次</li>
-<li>条件覆盖：确保程序中每个判断的每个结果都至少满足一次</li>
-<li>路径覆盖：确保程序中每条独立的执行路径都至少执行一次</li>
-</ul>
-<p>题目：</p>
-<p>白盒测试和黑盒测试的常见方法，并比较优缺点</p>
-<p>能解释并区别白盒测试的三种不同的方法</p>
-<p>给出一个场景，判断应该使用哪种测试方法，如何去写</p>
-<ul>
-<li>给出功能需求——写功能测试用例</li>
-<li>给出设计图——写集成测试用例、Stub和Driver</li>
-<li>给出方法描述——写单元测试用例、Mock Project</li>
-<li>JUnit的使用</li>
-</ul>
-<h2 id="第二十章-软件交付">第二十章 软件交付</h2>
-<h3 id="用户文档和系统文档">用户文档和系统文档</h3>
-<h2 id="第二十一章-软件维护与演化">第二十一章 软件维护与演化</h2>
-<h3 id="如何理解软件维护的重要性">如何理解软件维护的重要性</h3>
-<p>修改代价</p>
-<h3 id="开发可维护软件的方法">开发可维护软件的方法</h3>
-<ul>
-<li>考虑软件的可变更性
-<ul>
-<li>分析需求的易变性</li>
-<li>为变更进行设计</li>
-</ul></li>
-<li>为降低维护困难而开发
-<ul>
-<li>编写详细的技术文档并保持及时更新</li>
-<li>保证代码的可读性</li>
-<li>维护需求跟踪链</li>
-<li>维护回归测试基线</li>
-</ul></li>
-</ul>
-<h3 id="软件演化生命周期模型">软件演化生命周期模型</h3>
-<p>初步开发、演化、服务、逐步淘汰、停止</p>
-<h3 id="逆向工程再工程">逆向工程、再工程</h3>
-<h2 id="第二十二章-软件开发过程模型">第二十二章 软件开发过程模型</h2>
-<h3 id="软件生命周期模型">软件生命周期模型</h3>
-<ol type="1">
-<li>需求工程</li>
-<li>软件设计</li>
-<li>软件实现</li>
-<li>软件测试</li>
-<li>软件交付</li>
-<li>软件维护</li>
-</ol>
-<p>对给定场景，判断适用的开发过程模型（要求、特征描述、优缺点）</p>
-<blockquote>
-<p>补充？</p>
-</blockquote>
-<h3 id="瀑布模型">瀑布模型</h3>
-<p>对于软件开发活动有明确阶段划分，每个阶段的结果都必须验证，使得该模型是“文档驱动”</p>
-<p>优点：对于软件开发活动有明确的阶段划分，有利于开发者以关注点分离的方式更好地进行复杂软件项目的开发</p>
-<p>缺点：</p>
-<ul>
-<li>对文档期望过高</li>
-<li>对开发活动的线性顺序假设具有局限性</li>
-<li>客户、用户参与度具有局限性</li>
-<li>里程碑力度过粗（软件复杂使得每个阶段时间长，无法尽早发现缺陷）</li>
-</ul>
-<p>适用性：</p>
-<ul>
-<li>需求非常成熟、稳定，没有不确定的内容，也不会发生变化</li>
-<li>所需的技术成熟，可靠，没有不确定的技术难点，也没有开发人员不熟悉的技术问题</li>
-<li>复杂度适中，不至于产生太大的文档负担和过粗的里程碑</li>
-</ul>
-<h3 id="螺旋模型">螺旋模型</h3>
-<p>风险驱动</p>
-<p>风险：指因为不确定性（对未来知识了解有限）而可能给项目带来损失的情况</p>
-<p>基本思想：尽早解决比较高的风险，如果有些问题实在无法解决，那么早发现比项目结束时再发现要更好，至少损失会小很多</p>
-<p>优点：降低风险，减少因风险而造成的损失</p>
-<p>缺点：</p>
-<ul>
-<li>使用原型方法，为自身带来风险</li>
-<li>模型过于复杂，不利于管理者依据其组织软件开发活动</li>
-</ul>
-<p>适用性：高风险的大规模软件系统开发</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
