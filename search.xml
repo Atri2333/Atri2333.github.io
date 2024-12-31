@@ -5921,11 +5921,11 @@ carlo，它只在光源的方向上进行随机取样。</p>
     <title>tech1</title>
     <url>/2024/12/28/tech_report/tech1/</url>
     <content><![CDATA[<h1 id="每周总结1">每周总结#1</h1>
-<img src="/2024/12/28/tech_report/tech1/1.jpg" class="" width="1">
-<img src="/2024/12/28/tech_report/tech1/2.jpg" class="" width="2">
-<img src="/2024/12/28/tech_report/tech1/3.jpg" class="" width="1">
-<img src="/2024/12/28/tech_report/tech1/4.jpg" class="" width="1">
-<img src="/2024/12/28/tech_report/tech1/5.jpg" class="" width="1">
+<img src="/2024/12/28/tech_report/tech1/1.jpg" class="" title="p1">
+<img src="/2024/12/28/tech_report/tech1/2.jpg" class="" title="p2">
+<img src="/2024/12/28/tech_report/tech1/3.jpg" class="" title="p3">
+<img src="/2024/12/28/tech_report/tech1/4.jpg" class="" title="p4">
+<img src="/2024/12/28/tech_report/tech1/5.jpg" class="" title="p5">
 ]]></content>
   </entry>
 </search>
