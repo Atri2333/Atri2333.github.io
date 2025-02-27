@@ -264,7 +264,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,6 +294,179 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/06/05/database/db-completeness/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Atri6.jpg">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/05/database/db-completeness/" class="post-title-link" itemprop="url">db-completeness</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-05 10:02:24" itemprop="dateCreated datePublished" datetime="2024-06-05T10:02:24+08:00">2024-06-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-09 16:14:33" itemprop="dateModified" datetime="2024-06-09T16:14:33+08:00">2024-06-09</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/06/05/database/db-completeness/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/06/05/database/db-completeness/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="数据库完整性">数据库完整性</h1>
+<h2 id="实体完整性">实体完整性</h2>
+<p>create table中用primary key定义</p>
+<p>例：创建学生表Student，将Sno属性定义为主码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> student(</span><br><span class="line">	sno <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">	sname <span class="type">char</span>(<span class="number">20</span>) <span class="keyword">unique</span>,</span><br><span class="line">	ssex <span class="type">char</span>(<span class="number">6</span>),</span><br><span class="line">	sbirthdate <span class="type">date</span>,</span><br><span class="line">	smajor <span class="type">varchar</span>(<span class="number">40</span>),</span><br><span class="line">	<span class="keyword">primary</span> key(sno)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>插入或对主码列进行更新操作时，关系数据库管理系统按照实体完整性规则自动进行检查。</p>
+<ul>
+<li>检查主码值是否唯一</li>
+<li>检查主码的各个属性是否为空</li>
+</ul>
+<blockquote>
+<p>这种检查操作需要 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>
+遍历每一条记录，十分耗时。因此关系数据库管理系统一般都在主码上自动建立一个索引。例如B+树索引。</p>
+</blockquote>
+<h2 id="参照完整性">参照完整性</h2>
+<p>在create table中用foreign key短语定义哪些列为外码。</p>
+<p>用references短语指明这些外码参照哪些表的主码。</p>
+<p>例：关系SC中（Sno,
+Cno）是主码，Sno、Cno分别参照Student表的主码和Course表的主码。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> sc(</span><br><span class="line">	sno <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">	cno <span class="type">char</span>(<span class="number">5</span>),</span><br><span class="line">	grade <span class="type">smallint</span>,</span><br><span class="line">	semester <span class="type">char</span>(<span class="number">5</span>),</span><br><span class="line">	teachingclass <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">	<span class="keyword">primary</span> key (sno, cno),</span><br><span class="line">	<span class="keyword">foreign</span> key (sno) <span class="keyword">references</span> student(sno),</span><br><span class="line">	<span class="keyword">foreign</span> key (cno) <span class="keyword">references</span> course(cno)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>一个参照完整性将两个表中的相应元组联系起来。对被参照表和参照表进行增删改查操作时可能会破坏参照完整性，必须进行检查。</p>
+<p>例：</p>
+<ul>
+<li>向SC表中增加一个元组，该元组的Sno属性值在表Student中找不到一个元组，其Sno属性值与之相等。</li>
+<li>修改SC表中的一个元组，情况如上</li>
+<li>从Student表中删除一个元组，造成SC表中某些元组的Sno属性值在Student中找不到一个元组对应</li>
+<li>修改Student表中的一个元组，情况如上</li>
+</ul>
+<img src="/2024/06/05/database/db-completeness/b1.png" class="" title="b1">
+<p>参照完整性违约处理：</p>
+<ul>
+<li>拒绝执行：一般为默认策略</li>
+<li>级联操作：当删除或修改被参照表的一个元组导致与参照表的不一致，则删除或修改参照表中的所有导致不一致的元组</li>
+<li>设置为空值：当删除或修改被参照表的一个元组导致不一致，则将参照表中所有造成不一致的元组的对应属性设置为空值</li>
+</ul>
+<img src="/2024/06/05/database/db-completeness/b2.png" class="" title="b2">
+<h2 id="用户定义的完整性">用户定义的完整性</h2>
+<blockquote>
+<p>针对某一具体应用的数据必须满足的语义要求。</p>
+</blockquote>
+<h3 id="属性上的约束">属性上的约束</h3>
+<p>create table中定义属性约束</p>
+<ul>
+<li>列值非空 (not null)</li>
+<li>列值唯一 (unique)</li>
+<li>检查列值是否满足一个条件表达式 (check短语)</li>
+</ul>
+<h3 id="元组上的约束">元组上的约束</h3>
+<p>在create table语句中可以用check短语定义元组间不同属性需满足的限制</p>
+<h2 id="完整性约束命名子句">完整性约束命名子句</h2>
+<blockquote>
+<p>constraint &lt;完整性约束名&gt; &lt;完整性约束&gt;</p>
+</blockquote>
+<h3 id="修改表中的完整性限制">修改表中的完整性限制</h3>
+<blockquote>
+<p>使用alter table语句</p>
+</blockquote>
+<p>例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student</span><br><span class="line"><span class="keyword">add</span> <span class="keyword">constraint</span> c1 <span class="keyword">check</span>(sno <span class="keyword">between</span> <span class="string">'114514'</span> <span class="keyword">and</span> <span class="string">'1919810'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="触发器">触发器</h2>
+<blockquote>
+<p>挖坑</p>
+</blockquote>
+<hr>
+<h1 id="作业">作业</h1>
+<p>假设有下面两个关系模式</p>
+<blockquote>
+<p>职工（职工号，姓名，出生日期，职务，工资，部门号），其中职工号为主码</p>
+<p>部门（部门号，名称，经理姓名，电话），其中部门号为主码</p>
+</blockquote>
+<p>用SQL定义这两个关系模式，要去在模式中完成以下完整性约束的定义：</p>
+<ol type="1">
+<li>定义每个模式的主码</li>
+<li>定义参照完整性约束</li>
+<li>定义职工年龄不超过65岁</li>
+</ol>
+<blockquote>
+<p>oracle不支持constraint带有变量，这里需要使用触发器</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 职工;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 部门;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 部门(</span><br><span class="line">    部门号 <span class="type">char</span>(<span class="number">8</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    名称 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    经理姓名 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    电话 <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 职工(</span><br><span class="line">    职工号 <span class="type">char</span>(<span class="number">8</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    姓名 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    出生日期 <span class="type">date</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    职务 <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    工资 <span class="type">decimal</span>(<span class="number">10</span>, <span class="number">2</span>),</span><br><span class="line">    部门号 <span class="type">char</span>(<span class="number">8</span>),</span><br><span class="line">    <span class="keyword">constraint</span> fk_部门 <span class="keyword">foreign</span> key(部门号) <span class="keyword">references</span> 部门(部门号)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> replace <span class="keyword">trigger</span> ck_age</span><br><span class="line">before <span class="keyword">insert</span> <span class="keyword">or</span> <span class="keyword">update</span> <span class="keyword">on</span> 职工</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	if(<span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>) <span class="operator">-</span> <span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> :new.出生日期) <span class="operator">&gt;</span> <span class="number">65</span>) <span class="keyword">then</span></span><br><span class="line">		raise_application_error(<span class="number">-114514</span>, <span class="string">'职工年龄不应超过65岁'</span>);</span><br><span class="line">	<span class="keyword">end</span> if;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="operator">/</span></span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 部门 <span class="keyword">values</span>(<span class="string">'88488848'</span>, <span class="string">'test1'</span>, <span class="string">'name1'</span>, <span class="string">'114514'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">'66666666'</span>, <span class="string">'name2'</span>, TO_DATE(<span class="string">'1980-01-15'</span>, <span class="string">'YYYY-MM-DD'</span>), <span class="string">'job1'</span>, <span class="string">'1145.14'</span>, <span class="string">'88488848'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">'66666666'</span>, <span class="string">'name2'</span>, TO_DATE(<span class="string">'1980-01-15'</span>, <span class="string">'YYYY-MM-DD'</span>), <span class="string">'job1'</span>, <span class="string">'1145.14'</span>, <span class="string">'88488849'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">'66666667'</span>, <span class="string">'name2'</span>, TO_DATE(<span class="string">'1980-01-15'</span>, <span class="string">'YYYY-MM-DD'</span>), <span class="string">'job1'</span>, <span class="string">'1145.14'</span>, <span class="string">'88488849'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 职工 <span class="keyword">values</span>(<span class="string">'66666667'</span>, <span class="string">'name2'</span>, TO_DATE(<span class="string">'1880-01-15'</span>, <span class="string">'YYYY-MM-DD'</span>), <span class="string">'job1'</span>, <span class="string">'1145.14'</span>, <span class="string">'88488848'</span>);</span><br></pre></td></tr></table></figure>
+<p>前两行正确，后三行应出现错误：</p>
+<img src="/2024/06/05/database/db-completeness/hw1.png" class="" title="hw1">
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1486,428 +1659,6 @@ salary)。</p>
 <p>调用函数：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span></span><br><span class="line">	v_empno number :<span class="operator">=</span> <span class="number">7782</span>;</span><br><span class="line">	v_cnt number;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	v_cnt :<span class="operator">=</span> get_higher_sal_cnt(v_empno);</span><br><span class="line">	DBMS_OUTPUT.PUT_LINE(<span class="string">'number of higher-sal employees:'</span> <span class="operator">||</span> v_cnt);</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="operator">/</span></span><br></pre></td></tr></table></figure>
 <img src="/2024/05/20/database/sql/hw10.png" class="" title="hw10">
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/05/18/computer-network/transport-layer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Atri6.jpg">
-      <meta itemprop="name" content="Ayy3">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy3">
-      <meta itemprop="description" content="亚托莉单推人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy3">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/18/computer-network/transport-layer/" class="post-title-link" itemprop="url">transport-layer</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-18 13:02:42" itemprop="dateCreated datePublished" datetime="2024-05-18T13:02:42+08:00">2024-05-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-27 17:10:04" itemprop="dateModified" datetime="2024-05-27T17:10:04+08:00">2024-05-27</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/05/18/computer-network/transport-layer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/18/computer-network/transport-layer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="计网运输层复习">计网——运输层复习</h1>
-<blockquote>
-<p>从通信和信息处理的角度看，运输层向其上面的应用层提供通信服务，<strong>它属于面向通信部分的最高层，同时也是用户功能中的最底层</strong>。</p>
-<p>当网络的边缘部分中的两个主机使用网络的核心部分的功能进行端到端的通信时，只有位于<strong>网络边缘部分的主机的协议栈</strong>才有运输层，而网络核心部分中的路由器在转发分组时都只用到三层（网络层）的功能。</p>
-</blockquote>
-<p>从物理层到网络层，实现了主机到主机的通信。但实际上计网中通信的真正实体是位于通信两端主机中的<strong>进程</strong>。<strong>如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务，运输层协议又称为端到端协议</strong>。</p>
-<img src="/2024/05/18/computer-network/transport-layer/ts1.png" class="" title="ts1">
-<blockquote>
-<p>在运输层使用<strong>不同的端口</strong>，来对应<strong>不同的应用进程</strong>，然后通过网络层及其下层来传输应用层报文。接收方的运输层通过不同的端口，将收到的应用层报文，交付给应用层中相应的进程。这里的端口是指用来区分不同应用进程的标识符。</p>
-</blockquote>
-<h2 id="端口号">端口号</h2>
-<img src="/2024/05/18/computer-network/transport-layer/port1.png" class="" title="port1">
-<h2 id="发送方的复用和接收方的分用">发送方的复用和接收方的分用</h2>
-<img src="/2024/05/18/computer-network/transport-layer/port2.png" class="" title="port2">
-<blockquote>
-<p>复用：多个进程利用一个运输层协议发送数据</p>
-<p>分用：多个进程利用一个运输层协议接收数据</p>
-</blockquote>
-<h2 id="udp和tcp">UDP和TCP</h2>
-<ul>
-<li>UDP和TCP是TCP/IP体系结构运输层的两个重要协议</li>
-<li>当运输层采用面向连接的TCP协议时，尽管下面的网络是不可靠的（例如无连接的数据报服务），但这种逻辑通信信道相当于一条<strong>全双工的可靠信道</strong>。TCP传输的数据单元是TCP报文段。</li>
-<li>但运输层采用无连接的UDP协议时，这种逻辑信道是一条<strong>不可靠信道</strong>。UDP传输的数据单元是UDP报文或用户数据报。</li>
-</ul>
-<img src="/2024/05/18/computer-network/transport-layer/ts2.png" class="" title="ts2">
-<h2 id="用户数据报协议udp">用户数据报协议UDP</h2>
-<blockquote>
-<p>UDP支持单播、多播以及广播</p>
-<p>UDP对应用进程交下来的报文既不合并也不拆分，而是保留这些报文的边界，即<strong>UDP是面向应用报文的</strong></p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/udp1.png" class="" title="udp1">
-<p>UDP向上层提供无连接不可靠传输服务</p>
-<p>UDP用户数据报结构如下：</p>
-<img src="/2024/05/18/computer-network/transport-layer/udp2.png" class="" title="udp2">
-<blockquote>
-<p>是不是很简单？<del>但是接下来的TCP会难到吐</del></p>
-</blockquote>
-<h2
-id="传输控制协议tcptransmission-control-protocal">传输控制协议TCP（Transmission
-Control Protocal）</h2>
-<p>使用TCP协议的通信双方，在进行数据传输之前，必须使用“三报文握手”建立TCP连接。TCP连接建立成功后，通信双方之间就好像有一条可靠的通信信道，通信双方使用这条基于TCP连接的可靠信道进行通信。</p>
-<blockquote>
-<p>TCP只支持单播。</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp1.png" class="" title="tcp1">
-<blockquote>
-<p>发送方</p>
-<ul>
-<li>TCP会把应用进程交付下来的数据块看作是一串无结构的字节流，TCP并不知道这些字节流的含义</li>
-<li>TCP会将字节流进行编号，并存储在自己的缓存中</li>
-<li>TCP会根据发送策略，提取一定量的字节构建TCP报文并发送</li>
-</ul>
-<p>接收方</p>
-<ul>
-<li>一方面从所接收到的TCP报文段中，取出数据载荷部分并存储在接收缓存中；另一方面将接收缓存中的一些字节交付给应用进程</li>
-<li>TCP不保证接收方应用进程所收到的数据块与发送方发送的数据块具有对应大小的关系（例如，发送方应用进程给发送方的TCP共10个数据块，但接收方的TCP可能只用了4个数据块，就把收到的字节流交付给了上层的应用进程，但接收方的字节流必须和发送方的字节流<strong>完全一样</strong>）</li>
-<li>接收方的应用进程必须有能力识别收到的字节流，并把它还原成有意义的应用层数据</li>
-</ul>
-</blockquote>
-<p>TCP向上层提供面向连接的可靠传输服务</p>
-<h3 id="tcpの流量控制">TCPの流量控制</h3>
-<blockquote>
-<p>所谓流量控制，就是让<strong>发送方的发送速率不要太快</strong>，要让接收方来得及接收。</p>
-</blockquote>
-<p>TCP采用<strong>滑动窗口</strong>机制来实现对发送方的流量控制。</p>
-<blockquote>
-<p>通过<strong>抄袭</strong>湖科大计网的例子来加深对流量控制的理解</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp2.png" class="" title="tcp2">
-<p>首先，发送方维护一个400字节大小的滑动窗口，并将1-300号字节数据进行发送。但是201-300号字节的数据的TCP报文段丢失了。</p>
-<p>此时，接收方对201号之前的数据进行<strong>累计确认</strong>，并将接收窗口大小(rwnd)<strong>调整</strong>为300。（报文段中ACK字段为1，代表报文段有意义）</p>
-<p>接收方现在可在发送缓存中将前200字节的数据删除，因为已经收到了对应的累计确认。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp3.png" class="" title="tcp3">
-<p>201-300号字节的TCP报文段的<strong>超时重传计时器到时</strong>，发送方将其重传。</p>
-<p>同时将发送窗口的剩余200个字节的数据进行发送。</p>
-<p>接收方返回接收报文，对501号字节之前的数据进行累计确认，并将接收窗口大小调整为100。</p>
-<p>发送方可将501号字节之前的数据从发送缓存中删除。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp4.png" class="" title="tcp4">
-<p>发送方将501-600号字节数据发送，接收方对601号以前的数据进行累计确认，并将接收窗口调整为0，让发送方不要再发了。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp5.png" class="" title="tcp5">
-<p>接收方现在想将接收窗口调整为300，但是该TCP报文丢失了。如果持续下去，将造成<strong>死锁</strong>。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp6.png" class="" title="tcp6">
-<p>为了应对接收方死了的情况，发送方会同时维护一个<strong>持续计时器</strong>。只要发送方收到接收方的<strong>零窗口</strong>（rwnd=0）通知，就启动该计时器。若计时器超时，则会向接收方发送一个零窗口探测报文，对方收到该报文后会传回<strong>当前的接收窗口大小</strong>。若依然为0，则重新对持续计时器计时。</p>
-<blockquote>
-<p>零窗口探测报文本身也有重传计时器，所以不用担心该报文丢失的情况。</p>
-</blockquote>
-<h3 id="tcpの拥塞控制">TCPの拥塞控制</h3>
-<blockquote>
-<p>在某段时间，若对网络中某一资源（如带宽、交换节点的缓存、处理机等）的需求<strong>超过了该资源所能提供的可用部分</strong>，网络性能就会变差，这种情况叫做<strong>拥塞</strong>。</p>
-<p>若出现拥塞而不进行控制，整个网络的吞吐量将随输入负荷的增大而下降。</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp7.png" class="" title="tcp7">
-<p>拥塞控制的一般原理：</p>
-<ul>
-<li>拥塞控制的前提：网络能够承受现有的网络负荷</li>
-<li>实践证明，拥塞控制是很难设计的，因为它是个动态问题</li>
-<li>分组的丢失是网络拥塞的征兆而不是原因</li>
-<li>在许多情况下，甚至正是拥塞本身成为引起网络性能恶化、甚至发生死锁的原因</li>
-</ul>
-<h4 id="拥塞控制的算法">拥塞控制的算法</h4>
-<img src="/2024/05/18/computer-network/transport-layer/tcp8.png" class="" title="tcp8">
-<img src="/2024/05/18/computer-network/transport-layer/tcp9.png" class="" title="tcp9">
-<blockquote>
-<p>真正的发送窗口值=min（接收方窗口值，拥塞窗口值）</p>
-</blockquote>
-<p>传输轮次：</p>
-<ul>
-<li>发送方给接收方发送数据报文段后，接收方给发送方发回相应的确认报文段</li>
-<li>一个传输轮次所经历的时间其实就是往返时间，往返时间并非是恒定的数值</li>
-<li>使用传输轮次是为了强调把拥塞窗口所允许的报文段都连续发送出去，并收到了对已发送的最后一个报文段的确认</li>
-</ul>
-<p>拥塞窗口：</p>
-<ul>
-<li>它会随网络拥塞程度</li>
-</ul>
-<h4 id="慢开始和拥塞避免">慢开始和拥塞避免</h4>
-<h5 id="慢开始">慢开始</h5>
-<ul>
-<li>目的：用来确定网络的负载能力和拥塞程度</li>
-<li>算法思路：由小到大逐渐增大拥塞窗口数值</li>
-<li>两个变量
-<ul>
-<li>拥塞窗口（cwnd）</li>
-<li>慢开始门限（ssthresh）</li>
-</ul></li>
-</ul>
-<img src="/2024/05/18/computer-network/transport-layer/tcp10.png" class="" title="tcp10">
-<img src="/2024/05/18/computer-network/transport-layer/tcp11.png" class="" title="tcp11">
-<blockquote>
-<p>每经过一个传输轮次，拥塞窗口就加倍</p>
-<p>窗口大小按指数增加</p>
-</blockquote>
-<h5 id="拥塞避免">拥塞避免</h5>
-<ul>
-<li><p>思路：让拥塞窗口cwnd<strong>缓慢</strong>地增大，避免出现拥塞</p></li>
-<li><p>每经过一个传输轮次，拥塞窗口cwnd++</p></li>
-<li><p>cwnd按线性规律缓慢增长</p></li>
-</ul>
-<img src="/2024/05/18/computer-network/transport-layer/tcp12.png" class="" title="tcp12">
-<p>如果在发送过程中出现部分报文段丢失，这会引起发送方对这些报文段的<strong>超时重传</strong>。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp13.png" class="" title="tcp13">
-<blockquote>
-<p>此时会判断网络出现拥塞，将ssthresh减为当前cwnd值的一半，并将cwnd重新设为1，开始慢开始算法。</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp14.png" class="" title="tcp14">
-<blockquote>
-<p>细节，慢开始cwnd *=2 时需要和ssthresh取min。</p>
-</blockquote>
-<h4 id="快重传和快恢复">快重传和快恢复</h4>
-<blockquote>
-<p>增加的两个新的拥塞控制算法，改进TCP的性能</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp15.png" class="" title="tcp15">
-<h5 id="快重传">快重传</h5>
-<img src="/2024/05/18/computer-network/transport-layer/tcp16.png" class="" title="tcp16">
-<blockquote>
-<p>就是在超时重传的时限前，找机会提前把丢失的报文重传了，如果重传成功的话，说明网络没有出现拥塞，从而防止cwnd降为1并重启慢开始算法.</p>
-</blockquote>
-<h5 id="快恢复">快恢复</h5>
-<img src="/2024/05/18/computer-network/transport-layer/tcp17.png" class="" title="tcp17">
-<h5 id="四个拥塞避免算法总览">四个拥塞避免算法总览</h5>
-<img src="/2024/05/18/computer-network/transport-layer/tcp18.png" class="" title="tcp18">
-<h2 id="tcp超时重传时间选择">TCP超时重传时间选择</h2>
-<blockquote>
-<p>emmm，好像不考欸，至少王道书上没有</p>
-</blockquote>
-<h2 id="tcp可靠传输的实现">TCP可靠传输的实现</h2>
-<p>TCP基于<strong>以字节为单位</strong>的滑动窗口来实现可靠传输。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp19.png" class="" title="tcp19">
-<img src="/2024/05/18/computer-network/transport-layer/tcp20.png" class="" title="tcp20">
-<blockquote>
-<p>使用三指针来维护窗口状态</p>
-</blockquote>
-<p>虽然发送方的发送窗口是根据接收方的接收窗口设置的，但在同一时刻，发送方的发送窗口并不一定总是和接收方的接收窗口一样大。</p>
-<ul>
-<li>网络传送窗口值需要一段时间的时间滞后</li>
-<li>发送方可能还需要根据拥塞情况减小自己的发送窗口尺寸</li>
-</ul>
-<p>对于不按序到达的数据的处理，TCP并无明确规定。</p>
-<p>TCP要求接收方必须要有累计确认和捎带确认机制，这样可以减少传输开销。接收方可以在合适的时候发送确认，也可以在自己有数据要发送时把确认信息顺便捎带上。</p>
-<ul>
-<li>接收方不应过分推迟发送确认，否则会造成不必要的超时重传。</li>
-<li>捎带确认很少使用，因为大多数应用程序很少同时在两个方向上发送数据。</li>
-</ul>
-<p>TCP的通信是全双工通信。</p>
-<h2 id="tcp的运输连接管理">TCP的运输连接管理</h2>
-<h3 id="tcpの连接建立">TCPの连接建立</h3>
-<ul>
-<li>TCP建立连接的过程叫做握手</li>
-<li>握手需要在客户和服务器之间交换三个TCP报文段。称之为<strong>三报文握手</strong>。</li>
-<li>采用三次握手主要是为了防止已失效的连接请求报文段突然又传送到了，继而产生错误。</li>
-</ul>
-<p>TCP的连接建立要解决以下三个问题：</p>
-<ul>
-<li>使TCP双方能够确知对方的存在</li>
-<li>使TCP双方能够协商一些参数（如最大窗口值、是否使用窗口扩大选项和时间戳选项以及服务质量等）</li>
-<li>使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目）进行分配</li>
-</ul>
-<p>TCP使用三报文握手建立连接。</p>
-<ul>
-<li>TCP连接的建立采用客户服务器方式</li>
-<li>主动发起连接建立的应用进程叫做TCP客户</li>
-<li>被动等待连接建立的应用进程叫做TCP服务器</li>
-</ul>
-<p>过程</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp21.png" class="" title="tcp21">
-<p>最初两端的TCP进程都处于<strong>关闭</strong>状态。</p>
-<p>一开始，TCP服务器进程首先创建<strong>传输控制块</strong>，用来存储TCP连接中的一些重要信息，例如TCP连接表、指向发送和接收缓存的指针、指向重传队列的指针，当前的发送和接受序号等</p>
-<p>之后，就准备接受TCP客户端进程的连接请求</p>
-<p>此时TCP服务器进程就进入<strong>监听</strong>状态，等待TCP客户端进程的连接请求。</p>
-<blockquote>
-<p>TCP服务器进程是被动等待来自TCP客户端进程的连接请求，因此称为<strong>被动打开</strong>连接。</p>
-</blockquote>
-<p>TCP客户进程也是首先创建传输控制块。</p>
-<blockquote>
-<p>由于TCP连接建立是由TCP客户端主动发起的，因此称为<strong>主动打开</strong>连接。</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp22.png" class="" title="tcp22">
-<p>然后，在打算建立TCP连接时，向TCP服务器进程发送<strong>TCP连接请求报文段</strong>，并进入<strong>同步已发送</strong>状态。</p>
-<p>在TCP连接请求报文段的首部中</p>
-<ul>
-<li>同步位SYN被设置为1，表明这是一个TCP连接请求报文段</li>
-<li>序号字段seq被设置了一个初始值x，作为TCP客户端进程所选择的初始序号</li>
-</ul>
-<blockquote>
-<p>请注意：TCP规定SYN被设置为1的报文段<strong>不能携带数据</strong>，但要<strong>消耗掉一个序号</strong>。</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp23.png" class="" title="tcp23">
-<p>TCP服务器进程收到TCP连接请求报文段后，如果同意建立连接，则向TCP客户进程发送<strong>TCP连接请求确认报文段</strong>，并进入<strong>同步已接收</strong>状态。</p>
-<p>TCP连接请求确认报文段的首部中</p>
-<ul>
-<li>同步位SYN和确认位ACK都设置为1，表明这是一个TCP连接请求确认报文段</li>
-<li>序号字段seq被设置了一个初始值y，作为TCP服务器进程所选择的初始序号</li>
-<li>确认号字段ack的值被设置为了x+1，这是对TCP客户进程所选择的初始序号（seq）的确认</li>
-</ul>
-<blockquote>
-<p>请注意：这个报文段由于SYN被设置为1，因而也不能携带数据，但也要消耗掉一个序号</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp24.png" class="" title="tcp24">
-<p>TCP客户进程收到TCP连接请求确认报文段后，还需要向TCP服务器进程发送一个<strong>普通</strong>的TCP确认报文段，并进入<strong>连接已建立</strong>状态。</p>
-<p>普通的TCP确认报文段首部中</p>
-<ul>
-<li>确认位ACK被设置为1，表明这是一个普通的TCP确认报文段</li>
-<li>序号字段seq被设置为x+1，这是因为TCP客户进程发送的第一个TCP报文段的序号为x，所以TCP客户进程发送的第二个报文段的序号为x+1</li>
-<li>确认号ack被设置为y+1，这是对TCP服务器进程所选择的初始序号的确认</li>
-</ul>
-<blockquote>
-<p>请注意：TCP规定普通的TCP确认报文段可以携带数据，但如果不携带数据，则不消耗序号</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp25.png" class="" title="tcp25">
-<p>TCP服务器进程收到该确认报文段后也进入<strong>连接已建立</strong>状态。</p>
-<p>现在，TCP双方都进入了连接已建立状态，它们可以基于已建立好的TCP连接，进行可靠的数据传输</p>
-<p>TCP连接建议需要第三个报文段：普通确认报文段的目的</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp26.png" class="" title="tcp26">
-<p>为了防止这种情况：客户端进程发出去的第一个连接请求报文段并没有丢失，而因为某些原因，在网络上发生滞留。结果在整个TCP连接建立且释放后，该报文段才到达TCP服务器进程，这会导致TCP服务器进程错误地进入了连接已建立状态，造成资源浪费。</p>
-<p>本质上是TCP服务器进程收到一次连接请求报文就建立连接而造成的资源浪费建立，而如果使用三报文握手的话，就要求TCP服务器进程需要收到两个请求报文，这能有效地防止上述情况的发生。</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp27.png" class="" title="tcp27">
-<h3 id="tcpの连接释放">TCPの连接释放</h3>
-<p>TCP通过四报文挥手来释放连接。</p>
-<ul>
-<li>TCP连接的释放采用客户服务器方式</li>
-<li>任何一方都可以在数据传送结束后发出连接释放的通知</li>
-</ul>
-<img src="/2024/05/18/computer-network/transport-layer/tcp28.png" class="" title="tcp28">
-<p>首先通信双方处于连接已建立状态</p>
-<p>TCP客户进程的应用进程通知其主动关闭TCP连接</p>
-<p>TCP客户进程会发送<strong>TCP连接释放报文段</strong>，并进入<strong>终止等待1</strong>状态。</p>
-<p>TCP连接释放报文段首部中</p>
-<ul>
-<li>终止位FIN和确认位ACK的值都被设置为1，表明这是一个TCP连接释放报文段，同时也对之前收到的报文段进行确认</li>
-<li>seq字段的值设置为u，它等于TCP客户进程之前已传送过的数据的最后一个<strong>字节</strong>的序号+1</li>
-<li>ack的值被设置为v，它等于TCP客户进程已收到的数据的最后一个字节的序号+1</li>
-</ul>
-<blockquote>
-<p>请注意：TCP规定终止位FIN等于1的报文段即使不携带数据，也要消耗掉一个序号</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp29.png" class="" title="tcp29">
-<p>TCP服务器进程收到TCP连接释放报文段后，会发送一个<strong>普通</strong>的TCP确认报文段并进入<strong>关闭等待</strong>状态。</p>
-<p>普通的TCP确认报文段首部中</p>
-<ul>
-<li>ACK被设置为1，表明这是一个普通的TCP确认报文段</li>
-<li>seq被设置为v，它等于TCP服务器进程之前已传送的数据的最后一个字节的序号+1，这也与之前收到的TCP连接释放报文段的ack值匹配</li>
-<li>ack的值被设置为u+1，这是对TCP连接释放报文段的确认</li>
-</ul>
-<img src="/2024/05/18/computer-network/transport-layer/tcp30.png" class="" title="tcp30">
-<p>此时TCP服务器进程应该通知高层应用进程，TCP客户进程要断开和自己的连接</p>
-<p>此时，从TCP客户进程到TCP服务器进程这个方向的连接就释放了</p>
-<p>此时TCP连接属于半关闭状态，这是因为TCP服务器进程可能还有数据要发送，也就是说反方向的连接并未关闭</p>
-<p>TCP客户进程收到TCP确认报文段后就进入终止等待2状态，等待TCP服务器进程发出的TCP连接释放报文段</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp31.png" class="" title="tcp31">
-<p>若TCP服务器进程没有数据要发送了，TCP服务器进程就会释放连接，这时TCP服务器进程就会发送<strong>TCP连接释放报文段</strong>并进入<strong>最后确认</strong>状态</p>
-<p>该报文段首部中</p>
-<ul>
-<li>终止位FIN和确认位ACK的值都被设置为1，表明这是一个TCP连接释放报文段</li>
-<li>seq的值为w，这是因为半关闭状态下，服务器进程可能继续发送了一些数据</li>
-<li>ack的值为u+1，这是对之前收到的连接释放报文段的重复确认</li>
-</ul>
-<img src="/2024/05/18/computer-network/transport-layer/tcp32.png" class="" title="tcp32">
-<p>TCP客户进程收到TCP连接释放报文段后，必须针对该报文段发送<strong>普通</strong>的TCP确认报文段，之后进入<strong>时间等待</strong>状态。</p>
-<p>该报文段首部中</p>
-<ul>
-<li>确认位ACK的值被设置为1，表明这是一个普通的TCP确认报文段</li>
-<li>seq被设置为u+1，这是因为TCP客户进程之前发送的TCP连接释放报文段虽然不携带数据，但是要消耗掉一个序号</li>
-<li>ack被设置为w+1，这是对所收到的TCP连接释放报文段的确认</li>
-</ul>
-<p>TCP服务器进程收到该报文段后就进入<strong>关闭</strong>状态，而TCP客户进程还需要经过2MSL后才能进入关闭状态。</p>
-<p>时间等待状态可以确保TCP服务器进程可以收到最后一个TCP确认报文段而进入关闭状态，且在该2MSL时长里，可以使本次连接持续时间内所产生的报文段都从网络中消失，这样在新的TCP连接中，不会出现旧连接的报文段。</p>
-<h3 id="tcp保活计时器">TCP保活计时器</h3>
-<p>TCP双方已建立连接，然而TCP客户进程所在主机出现了故障</p>
-<p>TCP服务器进程以后不能再收到TCP客户端进程发来的数据</p>
-<p>因此，需要有措施让服务器不白白等下去</p>
-<img src="/2024/05/18/computer-network/transport-layer/tcp33.png" class="" title="tcp33">
-<h2 id="tcp报文段首部格式">TCP报文段首部格式</h2>
-<blockquote>
-<p>源、目的端口</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp34.png" class="" title="tcp34">
-<blockquote>
-<p>序号、确认号、确认标志位ACK</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp35.png" class="" title="tcp35">
-<blockquote>
-<p>数据偏移（首部长度）、保留、窗口和校验和</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp36.png" class="" title="tcp36">
-<blockquote>
-<p>同步标志位SYN、终止标志位FIN、复位标志位RST、推送标志位PSH、紧急标志位URG、紧急指针</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp37.png" class="" title="tcp37">
-<blockquote>
-<p>选项和填充</p>
-</blockquote>
-<img src="/2024/05/18/computer-network/transport-layer/tcp38.png" class="" title="tcp38">
 
       
     </div>
