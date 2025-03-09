@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,90 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2025/03/09/games202/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Atri6.jpg">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/09/games202/" class="post-title-link" itemprop="url">games202</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-09 20:45:37 / 修改时间：20:46:45" itemprop="dateCreated datePublished" datetime="2025-03-09T20:45:37+08:00">2025-03-09</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/03/09/games202/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/03/09/games202/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="games202学习笔记">Games202学习笔记</h1>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -227,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 10:53:02" itemprop="dateModified" datetime="2025-03-09T10:53:02+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 23:18:00" itemprop="dateModified" datetime="2025-03-09T23:18:00+08:00">2025-03-09</time>
     </span>
 
   
@@ -284,11 +368,50 @@ Object，因此需要分个类，俗称缓冲类型。VBO的缓冲类型是GL_AR
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">glBindBuffer</span>(GL_ARRAY_BUFFER, VBO);  </span><br></pre></td></tr></table></figure>
 <p>绑定完成后，我们对于任何VBO（GL_ARRAY_BUFFER）的修改，都会影响到这个被绑定的VBO。</p>
 <p>说了半天，我们VBO内部是要有顶点的，那么数据在哪呢？我们可以自己定义一个float数组：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">float vertices[] = &#123;</span><br><span class="line">    -0.5f, -0.5f, 0.0f,</span><br><span class="line">     0.5f, -0.5f, 0.0f,</span><br><span class="line">     0.0f,  0.5f, 0.0f</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.0f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>这里有三个顶点，顶点属性尚且只有坐标（其实可以加上颜色、法向等）。可以观察到所有坐标都是在NDC范围内的。</p>
+<p>好了，现在我们有了直接在cpp里hard
+code的顶点属性，我们需要和当前绑定的VBO（并不是指定VBO哦，记住opengl的逻辑是一个状态机）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">glBufferData</span>(GL_ARRAY_BUFFER, <span class="built_in">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>测试多设备部署。3</p>
+<p>这里的最后一个参数涉及到API实现方的优化，具体见 <a
+target="_blank" rel="noopener" href="https://docs.gl">docs.gl</a></p>
 </blockquote>
+<h2 id="vertex-shader">Vertex shader</h2>
+<p>这里的Shader language是GLSL，对于当前的Vertex
+shader，我们并不需要给它进行什么复杂的变换（例如MVP变换），因此直接返回对应的齐次坐标即可：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line"><span class="keyword">layout</span> (<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> aPos;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">gl_Position</span> = <span class="type">vec4</span>(aPos.x, aPos.y, aPos.z, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一行是版本说明，也明确表示我们使用<strong>核心模式</strong>。第二行指定了输入数据。<code>main</code>
+函数内则指定了输出位置 <code>gl_Position</code>。</p>
+<p>接下来我们要在openGL创建Vertex
+shader（注意没有绑定，后面会提到，绑定的是整个program）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> vertexShader;</span><br><span class="line">vertexShader = <span class="built_in">glCreateShader</span>(GL_VERTEX_SHADER);</span><br><span class="line"><span class="built_in">glShaderSource</span>(vertexShader, <span class="number">1</span>, &amp;vertexShaderSource, <span class="literal">NULL</span>);</span><br><span class="line"><span class="built_in">glCompileShader</span>(vertexShader);</span><br></pre></td></tr></table></figure>
+<h2 id="fragment-shader">Fragment shader</h2>
+<p>和Vertex shader相似：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line"><span class="keyword">out</span> <span class="type">vec4</span> FragColor;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">    FragColor = <span class="type">vec4</span>(<span class="number">1.0</span>f, <span class="number">0.5</span>f, <span class="number">0.2</span>f, <span class="number">1.0</span>f);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>Fragment shader只需要一个输出变量RGBA，我们可以在开头声明。</p>
+<h2 id="链接着色器程序">链接着色器程序</h2>
+<p>创建一个program对象，然后将shader链接进去即可，最后如果不需要的话可以删掉前面创建的shader，我们只需要program：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> shaderProgram;</span><br><span class="line">shaderProgram = <span class="built_in">glCreateProgram</span>();</span><br><span class="line"><span class="built_in">glAttachShader</span>(shaderProgram, vertexShader);</span><br><span class="line"><span class="built_in">glAttachShader</span>(shaderProgram, fragmentShader);</span><br><span class="line"><span class="built_in">glLinkProgram</span>(shaderProgram);</span><br><span class="line"></span><br><span class="line"><span class="built_in">glUseProgram</span>(shaderProgram);</span><br><span class="line"></span><br><span class="line"><span class="built_in">glDeleteShader</span>(vertexShader);</span><br><span class="line"><span class="built_in">glDeleteShader</span>(fragmentShader);</span><br></pre></td></tr></table></figure></p>
+<h2 id="解释顶点属性分布">解释顶点属性分布</h2>
+<p>我们前面用 <code>glBufferData</code>
+绑定了VBO，现在需要解释顶点属性分布，这样shader才知道输入数据。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">glVertexAttribPointer</span>(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="built_in">sizeof</span>(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line"><span class="built_in">glEnableVertexAttribArray</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>这里第一个参数对应着Vertex shader的输入变量
+<code>layout (location = 0) in vec3 aPos;</code>，第二个参数是顶点属性的大小，第三个参数是类型，第四个参数表示是否希望数据被标准化，第五个参数是步长，即两个顶点属性之间的间隔，第六个参数是偏移量。</p>
+<p><code>glEnableVertexAttribArray</code>
+表示启用顶点属性，这里0表示第一个顶点属性，即
+<code>layout (location = 0) in vec3 aPos;</code>。</p>
+<p>至此其实已经具备了渲染一个简单三角形的能力，代码会长的像这样：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0. 复制顶点数组到缓冲中供OpenGL使用</span></span><br><span class="line"><span class="built_in">glBindBuffer</span>(GL_ARRAY_BUFFER, VBO);</span><br><span class="line"><span class="built_in">glBufferData</span>(GL_ARRAY_BUFFER, <span class="built_in">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br><span class="line"><span class="comment">// 1. 设置顶点属性指针</span></span><br><span class="line"><span class="built_in">glVertexAttribPointer</span>(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="built_in">sizeof</span>(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line"><span class="built_in">glEnableVertexAttribArray</span>(<span class="number">0</span>);</span><br><span class="line"><span class="comment">// 2. 当我们渲染一个物体时要使用着色器程序</span></span><br><span class="line"><span class="built_in">glUseProgram</span>(shaderProgram);</span><br><span class="line"><span class="comment">// 3. 绘制物体</span></span><br><span class="line"><span class="built_in">someOpenGLFunctionThatDrawsOurTriangle</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="vao-vertex-array-object">VAO (Vertex Array Object)</h2>
+<p>VAO会记录以下顶点属性调用：
+1、glEnableVertexAttribArray和glDisableVertexAttribArray的调用
+2、通过glVertexAttribPointer设置的顶点属性配置
+3、通过glVertexAttribPointer调用与顶点属性关联的顶点缓冲对象VBO</p>
+<p>创建一个VAO： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> VAO;</span><br><span class="line"><span class="built_in">glGenVertexArrays</span>(<span class="number">1</span>, &amp;VAO);</span><br></pre></td></tr></table></figure></p>
+<p>因此，在绘制一个物体的时候，我们可以首先绑定一个VAO，然后绑定配置VBO及其属性：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ..:: 初始化代码（只运行一次 (除非你的物体频繁改变)） :: ..</span></span><br><span class="line"><span class="comment">// 1. 绑定VAO</span></span><br><span class="line"><span class="built_in">glBindVertexArray</span>(VAO);</span><br><span class="line"><span class="comment">// 2. 把顶点数组复制到缓冲中供OpenGL使用</span></span><br><span class="line"><span class="built_in">glBindBuffer</span>(GL_ARRAY_BUFFER, VBO);</span><br><span class="line"><span class="built_in">glBufferData</span>(GL_ARRAY_BUFFER, <span class="built_in">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br><span class="line"><span class="comment">// 3. 设置顶点属性指针</span></span><br><span class="line"><span class="built_in">glVertexAttribPointer</span>(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="built_in">sizeof</span>(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line"><span class="built_in">glEnableVertexAttribArray</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line"><span class="comment">// ..:: 绘制代码（渲染循环中） :: ..</span></span><br><span class="line"><span class="comment">// 4. 绘制物体</span></span><br><span class="line"><span class="built_in">glUseProgram</span>(shaderProgram);</span><br><span class="line"><span class="built_in">glBindVertexArray</span>(VAO);</span><br><span class="line"><span class="built_in">someOpenGLFunctionThatDrawsOurTriangle</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -715,103 +838,8 @@ Object)来表示。</p>
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/12/28/tech_report/tech1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Atri6.jpg">
-      <meta itemprop="name" content="Ayy3">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy3">
-      <meta itemprop="description" content="亚托莉单推人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy3">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/12/28/tech_report/tech1/" class="post-title-link" itemprop="url">tech1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-12-28 20:51:09" itemprop="dateCreated datePublished" datetime="2024-12-28T20:51:09+08:00">2024-12-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2024/12/28/tech_report/tech1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/12/28/tech_report/tech1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="每周总结1">每周总结#1</h1>
-<img src="/2024/12/28/tech_report/tech1/1.jpg" class="" title="p1">
-<img src="/2024/12/28/tech_report/tech1/2.jpg" class="" title="p2">
-<img src="/2024/12/28/tech_report/tech1/3.jpg" class="" title="p3">
-<img src="/2024/12/28/tech_report/tech1/4.jpg" class="" title="p4">
-<img src="/2024/12/28/tech_report/tech1/5.jpg" class="" title="p5">
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
