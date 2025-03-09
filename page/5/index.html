@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
@@ -377,7 +377,7 @@ PMT[i-1]继续匹配。可以证明这样跳是最优的，且不会遗漏情况
 <p>为了方便编程，一般将PMT表向右移动一位，得到nxt数组。这样以后失配了就可以直接令i
 = nxt[i]就行了。</p>
 <p>特别地，令nxt[0]=-1，这是为了编程方便：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">kmp</span><span class="params">(string &amp;s, string &amp;t)</span></span>{</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i &lt; s.<span class="built_in">length</span>()){</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">-1</span> || s[i] == t[j]){</span><br><span class="line">			++i; ++j;</span><br><span class="line">			<span class="keyword">if</span>(j == t.<span class="built_in">length</span>()) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i-j+<span class="number">1</span>);</span><br><span class="line">		}<span class="keyword">else</span> j = nxt[j];</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">kmp</span><span class="params">(string &amp;s, string &amp;t)</span></span>{</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i &lt; s.<span class="built_in">length</span>()){</span><br><span class="line">		<span class="keyword">if</span>(j == <span class="number">-1</span> || s[i] == t[j]){</span><br><span class="line">			++i; ++j;</span><br><span class="line">			<span class="keyword">if</span>(j == t.<span class="built_in">length</span>()) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i-j<span class="number">+1</span>);</span><br><span class="line">		}<span class="keyword">else</span> j = nxt[j];</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>j=-1的时候，++j就为0，代表最长前缀后缀为0</p>
 <p>然后对于求nxt数组，可以认为是自己和自己作匹配。</p>
 <p>只不过得从第一位开始匹配：</p>
