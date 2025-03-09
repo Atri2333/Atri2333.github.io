@@ -1663,7 +1663,7 @@ Object，因此需要分个类，俗称缓冲类型。VBO的缓冲类型是GL_AR
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">float vertices[] = &#123;</span><br><span class="line">    -0.5f, -0.5f, 0.0f,</span><br><span class="line">     0.5f, -0.5f, 0.0f,</span><br><span class="line">     0.0f,  0.5f, 0.0f</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>这里有三个顶点，顶点属性尚且只有坐标（其实可以加上颜色、法向等）。可以观察到所有坐标都是在NDC范围内的。</p>
 <blockquote>
-<p>测试多设备部署。2</p>
+<p>测试多设备部署。3</p>
 </blockquote>
 ]]></content>
   </entry>
