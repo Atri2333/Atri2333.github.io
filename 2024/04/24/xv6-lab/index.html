@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. xv6-摆烂-理解  大三上学期突然很想自学CS，然后在寒假学了CSAPP的大部分后开始了MIT 6.S081这个课程。用时大概两个月(2.25-4.24)从零开始自学OS到完成了除network外的所有lab，包括2020年和2021年的版本。 学这东西纯属兴趣，想体验一下科班的感觉（  学习路径 我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：https:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xv6-lab">
+<meta property="og:url" content="https://atri2333.github.io/2024/04/24/xv6-lab/index.html">
+<meta property="og:site_name" content="Ayy3">
+<meta property="og:description" content="1. xv6-摆烂-理解  大三上学期突然很想自学CS，然后在寒假学了CSAPP的大部分后开始了MIT 6.S081这个课程。用时大概两个月(2.25-4.24)从零开始自学OS到完成了除network外的所有lab，包括2020年和2021年的版本。 学这东西纯属兴趣，想体验一下科班的感觉（  学习路径 我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：https:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-24T10:14:40.000Z">
+<meta property="article:modified_time" content="2025-03-09T02:16:02.368Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2024/04/24/xv6-lab/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/04/24/xv6-lab/","path":"2024/04/24/xv6-lab/","title":"xv6-lab"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>xv6-lab | Ayy3</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xv6-%E6%91%86%E7%83%82-%E7%90%86%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">1. xv6-摆烂-理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84"><span class="nav-number">1.1.</span> <span class="nav-text">学习路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-1-xv6-and-unix-utilities-20202021"><span class="nav-number">1.1.1.</span> <span class="nav-text">lab 1 Xv6 and Unix
+utilities (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-2-system-calls-20202021"><span class="nav-number">1.1.2.</span> <span class="nav-text">lab 2 system calls (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-3-page-tables-2021"><span class="nav-number">1.1.3.</span> <span class="nav-text">lab 3 page tables (2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-3-page-tables-2020"><span class="nav-number">1.1.4.</span> <span class="nav-text">lab 3 page tables (2020)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-4-traps-20202021"><span class="nav-number">1.1.5.</span> <span class="nav-text">lab 4 traps (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-5-xv6-lazy-page-allocation-2020"><span class="nav-number">1.1.6.</span> <span class="nav-text">lab 5 xv6 lazy page
+allocation (2020)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-6-copy-on-write-fork-for-xv6-20202021"><span class="nav-number">1.1.7.</span> <span class="nav-text">lab 6 Copy-on-Write
+Fork for xv6 (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-7-multithreading-20202021"><span class="nav-number">1.1.8.</span> <span class="nav-text">lab 7 Multithreading
+(2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-8-lock-20202021"><span class="nav-number">1.1.9.</span> <span class="nav-text">lab 8 lock (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-9-file-system-20202021"><span class="nav-number">1.1.10.</span> <span class="nav-text">lab 9 file system (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab-10-mmap-20202021"><span class="nav-number">1.1.11.</span> <span class="nav-text">lab 10 mmap (2020&#x2F;2021)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%82%E8%B0%88"><span class="nav-number">1.1.12.</span> <span class="nav-text">杂谈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%86%E7%83%82"><span class="nav-number">1.2.</span> <span class="nav-text">摆烂</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ayy3</p>
+  <div class="site-description" itemprop="description">亚托莉单推人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/24/xv6-lab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="xv6-lab | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          xv6-lab
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-24 18:14:40" itemprop="dateCreated datePublished" datetime="2024-04-24T18:14:40+08:00">2024-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="xv6-摆烂-理解">1. xv6-摆烂-理解</h1>
+<blockquote>
+<p>大三上学期突然很想自学CS，然后在寒假学了CSAPP的大部分后开始了MIT
+6.S081这个课程。用时大概两个月(2.25-4.24)从零开始自学OS到完成了除network外的所有lab，包括2020年和2021年的版本。</p>
+<p>学这东西纯属兴趣，想体验一下科班的感觉（</p>
+</blockquote>
+<h2 id="学习路径">学习路径</h2>
+<p>我并没有看课程视频，原因是我英语非常差。我看的是这个翻译后的版本：https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081</p>
+<p>一般就是，先根据课程要求，浏览一遍xv6
+book上对应的章节及源码，然后看上面那个文档，然后再回到xv6
+book当中巩固一下。</p>
+<p>然后lab的话，前期是根据课程安排进行的。但到后面课程会开始讲一些论文，我是在那之前把所有lab给完成的。所以在写这个文章的时候，我其实还没有结束这门课程的学习。如标题所见，这只是我这两个月来对lab的回顾。我会继续后续论文的学习</p>
+<h3 id="lab-1-xv6-and-unix-utilities-20202021">lab 1 Xv6 and Unix
+utilities (2020/2021)</h3>
+<p>这个其实主要目的是让你安装好环境+熟悉一下xv6的代码结构。主要任务是使用xv6自带的系统调用实现一些功能，比较难的可能是
+primes 那个实验，需要你使用多进程通信来完成素数筛。</p>
+<p>我当时的想法大致是给每个进程都维护了一个要筛的素数（通过向管道写入第一个数来完成），如果当前传进来的数没办法整除当前进程所维护的素数，就交付给它的子进程处理。</p>
+<h3 id="lab-2-system-calls-20202021">lab 2 system calls (2020/2021)</h3>
+<p>这个lab就开启了你魔改内核的征程（不是）。你需要实现两个系统调用trace和sysinfo，分别追踪系统调用以及空闲内存与进程的数量。算是最简单的lab之一了，跟着Hint做就行。</p>
+<h3 id="lab-3-page-tables-2021">lab 3 page tables (2021)</h3>
+<p>这个lab主要考察你对RISCV和xv6内页表的理解。由于时间太过遥远，我不太记得清楚其中的细节了。但总之也是一个比较简单的lab。</p>
+<h3 id="lab-3-page-tables-2020">lab 3 page tables (2020)</h3>
+<p>其实这个才是真正的lab3（，2021年的是阉割的版本</p>
+<p>我是到最后才完成的这个lab，原因是它真的非常难！大概耗费了我三天时间</p>
+<p>这个lab要求我们为每个进程都额外维护一个内核页表，来简化
+<code>copyin/copyinstr</code> 函数所需要的内核/进程页表之间的转换。</p>
+<p>你需要为这个进程的内核页表写很多函数，例如初始化，拷贝页表等。</p>
+<p>你还需要兼顾<strong>效率</strong>，即你需要在同一个物理地址上同时为内核页表以及进程的内核页表建立映射，而非直接拷贝物理空间。这涉及到许多细节，可能需要允许一些非法情况发生。</p>
+<h3 id="lab-4-traps-20202021">lab 4 traps (2020/2021)</h3>
+<p>这个lab考察你对xv6内部如何处理trap的细节，相对来说也是比较难的。通过了解xv6如何让trap机制透明来完成该lab中的alarm功能，例如保存上下文，设置pc、ra寄存器等。</p>
+<p>另外顺带一提，在这个lab中，你实现的backtrace函数非常实用，可以直接拷贝到其它lab中，非常方便调试。</p>
+<h3 id="lab-5-xv6-lazy-page-allocation-2020">lab 5 xv6 lazy page
+allocation (2020)</h3>
+<p>这个lab考察你对page fault的理解。通过对特定的page
+fault的处理，使内核能够“按需”分配物理内存。</p>
+<p>同时你也需要修改其它函数，让它能够允许一些非法情况的发生。</p>
+<h3 id="lab-6-copy-on-write-fork-for-xv6-20202021">lab 6 Copy-on-Write
+Fork for xv6 (2020/2021)</h3>
+<p>同样考察page fault的理解。COW fork和lazy page
+allocation都是可以通过处理page
+fault来实现的功能，但是前者可能要更难一些。因为在fork之后，新进程的页表和父进程的页表指向同一块区域，因此需要对page进行计数。这个涉及到一些多线程并发的东西，例如自旋锁来维护每个page的计数的不变性。</p>
+<p>总之也算是比较难的一个lab。</p>
+<h3 id="lab-7-multithreading-20202021">lab 7 Multithreading
+(2020/2021)</h3>
+<p>这个lab有点意思，它不仅考察了你对xv6进程调度的理解，还让你了解了一下
+UNIX pthread 库函数的使用，来实现多线程并发以及barrier。</p>
+<p>多线程并发编程是个老生常谈的话题，我以后大概也会花时间深入了解一下。</p>
+<p>但是lab本身是简单的。</p>
+<h3 id="lab-8-lock-20202021">lab 8 lock (2020/2021)</h3>
+<p>这个lab的主要任务是改善xv6原有的对lock的粗粒度的使用。需要你给出更加细粒度的lock方案。</p>
+<p>对于每个lock，你需要明确它所保护的<strong>不变性</strong>。</p>
+<p>之前无聊的时候写过解法：https://atri2333.github.io/2024/04/12/lock-lab/</p>
+<h3 id="lab-9-file-system-20202021">lab 9 file system (2020/2021)</h3>
+<p>这个lab有两个任务：第一个任务是采用页表分层的思想，将inode的indirect数据block也进行分层，来大幅扩展一个文件所能支持的大小。第二个任务是实现
+symlink
+系统调用，创建一个新的文件类型symlink，并可以通过这个symlink来追踪其它文件或symlink。</p>
+<p>讲真文件系统这章我学的有点仓促，感觉有些东西并没有特别懂，但是对于lab本身还是够用。</p>
+<h3 id="lab-10-mmap-20202021">lab 10 mmap (2020/2021)</h3>
+<p>这个lab要求你实现一个阉割版的mmap系统调用，及其对应的阉割版的munmap系统调用，能让用户可以通过访问内存来同步访问文件。</p>
+<p>算是对前面的lab的总结了，它涉及到了页表、page
+fault、文件系统等知识点。</p>
+<h3 id="杂谈">杂谈</h3>
+<p>关于调试，一般来讲是推荐gdb。但是根据我亲身经历（或者acmer的破习惯），printf调试法更加有用。这可能是由于我gdb用的并不熟练，所以调试起来笨手笨脚的，不如直接打log来的方便与显然（</p>
+<p>另外，有一些lab并不是只靠我一个人完成的，我是适当地参考了一些其它人的做法。特别是2020年的页表那个实验，我发现我的写法和网上很多人都不一样，导致就算看别人的也没办法把自己的bug调试好（</p>
+<p>不过最终也是赶在学校的破实验课开课前把除了network的xv6
+lab都过了一遍，收获挺大的，算是对os有了初步的理解。至少给我一些名词，例如进程、线程、页表等，我都能从xv6的例子中进行联想。</p>
+<p>后面会通过这个系列深入xv6源码：https://www.youtube.com/playlist?list=PLbtzT1TYeoMhTPzyTZboW_j7TPAnjv9XB</p>
+<h2 id="摆烂">摆烂</h2>
+<p>这几周，除了自学这个课程，感觉就没做什么了。</p>
+<p>可能，打了一些比赛</p>
+<p>校赛，虽然acm退役了，但是打了rk4，仅次于三位noi选手</p>
+<p>csp，455，虽然发挥不太好</p>
+<p>蓝桥杯，一般般吧，国赛懒得去了</p>
+<p>天梯赛，国一，但是我比赛期间（不知晓具体规则的情况下）本能地去头文件查了api，感觉要被查作弊了</p>
+<p>codeforces，摆烂了，不想打，只打atcoder，然后1600还没上</p>
+<p>学了点java</p>
+<p>感觉，学国外的公开课，收获确实挺大</p>
+<p>做对应的lab，居然会有点网瘾的感觉</p>
+<p>但是现在却没有当初网瘾的动力了</p>
+<p>好在，认识了一个非常好的人</p>
+<p>所以这几周过的也是非常有意义</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/17/java/java-strategy/" rel="prev" title="java-strategy">
+                  <i class="fa fa-angle-left"></i> java-strategy
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/25/move-semantics-cpp/" rel="next" title="move_semantics_cpp">
+                  move_semantics_cpp <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy3</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

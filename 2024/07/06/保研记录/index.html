@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="保研记录 本人情况：  本科院校：江苏某top4！ 本科专业：AI 排名：1&#x2F;87 四级：595，六级：538 竞赛：ICPC银若干，CCPC铜若干，JSCPC金银，CSP440，cf两紫名号（？） 科研：无 项目：水项目 国奖，CCF优大（这俩感觉基本没用） 偏就业向，未来偏向于做引擎开发。因此梦校是软微、南软和人大信专。  总结为A批，而且又菜又爱玩，不仅没拿到金牌，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="保研记录">
+<meta property="og:url" content="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Ayy3">
+<meta property="og:description" content="保研记录 本人情况：  本科院校：江苏某top4！ 本科专业：AI 排名：1&#x2F;87 四级：595，六级：538 竞赛：ICPC银若干，CCPC铜若干，JSCPC金银，CSP440，cf两紫名号（？） 科研：无 项目：水项目 国奖，CCF优大（这俩感觉基本没用） 偏就业向，未来偏向于做引擎开发。因此梦校是软微、南软和人大信专。  总结为A批，而且又菜又爱玩，不仅没拿到金牌，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njucs.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/tongji.jpg">
+<meta property="og:image" content="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njuse.jpg">
+<meta property="og:image" content="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njuse.png">
+<meta property="article:published_time" content="2024-07-06T11:41:15.000Z">
+<meta property="article:modified_time" content="2025-03-09T02:16:02.368Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njucs.png">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/","path":"2024/07/06/保研记录/","title":"保研记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>保研记录 | Ayy3</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">保研记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E4%BA%BA%E6%83%85%E5%86%B5"><span class="nav-number">1.1.</span> <span class="nav-text">本人情况：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8F%E4%BB%A4%E8%90%A5%E4%B9%8B%E5%89%8D"><span class="nav-number">1.2.</span> <span class="nav-text">夏令营之前：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8F%E4%BB%A4%E8%90%A5%E6%83%85%E5%86%B5"><span class="nav-number">1.3.</span> <span class="nav-text">夏令营情况：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#njucs"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. njucs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tongji-cs"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. tongji cs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#njuse"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. njuse</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E6%8E%A8%E5%85%8D%E6%83%85%E5%86%B5"><span class="nav-number">1.4.</span> <span class="nav-text">预推免情况：</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ayy3</p>
+  <div class="site-description" itemprop="description">亚托莉单推人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="保研记录 | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          保研记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-06 19:41:15" itemprop="dateCreated datePublished" datetime="2024-07-06T19:41:15+08:00">2024-07-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="保研记录">保研记录</h1>
+<h2 id="本人情况">本人情况：</h2>
+<ul>
+<li>本科院校：江苏某top4！</li>
+<li>本科专业：AI</li>
+<li>排名：1/87</li>
+<li>四级：595，六级：538</li>
+<li>竞赛：ICPC银若干，CCPC铜若干，JSCPC金银，CSP440，cf两紫名号（？）</li>
+<li>科研：无</li>
+<li>项目：水项目</li>
+<li>国奖，CCF优大（这俩感觉基本没用）</li>
+<li>偏就业向，未来偏向于做引擎开发。因此梦校是软微、南软和人大信专。</li>
+</ul>
+<p>总结为A批，而且又菜又爱玩，不仅没拿到金牌，还因为这沟槽的网瘾，没有深入参与过含金量高的项目。不过好在大三因为一个队友去和大一的两位noi✌组队，另一个队友退出了，然后我也选择了退役，转去卷课内，得以保住rk。但就夏令营的情况来看，保rk弃acm是我做的一个非常正确的选择。</p>
+<h2 id="夏令营之前">夏令营之前：</h2>
+<p>虽然我是AI专业，但是我对AI提不起一点兴趣，尤其是CV、NLP这些（别问我为什么没转专业）。大二ICPC赛季结束的时候被一个学长忽悠去做AI相关的科研，后面还进了某CV组，体会了一下开组会读paper做pre的氛围，也是感到十分不快。</p>
+<p>后面大三上的时候考虑做过sys，虽然谈不上非常喜欢，但至少不反感。不过从大三开始入门sys说实话感觉有点晚了，而且AI的培养计划并不注重对计算机系统能力的培养，导致我甚至连CPU指令流水线这种基本概念都不清楚，加上保rk要学讨厌的课程，我没办法分配出太多精力出来，因此学术梦碎。</p>
+<p>为什么选择就业向呢？首先我本身是一名ACM选手，非常喜欢coding。其次我也是个造轮子爱好者兼游戏爱好者，对工程较感兴趣，也开发过一些小型3D游戏。不过由于大学期间大部分时间在卷ACM和课内（基本在码python，pytorch那些，当调包侠），没有多少实践的机会（面南大的时候老师也指出了我这个问题，哈哈），因此也希望读研期间能精进自己的engineering能力。</p>
+<p>总结来看，作为一名ACM败犬，我在选择读研方向上也是经历了一波三折的过程。期间经历了无数次痛苦，包括误入歧途、自我怀疑、被学长yygq。尤其是大三选择ACM退役的那段时间，感觉自己大学中唯一一件有意义的事情与我断绝了，只剩下一堆不喜欢的AI课程要卷，也不知道自己接下来的路该怎么走，每一步所做出的选择是否是正确的。不过好在就保研而言的结果还是能让我满意的。</p>
+<h2 id="夏令营情况">夏令营情况：</h2>
+<table>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr>
+<th>学校</th>
+<th>学院</th>
+<th>类型</th>
+<th>入营</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>南京大学</td>
+<td>cs</td>
+<td>专硕</td>
+<td>√</td>
+<td>过线上测试，放弃线下</td>
+</tr>
+<tr>
+<td>复旦大学</td>
+<td>cs</td>
+<td>专硕</td>
+<td>√</td>
+<td>撞nju和<strong>两门</strong>期末，放弃</td>
+</tr>
+<tr>
+<td>南京大学</td>
+<td>ai</td>
+<td>学硕</td>
+<td>√</td>
+<td>放弃，不喜欢AI，但是因为是nju就报了，nju梦校</td>
+</tr>
+<tr>
+<td>吉林大学</td>
+<td>se</td>
+<td>专硕</td>
+<td>√</td>
+<td>开的早，投着练练手，最后也是直接鸽了</td>
+</tr>
+<tr>
+<td>哈尔滨工业大学（深圳）</td>
+<td>cs</td>
+<td>专硕</td>
+<td>×</td>
+<td>正常，清北bar，投着玩</td>
+</tr>
+<tr>
+<td>同济大学</td>
+<td>cs</td>
+<td>专硕</td>
+<td>√</td>
+<td><strong>优营</strong>（第一个优营，感谢同济！）</td>
+</tr>
+<tr>
+<td>上海交通大学</td>
+<td>se</td>
+<td>学硕</td>
+<td>√</td>
+<td>ipads太难，没sys基础，其余组方向不感兴趣，放弃</td>
+</tr>
+<tr>
+<td>南京大学</td>
+<td>se</td>
+<td>专硕</td>
+<td>√</td>
+<td><strong>优营</strong>，梦校</td>
+</tr>
+<tr>
+<td>中山大学</td>
+<td>cs</td>
+<td>专硕</td>
+<td>×</td>
+<td>？？？海营我都没入？</td>
+</tr>
+<tr>
+<td>中国人民大学</td>
+<td>信院</td>
+<td>专硕</td>
+<td>√</td>
+<td>撞nju，加上考虑到往年优营率低，放弃</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到，多亏了大三上学期选择放弃ACM，得以保住rk1，让我在没有任何科研项目的情况下入了很多营。但是实际上我只完整参加了两个，主要是今年和往年相比，夏令营的时间冲突的太多了，属于是大型车祸现场。特别是六月初得知ruc信院和南软冲突的时候，我真的有点破防。最后由于华五情节与优营率的考虑，选择了南软，鸽了ruc。</p>
+<h3 id="njucs">1. njucs</h3>
+<p>今年南计开的非常早，好像四月份就开了，然后五月初就截止报名。当时我根本没有做好准备，内心也是非常慌。</p>
+<p>由于我夏令营的目标是南软，所以一开始是不想去南计的，因为按往年情况来看，南大cs，se，ai这三个夏令营只能去一个（njusz那里我不太清楚）。但是看绿裙说南大cs线上测不考虑冲突因素，可以放心参加，我就参加了（怎么说也是梦校）。</p>
+<p>南计的线上笔试也算是著名的难，往年原题可以参考绿裙的github仓库（虽然很少）。范围大概是408+算法+编译原理+linux+其余杂项，题型是单选+多选，多选漏选超选错选皆不得分。我记得今年的题偏向于编译原理和数据结构。因为我本科AI的，很多课程没学过，因此大多数题都是蒙的，除去几个ACM中接触到的几个算法和数据结构（kmp，背包）。</p>
+<p>结果比较出乎意料，过了：</p>
+<img src="/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njucs.png" class="" title="njucs">
+<p>然鹅后续放弃了。</p>
+<h3 id="tongji-cs">2. tongji cs</h3>
+<p>本来是没想报同济的，但是绿裙里有个同济的宣传大使，说这个学校就业非常好什么的，再加上夏令营时间也比较好，没和其它学校冲突，我就报了。（不是）</p>
+<p>然而没想到的是今年同济cs夏令营的bar非常高，整个学院只入了我一个人。最后只能孤身一人前往上海。</p>
+<p>同济的考核非常硬核，机考+笔试408+英语笔试+英语口试+面试，五脏俱全。是计分制，满分350.</p>
+<p>机考的话非常简单，第一题是给定一个字符串，然后对串的每个字母在其对应的位置（例如a对应第1列，z对应26列）一行一行输出。第二题是找给定数独九宫格的冲突位置。第三题是输出数字三角形。我大概花了十几分钟就做完了，但是后面静查的时候发现了第二题的一个bug，及时改正。</p>
+<p>笔试408+英语，非常难，时间也特别赶。我记得大题后两题我都直接空着（分别是计组画什么数据通路，以及计网给定一个802帧分析其内容，ip地址，协议什么的）。英语是一道阅读理解，一篇论文。</p>
+<p>可以参考：https://zhuanlan.zhihu.com/p/658346474</p>
+<p>面试，有九个老师围着你坐，轮流提问。一开始是让我英语自我介绍两分钟，然后是让我英语说transformer的原理。后面就提问了一些项目和专业课的知识，我记得问了我系统调用和普通函数调用的区别。最后一个问题出乎我意料，一个老师问了我高数题（我记得是分部积分啥的），这我咋会？感觉我这个组比较压力面，然而另一个哥们的组感觉非常友好，问了很多生活问题，还有思政题。</p>
+<p>结果没想到是优营，分数还挺高，满分350拿了二百八十几分，应该是稳offer了。</p>
+<img src="/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/tongji.jpg" class="" title="tongji">
+<blockquote>
+<p>面试那天雨非常大，emmm</p>
+</blockquote>
+<h3 id="njuse">3. njuse</h3>
+<p>南软是我夏令营的最高目标，毕竟华五+两年制+放实习，太适合我这种就业鼠鼠了。</p>
+<p>南软的bar也是很神奇，隔壁江苏top3的rk2+ACM银没入营，我校只入了软工的rk1和我（套磁了一个导师，可能捞了我进去），同院计科的rk1也没入。但是南软同时放了若干双非非rk1的金牌✌入营。现在想想，当初ICPC没拿金的我选择保住rk1，真是太明智了。</p>
+<p>南软安排又紧又松。紧是因为我一天半就走完了夏令营流程，松是因为南软通知事项的方式很随意，就建个群，然后有通知了就@全体成员发消息，公告都不带发的，也没有流程pdf，感觉就非常敷衍。</p>
+<p>南软考核也比较全，笔试+机试+面试。</p>
+<p>笔试的内容有五项，顺序依次为离散数学（群论+图论的证明题）、软件工程（画状态图，软件测试）、操作系统（页式内存，PV操作）、计算机网络（DNS，ALOHA协议，求极限（啊？））和数据库系统（B+树索引，递归查询sql语句，事务undo+redo），各占20分。开卷，但是考的很偏，我很多都没做出来。</p>
+<p>机试的话，今年是四道算法题，没有了往年的面向对象题。今年南软的机试题普遍反映非常难，和隔壁南计的机试题（没有算法题）形成鲜明对比，我记得第一题是给定已有的面额值
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.937ex" height="1.355ex" role="img" focusable="false" viewBox="0 -441 856 598.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span>，要求你求出<strong>最少</strong>的需要补充的<strong>额外</strong>面额值的<strong>个数</strong>，在每个面额值的使用次数<strong>小于等于一个给定值</strong>
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.097ex" height="1.027ex" role="img" focusable="false" viewBox="0 -443 485 454"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g></g></g></svg></mjx-container></span>
+的情况下，能够<strong>相加组合</strong>得到范围 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.382ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2378.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mn" transform="translate(278,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(778,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(1222.7,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2100.7,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></svg></mjx-container></span>
+内的所有数。第二题是要你用两个平行于坐标轴的不相交矩形来包围给定的二维点集，要求两个矩形的面积和最小。第三题是给定一个坐标轴，坐标轴的第二象限有
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></span>
+头牛，每头牛占据一个单位长度，左开右闭，并按照 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.837ex" height="1.359ex" role="img" focusable="false" viewBox="0 -443 812 600.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(518,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span> 的速度（这里的速度是每 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.837ex" height="1.359ex" role="img" focusable="false" viewBox="0 -443 812 600.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(518,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container></span>
+秒<strong>瞬移</strong>一个单位，<strong>注意</strong>）朝着 +x
+方向移动。然后你在原点朝着 +y
+方向观察，问给定每头牛的坐标，及其速度，问最多有多少头牛经过你的视线。第四题是给定一个二维平面，平面上有字母，空白以及障碍，要求除去障碍，每一个行或每一个列内部的连续块（连续的字母与空，障碍隔开）形成的序列是一个回文串。求你能够确定的最多的空白对应的字母的坐标数量，并给出最终局面。</p>
+<p>由于我是ACMer，AK了，全场快300人中有10个AK的。没有签到题，感觉对一般人比较不友好。四道题的难度大概在div1a,
+b这种。解法分别为数学+贪心，排序+枚举切割的横/纵坐标，离散化+线段树，BFS。</p>
+<blockquote>
+<p>我记得笔试交卷的时候，大家动静很大。然后有个监考老师露出了诡异的笑容，说：“诶，你们先别叫，下午再叫，下午才是正菜（早上笔试下午机试），现在只是给你们开开胃。欸，下午你们叫也叫不出来，哈哈哈，那个才叫酸爽。”当时给我们都整懵逼了。</p>
+</blockquote>
+<p>面试的话，虽然拿同济练过手，但是作为i人的我，还是很紧张。不过惊喜的是在面试前半个小时，我收到了同济优营的消息。拿到第一个offer的喜悦瞬间冲刷了我所有的焦虑，后续面试也不再紧张了。</p>
+<p>具体面试内容也比较轻松，让你介绍你的项目经历，不问专业课。由于我的项目比较水，老师转而让我陈述大学期间做过的有意义的事情，我直接把我的ACM经历全炸出来，感觉老师也是比较感兴趣。期间问了我最喜欢的算法，我说树状数组，然后老师们似乎并不太清楚这个东西，我就大致介绍了一下它的功能和原理。后面稍微批评了我项目实践能力较为缺乏。最后一个老师问了一些关于实验室横向的问题，也是畅所欲言。</p>
+<p>当然面试内容具体情况分组考虑，有的组会压力面，比如作英语自我介绍，翻译英语，问软工那些模型（瀑布、螺旋、敏捷开发）什么的，因此建议充分准备。</p>
+<img src="/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njuse.jpg" class="" title="njuse">
+<p>最后也因为机试AK，没有悬念地优营了。说实话当初面完南软就觉得自己稳了，以至于过于自信，后续的sjtu软就没去（当然也有懒得读论文的原因）。但说实话不建议大家这么干，有点冒险（</p>
+<img src="/2024/07/06/%E4%BF%9D%E7%A0%94%E8%AE%B0%E5%BD%95/njuse.png" class="" title="njuse">
+<h2 id="预推免情况">预推免情况：</h2>
+<p>估计不会报名预推免了，主要是除了ruc信院，感觉没有比南软更适合我的去处了。可惜ruc不开预推免，呜呜呜呜。</p>
+<blockquote>
+<p>顺带一提，今年软微保研似乎改革，变成纯科研向了，鼠鼠top2梦碎。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/05/database/db-completeness/" rel="prev" title="db-completeness">
+                  <i class="fa fa-angle-left"></i> db-completeness
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/10/cpp/cpp-self-study/" rel="next" title="cpp_self_study">
+                  cpp_self_study <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy3</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

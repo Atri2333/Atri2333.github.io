@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="C++移动语义&amp;智能指针  摘自https:&#x2F;&#x2F;www.learncpp.com&#x2F;cpp-tutorial&#x2F;  在一个局部函数内部new一个对象，我们容易忘记对它delete，从而造成内存泄漏： 1234567891011121314151617#include &lt;iostream&gt;void someFunction()&#123;    Resource* ptr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="move_semantics_cpp">
+<meta property="og:url" content="https://atri2333.github.io/2024/04/25/move-semantics-cpp/index.html">
+<meta property="og:site_name" content="Ayy3">
+<meta property="og:description" content="C++移动语义&amp;智能指针  摘自https:&#x2F;&#x2F;www.learncpp.com&#x2F;cpp-tutorial&#x2F;  在一个局部函数内部new一个对象，我们容易忘记对它delete，从而造成内存泄漏： 1234567891011121314151617#include &lt;iostream&gt;void someFunction()&#123;    Resource* ptr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-25T02:04:13.000Z">
+<meta property="article:modified_time" content="2025-03-09T02:16:02.322Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2024/04/25/move-semantics-cpp/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/04/25/move-semantics-cpp/","path":"2024/04/25/move-semantics-cpp/","title":"move_semantics_cpp"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>move_semantics_cpp | Ayy3</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c%E7%A7%BB%E5%8A%A8%E8%AF%AD%E4%B9%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.</span> <span class="nav-text">C++移动语义&amp;智能指针</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ayy3</p>
+  <div class="site-description" itemprop="description">亚托莉单推人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/25/move-semantics-cpp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="move_semantics_cpp | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          move_semantics_cpp
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-25 10:04:13" itemprop="dateCreated datePublished" datetime="2024-04-25T10:04:13+08:00">2024-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="c移动语义智能指针">C++移动语义&amp;智能指针</h1>
+<blockquote>
+<p>摘自https://www.learncpp.com/cpp-tutorial/</p>
+</blockquote>
+<p>在一个局部函数内部new一个对象，我们容易忘记对它delete，从而造成内存泄漏：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">someFunction</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Resource* ptr = <span class="keyword">new</span> <span class="built_in">Resource</span>();</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Enter an integer: &quot;</span>;</span><br><span class="line">    std::cin &gt;&gt; x;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="number">0</span>; <span class="comment">// the function returns early, and ptr won’t be deleted!</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// do stuff with ptr here</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对此，我们可以采用RAII编程范例：通过局部变量的自动析构性，定义一个Auto_ptr1类：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Auto_ptr1</span></span><br><span class="line">&#123;</span><br><span class="line">	T* m_ptr &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">// Pass in a pointer to &quot;own&quot; via the constructor</span></span><br><span class="line">	<span class="built_in">Auto_ptr1</span>(T* ptr=<span class="literal">nullptr</span>)</span><br><span class="line">		:<span class="built_in">m_ptr</span>(ptr)</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The destructor will make sure it gets deallocated</span></span><br><span class="line">	~<span class="built_in">Auto_ptr1</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Overload dereference and operator-&gt; so we can use Auto_ptr1 like m_ptr.</span></span><br><span class="line">	T&amp; <span class="keyword">operator</span>*() <span class="type">const</span> &#123; <span class="keyword">return</span> *m_ptr; &#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span> &#123; <span class="keyword">return</span> m_ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A sample class to prove the above works</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Resource</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource acquired\n&quot;</span>; &#125;</span><br><span class="line">    ~<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource destroyed\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Auto_ptr1&lt;Resource&gt; <span class="title">res</span><span class="params">(<span class="keyword">new</span> Resource())</span></span>; <span class="comment">// Note the allocation of memory here</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ... but no explicit delete needed</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Also note that we use &lt;Resource&gt;, not &lt;Resource*&gt;</span></span><br><span class="line">        <span class="comment">// This is because we&#x27;ve defined m_ptr to have type T* (not T)</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; <span class="comment">// res goes out of scope here, and destroys the allocated Resource for us</span></span><br></pre></td></tr></table></figure>
+<p>将指针包含在类里，通过类的析构函数，可以做到自动释放内存。</p>
+<p>但是这么做会有问题，例如两个Auto_ptr1可能管理同一个指针：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Auto_ptr1&lt;Resource&gt; <span class="title">res1</span><span class="params">(<span class="keyword">new</span> Resource())</span></span>;</span><br><span class="line">	<span class="function">Auto_ptr1&lt;Resource&gt; <span class="title">res2</span><span class="params">(res1)</span></span>; <span class="comment">// Alternatively, don&#x27;t initialize res2 and then assign res2 = res1;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样会对同一个地址delete两次，造成ub。</p>
+<p>同样地，如果将Auto_ptr1作为函数参数或者函数返回值，都会出现奇怪的问题。</p>
+<p>因此一种解决方式，是采用<strong>移动语义</strong>：通过转移ownership来替代浅拷贝：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Auto_ptr2</span></span><br><span class="line">&#123;</span><br><span class="line">	T* m_ptr &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Auto_ptr2</span>(T* ptr=<span class="literal">nullptr</span>)</span><br><span class="line">		:<span class="built_in">m_ptr</span>(ptr)</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Auto_ptr2</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// A copy constructor that implements move semantics</span></span><br><span class="line">	<span class="built_in">Auto_ptr2</span>(Auto_ptr2&amp; a) <span class="comment">// note: not const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// We don&#x27;t need to delete m_ptr here.  This constructor is only called when we&#x27;re creating a new object, and m_ptr can&#x27;t be set prior to this.</span></span><br><span class="line">		m_ptr = a.m_ptr; <span class="comment">// transfer our dumb pointer from the source to our local object</span></span><br><span class="line">		a.m_ptr = <span class="literal">nullptr</span>; <span class="comment">// make sure the source no longer owns the pointer</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// An assignment operator that implements move semantics</span></span><br><span class="line">	Auto_ptr2&amp; <span class="keyword">operator</span>=(Auto_ptr2&amp; a) <span class="comment">// note: not const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (&amp;a == <span class="keyword">this</span>)</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">delete</span> m_ptr; <span class="comment">// make sure we deallocate any pointer the destination is already holding first</span></span><br><span class="line">		m_ptr = a.m_ptr; <span class="comment">// then transfer our dumb pointer from the source to the local object</span></span><br><span class="line">		a.m_ptr = <span class="literal">nullptr</span>; <span class="comment">// make sure the source no longer owns the pointer</span></span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	T&amp; <span class="keyword">operator</span>*() <span class="type">const</span> &#123; <span class="keyword">return</span> *m_ptr; &#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span> &#123; <span class="keyword">return</span> m_ptr; &#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isNull</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> m_ptr == <span class="literal">nullptr</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Resource</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource acquired\n&quot;</span>; &#125;</span><br><span class="line">	~<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource destroyed\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Auto_ptr2&lt;Resource&gt; <span class="title">res1</span><span class="params">(<span class="keyword">new</span> Resource())</span></span>;</span><br><span class="line">	Auto_ptr2&lt;Resource&gt; res2; <span class="comment">// Start as nullptr</span></span><br><span class="line"></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;res1 is &quot;</span> &lt;&lt; (res1.<span class="built_in">isNull</span>() ? <span class="string">&quot;null\n&quot;</span> : <span class="string">&quot;not null\n&quot;</span>);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;res2 is &quot;</span> &lt;&lt; (res2.<span class="built_in">isNull</span>() ? <span class="string">&quot;null\n&quot;</span> : <span class="string">&quot;not null\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">	res2 = res1; <span class="comment">// res2 assumes ownership, res1 is set to null</span></span><br><span class="line"></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Ownership transferred\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;res1 is &quot;</span> &lt;&lt; (res1.<span class="built_in">isNull</span>() ? <span class="string">&quot;null\n&quot;</span> : <span class="string">&quot;not null\n&quot;</span>);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;res2 is &quot;</span> &lt;&lt; (res2.<span class="built_in">isNull</span>() ? <span class="string">&quot;null\n&quot;</span> : <span class="string">&quot;not null\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">res1 is not null</span></span><br><span class="line"><span class="comment">res2 is null</span></span><br><span class="line"><span class="comment">Ownership transferred</span></span><br><span class="line"><span class="comment">res1 is null</span></span><br><span class="line"><span class="comment">res2 is not null</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>这其实就是早期 <code>std::auto_ptr</code>
+的写法。但是这个东西是很危险的，以至于在C++17标准中被删除。例如你将auto_ptr传入函数（并在函数结束时析构），但是调用者函数的对应的auto_ptr并不知道自己维护的指针已经释放了。二是auto_ptr没办法采用数组delete（挖坑，数组delete和普通delete的区别），三是auto_ptr没办法与STL容器很好地交互。</p>
+<hr />
+<p>介绍移动语义之前，需要了解一下右值引用的性质。</p>
+<p>要知道，函数的返回值是右值（然后用赋值<code>=</code>赋给左值），而右值引用可以延长返回值的生命周期：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Fraction</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">int</span> m_numerator &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="type">int</span> m_denominator &#123; <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Fraction</span>(<span class="type">int</span> numerator = <span class="number">0</span>, <span class="type">int</span> denominator = <span class="number">1</span>) :</span><br><span class="line">		m_numerator&#123; numerator &#125;, m_denominator&#123; denominator &#125;</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">friend</span> std::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(std::ostream&amp; out, <span class="type">const</span> Fraction&amp; f1)</span><br><span class="line">	&#123;</span><br><span class="line">		out &lt;&lt; f1.m_numerator &lt;&lt; <span class="string">&#x27;/&#x27;</span> &lt;&lt; f1.m_denominator;</span><br><span class="line">		<span class="keyword">return</span> out;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">auto</span>&amp;&amp; rref&#123; Fraction&#123; <span class="number">3</span>, <span class="number">5</span> &#125; &#125;; <span class="comment">// r-value reference to temporary Fraction</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// f1 of operator&lt;&lt; binds to the temporary, no copies are created.</span></span><br><span class="line">	std::cout &lt;&lt; rref &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; <span class="comment">// rref (and the temporary Fraction) goes out of scope here</span></span><br></pre></td></tr></table></figure>
+<p>那，考虑将右值和右值引用作为函数参数，会是什么情况呢？</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; lref)</span> <span class="comment">// l-value arguments will select this function</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;l-value reference to const: &quot;</span> &lt;&lt; lref &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span>&amp;&amp; rref)</span> <span class="comment">// r-value arguments will select this function</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;r-value reference: &quot;</span> &lt;&lt; rref &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> x&#123; <span class="number">5</span> &#125;;</span><br><span class="line">	<span class="built_in">fun</span>(x); <span class="comment">// l-value argument calls l-value version of function</span></span><br><span class="line">	<span class="built_in">fun</span>(<span class="number">5</span>); <span class="comment">// r-value argument calls r-value version of function</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">l-value reference to const: 5</span></span><br><span class="line"><span class="comment">r-value reference: 5</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>可以发现，当我们传入一个右值5，会采用形参为右值引用的重载函数。相比于const的左值引用（可以用右值初始化const左值引用），编译器认为右值引用是更好的选择。</p>
+<p>那传入右值引用呢？</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; lref)</span> <span class="comment">// l-value arguments will select this function</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;l-value reference to const: &quot;</span> &lt;&lt; lref &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span>&amp;&amp; rref)</span> <span class="comment">// r-value arguments will select this function</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;r-value reference: &quot;</span> &lt;&lt; rref &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span>&amp;&amp; ref&#123; <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="built_in">fun</span>(ref);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">l-value reference to const: 5</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>我操，居然右值引用是左值。这说明 <code>int&amp;&amp; ref</code> 是
+<code>int&amp;&amp;</code> 类型的左值。</p>
+<p>另外，根据learncpp，和不能返回左值引用一样，你也不能返回右值引用（虽然本身返回的是int&amp;&amp;类型的左值，但是它引用的是一个生命周期已经结束的右值，这很危险）</p>
+<hr />
+<p>我们知道，const左值引用可以接受右值为参数。这里看看learncpp的copy类型auto_ptr：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Auto_ptr3</span></span><br><span class="line">&#123;</span><br><span class="line">	T* m_ptr &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Auto_ptr3</span>(T* ptr = <span class="literal">nullptr</span>)</span><br><span class="line">		: m_ptr &#123; ptr &#125;</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Auto_ptr3</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy constructor</span></span><br><span class="line">	<span class="comment">// Do deep copy of a.m_ptr to m_ptr</span></span><br><span class="line">	<span class="built_in">Auto_ptr3</span>(<span class="type">const</span> Auto_ptr3&amp; a)</span><br><span class="line">	&#123;</span><br><span class="line">		m_ptr = <span class="keyword">new</span> T;</span><br><span class="line">		*m_ptr = *a.m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy assignment</span></span><br><span class="line">	<span class="comment">// Do deep copy of a.m_ptr to m_ptr</span></span><br><span class="line">	Auto_ptr3&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Auto_ptr3&amp; a)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Self-assignment detection</span></span><br><span class="line">		<span class="keyword">if</span> (&amp;a == <span class="keyword">this</span>)</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Release any resource we&#x27;re holding</span></span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Copy the resource</span></span><br><span class="line">		m_ptr = <span class="keyword">new</span> T;</span><br><span class="line">		*m_ptr = *a.m_ptr;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	T&amp; <span class="keyword">operator</span>*() <span class="type">const</span> &#123; <span class="keyword">return</span> *m_ptr; &#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span> &#123; <span class="keyword">return</span> m_ptr; &#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isNull</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> m_ptr == <span class="literal">nullptr</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Resource</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource acquired\n&quot;</span>; &#125;</span><br><span class="line">	~<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource destroyed\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Auto_ptr3&lt;Resource&gt; <span class="title">generateResource</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Auto_ptr3&lt;Resource&gt; res&#123;<span class="keyword">new</span> Resource&#125;;</span><br><span class="line">	<span class="keyword">return</span> res; <span class="comment">// this return value will invoke the copy constructor</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Auto_ptr3&lt;Resource&gt; mainres;</span><br><span class="line">	mainres = <span class="built_in">generateResource</span>(); <span class="comment">// this assignment will invoke the copy assignment</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">mine:</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">learncpp:</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>按理来说应该有六行，但是我的编译器忽略了返回值。</p>
+<blockquote>
+<p>挖坑，<code>Auto_ptr3&amp; operator=(const Auto_ptr3&amp; a)</code>
+前面引用的含义 <code>&amp;</code> ，它防止又调用一次copy constructor</p>
+</blockquote>
+<p>这样我们就实现了一个基于copy的智能指针。但是，通过移动语义，可以做的更好。</p>
+<p>C++11为类提供了移动构造函数和移动赋值重载，它们的参数都是右值引用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Auto_ptr4</span></span><br><span class="line">&#123;</span><br><span class="line">	T* m_ptr &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Auto_ptr4</span>(T* ptr = <span class="literal">nullptr</span>)</span><br><span class="line">		: m_ptr &#123; ptr &#125;</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Auto_ptr4</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy constructor</span></span><br><span class="line">	<span class="comment">// Do deep copy of a.m_ptr to m_ptr</span></span><br><span class="line">	<span class="built_in">Auto_ptr4</span>(<span class="type">const</span> Auto_ptr4&amp; a)</span><br><span class="line">	&#123;</span><br><span class="line">		m_ptr = <span class="keyword">new</span> T;</span><br><span class="line">		*m_ptr = *a.m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Move constructor</span></span><br><span class="line">	<span class="comment">// Transfer ownership of a.m_ptr to m_ptr</span></span><br><span class="line">	<span class="built_in">Auto_ptr4</span>(Auto_ptr4&amp;&amp; a) <span class="keyword">noexcept</span></span><br><span class="line">		: <span class="built_in">m_ptr</span>(a.m_ptr)</span><br><span class="line">	&#123;</span><br><span class="line">		a.m_ptr = <span class="literal">nullptr</span>; <span class="comment">// we&#x27;ll talk more about this line below</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy assignment</span></span><br><span class="line">	<span class="comment">// Do deep copy of a.m_ptr to m_ptr</span></span><br><span class="line">	Auto_ptr4&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Auto_ptr4&amp; a)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Self-assignment detection</span></span><br><span class="line">		<span class="keyword">if</span> (&amp;a == <span class="keyword">this</span>)</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Release any resource we&#x27;re holding</span></span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Copy the resource</span></span><br><span class="line">		m_ptr = <span class="keyword">new</span> T;</span><br><span class="line">		*m_ptr = *a.m_ptr;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Move assignment</span></span><br><span class="line">	<span class="comment">// Transfer ownership of a.m_ptr to m_ptr</span></span><br><span class="line">	Auto_ptr4&amp; <span class="keyword">operator</span>=(Auto_ptr4&amp;&amp; a) <span class="keyword">noexcept</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Self-assignment detection</span></span><br><span class="line">		<span class="keyword">if</span> (&amp;a == <span class="keyword">this</span>)</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Release any resource we&#x27;re holding</span></span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Transfer ownership of a.m_ptr to m_ptr</span></span><br><span class="line">		m_ptr = a.m_ptr;</span><br><span class="line">		a.m_ptr = <span class="literal">nullptr</span>; <span class="comment">// we&#x27;ll talk more about this line below</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	T&amp; <span class="keyword">operator</span>*() <span class="type">const</span> &#123; <span class="keyword">return</span> *m_ptr; &#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span> &#123; <span class="keyword">return</span> m_ptr; &#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isNull</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> m_ptr == <span class="literal">nullptr</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Resource</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource acquired\n&quot;</span>; &#125;</span><br><span class="line">	~<span class="built_in">Resource</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Resource destroyed\n&quot;</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Auto_ptr4&lt;Resource&gt; <span class="title">generateResource</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Auto_ptr4&lt;Resource&gt; res&#123;<span class="keyword">new</span> Resource&#125;;</span><br><span class="line">	<span class="keyword">return</span> res; <span class="comment">// this return value will invoke the move constructor</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Auto_ptr4&lt;Resource&gt; mainres;</span><br><span class="line">	mainres = <span class="built_in">generateResource</span>(); <span class="comment">// this assignment will invoke the move assignment</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Resource acquired</span></span><br><span class="line"><span class="comment">Resource destroyed</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>认真看一下移动语义的实现~（挖坑：<code>noexcept</code></p>
+<p>由于Resource自始自终都只有一个（只不过所有权转移了很多次），因此只有一次构造和一次析构。</p>
+<p>我们将移动语义与右值挂钩。这是因为右值一般来讲都是暂时使用的东西，在以后的程序执行不需要使用。因此比起前面使用左值来实现移动语义，右值更加安全。我们不希望类似于
+<code>a=b</code> 这种东西会影响到 <code>b</code> 。</p>
+<p>我们观察到，函数 <code>generateResource</code>
+返回的是一个左值，但是似乎根据结果来看，返回过程采用了移动语义（即没有构造新值）。这是可以的，C++内部也是这么干的。因为返回的左值在离开函数后会立即销毁，我们没必要在这里使用深拷贝。</p>
+<p>learncpp网站上给出建议：对于move-enabled的类，有时候禁止使用拷贝构造和拷贝赋值会更好：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Auto_ptr5</span></span><br><span class="line">&#123;</span><br><span class="line">	T* m_ptr &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Auto_ptr5</span>(T* ptr = <span class="literal">nullptr</span>)</span><br><span class="line">		: m_ptr &#123; ptr &#125;</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Auto_ptr5</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy constructor -- no copying allowed!</span></span><br><span class="line">	<span class="built_in">Auto_ptr5</span>(<span class="type">const</span> Auto_ptr5&amp; a) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Move constructor</span></span><br><span class="line">	<span class="comment">// Transfer ownership of a.m_ptr to m_ptr</span></span><br><span class="line">	<span class="built_in">Auto_ptr5</span>(Auto_ptr5&amp;&amp; a) <span class="keyword">noexcept</span></span><br><span class="line">		: <span class="built_in">m_ptr</span>(a.m_ptr)</span><br><span class="line">	&#123;</span><br><span class="line">		a.m_ptr = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy assignment -- no copying allowed!</span></span><br><span class="line">	Auto_ptr5&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Auto_ptr5&amp; a) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Move assignment</span></span><br><span class="line">	<span class="comment">// Transfer ownership of a.m_ptr to m_ptr</span></span><br><span class="line">	Auto_ptr5&amp; <span class="keyword">operator</span>=(Auto_ptr5&amp;&amp; a) <span class="keyword">noexcept</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Self-assignment detection</span></span><br><span class="line">		<span class="keyword">if</span> (&amp;a == <span class="keyword">this</span>)</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Release any resource we&#x27;re holding</span></span><br><span class="line">		<span class="keyword">delete</span> m_ptr;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Transfer ownership of a.m_ptr to m_ptr</span></span><br><span class="line">		m_ptr = a.m_ptr;</span><br><span class="line">		a.m_ptr = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	T&amp; <span class="keyword">operator</span>*() <span class="type">const</span> &#123; <span class="keyword">return</span> *m_ptr; &#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;() <span class="type">const</span> &#123; <span class="keyword">return</span> m_ptr; &#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isNull</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> m_ptr == <span class="literal">nullptr</span>; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个东西非常像 <code>std::unique_ptr</code>
+。正如其名，<code>unique</code> 的性质让它不能被复制。</p>
+<hr />
+<p><code>std::move</code>
+用于将左值转化为右值，这样可以使用移动语义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::string a, b;</span><br><span class="line">	b = <span class="string">&quot;nuaa is garbage&quot;</span>;</span><br><span class="line">	a = std::<span class="built_in">move</span>(b);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;a=&quot;</span> &lt;&lt;a &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; <span class="string">&quot;b=&quot;</span> &lt;&lt; b;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">a=nuaa is garbage</span></span><br><span class="line"><span class="comment">b=</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>但是原有的字符串b变为了空值，这也是意料之内的。</p>
+<p>但是根据learncpp上的建议：不要对任何被std::move后的对象的值有任何假设</p>
+<p>因此我们以后要避免依赖b的具体的值的操作。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/24/xv6-lab/" rel="prev" title="xv6-lab">
+                  <i class="fa fa-angle-left"></i> xv6-lab
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/01/atcoder_codeforces/ABC351E/" rel="next" title="ABC351E">
+                  ABC351E <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy3</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

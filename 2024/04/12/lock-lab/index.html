@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="xv6 lock lab  链接：https:&#x2F;&#x2F;pdos.csail.mit.edu&#x2F;6.828&#x2F;2021&#x2F;labs&#x2F;lock.html 2021和2020是一样的  xv6支持多线程并发。为了保证共享内存中数据的不变性（invariant），需要采用lock机制进行序列化。 但是xv6的内核内部中的一些机制中对lock的使用过于粗粒（coarse-grained），这会导致线程会浪">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lock_lab">
+<meta property="og:url" content="https://atri2333.github.io/2024/04/12/lock-lab/index.html">
+<meta property="og:site_name" content="Ayy3">
+<meta property="og:description" content="xv6 lock lab  链接：https:&#x2F;&#x2F;pdos.csail.mit.edu&#x2F;6.828&#x2F;2021&#x2F;labs&#x2F;lock.html 2021和2020是一样的  xv6支持多线程并发。为了保证共享内存中数据的不变性（invariant），需要采用lock机制进行序列化。 但是xv6的内核内部中的一些机制中对lock的使用过于粗粒（coarse-grained），这会导致线程会浪">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://atri2333.github.io/2024/04/12/lock-lab/lock.png">
+<meta property="article:published_time" content="2024-04-12T10:12:44.000Z">
+<meta property="article:modified_time" content="2025-03-09T02:16:02.320Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/04/12/lock-lab/lock.png">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2024/04/12/lock-lab/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/04/12/lock-lab/","path":"2024/04/12/lock-lab/","title":"lock_lab"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>lock_lab | Ayy3</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xv6-lock-lab"><span class="nav-number">1.</span> <span class="nav-text">xv6 lock lab</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#memory-allocator"><span class="nav-number">1.1.</span> <span class="nav-text">Memory allocator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer-cache"><span class="nav-number">1.2.</span> <span class="nav-text">Buffer cache</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ayy3</p>
+  <div class="site-description" itemprop="description">亚托莉单推人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/04/12/lock-lab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="lock_lab | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          lock_lab
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-12 18:12:44" itemprop="dateCreated datePublished" datetime="2024-04-12T18:12:44+08:00">2024-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="xv6-lock-lab">xv6 lock lab</h1>
+<blockquote>
+<p>链接：https://pdos.csail.mit.edu/6.828/2021/labs/lock.html</p>
+<p>2021和2020是一样的</p>
+</blockquote>
+<p>xv6支持多线程并发。为了保证共享内存中数据的不变性（invariant），需要采用lock机制进行序列化。</p>
+<p>但是xv6的内核内部中的一些机制中对lock的使用过于粗粒（coarse-grained），这会导致线程会浪费较多时间在spinlock的自旋上，因此该lab的任务就是细粒化一些功能中的lock机制。</p>
+<h2 id="memory-allocator">Memory allocator</h2>
+<p>xv6的内核维护了一个全局的page链表，内部存着尚未被分配的page的物理地址。对于请求/释放内存，xv6为整个链表维护了一个lock。</p>
+<p>考虑到可能多个线程会同时请求/释放内存，而链表整体的lock则会序列化这些过程，无法发挥并发优势。因此该任务需要你来细粒化
+<code>kalloc.c</code> 中的lock机制。</p>
+<p>至于怎么细粒化，其实lab的提示已经给出：为每个CPU分配一个单独的链表，及其对应的lock。</p>
+<p>所以直接把 <code>kmem</code> 改成数组：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> <span class="title">lock</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">freelist</span>;</span></span><br><span class="line">&#125; kmem[NCPU];</span><br></pre></td></tr></table></figure>
+<p>然后同时修改初始化函数 <code>kinit</code>
+，该函数只在xv6启动的时候被一个CPU调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">kinit</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; NCPU; i++)</span><br><span class="line">    initlock(&amp;kmem[i].lock, <span class="string">&quot;kmem&quot;</span>);</span><br><span class="line">  freerange(end, (<span class="type">void</span>*)PHYSTOP);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们考虑一下分配内存的过程。对于每个CPU对应的链表，如果链表为空，则需要从其它CPU的链表中偷取。</p>
+<p>具体实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *</span><br><span class="line"><span class="title function_">kalloc</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">r</span>;</span></span><br><span class="line">  uint cid;</span><br><span class="line">  push_off();</span><br><span class="line">  cid = cpuid();</span><br><span class="line">  pop_off();</span><br><span class="line"></span><br><span class="line">  acquire(&amp;kmem[cid].lock);</span><br><span class="line">  r = kmem[cid].freelist;</span><br><span class="line">  <span class="keyword">if</span>(r)&#123;</span><br><span class="line">    kmem[cid].freelist = r-&gt;next;</span><br><span class="line">    release(&amp;kmem[cid].lock);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    release(&amp;kmem[cid].lock);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; NCPU; i++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(i == cid) <span class="keyword">continue</span>;</span><br><span class="line">      acquire(&amp;kmem[i].lock);</span><br><span class="line">      r = kmem[i].freelist;</span><br><span class="line">      <span class="keyword">if</span>(!r)&#123;</span><br><span class="line">        release(&amp;kmem[i].lock);</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      kmem[i].freelist = r-&gt;next;</span><br><span class="line">      release(&amp;kmem[i].lock);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(r)</span><br><span class="line">    <span class="built_in">memset</span>((<span class="type">char</span>*)r, <span class="number">5</span>, PGSIZE); <span class="comment">// fill with junk</span></span><br><span class="line">  <span class="keyword">return</span> (<span class="type">void</span>*)r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里强调一下，无论是在xv6的lab，还是其它并发编程中（例如C++11内的
+<code>std::mutex</code>
+），我们都需要对每个lock规定其对应的<strong>不变量</strong>（invariant）。这个是很重要的，它关系到在设置获取和释放锁的时机，以及防止死锁。</p>
+<p>例如本任务，对于每个CPU对应的链表，都有一个lock。因此我们规定该lock维护的不变量为<strong>其对应的链表结构</strong>。</p>
+<p>因此，在发现执行CPU对应的链表为空时，我们就可以释放锁了，因为接下来的工作都对该链表没有任何关系。这种细微的细节应该也算是细粒化工作的重要部分。</p>
+<p>然后考虑释放内存，只需要在对应CPU的链表加入元素即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">kfree</span><span class="params">(<span class="type">void</span> *pa)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">r</span>;</span></span><br><span class="line">  uint cid;</span><br><span class="line">  push_off();</span><br><span class="line">  cid = cpuid();</span><br><span class="line">  pop_off();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(((uint64)pa % PGSIZE) != <span class="number">0</span> || (<span class="type">char</span>*)pa &lt; end || (uint64)pa &gt;= PHYSTOP)</span><br><span class="line">    panic(<span class="string">&quot;kfree&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Fill with junk to catch dangling refs.</span></span><br><span class="line">  <span class="built_in">memset</span>(pa, <span class="number">1</span>, PGSIZE);</span><br><span class="line"></span><br><span class="line">  r = (<span class="keyword">struct</span> run*)pa;</span><br><span class="line"></span><br><span class="line">  acquire(&amp;kmem[cid].lock);</span><br><span class="line">  r-&gt;next = kmem[cid].freelist;</span><br><span class="line">  kmem[cid].freelist = r;</span><br><span class="line">  release(&amp;kmem[cid].lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="buffer-cache">Buffer cache</h2>
+<p>xv6在读/写硬盘IO时，会先检查内存是否存在对应的缓存（buffer
+cache）。如果存在则直接在缓存上执行操作，然后写入硬盘。</p>
+<p>关于xv6在内存中对buffer cache的组织形式，事实上是一个双链表：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// buf.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buf</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> valid;   <span class="comment">// has data been read from disk?</span></span><br><span class="line">  <span class="type">int</span> disk;    <span class="comment">// does disk &quot;own&quot; buf?</span></span><br><span class="line">  uint dev;</span><br><span class="line">  uint blockno;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sleeplock</span> <span class="title">lock</span>;</span></span><br><span class="line">  uint refcnt;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> *<span class="title">prev</span>;</span> <span class="comment">// LRU cache list</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> *<span class="title">next</span>;</span></span><br><span class="line">  uchar data[BSIZE];</span><br><span class="line">  uint time_stamp; <span class="comment">// lru time stamp</span></span><br><span class="line">  <span class="type">int</span> now_hash;  <span class="comment">// hash number</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bio.c</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> <span class="title">lock</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> <span class="title">buf</span>[<span class="title">NBUF</span>];</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Linked list of all buffers, through prev/next.</span></span><br><span class="line">  <span class="comment">// Sorted by how recently the buffer was used.</span></span><br><span class="line">  <span class="comment">// head.next is most recent, head.prev is least.</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> <span class="title">head</span>;</span></span><br><span class="line">&#125; bcache;</span><br></pre></td></tr></table></figure>
+<p>可以发现似乎和上面那个链表似乎很像。但事实上该链表的元素本身也是个结构体
+<code>buf</code> ，而不是单纯一个物理地址。</p>
+<p>那么我们能不能沿用上个任务的idea，对每个CPU维护一个buffer cache link
+list呢？</p>
+<p>根据lab中的提示，是不行的。给出的原因是每一个buffer
+cache应当被不同CPU的线程共享。</p>
+<p>但是实际上是可以的，只不过我们需要换个角度来看。根据lab的提示，我们应当将原有的大链表进行分割，得到一系列小链表，然后在各自的小链表上并行化工作。</p>
+<p>实质是一样的，都是<strong>将一个拆分为多个</strong>。</p>
+<p>如何将block的编号与小链表对应呢？答案是采用哈希函数。这里根据lab，定义13（素数减少冲突概率）个小链表，然后直接将block编号对13取余得到哈希值。</p>
+<p>首先，我们需要初始化：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bucket</span>&#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> <span class="title">lock</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> <span class="title">head</span>;</span></span><br><span class="line">&#125;hashtable[BUCKETCNT]; <span class="comment">// 13</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">binit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> *<span class="title">b</span>;</span></span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line">  initlock(&amp;bcache.lock, <span class="string">&quot;bcache&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// // Create linked list of buffers</span></span><br><span class="line">  <span class="comment">// bcache.head.prev = &amp;bcache.head;</span></span><br><span class="line">  <span class="comment">// bcache.head.next = &amp;bcache.head;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; BUCKETCNT; i++)&#123;</span><br><span class="line">    initlock(&amp;hashtable[i].lock, <span class="string">&quot;bcache_hash&quot;</span>);</span><br><span class="line">    hashtable[i].head.prev = &amp;hashtable[i].head;</span><br><span class="line">    hashtable[i].head.next = &amp;hashtable[i].head;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>, b = bcache.buf; b &lt; bcache.buf+NBUF; b++, i = (i + <span class="number">1</span>) % BUCKETCNT)&#123;</span><br><span class="line">    b-&gt;next = hashtable[i].head.next;</span><br><span class="line">    b-&gt;prev = &amp;hashtable[i].head;</span><br><span class="line">    initsleeplock(&amp;b-&gt;lock, <span class="string">&quot;buffer&quot;</span>);</span><br><span class="line">    hashtable[i].head.next-&gt;prev = b;</span><br><span class="line">    hashtable[i].head.next = b;</span><br><span class="line"></span><br><span class="line">    b-&gt;time_stamp = <span class="number">0</span>;</span><br><span class="line">    b-&gt;now_hash = i;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我将NBUF个buffer
+cache平均分配了。如果只分配到一个小链表上，则可能会加大冲突概率。</p>
+<p>然后考虑我们如何获得buffer
+cache。我们首先在自己哈希值上的链表上找，如果没有则去其它小链表上轮换查找。</p>
+<p>根据lab提示，我们采用lru策略。因此可以看到我上面给出的
+<code>buf</code> 结构体相比于原有的结构体，多了时间戳
+<code>time_stamp</code> 字段。</p>
+<p>话不多说，直接上code：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> buf*</span><br><span class="line"><span class="title function_">bget</span><span class="params">(uint dev, uint blockno)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> *<span class="title">b</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> *<span class="title">lru</span>=</span><span class="number">0</span>;</span><br><span class="line">  uint hash = blockno % BUCKETCNT;</span><br><span class="line">  uint min_time_stamp = ticks + <span class="number">114514</span>;</span><br><span class="line">  </span><br><span class="line">  acquire(&amp;hashtable[hash].lock);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(b = hashtable[hash].head.next; b != &amp;hashtable[hash].head; b = b-&gt;next)&#123;</span><br><span class="line">    <span class="keyword">if</span>(b-&gt;dev == dev &amp;&amp; b-&gt;blockno == blockno)&#123;</span><br><span class="line">      b-&gt;refcnt++;</span><br><span class="line">      release(&amp;hashtable[hash].lock);</span><br><span class="line">      acquiresleep(&amp;b-&gt;lock);</span><br><span class="line">      <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Not cached.</span></span><br><span class="line">  <span class="comment">// printf(&quot;ticks = %d\n&quot;, ticks);</span></span><br><span class="line">  <span class="comment">// for(b = bcache.buf; b &lt; bcache.buf+NBUF; b++)&#123;</span></span><br><span class="line">  <span class="comment">//   if(b-&gt;refcnt == 0 &amp;&amp; b-&gt;time_stamp &lt;= min_time_stamp) &#123;</span></span><br><span class="line">  <span class="comment">//     lru = b;</span></span><br><span class="line">  <span class="comment">//     min_time_stamp = b-&gt;time_stamp;</span></span><br><span class="line">  <span class="comment">//   &#125;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = (hash + <span class="number">1</span>) % BUCKETCNT; i != hash; i = (i + <span class="number">1</span>) % BUCKETCNT)&#123;</span><br><span class="line">    acquire(&amp;hashtable[i].lock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(b = hashtable[i].head.next; b != &amp;hashtable[i].head; b = b-&gt;next)&#123;</span><br><span class="line">      <span class="keyword">if</span>(b-&gt;refcnt == <span class="number">0</span> &amp;&amp; b-&gt;time_stamp &lt; min_time_stamp) &#123;</span><br><span class="line">        lru = b;</span><br><span class="line">        min_time_stamp = b-&gt;time_stamp;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!lru) &#123;</span><br><span class="line">      release(&amp;hashtable[i].lock);</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    b = lru;</span><br><span class="line">    b-&gt;next-&gt;prev = b-&gt;prev;</span><br><span class="line">    b-&gt;prev-&gt;next = b-&gt;next;</span><br><span class="line">    release(&amp;hashtable[i].lock);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    b-&gt;dev = dev;</span><br><span class="line">    b-&gt;blockno = blockno;</span><br><span class="line">    b-&gt;valid = <span class="number">0</span>;</span><br><span class="line">    b-&gt;refcnt = <span class="number">1</span>;</span><br><span class="line">    b-&gt;now_hash = hash;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    b-&gt;next = hashtable[hash].head.next;</span><br><span class="line">    b-&gt;prev = &amp;hashtable[hash].head;</span><br><span class="line"></span><br><span class="line">    acquiresleep(&amp;b-&gt;lock);</span><br><span class="line"></span><br><span class="line">    hashtable[hash].head.next-&gt;prev = b;</span><br><span class="line">    hashtable[hash].head.next = b;</span><br><span class="line">    release(&amp;hashtable[hash].lock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// printf(&quot;min_time_stamp = %d\n&quot;, min_time_stamp);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!lru)</span><br><span class="line">    panic(<span class="string">&quot;bget: no buffers&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> lru;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于每个lock，我们规定它的不变量为：该lock对应双链表的结构，以及<strong>链表内元素的本身结构</strong>。</p>
+<p>所以你可以发现，当我们从其余链表偷取一个 <code>cache</code>
+时，我们先释放了其余链表的锁，然后等把该 <code>cache</code>
+内部的值设置完成之后再释放当前hash值链表的锁。</p>
+<p>在网上看到有些做法，访问全局变量 <code>ticks</code> 前需要
+<code>acquire(&amp;tickslock);</code> 。然而实测是不需要的。</p>
+<p>最后考虑一下释放的操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">brelse</span><span class="params">(<span class="keyword">struct</span> buf *b)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(!holdingsleep(&amp;b-&gt;lock))</span><br><span class="line">    panic(<span class="string">&quot;brelse&quot;</span>);</span><br><span class="line"></span><br><span class="line">  releasesleep(&amp;b-&gt;lock);</span><br><span class="line"></span><br><span class="line">  acquire(&amp;hashtable[b-&gt;now_hash].lock);</span><br><span class="line">  b-&gt;refcnt--;</span><br><span class="line">  <span class="keyword">if</span> (b-&gt;refcnt == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// no one is waiting for it.</span></span><br><span class="line">    b-&gt;time_stamp = ticks;</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;hashtable[b-&gt;now_hash].lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现，由于我们规定了lock的不变量，这里我们上的锁就是哈希值对应的锁。（即lock维护<code>b-&gt;refcnt</code>
+等不变量）</p>
+<p>同时，我们需要修改一下其余函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">bpin</span><span class="params">(<span class="keyword">struct</span> buf *b)</span> &#123;</span><br><span class="line">  <span class="comment">// printf(&quot;!!!\n&quot;);</span></span><br><span class="line">  acquire(&amp;hashtable[b-&gt;now_hash].lock);</span><br><span class="line">  b-&gt;refcnt++;</span><br><span class="line">  release(&amp;hashtable[b-&gt;now_hash].lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">bunpin</span><span class="params">(<span class="keyword">struct</span> buf *b)</span> &#123;</span><br><span class="line">  acquire(&amp;hashtable[b-&gt;now_hash].lock);</span><br><span class="line">  b-&gt;refcnt--;</span><br><span class="line">  release(&amp;hashtable[b-&gt;now_hash].lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然该lab并没有指出这些函数，但在usertests中是有调用的。事实上函数
+<code>bpin</code> 的作用是强制一个buffer cache不被 <code>brelse</code>
+掉，这在更新 log block 对应的block时有用到。</p>
+<p>最后贴一张完成的图：</p>
+<img src="/2024/04/12/lock-lab/lock.png" class="" title="lock">
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/11/java/java-string/" rel="prev" title="java_string">
+                  <i class="fa fa-angle-left"></i> java_string
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/17/java/java-strategy/" rel="next" title="java-strategy">
+                  java-strategy <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy3</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
