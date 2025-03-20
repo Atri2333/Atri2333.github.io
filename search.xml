@@ -68,6 +68,14 @@ Set）。而PlayerState，顾名思义，或许是存储这些东西的最优选
 Component和Attribute
 Set会更好。我们目前对于Enemy的想法是简单的。因此目前的规划可以用下图表示：</p>
 <img src="/2025/03/20/GAS/main_part_organize.png" class="" title="main_part_organize">
+<h2 id="准备工作">准备工作</h2>
+<p>首先我们在Plugins里启用GAS，然后创建自己的AuraAbilitySystemComponent和AuraAttributeSet。</p>
+<p>然后记得在Module里添加： <figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">PublicDependencyModuleNames.AddRange(<span class="keyword">new</span> <span class="built_in">string</span>[] &#123; <span class="string">&quot;Core&quot;</span>, <span class="string">&quot;CoreUObject&quot;</span>, <span class="string">&quot;Engine&quot;</span>, <span class="string">&quot;InputCore&quot;</span>, <span class="string">&quot;EnhancedInput&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line">PrivateDependencyModuleNames.AddRange(<span class="keyword">new</span> <span class="built_in">string</span>[] &#123; <span class="string">&quot;GameplayAbilities&quot;</span>, <span class="string">&quot;GameplayTags&quot;</span>, <span class="string">&quot;GameplayTasks&quot;</span> &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们将GAS的模块添加到PrivateDependencyModule中。</p>
+<blockquote>
+<p>关于UE中Module的配置，可以参考：https://www.cnblogs.com/tomato-haha/p/17422871.html。用一句话来概括，就是当你的模块需要被其它模块调用时，该模块只能访问到你PublicDependencyModule中的模块的头文件信息。如果要链接，还是要在模块里显示添加。
+但是你的游戏模块不太可能被其它模块添加，所以在这里其实无所谓。</p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>Unreal</tag>
