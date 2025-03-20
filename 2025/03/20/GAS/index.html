@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在本笔记中，我们将要接触的，是内置于UE5的Gameplay Ability System。我们将参考Udemy上的GAS课程，并根据虚幻官方的文档，来进行较为全面的理解。课程网址https:&#x2F;&#x2F;www.udemy.com&#x2F;course&#x2F;unreal-engine-5-gas-top-down-rpg&#x2F;  基础概念 Controller 在我之前使用UE4制作一些demo的时候，我通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAS">
+<meta property="og:url" content="https://atri2333.github.io/2025/03/20/GAS/index.html">
+<meta property="og:site_name" content="Ayy3">
+<meta property="og:description" content="在本笔记中，我们将要接触的，是内置于UE5的Gameplay Ability System。我们将参考Udemy上的GAS课程，并根据虚幻官方的文档，来进行较为全面的理解。课程网址https:&#x2F;&#x2F;www.udemy.com&#x2F;course&#x2F;unreal-engine-5-gas-top-down-rpg&#x2F;  基础概念 Controller 在我之前使用UE4制作一些demo的时候，我通">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-20T02:32:10.000Z">
+<meta property="article:modified_time" content="2025-03-20T03:13:25.837Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2025/03/20/GAS/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2025/03/20/GAS/","path":"2025/03/20/GAS/","title":"GAS"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GAS | Ayy3</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#controller"><span class="nav-number">1.1.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3interface"><span class="nav-number">1.2.</span> <span class="nav-text">接口（Interface）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ayy3"
+      src="/images/Atri6.jpg">
+  <p class="site-author-name" itemprop="name">Ayy3</p>
+  <div class="site-description" itemprop="description">亚托莉单推人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/quicksilverx-6" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;quicksilverx-6" rel="noopener me" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://codeforces.com/profile/Atri_My_Dear_Moments" title="Codeforces → https:&#x2F;&#x2F;codeforces.com&#x2F;profile&#x2F;Atri_My_Dear_Moments" rel="noopener me" target="_blank"><i class="fa fa-code fa-fw"></i>Codeforces</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2025/03/20/GAS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Atri6.jpg">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GAS | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAS
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-20 10:32:10 / 修改时间：11:13:25" itemprop="dateCreated datePublished" datetime="2025-03-20T10:32:10+08:00">2025-03-20</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/03/20/GAS/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/03/20/GAS/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>在本笔记中，我们将要接触的，是内置于UE5的Gameplay Ability
+System。我们将参考Udemy上的GAS课程，并根据虚幻官方的文档，来进行较为全面的理解。课程网址https://www.udemy.com/course/unreal-engine-5-gas-top-down-rpg/</p>
+</blockquote>
+<h1 id="基础概念">基础概念</h1>
+<h2 id="controller">Controller</h2>
+<p>在我之前使用UE4制作一些demo的时候，我通常直接在要控制的Character类中，实现一些逻辑（如控制输入）。然而，受MVC设计模式的启发，对于我们要possess的Character（或者Pawn），应当尽量将逻辑与功能解耦合。</p>
+<p>我自己举一个例子吧，例如在射击游戏中，可能存在固定位置的机枪、岸防炮，我们应当将这些作为Pawn的子类，因为它们需要被玩家<strong>控制</strong>。对于各自武器的<strong>特定功能</strong>，例如发射子弹或者炮弹，应当在Pawn中实现，因为它们是独立于Controller的。对于Controller，我们可以切换自己possess的pawn，例如在使用固定机枪前控制我们的角色，这时候可以进行移动，而使用机枪时，则可以控制机枪射击，无法进行移动。而这便是Controller的职责。（对于切换移动，我目测可以采用UE5的Enhanced
+Input系统，通过切换Input Mapping Context来实现。</p>
+<p>当然，对于Controller，它本身也内置了一些控制逻辑，例如我在制作射击游戏demo的时候，在角色死亡后，需要调用PlayerController内置的禁用输入，来防止诈尸。还有一个特定的Controller叫做AIController，它通过绑定行为树（Behavior
+Tree）和黑板（Blackboard）来负责控制AI的行为。例如在游戏中，AI需要根据玩家的位置，来判断是否需要进行移动，或者进行攻击。</p>
+<blockquote>
+<p>我目前对于Controller的理解还不是很深刻，在之后的学习中，我会通过实际运用，例如完成Udemy上的GAS课程，来加深理解。
+对于Controller的深入思考，推荐https://zhuanlan.zhihu.com/p/23480071</p>
+</blockquote>
+<p>对于项目的配置，我们首先要保证能移动角色。首先进行动画蓝图的配置（这里不予赘述），然后就是在PlayerController中，配置移动逻辑。</p>
+<p>我们在PlayerController的类中，添加增强输入系统所需要的IMC(Input
+Mapping Context)和IA(Input Action)：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, Category = Input)</span><br><span class="line">TObjectPtr&lt;UInputMappingContext&gt; AuraContext;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, Category = <span class="string">&quot;Input | Actions&quot;</span>)</span><br><span class="line">TObjectPtr&lt;UInputAction&gt; MoveAction;</span><br></pre></td></tr></table></figure>
+<p>然后在 <code>BeginPlay</code> 中，通过
+<code>UEnhancedInputLocalPlayerSubsystem</code> 来添加IMC：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::<span class="built_in">GetSubsystem</span>&lt;UEnhancedInputLocalPlayerSubsystem&gt;(<span class="built_in">GetLocalPlayer</span>());</span><br><span class="line"><span class="built_in">check</span>(Subsystem); <span class="comment">// assert</span></span><br><span class="line">Subsystem-&gt;<span class="built_in">AddMappingContext</span>(AuraContext, <span class="number">0</span>); <span class="comment">// 0是优先级，这里我们先只添加一个IMC。对于Top Down RPG，目前我们没遇到比较复杂的输入情况。</span></span><br></pre></td></tr></table></figure>
+<p>对于PlayerController，我们可以override
+<code>SetupInputComponent</code> 来添加输入逻辑： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">AAuraPlayerController::SetupInputComponent</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Super::<span class="built_in">SetupInputComponent</span>();</span><br><span class="line"></span><br><span class="line">	UEnhancedInputComponent* EnhancedInputComponent = <span class="built_in">CastChecked</span>&lt;UEnhancedInputComponent&gt;(InputComponent);</span><br><span class="line"></span><br><span class="line">	EnhancedInputComponent-&gt;<span class="built_in">BindAction</span>(</span><br><span class="line">		MoveAction,</span><br><span class="line">		ETriggerEvent::Triggered,</span><br><span class="line">		<span class="keyword">this</span>,</span><br><span class="line">		&amp;AAuraPlayerController::Move <span class="comment">// 需要自行实现Move逻辑（参数类型为const FInputActionValue&amp;，这里不予赘述）</span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>关于增强输入系统，我目前理解的也不是很深刻（例如这里的UEnhancedInputLocalPlayerSubsystem是什么？为什么需要它？是因为在多人游戏中，每个玩家都会有个独立的UEnhancedInputLocalPlayerSubsystem，来管理不同的输入情况吗？。目前我们需要知道的是，每个IA都是独立存在，它们通过IMC来作为于输入设备的胶合剂。我们只需要添加或删除IMC，就可以实现多样化的输入。如果有时间，可以学习官方的视频教程
+https://www.bilibili.com/video/BV14r4y1r7nz/，然后我会回来专门写一节笔记。</p>
+</blockquote>
+<p>另外再提一句，在 <code>ACharacter</code> 类中，内置了
+<code>SetupPlayerInputComponent</code>
+的函数。我之前一直重写这个函数，来绑定输入： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ACharacter::SetupPlayerInputComponent</span><span class="params">(UInputComponent* PlayerInputComponent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">check</span>(PlayerInputComponent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再进一步，我们会惊讶地发现，<code>InputComponent</code> 是
+<code>AActor</code> 就有的成员变量！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Actor.h</span></span><br><span class="line"><span class="comment">/** Component that handles input for this actor, if input is enabled. */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(DuplicateTransient)</span><br><span class="line">	TObjectPtr&lt;<span class="keyword">class</span> <span class="title class_">UInputComponent</span>&gt; InputComponent;</span><br></pre></td></tr></table></figure>
+<p>也就是说，对于普通的Actor，我们也可以通过 <code>InputComponent</code>
+来绑定输入。然而就和前面提到的，虚幻采用了类似MVC的设计模式，将逻辑与功能解耦合。对于输入，可以想一下，如果我们需要控制不同的Character，但是一些基本的移动逻辑，它们是共有的，我们应当在Controller中实现，而不是在Character中实现。</p>
+<h2 id="接口interface">接口（Interface）</h2>
+<p>接口是C++中的一种抽象类型，它定义了类必须实现的一组函数。接口可以被类继承，从而实现多态。</p>
+<p>在C++中，接口通常通过纯虚函数（pure virtual
+function）来实现。纯虚函数是一种没有实现的虚函数，它必须在派生类中实现。</p>
+<p>在UE也是一样。我们在本课程要实现的一个功能，就是当鼠标移动到敌人身上时，显示敌人的轮廓。我们首先想到的是在敌人的基类中实现相关功能。但是如果我们不只是需要显示敌人的轮廓，可能我们需要显示其它物品的轮廓，那么在敌人的基类中实现显示轮廓的功能，是不是就不恰当了呢？</p>
+<p>这时候，课程中引入了接口的概念。但是很奇怪，课程命名接口为
+<code>EnemyInterface</code>，而不是 <code>OutlineInterface</code>。
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EnemyInterface.h</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GAS_API</span> IEnemyInterface</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Add interface functions to this class. This is the class that will be inherited to implement this interface.</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">HighlightActor</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">UnHighlightActor</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后我们就可以在Enemy类中，继承（实现）这个接口： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>()</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GAS_API</span> AAuraEnemy : <span class="keyword">public</span> AAuraCharacterBase, <span class="keyword">public</span> IEnemyInterface</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">HighlightActor</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">UnHighlightActor</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/09/games202/" rel="prev" title="games202">
+                  <i class="fa fa-angle-left"></i> games202
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy3</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"atri2333","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

@@ -6175,4 +6175,54 @@ mode。在这里我们只需要 SIE bit 就行啦。</p>
     <content><![CDATA[<h1 id="games202学习笔记">Games202学习笔记</h1>
 ]]></content>
   </entry>
+  <entry>
+    <title>GAS</title>
+    <url>/2025/03/20/GAS/</url>
+    <content><![CDATA[<blockquote>
+<p>在本笔记中，我们将要接触的，是内置于UE5的Gameplay Ability
+System。我们将参考Udemy上的GAS课程，并根据虚幻官方的文档，来进行较为全面的理解。课程网址https://www.udemy.com/course/unreal-engine-5-gas-top-down-rpg/</p>
+</blockquote>
+<h1 id="基础概念">基础概念</h1>
+<h2 id="controller">Controller</h2>
+<p>在我之前使用UE4制作一些demo的时候，我通常直接在要控制的Character类中，实现一些逻辑（如控制输入）。然而，受MVC设计模式的启发，对于我们要possess的Character（或者Pawn），应当尽量将逻辑与功能解耦合。</p>
+<p>我自己举一个例子吧，例如在射击游戏中，可能存在固定位置的机枪、岸防炮，我们应当将这些作为Pawn的子类，因为它们需要被玩家<strong>控制</strong>。对于各自武器的<strong>特定功能</strong>，例如发射子弹或者炮弹，应当在Pawn中实现，因为它们是独立于Controller的。对于Controller，我们可以切换自己possess的pawn，例如在使用固定机枪前控制我们的角色，这时候可以进行移动，而使用机枪时，则可以控制机枪射击，无法进行移动。而这便是Controller的职责。（对于切换移动，我目测可以采用UE5的Enhanced
+Input系统，通过切换Input Mapping Context来实现。</p>
+<p>当然，对于Controller，它本身也内置了一些控制逻辑，例如我在制作射击游戏demo的时候，在角色死亡后，需要调用PlayerController内置的禁用输入，来防止诈尸。还有一个特定的Controller叫做AIController，它通过绑定行为树（Behavior
+Tree）和黑板（Blackboard）来负责控制AI的行为。例如在游戏中，AI需要根据玩家的位置，来判断是否需要进行移动，或者进行攻击。</p>
+<blockquote>
+<p>我目前对于Controller的理解还不是很深刻，在之后的学习中，我会通过实际运用，例如完成Udemy上的GAS课程，来加深理解。
+对于Controller的深入思考，推荐https://zhuanlan.zhihu.com/p/23480071</p>
+</blockquote>
+<p>对于项目的配置，我们首先要保证能移动角色。首先进行动画蓝图的配置（这里不予赘述），然后就是在PlayerController中，配置移动逻辑。</p>
+<p>我们在PlayerController的类中，添加增强输入系统所需要的IMC(Input
+Mapping Context)和IA(Input Action)：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, Category = Input)</span><br><span class="line">TObjectPtr&lt;UInputMappingContext&gt; AuraContext;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, Category = <span class="string">&quot;Input | Actions&quot;</span>)</span><br><span class="line">TObjectPtr&lt;UInputAction&gt; MoveAction;</span><br></pre></td></tr></table></figure>
+<p>然后在 <code>BeginPlay</code> 中，通过
+<code>UEnhancedInputLocalPlayerSubsystem</code> 来添加IMC：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::<span class="built_in">GetSubsystem</span>&lt;UEnhancedInputLocalPlayerSubsystem&gt;(<span class="built_in">GetLocalPlayer</span>());</span><br><span class="line"><span class="built_in">check</span>(Subsystem); <span class="comment">// assert</span></span><br><span class="line">Subsystem-&gt;<span class="built_in">AddMappingContext</span>(AuraContext, <span class="number">0</span>); <span class="comment">// 0是优先级，这里我们先只添加一个IMC。对于Top Down RPG，目前我们没遇到比较复杂的输入情况。</span></span><br></pre></td></tr></table></figure>
+<p>对于PlayerController，我们可以override
+<code>SetupInputComponent</code> 来添加输入逻辑： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">AAuraPlayerController::SetupInputComponent</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Super::<span class="built_in">SetupInputComponent</span>();</span><br><span class="line"></span><br><span class="line">	UEnhancedInputComponent* EnhancedInputComponent = <span class="built_in">CastChecked</span>&lt;UEnhancedInputComponent&gt;(InputComponent);</span><br><span class="line"></span><br><span class="line">	EnhancedInputComponent-&gt;<span class="built_in">BindAction</span>(</span><br><span class="line">		MoveAction,</span><br><span class="line">		ETriggerEvent::Triggered,</span><br><span class="line">		<span class="keyword">this</span>,</span><br><span class="line">		&amp;AAuraPlayerController::Move <span class="comment">// 需要自行实现Move逻辑（参数类型为const FInputActionValue&amp;，这里不予赘述）</span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>关于增强输入系统，我目前理解的也不是很深刻（例如这里的UEnhancedInputLocalPlayerSubsystem是什么？为什么需要它？是因为在多人游戏中，每个玩家都会有个独立的UEnhancedInputLocalPlayerSubsystem，来管理不同的输入情况吗？。目前我们需要知道的是，每个IA都是独立存在，它们通过IMC来作为于输入设备的胶合剂。我们只需要添加或删除IMC，就可以实现多样化的输入。如果有时间，可以学习官方的视频教程
+https://www.bilibili.com/video/BV14r4y1r7nz/，然后我会回来专门写一节笔记。</p>
+</blockquote>
+<p>另外再提一句，在 <code>ACharacter</code> 类中，内置了
+<code>SetupPlayerInputComponent</code>
+的函数。我之前一直重写这个函数，来绑定输入： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ACharacter::SetupPlayerInputComponent</span><span class="params">(UInputComponent* PlayerInputComponent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">check</span>(PlayerInputComponent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再进一步，我们会惊讶地发现，<code>InputComponent</code> 是
+<code>AActor</code> 就有的成员变量！</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Actor.h</span></span><br><span class="line"><span class="comment">/** Component that handles input for this actor, if input is enabled. */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(DuplicateTransient)</span><br><span class="line">	TObjectPtr&lt;<span class="keyword">class</span> <span class="title class_">UInputComponent</span>&gt; InputComponent;</span><br></pre></td></tr></table></figure>
+<p>也就是说，对于普通的Actor，我们也可以通过 <code>InputComponent</code>
+来绑定输入。然而就和前面提到的，虚幻采用了类似MVC的设计模式，将逻辑与功能解耦合。对于输入，可以想一下，如果我们需要控制不同的Character，但是一些基本的移动逻辑，它们是共有的，我们应当在Controller中实现，而不是在Character中实现。</p>
+<h2 id="接口interface">接口（Interface）</h2>
+<p>接口是C++中的一种抽象类型，它定义了类必须实现的一组函数。接口可以被类继承，从而实现多态。</p>
+<p>在C++中，接口通常通过纯虚函数（pure virtual
+function）来实现。纯虚函数是一种没有实现的虚函数，它必须在派生类中实现。</p>
+<p>在UE也是一样。我们在本课程要实现的一个功能，就是当鼠标移动到敌人身上时，显示敌人的轮廓。我们首先想到的是在敌人的基类中实现相关功能。但是如果我们不只是需要显示敌人的轮廓，可能我们需要显示其它物品的轮廓，那么在敌人的基类中实现显示轮廓的功能，是不是就不恰当了呢？</p>
+<p>这时候，课程中引入了接口的概念。但是很奇怪，课程命名接口为
+<code>EnemyInterface</code>，而不是 <code>OutlineInterface</code>。
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// EnemyInterface.h</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GAS_API</span> IEnemyInterface</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Add interface functions to this class. This is the class that will be inherited to implement this interface.</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">HighlightActor</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">UnHighlightActor</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后我们就可以在Enemy类中，继承（实现）这个接口： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>()</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GAS_API</span> AAuraEnemy : <span class="keyword">public</span> AAuraCharacterBase, <span class="keyword">public</span> IEnemyInterface</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">HighlightActor</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">UnHighlightActor</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+  </entry>
 </search>
