@@ -76,6 +76,30 @@ Set会更好。我们目前对于Enemy的想法是简单的。因此目前的规
 <p>关于UE中Module的配置，可以参考：https://www.cnblogs.com/tomato-haha/p/17422871.html。用一句话来概括，就是当你的模块需要被其它模块调用时，该模块只能访问到你PublicDependencyModule中的模块的头文件信息。如果要链接，还是要在模块里显示添加。
 但是你的游戏模块不太可能被其它模块添加，所以在这里其实无所谓。</p>
 </blockquote>
+<h2 id="multiplayer">Multiplayer</h2>
+<p>这门课涉及到了一些Multiplayer的内容。首先我们清楚CS架构，在UE中，大部分情况下只有一个Server，然后Client连接到Server。</p>
+<p>Server分为两种： - Dedicated Server:
+专门用于运行游戏逻辑的Server。它不代表玩家，也没有渲染画面的需求。 -
+Listen
+Server：代表一个玩家，该玩家Host这个游戏，且没有网络延迟（Lag）。</p>
+<p>我们认为 Server is the
+authority。也就是说，在Server上运行的游戏版本，是正确的版本，我们需要在该版本上做“重要”的事情。</p>
+<p>现在我们来扫清一些疑问。例如在构造PlayerController的时候，我们设置了
+<code>bReplicates = true;</code>，这意味着什么呢？以及我们在构造PlayerState的时候，为什么要设置
+<code>NetUpdateFrequency = 100.f;</code>?</p>
+<p>在课程中，列举了一些类在Client和Server上的分布：</p>
+<img src="/2025/03/20/GAS/client_server1.png" class="" title="class_distribution">
+<p>我们稍微解析一下： -
+GameMode：只在Server上有。在Client访问会得到nullptr。 -
+PlayerController：在Server和Client上都有。然而Server拥有所有Client的PlayerController的引用，而Client只拥有自己的PlayerController的引用。
+- PlayerState：在Server和Client上都有，且所有版本都有。 -
+Pawn：和PlayerState一样。这个很好理解，我们显然要在自己的游戏中看到其它玩家。PlayerState我们现在理解为Pawn的存储，因此也很好理解。
+- HUD和Widgets：只在Client上有，且只具有自己的版本。</p>
+<p>那么<code>bReplicates = true</code>意味着什么呢？假设在某个Pawn上有一个
+<code>bReplicates = true</code>
+的变量，如果该变量在Server上被修改，那么在下一次 net
+update的时候，Server会将该变量发送给所有Client。<strong>但是，这个过程是单向的！</strong>也就是说，如果在Client上修改该变量，它将不会被传输到Server。因此我们不希望在Client上修改该变量。（很奇怪）如果要将本地的变量修改上传到Server，我们需要使用一个叫做RPC的东西。</p>
+<p>而<code>NetUpdateFrequency = 100.f;</code>则意为着该变量Replicate的更新频率。这里代表一秒更新100次。</p>
 ]]></content>
       <tags>
         <tag>Unreal</tag>
