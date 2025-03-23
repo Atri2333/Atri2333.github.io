@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x57fa;&#x7840;&#x6982;&#x5ff5;&#xff08;&#x51c6;&#x5907;&#x7b14;&#x8bb0;&#xff09;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <hr>
+<h2 id="title-gasdate-2025-03-20-103210tags-unreal">title: GAS
+date: 2025-03-20 10:32:10
+tags: Unreal</h2>
+<blockquote>
+<p>在本笔记中，我们将要接触的，是内置于UE5的Gameplay Ability System。我们将参考Udemy上的GAS课程，并根据虚幻官方的文档，来进行较为全面的理解。课程网址<a href="https://www.udemy.com/course/unreal-engine-5-gas-top-down-rpg/">https://www.udemy.com/course/unreal-engine-5-gas-top-down-rpg/</a></p>
+</blockquote>
+<h1 id="基础概念准备笔记">基础概念（准备笔记）</h1>
+<h2 id="controller">Controller</h2>
+<p>在我之前使用UE4制作一些demo的时候，我通常直接在要控制的Character类中，实现一些逻辑（如控制输入）。然而，受MVC设计模式的启发，对于我们要possess的Character（或者Pawn），应当尽量将逻辑与功能解耦合。</p>
+<p>我自己举一个例子吧，例如在射击游戏中，可能存在固定位置的机枪、岸防炮，我们应当将这些作为Pawn的子类，因为它们需要被玩家<strong>控制</strong>。对于各自武器的<strong>特定功能</strong>，例如发射子弹或者炮弹，应当在Pawn中实现，因为它们是独立于Controller的。对于Controller，我们可以切换自己possess的pawn，例如在使用固定机枪前控制我们的角色，这时候可以进行移动，而使用机枪时，则可以控制机枪射击，无法进行移动。而这便是Controller的职责。（对于切换移动，我目测可以采用UE5的Enhanced Input系统，通过切换Input Mapping Context来实现。</p>
+<p>当然，对于Controller，它本身也内置了一些控制逻辑，例如我在制作射击游戏demo的时候，在角色死亡后，需要调用PlayerController内置的禁用输入，来防止诈尸。还有一个特定的Controller叫做AIController，它通过绑定行为树（Behavior Tree）和黑板（Blackboard）来负责控制AI的行为。例如在游戏中，AI需要根据玩家的位置，来判断是否需要进行移动，或者进行攻击。</p>
+<blockquote>
+<p>我目前对于Controller的理解还不是很深刻，在之后的学习中，我会通过实际运用，例如完成Udemy上的GAS课程，来加深理解。
+对于Controller的深入思考，推荐<a href="https://zhuanlan.zhihu.com/p/23480071">https://zhuanlan.zhihu.com/p/23480071</a></p>
+</blockquote>
+<p>对于项目的配置，我们首先要保证能移动角色。首先进行动画蓝图的配置（这里不予赘述），然后就是在PlayerController中，配置移动逻辑。</p>
+<p>我们在PlayerController的类中，添加增强输入系统所需要的IMC(Input Mapping Context)和IA(Input Action)：</p>
+<pre><code class="language-cpp"><span class="hljs-built_in">UPROPERTY</span>(EditAnywhere, Category = Input)
+TObjectPtr&lt;UInputMappingContext&gt; AuraContext;
+
+<span class="hljs-built_in">UPROPERTY</span>(EditAnywhere, Category = <span class="hljs-string">&quot;Input | Actions&quot;</span>)
+TObjectPtr&lt;UInputAction&gt; MoveAction;
+</code></pre>
+<p>然后在 <code>BeginPlay</code> 中，通过 <code>UEnhancedInputLocalPlayerSubsystem</code> 来添加IMC：</p>
+<pre><code class="language-cpp">UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::<span class="hljs-built_in">GetSubsystem</span>&lt;UEnhancedInputLocalPlayerSubsystem&gt;(<span class="hljs-built_in">GetLocalPlayer</span>());
+<span class="hljs-built_in">check</span>(Subsystem); <span class="hljs-comment">// assert</span>
+Subsystem-&gt;<span class="hljs-built_in">AddMappingContext</span>(AuraContext, <span class="hljs-number">0</span>); <span class="hljs-comment">// 0是优先级，这里我们先只添加一个IMC。对于Top Down RPG，目前我们没遇到比较复杂的输入情况。</span>
+</code></pre>
+<p>对于PlayerController，我们可以override <code>SetupInputComponent</code> 来添加输入逻辑：</p>
+<pre><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">AAuraPlayerController::SetupInputComponent</span><span class="hljs-params">()</span>
+</span>{
+	Super::<span class="hljs-built_in">SetupInputComponent</span>();
+
+	UEnhancedInputComponent* EnhancedInputComponent = <span class="hljs-built_in">CastChecked</span>&lt;UEnhancedInputComponent&gt;(InputComponent);
+
+	EnhancedInputComponent-&gt;<span class="hljs-built_in">BindAction</span>(
+		MoveAction,
+		ETriggerEvent::Triggered,
+		<span class="hljs-keyword">this</span>,
+		&amp;AAuraPlayerController::Move <span class="hljs-comment">// 需要自行实现Move逻辑（参数类型为const FInputActionValue&amp;，这里不予赘述）</span>
+	);
+}
+</code></pre>
+<blockquote>
+<p>关于增强输入系统，我目前理解的也不是很深刻（例如这里的UEnhancedInputLocalPlayerSubsystem是什么？为什么需要它？是因为在多人游戏中，每个玩家都会有个独立的UEnhancedInputLocalPlayerSubsystem，来管理不同的输入情况吗？。目前我们需要知道的是，每个IA都是独立存在，它们通过IMC来作为于输入设备的胶合剂。我们只需要添加或删除IMC，就可以实现多样化的输入。如果有时间，可以学习官方的视频教程 <a href="https://www.bilibili.com/video/BV14r4y1r7nz/%EF%BC%8C%E7%84%B6%E5%90%8E%E6%88%91%E4%BC%9A%E5%9B%9E%E6%9D%A5%E4%B8%93%E9%97%A8%E5%86%99%E4%B8%80%E8%8A%82%E7%AC%94%E8%AE%B0%E3%80%82">https://www.bilibili.com/video/BV14r4y1r7nz/，然后我会回来专门写一节笔记。</a></p>
+</blockquote>
+<p>另外再提一句，在 <code>ACharacter</code> 类中，内置了 <code>SetupPlayerInputComponent</code> 的函数。我之前一直重写这个函数，来绑定输入：</p>
+<pre><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ACharacter::SetupPlayerInputComponent</span><span class="hljs-params">(UInputComponent* PlayerInputComponent)</span>
+</span>{
+	<span class="hljs-built_in">check</span>(PlayerInputComponent);
+}
+</code></pre>
+<p>再进一步，我们会惊讶地发现，<code>InputComponent</code> 是 <code>AActor</code> 就有的成员变量！</p>
+<pre><code class="language-cpp"><span class="hljs-comment">// Actor.h</span>
+<span class="hljs-comment">/** Component that handles input for this actor, if input is enabled. */</span>
+	<span class="hljs-built_in">UPROPERTY</span>(DuplicateTransient)
+	TObjectPtr&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">UInputComponent</span>&gt; InputComponent;
+</code></pre>
+<p>也就是说，对于普通的Actor，我们也可以通过 <code>InputComponent</code> 来绑定输入。然而就和前面提到的，虚幻采用了类似MVC的设计模式，将逻辑与功能解耦合。对于输入，可以想一下，如果我们需要控制不同的Character，但是一些基本的移动逻辑，它们是共有的，我们应当在Controller中实现，而不是在Character中实现。</p>
+<h2 id="接口interface">接口（Interface）</h2>
+<p>接口是C++中的一种抽象类型，它定义了类必须实现的一组函数。接口可以被类继承，从而实现多态。</p>
+<p>在C++中，接口通常通过纯虚函数（pure virtual function）来实现。纯虚函数是一种没有实现的虚函数，它必须在派生类中实现。</p>
+<p>在UE也是一样。我们在本课程要实现的一个功能，就是当鼠标移动到敌人身上时，显示敌人的轮廓。我们首先想到的是在敌人的基类中实现相关功能。但是如果我们不只是需要显示敌人的轮廓，可能我们需要显示其它物品的轮廓，那么在敌人的基类中实现显示轮廓的功能，是不是就不恰当了呢？</p>
+<p>这时候，课程中引入了接口的概念。但是很奇怪，课程命名接口为 <code>EnemyInterface</code>，而不是 <code>OutlineInterface</code>。</p>
+<pre><code class="language-cpp"><span class="hljs-comment">// EnemyInterface.h</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GAS_API</span> IEnemyInterface
+{
+	<span class="hljs-built_in">GENERATED_BODY</span>()
+
+	<span class="hljs-comment">// Add interface functions to this class. This is the class that will be inherited to implement this interface.</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">HighlightActor</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">UnHighlightActor</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+};
+</code></pre>
+<p>然后我们就可以在Enemy类中，继承（实现）这个接口：</p>
+<pre><code class="language-cpp"><span class="hljs-built_in">UCLASS</span>()
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GAS_API</span> AAuraEnemy : <span class="hljs-keyword">public</span> AAuraCharacterBase, <span class="hljs-keyword">public</span> IEnemyInterface
+{
+	<span class="hljs-built_in">GENERATED_BODY</span>()
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">HighlightActor</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">UnHighlightActor</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;
+};
+</code></pre>
+<h1 id="gas">GAS</h1>
+<p>接下来，我们要将GAS系统集成到我们的项目中。首先我们考虑引进两个模块：Ability System Component和Attribute Set。Ability System Component是一个Actor和GAS进行联系的桥梁，而Attribute Set则是存储和修改Actor的属性。</p>
+<p>一种想法是将Ability System Component和Attribute Set直接作为我们要控制的Character的成员。但是这么做提升了GAS和角色的耦合性。试想一下，如果我们的角色死亡了，我们会 <code>Destroy</code> 掉这个Character，那么我们之前为这个Character添加的Ability System Component和Attribute Set也会被销毁。因此，在本课程中，我们选择将Ability System Component和Attribute Set作为PlayerState的成员。</p>
+<blockquote>
+<p>思考（坑）：我们是否能将Ability System Component和Attribute Set作为PlayerController的成员呢？我目前没有完美的解答。事实上，我之前做的项目中，并没有运用到PlayerState这个类。而根据MVC设计模式，我们需要一个专门的类来存储我们的信息（如Attribute Set）。而PlayerState，顾名思义，或许是存储这些东西的最优选择。至于PlayerController，它需要解决的则是逻辑相关的东西。可以参考BehaviorTree和Blackboard之间的关系。</p>
+</blockquote>
+<p>然而，对于普通的Enemy，或许直接在类中存储Ability System Component和Attribute Set会更好。我们目前对于Enemy的想法是简单的。因此目前的规划可以用下图表示：</p>
+<p><img src="file:///d:\Blog\source\_posts\GAS\main_part_organize.png" alt="main_part_organize"></p>
+<h2 id="准备工作">准备工作</h2>
+<p>首先我们在Plugins里启用GAS，然后创建自己的AuraAbilitySystemComponent和AuraAttributeSet。</p>
+<p>然后记得在Module里添加：</p>
+<pre><code class="language-csharp">	PublicDependencyModuleNames.AddRange(<span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>[] { <span class="hljs-string">&quot;Core&quot;</span>, <span class="hljs-string">&quot;CoreUObject&quot;</span>, <span class="hljs-string">&quot;Engine&quot;</span>, <span class="hljs-string">&quot;InputCore&quot;</span>, <span class="hljs-string">&quot;EnhancedInput&quot;</span> });
+
+	PrivateDependencyModuleNames.AddRange(<span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>[] { <span class="hljs-string">&quot;GameplayAbilities&quot;</span>, <span class="hljs-string">&quot;GameplayTags&quot;</span>, <span class="hljs-string">&quot;GameplayTasks&quot;</span> });
+</code></pre>
+<p>我们将GAS的模块添加到PrivateDependencyModule中。</p>
+<blockquote>
+<p>关于UE中Module的配置，可以参考：<a href="https://www.cnblogs.com/tomato-haha/p/17422871.html%E3%80%82%E7%94%A8%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9D%A5%E6%A6%82%E6%8B%AC%EF%BC%8C%E5%B0%B1%E6%98%AF%E5%BD%93%E4%BD%A0%E7%9A%84%E6%A8%A1%E5%9D%97%E9%9C%80%E8%A6%81%E8%A2%AB%E5%85%B6%E5%AE%83%E6%A8%A1%E5%9D%97%E8%B0%83%E7%94%A8%E6%97%B6%EF%BC%8C%E8%AF%A5%E6%A8%A1%E5%9D%97%E5%8F%AA%E8%83%BD%E8%AE%BF%E9%97%AE%E5%88%B0%E4%BD%A0PublicDependencyModule%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF%E3%80%82%E5%A6%82%E6%9E%9C%E8%A6%81%E9%93%BE%E6%8E%A5%EF%BC%8C%E8%BF%98%E6%98%AF%E8%A6%81%E5%9C%A8%E6%A8%A1%E5%9D%97%E9%87%8C%E6%98%BE%E7%A4%BA%E6%B7%BB%E5%8A%A0%E3%80%82">https://www.cnblogs.com/tomato-haha/p/17422871.html。用一句话来概括，就是当你的模块需要被其它模块调用时，该模块只能访问到你PublicDependencyModule中的模块的头文件信息。如果要链接，还是要在模块里显示添加。</a>
+但是你的游戏模块不太可能被其它模块添加，所以在这里其实无所谓。</p>
+</blockquote>
+<h2 id="multiplayer">Multiplayer</h2>
+<p>这门课涉及到了一些Multiplayer的内容。首先我们清楚CS架构，在UE中，大部分情况下只有一个Server，然后Client连接到Server。</p>
+<p>Server分为两种：</p>
+<ul>
+<li>Dedicated Server: 专门用于运行游戏逻辑的Server。它不代表玩家，也没有渲染画面的需求。</li>
+<li>Listen Server：代表一个玩家，该玩家Host这个游戏，且没有网络延迟（Lag）。</li>
+</ul>
+<p>我们认为 Server is the authority。也就是说，在Server上运行的游戏版本，是正确的版本，我们需要在该版本上做“重要”的事情。</p>
+<p>现在我们来扫清一些疑问。例如在构造PlayerController的时候，我们设置了 <code>bReplicates = true;</code>，这意味着什么呢？以及我们在构造PlayerState的时候，为什么要设置 <code>NetUpdateFrequency = 100.f;</code>?</p>
+<p>在课程中，列举了一些类在Client和Server上的分布：</p>
+<p><img src="file:///d:\Blog\source\_posts\GAS\client_server1.png" alt="class_distribution"></p>
+<p>我们稍微解析一下：</p>
+<ul>
+<li>GameMode：只在Server上有。在Client访问会得到nullptr。</li>
+<li>PlayerController：在Server和Client上都有。然而Server拥有所有Client的PlayerController的引用，而Client只拥有自己的PlayerController的引用。</li>
+<li>PlayerState：在Server和Client上都有，且所有版本都有。</li>
+<li>Pawn：和PlayerState一样。这个很好理解，我们显然要在自己的游戏中看到其它玩家。PlayerState我们现在理解为Pawn的存储，因此也很好理解。</li>
+<li>HUD和Widgets：只在Client上有，且只具有自己的版本。</li>
+</ul>
+<p>那么<code>bReplicates = true</code>意味着什么呢？假设在某个Pawn上有一个 <code>bReplicates = true</code> 的变量，如果该变量在Server上被修改，那么在下一次 net update的时候，Server会将该变量发送给所有Client。**但是，这个过程是单向的！**也就是说，如果在Client上修改该变量，它将不会被传输到Server。因此我们不希望在Client上修改该变量。（很奇怪）如果要将本地的变量修改上传到Server，我们需要使用一个叫做RPC的东西。</p>
+<p>而<code>NetUpdateFrequency = 100.f;</code>则意为着该变量Replicate的更新频率。这里代表一秒更新100次。</p>
+<p>在设置ASC和AS的时候，我们需要将ASC设置为：</p>
+<pre><code class="language-cpp">AbilitySystemComponent-&gt;<span class="hljs-built_in">SetIsReplicated</span>(<span class="hljs-literal">true</span>);
+AbilitySystemComponent-&gt;<span class="hljs-built_in">SetReplicationMode</span>(EGameplayEffectReplicationMode::Mixed);
+</code></pre>
+<p>而对于Enemy的ASC，将ReplicationMode设置为Minimal。ReplicationMode有三种，以下是它们的区别：</p>
+<p><img src="file:///d:\Blog\source\_posts\GAS\replication_mode.png" alt="replication_mode"></p>
+<blockquote>
+<p>目前我们还不知道什么是Gameplay Effect，因此我们只需要遵守上面的Rule of Thumb。即对于玩家操控的角色，我们希望至少该玩家能够接受它在server上的变动，即Mixed；而对于AI-Controlled的角色，例如Enemy，我们玩家不需要知道它的变动，由服务器知道即可，因此设置为Minimal。</p>
+</blockquote>
+<p>接下来，在GAS中很重要的一点是，对于我们构建的ASC，我们需要在初始化的时候（或者某些状态改变的时候），设置它的Owner Actor和Avatar Actor。Owner Actor顾名思义是构建（拥有）了该ASC的Actor，在我们的例子里是PlayerState。而Avator Actor则是ASC在World中联系的Actor，在我们的例子里是Character。对于Enemy，由于我们直接在Character类里构造了ASC，因此Owner Actor和Avatar Actor都是Character。</p>
+<p>设置这两个Actor的方法是 <code>InitAbilityActorInfo</code>。那么我们要在哪里调用这个方法呢？</p>
+<blockquote>
+<p>推荐GAS Setup资料：<a href="https://dev.epicgames.com/community/learning/tutorials/DPpd/unreal-engine-gameplay-ability-system-best-practices-for-setup">https://dev.epicgames.com/community/learning/tutorials/DPpd/unreal-engine-gameplay-ability-system-best-practices-for-setup</a></p>
+</blockquote>
+<p>很明显在server和client，我们对于ASC的不同副本都需要设置这两个Actor。但是server和client并不相同。不过有一点值得确定，就是对于任意使用了ASC的Pawn，我们必须要在它设置了Controller之后才能调用 <code>InitAbilityActorInfo</code>。这点在上面链接文档里也有提到。</p>
+<p>课程给出了调用该方法的Rule of Thumb：</p>
+<p><img src="file:///d:\Blog\source\_posts\GAS\InitAbilityActorInfo.png" alt="InitAblityActorInfo"></p>
+<blockquote>
+<p>思考：PossessedBy这个函数是只在server端调用的吗？根据咨询Deepseek，答案是肯定的。因此我们在client端则需要在OnRep系列函数中调用。在本项目中我们需要确保Controller和PlayerState都是有效的，然而课程中直接给出结论，就是在 <code>OnRep_PlayerState</code> 调用的时候，Controller也是有效的。这个我目前不是很能理解，按理来讲该方法只是在 <code>PlayerState</code> 执行Replicate操作后的Notify，和Controller有什么关系？</p>
+<p>而当ASC在Pawn的时候，我们并不是在 <code>OnRep_Controller</code> 调用 <code>InitAbilityActorInfo</code>，而是在另一个方法 <code>AcknowledgePossession</code> 调用。这又是为什么呢？</p>
+<p>顺带插一句，由于本人在学习该课程的时候没有任何网络基础，因此会有另一个疑问：<code>OnRep_PlayerState</code> 会在什么时候调用？根据Udemy中的Q&amp;A，可以知道该函数只会在 <code>PlayerState</code> 本身在server端被改变的时候会进行Replicate，因此大部分情况下，该函数只会被调用一次。</p>
+<p>关于网络连接的一些知识，可以先学习官方文档：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/multiplayer-programming-quick-start-for-unreal-engine#4creatingaprojectilewithreplication%EF%BC%8C%E5%AF%B9%E6%89%80%E8%B0%93%E7%9A%84Replicate%EF%BC%8COnRep%EF%BC%8CRPC%E7%AD%89%E6%A6%82%E5%BF%B5%E6%9C%89%E4%B8%AA%E5%A4%A7%E8%87%B4%E7%9A%84%E4%BA%86%E8%A7%A3%E5%8D%B3%E5%8F%AF%E3%80%82">https://dev.epicgames.com/documentation/en-us/unreal-engine/multiplayer-programming-quick-start-for-unreal-engine#4creatingaprojectilewithreplication，对所谓的Replicate，OnRep，RPC等概念有个大致的了解即可。</a></p>
+</blockquote>
+<h3 id="attribute">Attribute</h3>
+<p>我们首先在我们的 <code>UAuraAttributeSet</code> 中，添加我们需要的属性。关于添加属性，以下是课程中给的固定的流程，有些地方你可以在我上面给的官方文档中找到类似的东西。</p>
+<p>首先是在头文件中添加属性，这个属性统一为 <code>FGameplayAttributeData</code> 类型，并使用ReplicatedUsing = OnRep_##PropertyName来添加Replicate Notify：</p>
+<pre><code class="language-cpp"><span class="hljs-built_in">UPROPERTY</span>(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = <span class="hljs-string">&quot;Vital Attributes&quot;</span>)
+FGameplayAttributeData Health;
+<span class="hljs-built_in">ATTRIBUTE_ACCESSORS</span>(UAuraAttributeSet, Health)
+</code></pre>
+<p>这里的 <code>ATTRIBUTE_ACCESSORS</code> 宏定义了关于该属性的Accessor，例如Getter和Setter，它的定义如下：</p>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)</span>
+</code></pre>
+<p>对于需要Replicate的ASC内的AS的属性，需要在对应的OnRep系列函数中添加：</p>
+<pre><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">UAuraAttributeSet::OnRep_Health</span><span class="hljs-params">(<span class="hljs-type">const</span> FGameplayAttributeData&amp; OldHealth)</span> <span class="hljs-type">const</span>
+</span>{
+	<span class="hljs-built_in">GAMEPLAYATTRIBUTE_REPNOTIFY</span>(UAuraAttributeSet, Health, OldHealth);
+}
+</code></pre>
+<blockquote>
+<p>这个 <code>GAMEPLAYATTRIBUTE_REPNOTIFY</code> 宏，我目前不知道是干什么的，根据源码注释，这是个用于handle attributes that will be <strong>predictively</strong> modified by clients。对于predict，课程有稍微提到，在多人游戏中，为了提高游戏体验，对于Attribute的修改，可以通过predict的方式在Client上先修改，然后通过Server进行确认，而不需要先在Server上进行修改，然后replicate回来。但是对于内部的实现，我根本就看不懂，反正先记住这是设置Attribute的必备工作即可。</p>
+<p>GAS，包括UE的源码，有太多的内部实现细节等待挖掘。有时候我对一些模块的内部机理感到好奇，但是困于自己难以对源码进行解析，因此总是碰壁。</p>
+</blockquote>
+<p>接下来，还需要在 <code>GetLifetimeReplicatedProps</code> 方法来添加需要Replicate的Attribute。之前在UPROPERTY中，我们使用 <code>ReplicatedUsing</code> 来告诉GAS该Attribute需要Replicate，然后这里的话应该是告诉GAS该如何Attribute。例如：</p>
+<pre><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">UAuraAttributeSet::GetLifetimeReplicatedProps</span><span class="hljs-params">(TArray&lt;FLifetimeProperty&gt;&amp; OutLifetimeProps)</span> <span class="hljs-type">const</span>
+</span>{
+	Super::<span class="hljs-built_in">GetLifetimeReplicatedProps</span>(OutLifetimeProps);
+
+	<span class="hljs-built_in">DOREPLIFETIME_CONDITION_NOTIFY</span>(UAuraAttributeSet, Health, COND_None, REPNOTIFY_Always);
+}
+</code></pre>
+<p>这里告诉GAS系统，Health没有需要Replicate的条件，且需要一直Replicate（只要赋值就要改变，即便前后的值是相等的）。</p>
+<p>这样我们就成功地配置了一个属性。可以构建游戏项目并运行，然后Play，按 &quot;`&quot; 键，打开控制台，输入 <code>showdebug abilitysystem</code>，然后回车，就可以看到我们配置的属性。用 &quot;PageUp&quot; 和 &quot;PageDown&quot; 可以切换配置了ASC的Actor。</p>
+
+            
+            
+        </body>
+        </html>

@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://atri2333.github.io/2025/03/20/GAS/replication_mode.png">
 <meta property="og:image" content="https://atri2333.github.io/2025/03/20/GAS/InitAbilityActorInfo.png">
 <meta property="article:published_time" content="2025-03-20T02:32:10.000Z">
-<meta property="article:modified_time" content="2025-03-22T09:11:22.900Z">
+<meta property="article:modified_time" content="2025-03-23T15:21:58.620Z">
 <meta property="article:author" content="Ayy3">
 <meta property="article:tag" content="Unreal">
 <meta name="twitter:card" content="summary">
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%87%86%E5%A4%87%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">基础概念（准备笔记）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#controller"><span class="nav-number">1.1.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3interface"><span class="nav-number">1.2.</span> <span class="nav-text">接口（Interface）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gas"><span class="nav-number">2.</span> <span class="nav-text">GAS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multiplayer"><span class="nav-number">2.2.</span> <span class="nav-text">Multiplayer</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%87%86%E5%A4%87%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">基础概念（准备笔记）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#controller"><span class="nav-number">1.1.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3interface"><span class="nav-number">1.2.</span> <span class="nav-text">接口（Interface）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gas"><span class="nav-number">2.</span> <span class="nav-text">GAS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multiplayer"><span class="nav-number">2.2.</span> <span class="nav-text">Multiplayer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute"><span class="nav-number">2.2.1.</span> <span class="nav-text">Attribute</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -236,7 +236,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-22 17:11:22" itemprop="dateModified" datetime="2025-03-22T17:11:22+08:00">2025-03-22</time>
+      <time title="修改时间：2025-03-23 23:21:58" itemprop="dateModified" datetime="2025-03-23T23:21:58+08:00">2025-03-23</time>
     </span>
 
   
@@ -387,15 +387,45 @@ Setup资料：https://dev.epicgames.com/community/learning/tutorials/DPpd/unreal
 <code>OnRep_PlayerState</code>
 调用的时候，Controller也是有效的。这个我目前不是很能理解，按理来讲该方法只是在
 <code>PlayerState</code>
-执行Replicate操作后的Notify，和Controller有什么关系？
-而当ASC在Pawn的时候，我们并不是在 <code>OnRep_Controller</code> 调用
+执行Replicate操作后的Notify，和Controller有什么关系？</p>
+<p>而当ASC在Pawn的时候，我们并不是在 <code>OnRep_Controller</code> 调用
 <code>InitAbilityActorInfo</code>，而是在另一个方法
-<code>AcknowledgePossession</code> 调用。这又是为什么呢？
-顺带插一句，由于本人在学习该课程的时候没有任何网络基础，因此会有另一个疑问：<code>OnRep_PlayerState</code>
+<code>AcknowledgePossession</code> 调用。这又是为什么呢？</p>
+<p>顺带插一句，由于本人在学习该课程的时候没有任何网络基础，因此会有另一个疑问：<code>OnRep_PlayerState</code>
 会在什么时候调用？根据Udemy中的Q&amp;A，可以知道该函数只会在
 <code>PlayerState</code>
 本身在server端被改变的时候会进行Replicate，因此大部分情况下，该函数只会被调用一次。</p>
+<p>关于网络连接的一些知识，可以先学习官方文档：https://dev.epicgames.com/documentation/en-us/unreal-engine/multiplayer-programming-quick-start-for-unreal-engine#4creatingaprojectilewithreplication，对所谓的Replicate，OnRep，RPC等概念有个大致的了解即可。</p>
 </blockquote>
+<h3 id="attribute">Attribute</h3>
+<p>我们首先在我们的 <code>UAuraAttributeSet</code>
+中，添加我们需要的属性。关于添加属性，以下是课程中给的固定的流程，有些地方你可以在我上面给的官方文档中找到类似的东西。</p>
+<p>首先是在头文件中添加属性，这个属性统一为
+<code>FGameplayAttributeData</code> 类型，并使用ReplicatedUsing =
+OnRep_##PropertyName来添加Replicate Notify：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UPROPERTY</span>(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = <span class="string">&quot;Vital Attributes&quot;</span>)</span><br><span class="line">FGameplayAttributeData Health;</span><br><span class="line"><span class="built_in">ATTRIBUTE_ACCESSORS</span>(UAuraAttributeSet, Health)</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>ATTRIBUTE_ACCESSORS</code>
+宏定义了关于该属性的Accessor，例如Getter和Setter，它的定义如下：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \</span></span><br><span class="line"><span class="meta">	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \</span></span><br><span class="line"><span class="meta">	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \</span></span><br><span class="line"><span class="meta">	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \</span></span><br><span class="line"><span class="meta">	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)</span></span><br></pre></td></tr></table></figure></p>
+<p>对于需要Replicate的ASC内的AS的属性，需要在对应的OnRep系列函数中添加：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">UAuraAttributeSet::OnRep_Health</span><span class="params">(<span class="type">const</span> FGameplayAttributeData&amp; OldHealth)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">GAMEPLAYATTRIBUTE_REPNOTIFY</span>(UAuraAttributeSet, Health, OldHealth);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这个 <code>GAMEPLAYATTRIBUTE_REPNOTIFY</code>
+宏，我目前不知道是干什么的，根据源码注释，这是个用于handle attributes
+that will be <strong>predictively</strong> modified by
+clients。对于predict，课程有稍微提到，在多人游戏中，为了提高游戏体验，对于Attribute的修改，可以通过predict的方式在Client上先修改，然后通过Server进行确认，而不需要先在Server上进行修改，然后replicate回来。但是对于内部的实现，我根本就看不懂，反正先记住这是设置Attribute的必备工作即可。</p>
+<p>GAS，包括UE的源码，有太多的内部实现细节等待挖掘。有时候我对一些模块的内部机理感到好奇，但是困于自己难以对源码进行解析，因此总是碰壁。</p>
+</blockquote>
+<p>接下来，还需要在 <code>GetLifetimeReplicatedProps</code>
+方法来添加需要Replicate的Attribute。之前在UPROPERTY中，我们使用
+<code>ReplicatedUsing</code>
+来告诉GAS该Attribute需要Replicate，然后这里的话应该是告诉GAS该如何Attribute。例如：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">UAuraAttributeSet::GetLifetimeReplicatedProps</span><span class="params">(TArray&lt;FLifetimeProperty&gt;&amp; OutLifetimeProps)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Super::<span class="built_in">GetLifetimeReplicatedProps</span>(OutLifetimeProps);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">DOREPLIFETIME_CONDITION_NOTIFY</span>(UAuraAttributeSet, Health, COND_None, REPNOTIFY_Always);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里告诉GAS系统，Health没有需要Replicate的条件，且需要一直Replicate（只要赋值就要复制，即便前后的值是相等的）。</p>
+<p>这样我们就成功地配置了一个属性。可以构建游戏项目并运行，然后Play，按
+"`" 键，打开控制台，输入
+<code>showdebug abilitysystem</code>，然后回车，就可以看到我们配置的属性。用
+"PageUp" 和 "PageDown" 可以切换配置了ASC的Actor。</p>
 
     </div>
 
