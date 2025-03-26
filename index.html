@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,144 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2025/03/26/ue-multiplayer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Atri6.jpg">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/26/ue-multiplayer/" class="post-title-link" itemprop="url">ue-multiplayer</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-26 11:00:34 / 修改时间：21:30:22" itemprop="dateCreated datePublished" datetime="2025-03-26T11:00:34+08:00">2025-03-26</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/03/26/ue-multiplayer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/03/26/ue-multiplayer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ue5-multiplayer">UE5 Multiplayer</h1>
+<h2 id="lan">LAN</h2>
+<p>在同一个局域网（LAN）中，可以创建一个游戏会话，并让多个玩家加入。</p>
+<p>这里在<code>PlayerController</code>中创建函数，然后在蓝图调用。可以作为listen
+server开启服务器，也可以作为client通过ip地址加入别人的listen server
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">AMyPlayerController::OpenLobby</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	UWorld* World = <span class="built_in">GetWorld</span>();</span><br><span class="line">	<span class="keyword">if</span> (World)</span><br><span class="line">	&#123;</span><br><span class="line">		World-&gt;<span class="built_in">ServerTravel</span>(<span class="string">&quot;/Game/ThirdPerson/Maps/Lobby?listen&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AMyPlayerController::CallOpenLevel</span><span class="params">(<span class="type">const</span> FString&amp; Address)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	UGameplayStatics::<span class="built_in">OpenLevel</span>(<span class="keyword">this</span>, *Address);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AMyPlayerController::CallClientLevel</span><span class="params">(<span class="type">const</span> FString&amp; Address)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">ClientTravel</span>(Address, TRAVEL_Absolute);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="online-subsystem">Online Subsystem</h2>
+<p>通过LAN连接，需要保证每个player都在同一个局域网中。然而我们希望可以实现跨地区的连接，这表明不同的玩家可能处于不同的局域网中，无法采用直接输入局部IP的方式来加入某个listen
+server。</p>
+<p>当然我们有全局ip，但是玩家还是需要手动输入ip地址，这显然不方便。我们希望能够在游戏中直接搜寻玩家的ID，然后加入他们的游戏。</p>
+<p>一种方式是对你自己的游戏建立专门的服务器，该服务器要实现能够维护一个IP列表的功能来表明所有的玩家。然而这种方式成本较高，我们希望还是通过listen
+server的方式来实现。</p>
+<p>另一种方式是采用所谓的在线服务（Online
+Services），例如steam和Xbox。这种在线服务不仅能够抽象IP层面，还有其它的功能（后续会提到，比如成就系统）。</p>
+<blockquote>
+<p>当然，所谓的在线服务不直接决定使用 Listen Server 还是 Dedicated
+Server，它的核心目标是
+帮助玩家发现和加入游戏会话，而会话的实际运行模式（Listen/Dedicated）由开发者配置。</p>
+</blockquote>
+<p>对于不同的service，虽然它们提供的功能大致相同，但是它们在实现上有所不同。例如创建会话（Session），Steam有自己的一套实现，Xbox也有自己的一套实现。</p>
+<p>UE5中，我们使用Online
+Subsystem来抽象这些不同的service。（这就好比用RHI来抽象不同的图形API？）</p>
+<h2 id="online-subsystem-steam">Online Subsystem Steam</h2>
+<p>这里采用Steam作为Online
+Service。在编辑器里加入插件，然后在游戏模块中加入OSS和Steam的模块，然后在DefaultEngine.ini中配置相关项。</p>
+<p>目前的话，我们想要通过Steam来创建会话。</p>
+<blockquote>
+<p>GPT:
+在多人游戏开发中，“会话”（Session）通常指的是一次游戏匹配或房间实例，它包含了游戏设置、玩家列表、连接信息等。也就是说，当玩家创建一个游戏并允许其他玩家加入时，这个创建出来的组就叫做一个会话。会话管理确保所有参与者能够在同一环境下进行游戏互动，并且负责处理连接、匹配、邀请以及会话广告等功能。</p>
+</blockquote>
+<p>我们首先要获取我们的OSS： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::<span class="built_in">Get</span>();</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>回顾一下OSS的定义：OnlineSubsystem - Series of interfaces to support
+communicating with various web/platform layer
+services，也就是说，OSS内部包含了一系列的接口，用于支持与各种web/平台层服务的通信。</p>
+<p>然后有趣的是，OSS本身也是一个接口（它的前缀是I）。这里通过Get()获取的是一个具体的实现，例如SteamOnlineSubsystem。</p>
+<p>可以通过阅览OnlineSubsystemSteam的源码来确认。FOnlineSubsystemSteam继承FOnlineSubsystemImpl，而FOnlineSubsystemImpl则继承了IOnlineSubsystem。</p>
+</blockquote>
+<p>由于我们需要OSS的创建会话相关功能，故提取该接口： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (OnlineSubsystem)</span><br><span class="line">&#123;</span><br><span class="line">	OnlineSessionInterface = OnlineSubsystem-&gt;<span class="built_in">GetSessionInterface</span>(); <span class="comment">//这个是成员变量</span></span><br><span class="line">	<span class="keyword">if</span> (GEngine)</span><br><span class="line">	&#123;</span><br><span class="line">		GEngine-&gt;<span class="built_in">AddOnScreenDebugMessage</span>(</span><br><span class="line">			<span class="number">-1</span>,</span><br><span class="line">			<span class="number">15.f</span>,</span><br><span class="line">			FColor::Blue,</span><br><span class="line">			FString::<span class="built_in">Printf</span>(<span class="built_in">TEXT</span>(<span class="string">&quot;Online Subsystem %s&quot;</span>), *(OnlineSubsystem-&gt;<span class="built_in">GetSubsystemName</span>().<span class="built_in">ToString</span>()))</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以创建会话了。这里为了确认创建了会话，我们使用一个委托<code>FOnCreateSessionCompleteDelegate</code>，并将其绑定到一个自己的函数<code>void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);</code>。</p>
+<blockquote>
+<p>所谓delegate，我目前的理解就是在某些情况下进行回调。在ue中有很多类型的delegate，这里的<code>FOnCreateSessionCompleteDelegate</code>也是一类，它在创建会话后回调，它对应的回调函数要求有特定的函数签名（直接查看定义就能获取）。我们将其绑定到函数
+<code>void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);</code>
+上。绑定的过程可以直接和创建delegate一起：<code>OnCreateSessionCompleteDelegate =(FOnCreateSessionCompleteDelegate::CreateUObject(this, &amp;ThisClass::OnCreateSessionComplete))</code></p>
+</blockquote>
+<p>然后可以正式创建会话： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">AMenuSystemCharacter::CreateSession</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!OnlineSessionInterface.<span class="built_in">IsValid</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Session Interface is null, just return</span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// check whether we have created a session before. If it exists, destroy it!</span></span><br><span class="line">	<span class="type">const</span> FNamedOnlineSession* ExistingSession = OnlineSessionInterface-&gt;<span class="built_in">GetNamedSession</span>(NAME_GameSession);</span><br><span class="line">	<span class="keyword">if</span> (ExistingSession)</span><br><span class="line">	&#123;</span><br><span class="line">		OnlineSessionInterface-&gt;<span class="built_in">RemoveNamedSession</span>(NAME_GameSession);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Add our delegate to OnlineSessionInterface&#x27;s delegate list, otherwise we&#x27;ll not have our callback</span></span><br><span class="line">	OnlineSessionInterface-&gt;<span class="built_in">AddOnCreateSessionCompleteDelegate_Handle</span>(OnCreateSessionCompleteDelegate);</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> TSharedPtr&lt;FOnlineSessionSettings&gt; OnlineSessionSettings = <span class="built_in">MakeShareable</span>(<span class="keyword">new</span> <span class="built_in">FOnlineSessionSettings</span>());</span><br><span class="line">	OnlineSessionSettings-&gt;bIsLANMatch = <span class="literal">false</span>; <span class="comment">// We don&#x27;t use LAN, we use the internet.</span></span><br><span class="line">	OnlineSessionSettings-&gt;bAllowJoinInProgress = <span class="literal">true</span>; <span class="comment">// We allow other clients to join when the session is alive.</span></span><br><span class="line">	OnlineSessionSettings-&gt;NumPublicConnections = <span class="number">4</span>; <span class="comment">// Public Connections don&#x27;t need password?</span></span><br><span class="line">	OnlineSessionSettings-&gt;bAllowJoinViaPresence = <span class="literal">true</span>; <span class="comment">// 在线方式？？？不太懂</span></span><br><span class="line">	OnlineSessionSettings-&gt;bShouldAdvertise = <span class="literal">true</span>; <span class="comment">// 公开在线会话</span></span><br><span class="line">	OnlineSessionSettings-&gt;bUsesPresence = <span class="literal">true</span>; <span class="comment">// 应该是搭配 bAllowJoinViaPresence。得先有Presence，才能via Presence</span></span><br><span class="line">	OnlineSessionSettings-&gt;bUseLobbiesIfAvailable = <span class="literal">true</span>; <span class="comment">// 这个应该是steam必备的，不然无法创建会话</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">const</span> TObjectPtr&lt;ULocalPlayer&gt; LocalPlayer = <span class="built_in">GetWorld</span>()-&gt;<span class="built_in">GetFirstLocalPlayerFromController</span>();</span><br><span class="line">	OnlineSessionInterface-&gt;<span class="built_in">CreateSession</span>(*LocalPlayer-&gt;<span class="built_in">GetPreferredUniqueNetId</span>(), NAME_GameSession, *OnlineSessionSettings);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (GEngine)</span><br><span class="line">	&#123;</span><br><span class="line">		GEngine-&gt;<span class="built_in">AddOnScreenDebugMessage</span>(</span><br><span class="line">			<span class="number">-1</span>,</span><br><span class="line">			<span class="number">15.f</span>,</span><br><span class="line">			FColor::Blue,</span><br><span class="line">			<span class="built_in">FString</span>(<span class="string">&quot;Try to Create Session!&quot;</span>)</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+稍微理一下我写的方法。首先我们判断通过OSS获取的Session接口是否有效（这里的<code>OnlineSessionInterface</code>
+被智能指针包裹着，因此需要用 <code>isValid</code> 来判断）。</p>
+<p>然后判断是否已经创建了会话。</p>
+<p>然后将我们创建的delegate添加到OnlineSessionInterface的delegate
+list中。</p>
+<p>然后设置会话的属性。这里稍微提一下，我也不是很确定，就是Steam
+要求匹配、好友邀请以及会话广告都是通过 Lobby 系统来实现的，因此一定要将
+<code>OnlineSessionSettings-&gt;bUseLobbiesIfAvailable</code> 设置为
+true。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -808,163 +946,6 @@ shader），我们都需要定义输入和输出。上个阶段的shader的输�
 <p><strong>离南航和南航的人远点。</strong></p>
 <p><strong>离南航和南航的人远点。</strong></p>
 <p><strong>离南航和南航的人远点。</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2025/01/12/tech_report/tech3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Atri6.jpg">
-      <meta itemprop="name" content="Ayy3">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ayy3">
-      <meta itemprop="description" content="亚托莉单推人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ayy3">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/12/tech_report/tech3/" class="post-title-link" itemprop="url">tech3</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-01-12 13:45:00" itemprop="dateCreated datePublished" datetime="2025-01-12T13:45:00+08:00">2025-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2025/01/12/tech_report/tech3/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/12/tech_report/tech3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="每周总结3">每周总结#3</h1>
-<h2 id="游戏引擎">游戏引擎</h2>
-<p>跟了个油管的博主，动手实现自己的game engine。</p>
-<h3 id="premake.lua">premake.lua</h3>
-<p>一个构建系统，相对cmake简单许多。</p>
-<p><code>links</code>
-：这个命令是我一开始不太清楚的。因为在我们的解决方案中，我们实际上将游戏引擎和Sandbox作为两个项目，让游戏引擎engine这个项目的最终文件是个动态链接库（windows是.dll），运行时和sandbox生成的.exe文件放在一块。</p>
-<p>事实上如果用premake构建vs项目，links其实是对于一个项目创建了另一个项目的引用，而不是链接了一些库。引用是告诉链接器，某些符号是可以使用的，但是它的具体实现在dll文件里（因此有必要运行一些复制dll到指定路径的命令）。</p>
-<p><code>defines</code>：定义一些宏，这些宏在对应的项目中可以使用。</p>
-<p>例如针对dll的导出导入符号：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> E_PLATFORM_WINDOWS</span></span><br><span class="line">	<span class="meta">#<span class="keyword">ifdef</span> E_BUILD_DLL</span></span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> E_API __declspec(dllexport)</span></span><br><span class="line">	<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> E_API __declspec(dllimport)</span></span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">	<span class="meta">#<span class="keyword">error</span> only windows!</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<p>我们可以在构建文件中，针对设备的系统，以及项目，定义一些特定的宏。</p>
-<h3 id="事件系统">事件系统</h3>
-<p>目前的Event
-System都是Block的，就是对于事件的执行都是立刻的，会阻塞当前线程。</p>
-<p>考虑如何设计，首先我们很容易想到用enum或enum
-class来设置事件的种类，类型。</p>
-<p>然后设置Event基类，后续具体的事件继承这个类：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">E_API</span> Event</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">EventDispatcher</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> EventType <span class="title">GetEventType</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">const</span> <span class="type">char</span>* <span class="title">GetName</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">int</span> <span class="title">GetCategoryFlags</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> std::string <span class="title">ToString</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">GetName</span>(); &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">IsInCategory</span><span class="params">(EventCategory category)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (<span class="built_in">GetCategoryFlags</span>() &amp; category);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">bool</span> m_Handled = <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>由于事件很多，对于每一个子类都要重写方法很累，因此有个比较骚的操作就是将重写的内容用宏替代：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override &#123; return category; &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EVENT_CLASS_TYPE(type) static EventType GetStaticType() &#123; return EventType::##type; &#125; \</span></span><br><span class="line"><span class="meta">								virtual EventType GetEventType() const override &#123; return GetStaticType(); &#125; \</span></span><br><span class="line"><span class="meta">								virtual const char* GetName() const override &#123; return #type; &#125;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>EventType::##type 中的 ## 是预处理操作符，用于将宏参数 type 与
-EventType:: 连接起来。例如，如果 type 是 Mouse，那么 EventType::##type
-就会被展开为 EventType::Mouse。 return #type; 中的 #
-是字符串化操作符，将宏参数转换为字符串。如果 type 是 Mouse，那么 #type
-就会被展开为 "Mouse"。</p>
-</blockquote>
-<p>然后在类里面根据具体事件类型进行宏展开。</p>
-<p>事件分发器，这个东西负责将其对应的事件传到某个函数进行执行：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EventDispatcher</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">	<span class="keyword">using</span> EventFn = std::function&lt;<span class="built_in">bool</span>(T&amp;)&gt;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">EventDispatcher</span>(Event&amp; event)</span><br><span class="line">		: <span class="built_in">m_Event</span>(event)</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">	<span class="type">bool</span> <span class="title">Dispatch</span><span class="params">(EventFn&lt;T&gt; func)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (m_Event.<span class="built_in">GetEventType</span>() == T::<span class="built_in">GetStaticType</span>())</span><br><span class="line">		&#123;</span><br><span class="line">			m_Event.m_Handled = <span class="built_in">func</span>(*(T*)&amp;m_Event);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Event&amp; m_Event;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>std::function</code>
-我并不是很熟悉（虽然见过好多次了），暂且将其理解为函数指针。然后对于这里强制转换：<code>func(*(T*)&amp;m_Event)</code>，个人认为没有什么必要？</p>
-<p>由于还没使用到事件分发器，这里先略过。</p>
-<h2 id="软光栅">软光栅</h2>
-<p>使用类似engine的设计思路，将渲染器的主体封装成dll，给具体的系统（前端233）作为运行时库调用。我目前希望能够跨平台（虽然现在只知道在windows下是用dll进行符号传递），所以采用了premake作为构建系统，然后不调win32。</p>
-<p>目前完成了：</p>
-<ul>
-<li>I/O
-<ul>
-<li>obj导入</li>
-<li>贴图导入</li>
-<li>ppm形式输出</li>
-</ul></li>
-<li>gl
-<ul>
-<li>画线</li>
-<li>画三角形</li>
-<li>Z-buffer</li>
-</ul></li>
-</ul>
-<blockquote>
-<p>大部分时间都在调bug吧，今天调了一上午bug，发现是重心坐标公式抄错了。然后CursorAI把width和height弄反了，又搞了半天。</p>
-</blockquote>
-<p>因为感觉渲染一张图有点慢了，因此尝试用了vs的性能分析，结果发现：</p>
-<img src="/2025/01/12/tech_report/tech3/fuckstream.png" class="" title="fuckstream">
-<p>好家伙，时间全浪费在输出流上了。这个后续实现实时渲染的时候再考虑吧，看看能不能和QT对接（outputer使用特定平台开发，跨平台只针对我的AYR项目），然后去掉这个流。</p>
-<h2 id="ue">UE</h2>
-<p>这个嘛，因为我更偏向做游戏客户端（引擎感觉太难了，可能要paper，然而我已经没时间走学术了），所以目前有空就熟悉一下UE的使用。后续找实习的时候肯定是需要一个具体游戏项目放在简历的。</p>
-<h2 id="毕设">毕设</h2>
-<p>懒得搞。</p>
-<h2 id="todo">TODO</h2>
-<p>得处理一些学校的破事了。然后继续学习。</p>
-<p>最近在考虑做游戏客户端是不是容易被AI替代，但是目前的我应该是没有能力去分析这个的。因为目前我还在图形学这里自娱自乐，整天盯着我那屎山项目。但如果以我几年前玩Unity的经验，我觉得短期容易被替代的是那种只会写简单逻辑的程序员。我相信gameplay会是一个很大的，充满想象力的学问，而AI是不会取代具有想象力的工作的。</p>
-<p>所以该做什么就做什么，先把手上的软光栅做了，然后尝试构思自己的玩法，开发一个有意思的FPS游戏。</p>
-<blockquote>
-<p><del>一个很不成熟的做题家思维：你一个南大的会被替代，那其他人不是更寄？</del>。但是回过来看，光焦虑也没用，反而影响自己的进度。这种做题家思维反而会有效减少一些焦虑。</p>
-</blockquote>
 
       
     </div>
