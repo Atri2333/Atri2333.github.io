@@ -103,4 +103,137 @@ public:
 ```
 
 ## Delegate（委托）
-> 挖坑.jpg
+
+在软件工程中，我们经常会需要一种类与类之间的单向依赖，即类A中有类B的对象的指针，而类B则完全不知道类A。
+
+例如在实现UI逻辑时，为了遵循MVC设计模式，我们通常要自己实现一个Controller类用于从Model提取数据并更新View。然而为了代码的可维护性，我们希望View能够知道其对应的Controller，而Controller则完全不知道View，但是Controller知道数据的变化后能够及时更新View。
+
+如何实现这种单向依赖呢？在UE中可以通过Delegate实现。可以在Controller类中储存一些Delegate类，然后在View中通过其Controller指针获取Delegate，通过该Delegate来注册自己的函数指针以及对象信息，最后在Controller要广播的时候通过获取自己Delegate的函数指针和对象信息来进行一系列的函数调用。
+
+为了更直观地感受，我自己实现了一个简单的MultiDelegate，它支持一个Delegate能够广播到多个地方。
+
+首先实现一个基类Object，用于后续类的继承：
+```cpp
+// Object.h
+#pragma once
+
+class Object
+{
+public:
+    Object() = default;
+    virtual ~Object() = default;
+};
+```
+
+然后实现我们的Delegate类，这里为了简便，规定函数是 `void()` 这种最简单的类型：
+```cpp
+#pragma once
+
+// void*()
+
+#include<vector>
+#include<utility>
+
+class Object;
+
+class MultiDelegate
+{
+    using FuncType = void(Object::*)();
+public:
+    MultiDelegate() = default;
+    virtual ~MultiDelegate() = default;
+    void AddObject(Object* obj, FuncType func)
+    {
+        m_funcs.push_back(std::make_pair(obj, func));
+    }
+    void Broadcast() const
+    {
+        for (const auto& [obj, func] : m_funcs)
+        {
+            if(obj && func)
+                (obj->*func)();
+        }
+    }
+private:
+    std::vector<std::pair<Object *, FuncType>> m_funcs;
+};
+```
+
+可以看到其内部就是用 `std::vector` 储存了 `Object *` 和 `FuncType` 的元组。最后我们给出测试程序：
+```cpp
+// test.cpp
+#include "Delegate.h"
+#include "Object.h"
+#include <iostream>
+
+class Three
+{
+public:
+    MultiDelegate OnNotify;
+    void Notify() const
+    {
+        OnNotify.Broadcast();
+    }
+};
+
+class One : public Object
+{
+public:
+    One() = default;
+    explicit One(size_t i) : id(i) {}
+    void Notify()
+    {
+        std::cout << "One::Notify " << id << "!" << std::endl;
+    }
+    void ThreeGet()
+    {
+        if(m_three)
+            m_three->OnNotify.AddObject(this, static_cast<void(Object::*)()>(&One::Notify));
+    }
+    void SetThree(Three* three) { m_three = three; ThreeGet(); }
+    Three* GetThree() const { return m_three; }
+private:
+    Three* m_three = nullptr;
+    size_t id{};
+};
+
+class Two : public Object
+{
+public:
+    void Notify()
+    {
+        std::cout << "Two::Notify" << std::endl;
+    }
+    void ThreeGet()
+    {
+        if(m_three)
+            m_three->OnNotify.AddObject(this, static_cast<void(Object::*)()>(&Two::Notify));
+    }
+    void SetThree(Three* three) { m_three = three; ThreeGet(); }
+    Three* GetThree() const { return m_three; }
+private:
+    Three* m_three = nullptr;
+};
+
+int main()
+{
+    Three three;
+    One one(1); one.SetThree(&three); 
+    One one2(2); one2.SetThree(nullptr);
+    Two two; two.SetThree(&three);
+    three.Notify();
+    return 0;
+}
+```
+
+这里类 `One` 和 `Two` 都继承 `Object` （类似UE中的 `UObject`），然后它们都有类 `Three` 的指针，而 `Three` 则不知道任何关于 `One` 和 `Two` 的信息。
+
+> 这么说有点不严谨，毕竟这里必须要求 `Three` （或者 `MultiDelegate`） 知道 `One` 和 `Two` 继承 `Object`。
+
+构建类 `One` 和 `Two` 的副本，并设置其对应的 `Three`，并在设置完 `Three` 后绑定自己的 `Notify` 函数。最后 `Three` 进行广播：
+```
+One::Notify 1!
+Two::Notify
+```
+
+然而在UE中还有Dynamic_Delegate（动态委托），其使用了 `UObject` 的反射系统，让我们能够将蓝图实现的函数绑定到该委托上，关于反射系统，这是进阶内容，先挖个坑吧。
