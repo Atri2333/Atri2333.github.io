@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Ayy3@博客
+title: Ayy3の博客
 subtitle: ''
-description: ''
+description: '亚托莉四年单推人'
 keywords:
 author: Ayy3
 language: zh
@@ -104,3 +104,11 @@ deploy:
   type: git
   repo: https://github.com/Atri2333/Atri2333.github.io.git
   branch: gh-pages
+
+# Markdown renderer (hexo-renderer-marked) options
+# Enable single line breaks: a single newline becomes <br>
+marked:
+  gfm: true
+  breaks: true
+  smartLists: true
+  smartypants: false
