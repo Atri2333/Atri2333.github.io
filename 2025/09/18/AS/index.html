@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ASC and AS | Ayy3@博客</title><meta name="author" content="Ayy3"><meta name="copyright" content="Ayy3"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="目前GAS系列文章是在作者边学边实践的过程中的产出，因此未来100%会继续改善。  GAS-1 在这篇文章，我们来引进GAS系统中的两个部件。 Ability System Component Ability System Component(ASC)是整个GAS系统中最基础的一个组件，它负责主要的对象与GAS的交互。在后续提及Gameplay Effect(GE)的时候，可以发">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ASC and AS">
+<meta property="og:url" content="http://atri2333.github.io/2025/09/18/AS/index.html">
+<meta property="og:site_name" content="Ayy3@博客">
+<meta property="og:description" content="目前GAS系列文章是在作者边学边实践的过程中的产出，因此未来100%会继续改善。  GAS-1 在这篇文章，我们来引进GAS系统中的两个部件。 Ability System Component Ability System Component(ASC)是整个GAS系统中最基础的一个组件，它负责主要的对象与GAS的交互。在后续提及Gameplay Effect(GE)的时候，可以发">
+<meta property="og:locale">
+<meta property="og:image" content="http://atri2333.github.io/img/Atri.png">
+<meta property="article:published_time" content="2025-09-18T15:07:25.000Z">
+<meta property="article:modified_time" content="2025-09-18T15:41:25.888Z">
+<meta property="article:author" content="Ayy3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://atri2333.github.io/img/Atri.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/Atri.png"><link rel="canonical" href="http://atri2333.github.io/2025/09/18/AS/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ASC and AS',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'asc'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ayy3@博客</span></a></span><div id="menus"></div></nav><div id="page-site-info"><h1 id="site-title">ASC and AS</h1></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p>目前GAS系列文章是在作者边学边实践的过程中的产出，因此未来100%会继续改善。</p>
+</blockquote>
+<h1 id="gas-1">GAS-1</h1>
+<p>在这篇文章，我们来引进GAS系统中的两个部件。</p>
+<h2 id="ability-system-component">Ability System Component</h2>
+<p>Ability System
+Component(ASC)是整个GAS系统中最基础的一个组件，它负责主要的对象与GAS的交互。在后续提及Gameplay
+Effect(GE)的时候，可以发现GE本身就是通过ASC进行施加的，同时这个过程中需要的
+<code>FGameplayEffectContextHandle</code> 和
+<code>FGameplayEffectSpecHandle</code>
+都是通过ASC进行构建。不仅如此，ASC还和其所在类对应的AttributeSet，以及处理各种Gameplay
+Effect与使用技能Gameplay
+Ability都密切相关。因此对于一个角色，如果要将其加入GAS系统，你第一时间就是给予其一个Ability
+System Component。</p>
+<p>ASC有两个代表Actor，分别是OwnerActor和AvatarActor，前者是实际构建（拥有）该ASC的Actor，而后者是该ASC所作用的Actor。显然二者并不一样，对于玩家所操控的角色，一般会将OwnerActor设置为PlayerState，而将AvatarActor设置为Character。这两个Actor都需要一个指向同一个ASC的指针，依照Epic的惯例，需要实现接口
+<code>IAbilitySystemInterface</code> 中的
+<code>GetAbilitySystemComponent()</code> 函数。</p>
+<p>在PlayerState的构造函数中，我们来实际构造ASC： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造ASC</span></span><br><span class="line">AbilitySystemComponent = <span class="built_in">CreateDefaultSubobject</span>&lt;UAuraAbilitySystemComponent&gt;(<span class="string">&quot;Ability System Component&quot;</span>);</span><br><span class="line">AbilitySystemComponent-&gt;<span class="built_in">SetIsReplicated</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// Rule of thumb</span></span><br><span class="line"><span class="comment">// Tip: 若设置成Mixed，那么ASC的Owner Actor的Owner必须是Controller, 这或许和Mixed方式在Replicate需要判断Client的身份有关</span></span><br><span class="line">AbilitySystemComponent-&gt;<span class="built_in">SetReplicationMode</span>(EGameplayEffectReplicationMode::Mixed);</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>对于多人游戏，一定要将ASC设置为Replicated。在GAS中还可以指定Replicate的模式，有三种模式：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** How gameplay effects will be replicated to clients */</span></span><br><span class="line"><span class="built_in">UENUM</span>()</span><br><span class="line"><span class="keyword">enum class</span> <span class="title class_">EGameplayEffectReplicationMode</span> : uint8</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/** Only replicate minimal gameplay effect info. Note: this does not work for Owned AbilitySystemComponents (Use Mixed instead). */</span></span><br><span class="line">	Minimal,</span><br><span class="line">	<span class="comment">/** Only replicate minimal gameplay effect info to simulated proxies but full info to owners and autonomous proxies */</span></span><br><span class="line">	Mixed,</span><br><span class="line">	<span class="comment">/** Replicate full gameplay info to all */</span></span><br><span class="line">	Full,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的代码中我们设置为Mixed，这是多人游戏中对于玩家角色中最经常采用的折中方案，本地玩家能得到GE的完整信息，而本地客户端中其余玩家操控的角色对应的代理客户端则同步最小的Info。</p>
+<p>如果我们要创建一个敌人的类，它也要接入GAS系统，则可以直接在其Pawn类中构建ASC，同时将ReplicationMode设置为Minimal。</p>
+<blockquote>
+<p>注意：Mixed模式需要保证它的Owner Actor的Owner必须是Controller,
+这或许和Mixed方式在Replicate中需要判断Client的身份有关。</p>
+</blockquote>
+<h3 id="initabilityactorinfo">InitAbilityActorInfo</h3>
+<p><code>InitAbilityActorInfo</code>
+函数设置一个ASC的OwnerActor和AvatarActor，该函数需要在服务器和客户端分别独自调用。需要注意的是，对于多人游戏，需要保证每个客户端本地的PlayerController被Replicate结束后才可调用<code>InitAbilityActorInfo</code>。因此有个Rule
+of
+Thumb，它需要保证调用该函数之前已经完成了PlayerController控制了Character的工作，以不扰乱对于Gameplay架构中基类的初始化工作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原观点：InitAbilityActorInfo calls FGameplayAbilityActorInfo::InitFromActor() which for players caches their PlayerController. For multiplayer games this step must succeed in order to activate local predicted abilities. Keep in mind that the PlayerController may not be replicated over yet when an ASC begins play client-side, because there is no guarantee for in which order actors are spawned client-side.</span><br><span class="line"></span><br><span class="line">出处：[link](https://dev.epicgames.com/community/learning/tutorials/DPpd/unreal-engine-gameplay-ability-system-best-practices-for-setup#whenshouldicallinitabilityactorinfo/refreshabilityactorinfoforaplayer?)</span><br></pre></td></tr></table></figure>
+<p>因此在客户端我们可以重写Character或者Controller中的
+<code>OnRep_PlayerState</code>
+方法，在里面执行<code>InitAbilityActorInfo</code>。当然对于客户端，直接在Character的
+<code>PossessedBy</code>或者Controller的 <code>OnPossess</code> 中调用。
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server-called only</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AAuraCharacter::PossessedBy</span><span class="params">(AController* NewController)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Super::<span class="built_in">PossessedBy</span>(NewController);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在服务器需要在角色被Controller控制后方可设置Ability Actor Info</span></span><br><span class="line">	<span class="built_in">InitAbilityActorInfo</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// client-called only</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AAuraCharacter::OnRep_PlayerState</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Super::<span class="built_in">OnRep_PlayerState</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在客户端需要同时保证Controller和PlayerState都是有效的才能设置Ability Actor Info</span></span><br><span class="line">	<span class="built_in">InitAbilityActorInfo</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AAuraCharacter::InitAbilityActorInfo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	AAuraPlayerState* AuraPlayerState = <span class="built_in">CastChecked</span>&lt;AAuraPlayerState&gt;(<span class="built_in">GetPlayerState</span>());</span><br><span class="line">	AuraPlayerState-&gt;<span class="built_in">GetAbilitySystemComponent</span>()-&gt;<span class="built_in">InitAbilityActorInfo</span>(AuraPlayerState, <span class="keyword">this</span>);</span><br><span class="line">	AbilitySystemComponent = AuraPlayerState-&gt;<span class="built_in">GetAbilitySystemComponent</span>();</span><br><span class="line">	AttributeSet = AuraPlayerState-&gt;<span class="built_in">GetAttributeSet</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Atri2333.github.io">Ayy3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://atri2333.github.io/2025/09/18/AS/">http://atri2333.github.io/2025/09/18/AS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/Atri.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav id="pagination"><div class="pagination"></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Atri.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ayy3</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/01/games101/" title="games101">games101</a><time datetime="2025-09-30T23:54:28.000Z" title="Created 2025-10-01 07:54:28">2025-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/AS/" title="ASC and AS">ASC and AS</a><time datetime="2025-09-18T15:07:25.000Z" title="Created 2025-09-18 23:07:25">2025-09-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/17/GAS-Intro/" title="GAS_Intro">GAS_Intro</a><time datetime="2025-09-17T10:04:00.000Z" title="Created 2025-09-17 18:04:00">2025-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/17/hello-world/" title="Hello World">Hello World</a><time datetime="2025-09-17T08:53:35.472Z" title="Created 2025-09-17 16:53:35">2025-09-17</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Unreal-Engine/" style="font-size: 1.1em; color: #999">Unreal Engine</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              October 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              September 2025
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">4</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-10-01T00:21:13.448Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Ayy3</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
