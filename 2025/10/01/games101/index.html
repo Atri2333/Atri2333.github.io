@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>games101 | Ayy3@博客</title><meta name="author" content="Ayy3"><meta name="copyright" content="Ayy3"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Games101学习笔记1. 线性代数1.1. 线性变换 我们首先举个二维平面下的例子。  二维线性变换可以写为： $$\begin{aligned}x’ &#x3D; ax + by. \y’ &#x3D; cx + dy.\end{aligned}$$ 可以用矩阵 $M$ 来表示：$$\begin{bmatrix} x^{‘}\y^{‘} \end{bmatrix}&#x3D; \begin{">
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>games101 | Ayy3の博客</title><meta name="author" content="Ayy3"><meta name="copyright" content="Ayy3"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Games101学习笔记 1. 线性代数 1.1. 线性变换  我们首先举个二维平面下的例子。  二维线性变换可以写为： $$ \begin{aligned} x&#39; &#x3D; ax + by. \\ y&#39; &#x3D; cx + dy. \end{aligned} $$ 可以用矩阵 M 来表示： $$ \begin{bmatrix} x^{&#39;}\\y^{&#39;} \end{bmatrix}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="games101">
 <meta property="og:url" content="http://atri2333.github.io/2025/10/01/games101/index.html">
-<meta property="og:site_name" content="Ayy3@博客">
-<meta property="og:description" content="Games101学习笔记1. 线性代数1.1. 线性变换 我们首先举个二维平面下的例子。  二维线性变换可以写为： $$\begin{aligned}x’ &#x3D; ax + by. \y’ &#x3D; cx + dy.\end{aligned}$$ 可以用矩阵 $M$ 来表示：$$\begin{bmatrix} x^{‘}\y^{‘} \end{bmatrix}&#x3D; \begin{">
+<meta property="og:site_name" content="Ayy3の博客">
+<meta property="og:description" content="Games101学习笔记 1. 线性代数 1.1. 线性变换  我们首先举个二维平面下的例子。  二维线性变换可以写为： $$ \begin{aligned} x&#39; &#x3D; ax + by. \\ y&#39; &#x3D; cx + dy. \end{aligned} $$ 可以用矩阵 M 来表示： $$ \begin{bmatrix} x^{&#39;}\\y^{&#39;} \end{bmatrix}">
 <meta property="og:locale">
 <meta property="og:image" content="http://atri2333.github.io/img/Atri2.jpg">
 <meta property="article:published_time" content="2025-09-30T23:54:28.000Z">
@@ -159,91 +159,243 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ayy3@博客</span></a><a class="nav-page-title" href="/"><span class="site-name">games101</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">games101</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-30T23:54:28.000Z" title="Created 2025-10-01 07:54:28">2025-10-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-10-01T02:30:15.778Z" title="Updated 2025-10-01 10:30:15">2025-10-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Games101学习笔记"><a href="#Games101学习笔记" class="headerlink" title="Games101学习笔记"></a>Games101学习笔记</h1><h2 id="1-线性代数"><a href="#1-线性代数" class="headerlink" title="1. 线性代数"></a>1. 线性代数</h2><h3 id="1-1-线性变换"><a href="#1-1-线性变换" class="headerlink" title="1.1. 线性变换"></a>1.1. 线性变换</h3><blockquote>
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tag</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/top.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ayy3の博客</span></a><a class="nav-page-title" href="/"><span class="site-name">games101</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tag</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">games101</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-30T23:54:28.000Z" title="Created 2025-10-01 07:54:28">2025-10-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-10-01T02:30:15.778Z" title="Updated 2025-10-01 10:30:15">2025-10-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="games101学习笔记">Games101学习笔记</h1>
+<h2 id="线性代数">1. 线性代数</h2>
+<h3 id="线性变换">1.1. 线性变换</h3>
+<blockquote>
 <p>我们首先举个二维平面下的例子。</p>
 </blockquote>
 <p>二维线性变换可以写为：</p>
-<p>$$<br>\begin{aligned}<br>x’ &#x3D; ax + by. \<br>y’ &#x3D; cx + dy.<br>\end{aligned}<br>$$</p>
-<p>可以用矩阵 $M$ 来表示：<br>$$<br>\begin{bmatrix} x^{‘}\y^{‘} \end{bmatrix}&#x3D; \begin{bmatrix} a &amp; b\c &amp; d \end{bmatrix} \begin{bmatrix} x\y \end{bmatrix}.<br>$$</p>
-<p>这里有一个小技巧，就是将两个基向量 $(1,0),(0,1)$ 分别代入，得到 $(a,c),(b,d)$ 就是这两个基向量经过变换后的向量，从而快速得到矩阵 $M$。</p>
-<h3 id="1-2-齐次坐标（Homogeneous-Coordinates）"><a href="#1-2-齐次坐标（Homogeneous-Coordinates）" class="headerlink" title="1.2. 齐次坐标（Homogeneous Coordinates）"></a>1.2. 齐次坐标（Homogeneous Coordinates）</h3><blockquote>
+<p><span class="math display">$$
+\begin{aligned}
+x' = ax + by. \\
+y' = cx + dy.
+\end{aligned}
+$$</span></p>
+<p>可以用矩阵 <span class="math inline"><em>M</em></span> 来表示： <span
+class="math display">$$
+\begin{bmatrix} x^{'}\\y^{'} \end{bmatrix}= \begin{bmatrix} a &amp; b\\c
+&amp; d \end{bmatrix} \begin{bmatrix} x\\y \end{bmatrix}.
+$$</span></p>
+<p>这里有一个小技巧，就是将两个基向量 <span
+class="math inline">(1, 0), (0, 1)</span> 分别代入，得到 <span
+class="math inline">(<em>a</em>, <em>c</em>), (<em>b</em>, <em>d</em>)</span>
+就是这两个基向量经过变换后的向量，从而快速得到矩阵 <span
+class="math inline"><em>M</em></span>。</p>
+<h3 id="齐次坐标homogeneous-coordinates">1.2. 齐次坐标（Homogeneous
+Coordinates）</h3>
+<blockquote>
 <p>在线性变换的基础上添加平移变换。</p>
 </blockquote>
-<p>线性变换不能表示平移：<br>$$<br>\begin{bmatrix} x^{‘}\y^{‘} \end{bmatrix}&#x3D; \begin{bmatrix} a &amp; b\c &amp; d \end{bmatrix} \begin{bmatrix} x\y \end{bmatrix}+ \begin{bmatrix} t_x\t_y \end{bmatrix}.<br>$$</p>
-<p>为了将平移也加入一般的变换形式，提出齐次坐标，即在原有的坐标上添加一维 $w$。依旧是采用二维情况进行举例：</p>
+<p>线性变换不能表示平移： <span class="math display">$$
+\begin{bmatrix} x^{'}\\y^{'} \end{bmatrix}= \begin{bmatrix} a &amp; b\\c
+&amp; d \end{bmatrix} \begin{bmatrix} x\\y \end{bmatrix}+
+\begin{bmatrix} t_x\\t_y \end{bmatrix}.
+$$</span></p>
+<p>为了将平移也加入一般的变换形式，提出齐次坐标，即在原有的坐标上添加一维
+<span
+class="math inline"><em>w</em></span>。依旧是采用二维情况进行举例：</p>
 <ul>
-<li>2D点：$(x,y,1)^T$</li>
-<li>2D向量：$(x,y,0)^T$</li>
+<li>2D点：<span
+class="math inline">(<em>x</em>, <em>y</em>, 1)<sup><em>T</em></sup></span></li>
+<li>2D向量：<span
+class="math inline">(<em>x</em>, <em>y</em>, 0)<sup><em>T</em></sup></span></li>
 </ul>
-<p>这样就可以只用矩阵乘法来表示线性变换+平移（先变换后平移）：<br>$$<br>\begin{bmatrix} x^{‘}\y^{‘}\1 \end{bmatrix}&#x3D; \begin{bmatrix} a &amp; b &amp; t_x\c &amp; d &amp; t_y \ 0 &amp; 0 &amp; 1 \end{bmatrix} \begin{bmatrix} x\y\1 \end{bmatrix}.<br>$$</p>
-<p>对于变换矩阵 $M$，求逆可得还原矩阵 $M^{-1}$。</p>
-<h3 id="1-3-复合变换"><a href="#1-3-复合变换" class="headerlink" title="1.3. 复合变换"></a>1.3. 复合变换</h3><p>在三维情况下，由于采用右手坐标系，因此变换为矩阵左乘，变换顺序由右往左：<br>$$<br>A_n(…A_2(A_1(x))) &#x3D; A_n\cdots A_2 \cdot A_1 \cdot \begin{pmatrix} x\y\1 \end{pmatrix}<br>$$</p>
+<p>这样就可以只用矩阵乘法来表示线性变换+平移（先变换后平移）： <span
+class="math display">$$
+\begin{bmatrix} x^{'}\\y^{'}\\1 \end{bmatrix}= \begin{bmatrix} a &amp; b
+&amp; t_x\\c &amp; d &amp; t_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
+\begin{bmatrix} x\\y\\1 \end{bmatrix}.
+$$</span></p>
+<p>对于变换矩阵 <span
+class="math inline"><em>M</em></span>，求逆可得还原矩阵 <span
+class="math inline"><em>M</em><sup>−1</sup></span>。</p>
+<h3 id="复合变换">1.3. 复合变换</h3>
+<p>在三维情况下，由于采用右手坐标系，因此变换为矩阵左乘，变换顺序由右往左：
+<span class="math display">$$
+A_n(...A_2(A_1(x))) = A_n\cdots A_2 \cdot A_1 \cdot \begin{pmatrix}
+x\\y\\1 \end{pmatrix}
+$$</span></p>
 <blockquote>
 <p>注：为什么右手坐标系要用矩阵左乘？由于这是笔者补档一年前的笔记，因此现在有点记不住了，问了大模型后说这是“<strong>约定俗成</strong>”的用法，在右手坐标系的图形库（如OpenGL）就是这么采用。相反，在左手坐标系的图形库（如DirectX）则反之。二者在数学上并无强制关联。</p>
 </blockquote>
-<h3 id="1-4-三维变换"><a href="#1-4-三维变换" class="headerlink" title="1.4. 三维变换"></a>1.4. 三维变换</h3><p>三维旋转矩阵（非齐次坐标），绕轴 $n$ 转 $\alpha$ ：<br>$$<br>R(n,\alpha)&#x3D;\cos(\alpha)I+(1-\cos(\alpha))nn^T+\sin(\alpha) \begin{pmatrix} 0&amp;-n_z&amp;n_y\ n_z&amp;0&amp;-n_x\ -n_y&amp;n_x&amp;0 \end{pmatrix}.<br>$$</p>
-<h3 id="1-5-视图变换"><a href="#1-5-视图变换" class="headerlink" title="1.5. 视图变换"></a>1.5. 视图变换</h3><blockquote>
+<h3 id="三维变换">1.4. 三维变换</h3>
+<p>三维旋转矩阵（非齐次坐标），绕轴 <span
+class="math inline"><em>n</em></span> 转 <span
+class="math inline"><em>α</em></span> ： <span class="math display">$$
+R(n,\alpha)=\cos(\alpha)I+(1-\cos(\alpha))nn^T+\sin(\alpha)
+\begin{pmatrix} 0&amp;-n_z&amp;n_y\\ n_z&amp;0&amp;-n_x\\
+-n_y&amp;n_x&amp;0 \end{pmatrix}.
+$$</span></p>
+<h3 id="视图变换">1.5. 视图变换</h3>
+<blockquote>
 <p>MVP变换的V，或者MV。</p>
 </blockquote>
 <p>想象你拿着相机进行拍照，需要哪些步骤？首先设置相机：</p>
 <ul>
-<li>选择位置 $e$</li>
-<li>选择观察方向 $g$</li>
-<li>选择相机朝上的方向 $t$</li>
+<li>选择位置 <span class="math inline"><em>e</em></span></li>
+<li>选择观察方向 <span class="math inline"><em>g</em></span></li>
+<li>选择相机朝上的方向 <span class="math inline"><em>t</em></span></li>
 </ul>
-<p>为了方便，我们将相机移动到原点（场景的物体也随之移动），观察 $-z$，上方向为 $y$。这可以采用复合变换实现：</p>
+<p>为了方便，我们将相机移动到原点（场景的物体也随之移动），观察 <span
+class="math inline">−<em>z</em></span>，上方向为 <span
+class="math inline"><em>y</em></span>。这可以采用复合变换实现：</p>
 <ul>
 <li>将相机移动到原点</li>
-<li>将 $g$ 旋转到 $-z$</li>
-<li>将 $t$ 旋转到 $y$</li>
-<li>将 $g \times t$ 旋转到 $x$ (事实上不需要这步，只不过方便后续数学推导表示)</li>
+<li>将 <span class="math inline"><em>g</em></span> 旋转到 <span
+class="math inline">−<em>z</em></span></li>
+<li>将 <span class="math inline"><em>t</em></span> 旋转到 <span
+class="math inline"><em>y</em></span></li>
+<li>将 <span class="math inline"><em>g</em> × <em>t</em></span> 旋转到
+<span class="math inline"><em>x</em></span>
+(事实上不需要这步，只不过方便后续数学推导表示)</li>
 </ul>
 <p>上述变换除了第一步，后面旋转用矩阵难以实现，考虑逆复合变换。</p>
-<p>假设矩阵为 $M_{view}&#x3D;R_{view}T_{view}$，其中平移矩阵很简单：<br>$$<br>T_{view} &#x3D; \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -x_e\ 0 &amp; 1 &amp; 0 &amp; -y_e\ 0 &amp; 0 &amp; 1 &amp; -z_e\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}.<br>$$</p>
-<p>对于旋转矩阵，考虑其逆变换：$x$ 旋转至 $g \times t$，$y$ 旋转至 $t$，$z$ 旋转至 $-g$：<br>$$<br>R_{view}^{-1} &#x3D; \begin{bmatrix} x_{g\times t} &amp; x_t &amp; x_{-g} &amp; 0\ y_{g\times t} &amp; y_t &amp; y_{-g} &amp; 0\ z_{g\times t} &amp; z_t &amp; z_{-g} &amp; 0\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}.<br>$$</p>
-<p>不难发现这是个正交矩阵（废话，旋转矩阵都是正交矩阵，即便是齐次表示），因此可以直接转置得到 $R_{view}$：<br>$$<br>R_{view} &#x3D; \begin{bmatrix} x_{g\times t} &amp; y_{g\times t} &amp; z_{g\times t} &amp; 0\ x_t &amp; y_t &amp; z_t &amp; 0\ x_{-g} &amp; y_{-g} &amp; z_{-g} &amp; 0\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}.<br>$$</p>
-<h3 id="1-6-投影变换"><a href="#1-6-投影变换" class="headerlink" title="1.6. 投影变换"></a>1.6. 投影变换</h3><blockquote>
+<p>假设矩阵为 <span
+class="math inline"><em>M</em><sub><em>v</em><em>i</em><em>e</em><em>w</em></sub> = <em>R</em><sub><em>v</em><em>i</em><em>e</em><em>w</em></sub><em>T</em><sub><em>v</em><em>i</em><em>e</em><em>w</em></sub></span>，其中平移矩阵很简单：
+<span class="math display">$$
+T_{view} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -x_e\\ 0 &amp; 1
+&amp; 0 &amp; -y_e\\ 0 &amp; 0 &amp; 1 &amp; -z_e\\ 0 &amp; 0 &amp; 0
+&amp; 1 \end{bmatrix}.
+$$</span></p>
+<p>对于旋转矩阵，考虑其逆变换：<span
+class="math inline"><em>x</em></span> 旋转至 <span
+class="math inline"><em>g</em> × <em>t</em></span>，<span
+class="math inline"><em>y</em></span> 旋转至 <span
+class="math inline"><em>t</em></span>，<span
+class="math inline"><em>z</em></span> 旋转至 <span
+class="math inline">−<em>g</em></span>： <span class="math display">$$
+R_{view}^{-1} = \begin{bmatrix} x_{g\times t} &amp; x_t &amp; x_{-g}
+&amp; 0\\ y_{g\times t} &amp; y_t &amp; y_{-g} &amp; 0\\ z_{g\times t}
+&amp; z_t &amp; z_{-g} &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}.
+$$</span></p>
+<p>不难发现这是个正交矩阵（废话，旋转矩阵都是正交矩阵，即便是齐次表示），因此可以直接转置得到
+<span
+class="math inline"><em>R</em><sub><em>v</em><em>i</em><em>e</em><em>w</em></sub></span>：
+<span class="math display">$$
+R_{view} = \begin{bmatrix} x_{g\times t} &amp; y_{g\times t} &amp;
+z_{g\times t} &amp; 0\\ x_t &amp; y_t &amp; z_t &amp; 0\\ x_{-g} &amp;
+y_{-g} &amp; z_{-g} &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}.
+$$</span></p>
+<h3 id="投影变换">1.6. 投影变换</h3>
+<blockquote>
 <p>MVP中的P，将3D转换为2D。分为正交投影和透视投影。</p>
 </blockquote>
 <p>二者区别如下，直接截图了：</p>
-<p><img src="/proj1.png" alt="区别展示"></p>
-<h4 id="1-6-1-正交投影"><a href="#1-6-1-正交投影" class="headerlink" title="1.6.1. 正交投影"></a>1.6.1. 正交投影</h4><p>这是一种简单的投影方式：</p>
+<figure>
+<img src="proj1.png" alt="区别展示" />
+<figcaption aria-hidden="true">区别展示</figcaption>
+</figure>
+<h4 id="正交投影">1.6.1. 正交投影</h4>
+<p>这是一种简单的投影方式：</p>
 <ul>
-<li>首先用视图变换，让相机移动到原点，观察 $-z$，上方向为 $y$</li>
-<li>然后直接去掉 $z$ 轴</li>
-<li>缩放至平面 $[-1,1]^2$</li>
+<li>首先用视图变换，让相机移动到原点，观察 <span
+class="math inline">−<em>z</em></span>，上方向为 <span
+class="math inline"><em>y</em></span></li>
+<li>然后直接去掉 <span class="math inline"><em>z</em></span> 轴</li>
+<li>缩放至平面 <span class="math inline">[−1, 1]<sup>2</sup></span></li>
 </ul>
-<p><img src="/proj2.png" alt="正交投影"></p>
-<p>其对应的变换矩阵为：<br>$$<br>M_{ortho}&#x3D; \begin{bmatrix} \frac{2}{r-l} &amp; 0 &amp; 0 &amp; 0\ 0 &amp; \frac{2}{t-b} &amp; 0 &amp; 0\ 0 &amp; 0 &amp; \frac{2}{n-f} &amp; 0\ 0 &amp; 0 &amp; 0 &amp; 1\ \end{bmatrix} \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -\frac{r+l}{2}\ 0 &amp; 1 &amp; 0 &amp; -\frac{t+b}{2}\ 0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2}\ 0 &amp; 0 &amp; 0 &amp; 1\ \end{bmatrix}.<br>$$</p>
-<h4 id="1-6-2-透视投影"><a href="#1-6-2-透视投影" class="headerlink" title="1.6.2. 透视投影"></a>1.6.2. 透视投影</h4><blockquote>
+<figure>
+<img src="proj2.png" alt="正交投影" />
+<figcaption aria-hidden="true">正交投影</figcaption>
+</figure>
+<p>其对应的变换矩阵为： <span class="math display">$$
+M_{ortho}= \begin{bmatrix} \frac{2}{r-l} &amp; 0 &amp; 0 &amp; 0\\ 0
+&amp; \frac{2}{t-b} &amp; 0 &amp; 0\\ 0 &amp; 0 &amp; \frac{2}{n-f}
+&amp; 0\\ 0 &amp; 0 &amp; 0 &amp; 1\\ \end{bmatrix} \begin{bmatrix} 1
+&amp; 0 &amp; 0 &amp; -\frac{r+l}{2}\\ 0 &amp; 1 &amp; 0 &amp;
+-\frac{t+b}{2}\\ 0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2}\\ 0 &amp; 0
+&amp; 0 &amp; 1\\ \end{bmatrix}.
+$$</span></p>
+<h4 id="透视投影">1.6.2. 透视投影</h4>
+<blockquote>
 <p>远的物体更小，平行线不再不行。</p>
 </blockquote>
-<p>首先将这个视锥体压缩成长方体 $M_{persp\rightarrow ortho}$，然后可以使用上述正交投影 $M_{ortho}$。</p>
-<p><img src="/proj3.png" alt="视锥体压缩"></p>
+<p>首先将这个视锥体压缩成长方体 <span
+class="math inline"><em>M</em><sub><em>p</em><em>e</em><em>r</em><em>s</em><em>p</em> → <em>o</em><em>r</em><em>t</em><em>h</em><em>o</em></sub></span>，然后可以使用上述正交投影
+<span
+class="math inline"><em>M</em><sub><em>o</em><em>r</em><em>t</em><em>h</em><em>o</em></sub></span>。</p>
+<figure>
+<img src="proj3.png" alt="视锥体压缩" />
+<figcaption aria-hidden="true">视锥体压缩</figcaption>
+</figure>
 <blockquote>
 <p>思考：在视锥体外面的物体如何考虑？在具体工程实现中可能会有这个问题，这里先挖坑。</p>
 </blockquote>
 <p>主要的idea是上述提到过的“找出向量经过线性变换后在原坐标系的坐标值”。</p>
-<p>首先考虑 $y$，这个很简单，根据相似三角形直接求出 $y^{‘}&#x3D;\frac{n}{z}y$：</p>
-<p><img src="/proj4.png" alt="相似三角形"></p>
-<p>$x$ 也一样：$x^{‘}&#x3D;\frac{n}{z}x$。</p>
-<p>根据目前的信息，用齐次坐标表示变换前后的坐标：<br>$$<br>\begin{pmatrix} x\y\z\1 \end{pmatrix} \Rightarrow \begin{pmatrix} nx&#x2F;z\ny&#x2F;z\unknown\1 \end{pmatrix} &#x3D;&#x3D; \begin{pmatrix} nx\ny\unknown\z \end{pmatrix}.<br>$$</p>
-<p>考虑根据变换前后，推出矩阵 $M_{persp\rightarrow ortho}^{4\times 4}$：</p>
-<p>$$ M_{persp\rightarrow ortho}^{4\times 4} \begin{pmatrix} x\y\z\1 \end{pmatrix}&#x3D; \begin{pmatrix} nx\ny\unknown\z \end{pmatrix}.<br>$$</p>
-<p>注意到 $x,y,z$ 都是变量，矩阵内部不能有这些变量，因此可以直接推出一些元素：<br>$$<br>M_{persp\rightarrow ortho} &#x3D; \begin{pmatrix} n &amp; 0 &amp; 0 &amp; 0\ 0 &amp; n &amp; 0 &amp; 0\ ? &amp; ? &amp; ? &amp; ?\ 0 &amp; 0 &amp; 1 &amp; 0 \end{pmatrix}.<br>$$</p>
+<p>首先考虑 <span
+class="math inline"><em>y</em></span>，这个很简单，根据相似三角形直接求出
+<span class="math inline">$y^{'}=\frac{n}{z}y$</span>：</p>
+<figure>
+<img src="proj4.png" alt="相似三角形" />
+<figcaption aria-hidden="true">相似三角形</figcaption>
+</figure>
+<p><span class="math inline"><em>x</em></span> 也一样：<span
+class="math inline">$x^{'}=\frac{n}{z}x$</span>。</p>
+<p>根据目前的信息，用齐次坐标表示变换前后的坐标： <span
+class="math display">$$
+\begin{pmatrix} x\\y\\z\\1 \end{pmatrix} \Rightarrow \begin{pmatrix}
+nx/z\\ny/z\\unknown\\1 \end{pmatrix} == \begin{pmatrix}
+nx\\ny\\unknown\\z \end{pmatrix}.
+$$</span></p>
+<p>考虑根据变换前后，推出矩阵 <span
+class="math inline"><em>M</em><sub><em>p</em><em>e</em><em>r</em><em>s</em><em>p</em> → <em>o</em><em>r</em><em>t</em><em>h</em><em>o</em></sub><sup>4 × 4</sup></span>：</p>
+<p><span class="math display">$$ M_{persp\rightarrow ortho}^{4\times 4}
+\begin{pmatrix} x\\y\\z\\1 \end{pmatrix}= \begin{pmatrix}
+nx\\ny\\unknown\\z \end{pmatrix}.
+$$</span></p>
+<p>注意到 <span
+class="math inline"><em>x</em>, <em>y</em>, <em>z</em></span>
+都是变量，矩阵内部不能有这些变量，因此可以直接推出一些元素： <span
+class="math display">$$
+M_{persp\rightarrow ortho} = \begin{pmatrix} n &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; n &amp; 0 &amp; 0\\ ? &amp; ? &amp; ? &amp; ?\\ 0 &amp; 0 &amp;
+1 &amp; 0 \end{pmatrix}.
+$$</span></p>
 <blockquote>
-<p>可以发现这个不是仿射变换矩阵的形式（最后一行前面都是0最后一个是1）。因此学到这里的时候，我知道，至少对于 $z$，它的变换肯定不是线性的。因此我有个疑问，就是明知道变换前后不是线性的，但为什么还能假定可以用<strong>矩阵</strong>来表示呢？矩阵可以表示齐次坐标的任意变换吗？</p>
+<p>可以发现这个不是仿射变换矩阵的形式（最后一行前面都是0最后一个是1）。因此学到这里的时候，我知道，至少对于
+<span
+class="math inline"><em>z</em></span>，它的变换肯定不是线性的。因此我有个疑问，就是明知道变换前后不是线性的，但为什么还能假定可以用<strong>矩阵</strong>来表示呢？矩阵可以表示齐次坐标的任意变换吗？</p>
 </blockquote>
-<p>如何求出这些未知元素呢？这里我们考虑将坐标的 $z$ 代入一些特殊值。</p>
-<p>首先令 $z&#x3D;n$：<br>$$<br>\begin{pmatrix} x\y\n\1 \end{pmatrix} \Rightarrow \begin{pmatrix} nx\ny\n^2\n \end{pmatrix}.<br>$$</p>
-<p>可以得出矩阵第三行为：<br>$$<br>\begin{pmatrix} 0&amp;0&amp;A&amp;B \end{pmatrix} \begin{pmatrix} x\y\n\1 \end{pmatrix} &#x3D;n^2<br>$$</p>
-<p>且可以得出：$An+B&#x3D;n^2$。</p>
-<p>然后我们需要再来一个方程。我们知道所有在 $f$ 面（即最后面的那一面）上的 $z$ 是不会变的，因此有<br>$$<br>\begin{pmatrix} 0\0\f\1 \end{pmatrix} \Rightarrow \begin{pmatrix} 0\0\f^2\f \end{pmatrix}.<br>$$</p>
-<p>因此得到第二个方程 $Af+B&#x3D;f^2$。可以解得 $A&#x3D;n+f, B&#x3D;-nf$。</p>
+<p>如何求出这些未知元素呢？这里我们考虑将坐标的 <span
+class="math inline"><em>z</em></span> 代入一些特殊值。</p>
+<p>首先令 <span class="math inline"><em>z</em> = <em>n</em></span>：
+<span class="math display">$$
+\begin{pmatrix} x\\y\\n\\1 \end{pmatrix} \Rightarrow \begin{pmatrix}
+nx\\ny\\n^2\\n \end{pmatrix}.
+$$</span></p>
+<p>可以得出矩阵第三行为： <span class="math display">$$
+\begin{pmatrix} 0&amp;0&amp;A&amp;B \end{pmatrix} \begin{pmatrix}
+x\\y\\n\\1 \end{pmatrix} =n^2
+$$</span></p>
+<p>且可以得出：<span
+class="math inline"><em>A</em><em>n</em> + <em>B</em> = <em>n</em><sup>2</sup></span>。</p>
+<p>然后我们需要再来一个方程。我们知道所有在 <span
+class="math inline"><em>f</em></span> 面（即最后面的那一面）上的 <span
+class="math inline"><em>z</em></span> 是不会变的，因此有 <span
+class="math display">$$
+\begin{pmatrix} 0\\0\\f\\1 \end{pmatrix} \Rightarrow \begin{pmatrix}
+0\\0\\f^2\\f \end{pmatrix}.
+$$</span></p>
+<p>因此得到第二个方程 <span
+class="math inline"><em>A</em><em>f</em> + <em>B</em> = <em>f</em><sup>2</sup></span>。可以解得
+<span
+class="math inline"><em>A</em> = <em>n</em> + <em>f</em>, <em>B</em> = −<em>n</em><em>f</em></span>。</p>
 <blockquote>
-<p>对于一般的 $z$，变换前后是变大还是变小了？（换句话说，更近还是更远了呢）<br>根据上述求解可以得知 $z^{‘}&#x3D;n+f-\dfrac{nf}{z}$，直接算 $z-z{‘}$ ，乘 $z$ 后可以求得 $z^2-(n+f)z+nf&lt;0(f&lt;z&lt;n)$。<br>但因为 $z&lt;0$，所以 $z &gt; z^{‘}$，变换后的 $z$ 更小，即更远了。</p>
+<p>对于一般的 <span
+class="math inline"><em>z</em></span>，变换前后是变大还是变小了？（换句话说，更近还是更远了呢）
+根据上述求解可以得知 <span
+class="math inline">$z^{'}=n+f-\dfrac{nf}{z}$</span>，直接算 <span
+class="math inline"><em>z</em> − <em>z</em>′</span> ，乘 <span
+class="math inline"><em>z</em></span> 后可以求得 <span
+class="math inline"><em>z</em><sup>2</sup> − (<em>n</em> + <em>f</em>)<em>z</em> + <em>n</em><em>f</em> &lt; 0(<em>f</em> &lt; <em>z</em> &lt; <em>n</em>)</span>。
+但因为 <span class="math inline"><em>z</em> &lt; 0</span>，所以 <span
+class="math inline"><em>z</em> &gt; <em>z</em><sup>′</sup></span>，变换后的
+<span class="math inline"><em>z</em></span> 更小，即更远了。</p>
 </blockquote>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Atri2333.github.io">Ayy3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://atri2333.github.io/2025/10/01/games101/">http://atri2333.github.io/2025/10/01/games101/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/computer-graphics/">computer graphics</a></div><div class="post-share"><div class="social-share" data-image="/img/Atri2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/01/LC2221-%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E8%A7%92%E5%92%8C/" title="LC2221-数组的三角和"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">LC2221-数组的三角和</div></div><div class="info-2"><div class="info-item-1"> 原题这题涉及到了一些求逆元的知识，我们刚好回顾一下。  首先很明显这题答案是：$$\sum_{i&#x3D;0}^{n-1} a_i C_{n-1}^i \bmod 10.$$ 数据范围也不大，可以暴力 $O(n^2)$ 求组合数，或者你直接模拟题意就行。 但作为Acmer必然要考虑更高效的做法。如果模数不是10而是一个质数 $p$，那么可以直接使用费马小定理来直接计算组合数分母的那些阶乘的逆元：$$a^p  \equiv a \space (\bmod \space p).$$ 但是这题的10显然不是质数，怎么办呢？诶，我们还有个欧拉定理：$$a^{\phi(b)} \equiv 1\space (\bmod \space b),\gcd(a,b)&#x3D;1.$$ 只要我们要求逆元的数 $a$ 和10互质，就可以用欧拉定理求出它的逆元，即 $a^{\phi(10)-1} &#x3D; a^3$. 可以考虑先将 $a$ 中的质因子2和5全都提出。考虑我们要求的组合数 $C_n^m&#x3D;\frac{n!}{m!(n-m)!}$，我们先考虑提出 $m!$ 和 $(n-m)...</div></div></div></a><a class="pagination-related" href="/2025/09/18/AS/" title="ASC and AS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">ASC and AS</div></div><div class="info-2"><div class="info-item-1"> 目前GAS系列文章是在作者边学边实践的过程中的产出，因此未来100%会继续改善。  GAS-1在这篇文章，我们来引进GAS系统中的两个部件。 Ability System ComponentAbility System Component(ASC)是整个GAS系统中最基础的一个组件，它负责主要的对象与GAS的交互。在后续提及Gameplay Effect(GE)的时候，可以发现GE本身就是通过ASC进行施加的，同时这个过程中需要的 FGameplayEffectContextHandle 和 FGameplayEffectSpecHandle 都是通过ASC进行构建。不仅如此，ASC还和其所在类对应的AttributeSet，以及处理各种Gameplay Effect与使用技能Gameplay Ability都密切相关。因此对于一个角色，如果要将其加入GAS系统，你第一时间就是给予其一个Ability System Component。 ASC有两个代表Actor，分别是OwnerActor和AvatarActor，前者是实际构建（拥有）该ASC的Actor，而后者是该ASC所...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ayy3</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Atri2333"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Games101%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Games101学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1. 线性代数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1. 线性变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87%EF%BC%88Homogeneous-Coordinates%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2. 齐次坐标（Homogeneous Coordinates）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%A4%8D%E5%90%88%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3. 复合变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E4%B8%89%E7%BB%B4%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4. 三维变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.5. 视图变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.6.</span> <span class="toc-text">1.6. 投影变换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-1-%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">1.6.1. 正交投影</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-2-%E9%80%8F%E8%A7%86%E6%8A%95%E5%BD%B1"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">1.6.2. 透视投影</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/01/LC2221-%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E8%A7%92%E5%92%8C/" title="LC2221-数组的三角和">LC2221-数组的三角和</a><time datetime="2025-10-01T10:00:44.000Z" title="Created 2025-10-01 18:00:44">2025-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/01/games101/" title="games101">games101</a><time datetime="2025-09-30T23:54:28.000Z" title="Created 2025-10-01 07:54:28">2025-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/AS/" title="ASC and AS">ASC and AS</a><time datetime="2025-09-18T15:07:25.000Z" title="Created 2025-09-18 23:07:25">2025-09-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/17/GAS-Intro/" title="GAS_Intro">GAS_Intro</a><time datetime="2025-09-17T10:04:00.000Z" title="Created 2025-09-17 18:04:00">2025-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/17/hello-world/" title="Hello World">Hello World</a><time datetime="2025-09-17T08:53:35.472Z" title="Created 2025-09-17 16:53:35">2025-09-17</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Ayy3</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Atri2333.github.io">Ayy3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://atri2333.github.io/2025/10/01/games101/">http://atri2333.github.io/2025/10/01/games101/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/computer-graphics/">computer graphics</a></div><div class="post-share"><div class="social-share" data-image="/img/Atri2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/01/LC2221-%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E8%A7%92%E5%92%8C/" title="LC2221-数组的三角和"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">LC2221-数组的三角和</div></div><div class="info-2"><div class="info-item-1"> 原题 这题涉及到了一些求逆元的知识，我们刚好回顾一下。  首先很明显这题答案是： $$ \sum_{i=0}^{n-1} a_i C_{n-1}^i \bmod 10. $$ 数据范围也不大，可以暴力 O(n2) 求组合数，或者你直接模拟题意就行。 但作为Acmer必然要考虑更高效的做法。如果模数不是10而是一个质数 p，那么可以直接使用费马小定理来直接计算组合数分母的那些阶乘的逆元： $$ a^p  \equiv a \space (\bmod \space p). $$ 但是这题的10显然不是质数，怎么办呢？诶，我们还有个欧拉定理： $$ a^{\phi(b)} \equiv 1\space (\bmod \space b),\gcd(a,b)=1. $$ 只要我们要求逆元的数 a 和10互质，就可以用欧拉定理求出它的逆元，即 aϕ(10) − 1 = a3. 可以考虑先将 a 中的质因子2和5全都提出。考虑我们要求的组合数 $C_n^m=\frac{n!}{m!(n-m)!}$，我们先考虑提出 m! 和 (n − m)! 中所有...</div></div></div></a><a class="pagination-related" href="/2025/09/18/AS/" title="ASC and AS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">ASC and AS</div></div><div class="info-2"><div class="info-item-1"> 目前GAS系列文章是在作者边学边实践的过程中的产出，因此未来100%会继续改善。  GAS-1 在这篇文章，我们来引进GAS系统中的两个部件。 Ability System Component Ability System Component(ASC)是整个GAS系统中最基础的一个组件，它负责主要的对象与GAS的交互。在后续提及Gameplay Effect(GE)的时候，可以发现GE本身就是通过ASC进行施加的，同时这个过程中需要的 FGameplayEffectContextHandle 和 FGameplayEffectSpecHandle 都是通过ASC进行构建。不仅如此，ASC还和其所在类对应的AttributeSet，以及处理各种Gameplay Effect与使用技能Gameplay Ability都密切相关。因此对于一个角色，如果要将其加入GAS系统，你第一时间就是给予其一个Ability System Component。 ASC有两个代表Actor，分别是OwnerActor和AvatarActor，前者是实际构建（拥有）该AS...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ayy3</div><div class="author-info-description">亚托莉四年单推人</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Atri2333"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎交流</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#games101%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Games101学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1. 线性代数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1. 线性变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87homogeneous-coordinates"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2. 齐次坐标（Homogeneous
+Coordinates）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3. 复合变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%BB%B4%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4. 三维变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.5. 视图变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.6.</span> <span class="toc-text">1.6. 投影变换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">1.6.1. 正交投影</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%8F%E8%A7%86%E6%8A%95%E5%BD%B1"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">1.6.2. 透视投影</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/01/LC2221-%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E8%A7%92%E5%92%8C/" title="LC2221-数组的三角和">LC2221-数组的三角和</a><time datetime="2025-10-01T10:00:44.000Z" title="Created 2025-10-01 18:00:44">2025-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/01/games101/" title="games101">games101</a><time datetime="2025-09-30T23:54:28.000Z" title="Created 2025-10-01 07:54:28">2025-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/AS/" title="ASC and AS">ASC and AS</a><time datetime="2025-09-18T15:07:25.000Z" title="Created 2025-09-18 23:07:25">2025-09-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/17/GAS-Intro/" title="GAS_Intro">GAS_Intro</a><time datetime="2025-09-17T10:04:00.000Z" title="Created 2025-09-17 18:04:00">2025-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/17/hello-world/" title="Hello World">Hello World</a><time datetime="2025-09-17T08:53:35.472Z" title="Created 2025-09-17 16:53:35">2025-09-17</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Ayy3</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
@@ -304,7 +456,7 @@
       }
 
       const script = document.createElement('script')
-      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/tex-mml-chtml.min.js'
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
       script.id = 'MathJax-script'
       script.async = true
       document.head.appendChild(script)
