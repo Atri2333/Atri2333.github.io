@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"atri2333.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="games101学习笔记 1. 线性代数 1.1. 线性变换  二维举例  二维线性变换可以写为： \[ x^{&#39;}&#x3D;ax+by\\ y^{&#39;}&#x3D;cx+dy\\ \] 可以用矩阵 \(M\) 来表示： \[ \begin{bmatrix} x^{&#39;}\\y^{&#39;} \end{bmatrix}&#x3D; \begin{bmatrix} a &amp;am">
+<meta property="og:type" content="article">
+<meta property="og:title" content="games101">
+<meta property="og:url" content="https://atri2333.github.io/2024/10/01/games101/index.html">
+<meta property="og:site_name" content="Ayy3">
+<meta property="og:description" content="games101学习笔记 1. 线性代数 1.1. 线性变换  二维举例  二维线性变换可以写为： \[ x^{&#39;}&#x3D;ax+by\\ y^{&#39;}&#x3D;cx+dy\\ \] 可以用矩阵 \(M\) 来表示： \[ \begin{bmatrix} x^{&#39;}\\y^{&#39;} \end{bmatrix}&#x3D; \begin{bmatrix} a &amp;am">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/proj4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/fourier.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/conv.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp7.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/samp8.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/zbuffer.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shadowmap1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shadowmap2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade7.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/cos.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade8.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade9.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade10.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade11.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade12.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade13.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade14.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade15.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade16.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade17.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade18.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade19.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/mipmap1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/mipmap2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/mipmap3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/mipmap4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/mipmap5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/mipmap6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade20.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade21.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade22.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/shade23.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/curve1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/curve2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/curve3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/curve4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/curve5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/curve6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry7.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry8.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry9.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/geometry10.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace6.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace7.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace8.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace9.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace10.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace11.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace12.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace13.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace14.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/raytrace15.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/pathtrace1.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/pathtrace2.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/pathtrace3.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/pathtrace4.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/pathtrace5.png">
+<meta property="og:image" content="https://atri2333.github.io/2024/10/01/games101/pathtrace6.png">
+<meta property="article:published_time" content="2024-10-01T11:09:09.000Z">
+<meta property="article:modified_time" content="2025-03-09T02:16:02.235Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="acm, system, software">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://atri2333.github.io/2024/10/01/games101/proj1.png">
+
+
+<link rel="canonical" href="https://atri2333.github.io/2024/10/01/games101/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://atri2333.github.io/2024/10/01/games101/","path":"2024/10/01/games101/","title":"games101"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>games101 | Ayy3</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Ayy3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">时间停止吧，你是多么的美丽</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#games101%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">games101学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1. 线性代数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 线性变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87homogeneous-coordinates"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2. 齐次坐标（Homogeneous
+Coordinates）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3. 复合变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4. 三维变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5. 视图变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6. 投影变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">1.6.1. 正交投影</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%8F%E8%A7%86%E6%8A%95%E5%BD%B1"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">1.6.2. 透视投影</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E6%A0%85%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">2. 光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E7%A6%BB%E6%95%A3%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1. 三角形的离散化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B0%E6%A0%B7%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%BB%A4%E6%B3%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2. 走样、信号与滤波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%97%E9%94%AF%E9%BD%BF%E5%8F%8D%E8%B5%B0%E6%A0%B7"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3. 抗锯齿（反走样）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#msaa-%E8%B6%85%E9%87%87%E6%A0%B7"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.3.1. MSAA 超采样</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4. 深度测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#z-buffer"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.4.1. Z-Buffer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%89%E6%A0%85%E5%8C%96%E7%9A%84%E9%98%B4%E5%BD%B1"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5. 光栅化的阴影</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9D%80%E8%89%B2"><span class="nav-number">1.3.</span> <span class="nav-text">3. 着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#blinn-phong%E5%8F%8D%E5%B0%84%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1. Blinn-Phong反射模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9D%80%E8%89%B2%E6%98%AF%E5%B1%80%E9%83%A8%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">3.1.1. 着色是局部行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BC%AB%E5%8F%8D%E5%B0%84"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">3.1.2. 漫反射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%95%9C%E9%9D%A2%E5%8F%8D%E5%B0%84"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.1.3. 镜面反射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%85%89"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">3.1.4. 环境光</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9D%80%E8%89%B2%E9%A2%91%E7%8E%87"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2. 着色频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E7%AE%A1%E7%BA%BF%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3. 图形管线（实时渲染管线）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shader"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">3.3.1. shader</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84texture-mapping"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4. 纹理映射（Texture Mapping）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87%E6%B3%95"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5. 重心坐标法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E8%BF%87%E5%B0%8F"><span class="nav-number">1.3.6.</span> <span class="nav-text">3.6. 纹理过小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E8%BF%87%E5%A4%A7"><span class="nav-number">1.3.7.</span> <span class="nav-text">3.7. 纹理过大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mipmap"><span class="nav-number">1.3.8.</span> <span class="nav-text">3.8. mipmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84%E7%9A%84%E5%85%B6%E5%AE%83%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.9.</span> <span class="nav-text">3.9. 纹理映射的其它应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95"><span class="nav-number">1.4.</span> <span class="nav-text">4. 几何</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1. 表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B2%E7%BA%BF%E5%92%8C%E6%9B%B2%E9%9D%A2"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2. 曲线和曲面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%A0%BC%E7%BB%86%E5%88%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3. 网格细分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%A0%BC%E7%AE%80%E5%8C%96"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.4. 网格简化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8Bidea%E9%80%9A%E8%BF%87%E5%9D%8D%E7%BC%A9%E4%B8%80%E6%9D%A1%E8%BE%B9%E5%8F%AF%E4%BB%A5%E5%87%8F%E5%B0%91%E4%B8%80%E4%B8%AA%E7%BD%91%E6%A0%BC"><span class="nav-number">1.4.5.</span> <span class="nav-text">初始idea：通过坍缩一条边，可以减少一个网格：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA"><span class="nav-number">1.5.</span> <span class="nav-text">5. 光线追踪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1. 基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%89%E7%BA%BF%E5%B9%B3%E9%9D%A2%E7%9B%B8%E4%BA%A4"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2. 光线—平面相交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E9%80%9F%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3. 加速结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">5.3.1. 空间划分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6"><span class="nav-number">1.5.4.</span> <span class="nav-text">5.4. 辐射度量学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E7%BD%97%E7%A7%AF%E5%88%86"><span class="nav-number">1.5.5.</span> <span class="nav-text">5.5. 蒙特卡罗积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E8%BF%BD%E8%B8%AApath-tracing"><span class="nav-number">1.5.6.</span> <span class="nav-text">5.6. 路径追踪（Path Tracing）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%90%E8%B4%A8"><span class="nav-number">1.6.</span> <span class="nav-text">6. 材质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%AB%E5%8F%8D%E5%B0%84%E9%95%9C%E9%9D%A2%E5%8F%8D%E5%B0%84%E6%8A%98%E5%B0%84%E6%9D%90%E8%B4%A8"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1. 漫反射、镜面反射、折射材质</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ayy3"
+      src="/images/Atri6.jpg">
+  <p class="site-author-name" itemprop="name">Ayy3</p>
+  <div class="site-description" itemprop="description">亚托莉单推人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/quicksilverx-6" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;quicksilverx-6" rel="noopener me" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://codeforces.com/profile/Atri_My_Dear_Moments" title="Codeforces → https:&#x2F;&#x2F;codeforces.com&#x2F;profile&#x2F;Atri_My_Dear_Moments" rel="noopener me" target="_blank"><i class="fa fa-code fa-fw"></i>Codeforces</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://atri2333.github.io/2024/10/01/games101/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Atri6.jpg">
+      <meta itemprop="name" content="Ayy3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ayy3">
+      <meta itemprop="description" content="亚托莉单推人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="games101 | Ayy3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          games101
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-01 19:09:09" itemprop="dateCreated datePublished" datetime="2024-10-01T19:09:09+08:00">2024-10-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 10:16:02" itemprop="dateModified" datetime="2025-03-09T10:16:02+08:00">2025-03-09</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/10/01/games101/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/10/01/games101/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="games101学习笔记">games101学习笔记</h1>
+<h2 id="线性代数">1. 线性代数</h2>
+<h3 id="线性变换">1.1. 线性变换</h3>
+<blockquote>
+<p>二维举例</p>
+</blockquote>
+<p>二维线性变换可以写为： <span class="math display">\[
+x^{&#39;}=ax+by\\
+y^{&#39;}=cx+dy\\
+\]</span> 可以用矩阵 <span class="math inline">\(M\)</span> 来表示：
+<span class="math display">\[
+\begin{bmatrix}
+x^{&#39;}\\y^{&#39;}
+\end{bmatrix}=
+\begin{bmatrix}
+a &amp; b\\c &amp; d
+\end{bmatrix}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}
+\]</span> 可以带入两个基向量 <span
+class="math inline">\((1,0),(0,1)\)</span>，得知 <span
+class="math inline">\((a,c)\)</span> 和 <span
+class="math inline">\((b,d)\)</span>
+分别是这两个向量经过线性变换后在原坐标系的坐标值。可以用这个结论很快地得出矩阵
+<span class="math inline">\(M\)</span> 。</p>
+<h3 id="齐次坐标homogeneous-coordinates">1.2. 齐次坐标（Homogeneous
+Coordinates）</h3>
+<blockquote>
+<p>在线性变换的基础上添加平移变换</p>
+</blockquote>
+<p>线性变换不能表示平移： <span class="math display">\[
+\begin{bmatrix}
+x^{&#39;}\\y^{&#39;}
+\end{bmatrix}=
+\begin{bmatrix}
+a &amp; b\\c &amp; d
+\end{bmatrix}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}+
+\begin{bmatrix}
+t_x\\t_y
+\end{bmatrix}
+\]</span>
+为了将平移也加入一般的变换形式，提出齐次坐标，即在原有的坐标上添加一维
+<span class="math inline">\(w\)</span>（二维举例）：</p>
+<ul>
+<li>2D点：<span class="math inline">\((x, y, 1)^T\)</span></li>
+<li>2D向量：<span class="math inline">\((x, y, 0)^T\)</span></li>
+</ul>
+<p>这样就可以只用矩阵乘法来表示线性变换+平移（先变换后平移）： <span
+class="math display">\[
+\begin{bmatrix}
+x^{&#39;}\\y^{&#39;}\\1
+\end{bmatrix}=
+\begin{bmatrix}
+a &amp; b &amp; t_x\\c &amp; d &amp; t_y \\ 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x\\y\\1
+\end{bmatrix}
+\]</span> 对于矩阵 <span class="math inline">\(M\)</span>
+求逆可得还原矩阵 <span class="math inline">\(M^{-1}\)</span>。</p>
+<h3 id="复合变换">1.3. 复合变换</h3>
+<p>由于采用右手坐标系，因此变换为矩阵左乘，变换顺序由右往左： <span
+class="math display">\[
+A_n(...A_2(A_1(x))) = A_n\cdots A_2 \cdot A_1 \cdot  
+\begin{pmatrix}
+x\\y\\1
+\end{pmatrix}
+\]</span></p>
+<h3 id="三维变换">1.4. 三维变换</h3>
+<p>三维旋转矩阵（非齐次坐标），绕轴 <span
+class="math inline">\(n\)</span> 转 <span
+class="math inline">\(\alpha\)</span>： <span class="math display">\[
+R(n,\alpha)=\cos(\alpha)I+(1-\cos(\alpha))nn^T+\sin(\alpha)
+\begin{pmatrix}
+0&amp;-n_z&amp;n_y\\
+n_z&amp;0&amp;-n_x\\
+-n_y&amp;n_x&amp;0
+\end{pmatrix}
+\]</span></p>
+<h3 id="视图变换">1.5. 视图变换</h3>
+<blockquote>
+<p>MVP变换的V。或者MV。</p>
+<p>想象你拿着相机进行拍照，需要哪些步骤</p>
+</blockquote>
+<p>首先设置相机：</p>
+<ul>
+<li>选择位置 <span class="math inline">\(e\)</span></li>
+<li>选择观察方向 <span class="math inline">\(g\)</span></li>
+<li>选择相机朝上的方向 <span class="math inline">\(t\)</span></li>
+</ul>
+<p>为了方便，我们将相机移动到原点，观察 <span
+class="math inline">\(-z\)</span>，上方向为 <span
+class="math inline">\(y\)</span>。这可以采用复合变换实现：</p>
+<ul>
+<li>将 <span class="math inline">\(e\)</span> 平移至原点</li>
+<li>将 <span class="math inline">\(g\)</span> 旋转至 <span
+class="math inline">\(-z\)</span></li>
+<li>将 <span class="math inline">\(t\)</span> 旋转至 <span
+class="math inline">\(y\)</span></li>
+<li>将 <span class="math inline">\((g \times t)\)</span> 旋转至 <span
+class="math inline">\(x\)</span>
+(事实上不需要这步，只不过方便后续数学推导表示)</li>
+</ul>
+<p>上述变换除了第一步，后面旋转用矩阵难以实现，考虑逆复合变换。</p>
+<p>假设矩阵为 <span
+class="math inline">\(M_{view}=R_{view}T_{view}\)</span>，其中平移矩阵很简单：
+<span class="math display">\[
+T_{view} =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; -x_e\\
+0 &amp; 1 &amp; 0 &amp; -y_e\\
+0 &amp; 0 &amp; 1 &amp; -z_e\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span> 对于旋转矩阵，考虑其逆变换：<span
+class="math inline">\(x\)</span> 旋转至 <span class="math inline">\((g
+\times t)\)</span>，<span class="math inline">\(y\)</span> 旋转至 <span
+class="math inline">\(t\)</span> ，<span
+class="math inline">\(z\)</span> 旋转至 <span
+class="math inline">\(-g\)</span>： <span class="math display">\[
+R_{view}^{-1} =
+\begin{bmatrix}
+x_{g\times t} &amp; x_t &amp; x_{-g} &amp; 0\\
+y_{g\times t} &amp; y_t &amp; y_{-g} &amp; 0\\
+z_{g\times t} &amp; z_t &amp; z_{-g} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span> 不难发现这是个正交矩阵，因此可以直接转置得到 <span
+class="math inline">\(R_{view}\)</span>： <span class="math display">\[
+R_{view} =
+\begin{bmatrix}
+x_{g\times t} &amp; y_{g\times t} &amp; z_{g\times t} &amp; 0\\
+x_t &amp; y_t &amp; z_t &amp; 0\\
+x_{-g} &amp; y_{-g} &amp; z_{-g} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<h3 id="投影变换">1.6. 投影变换</h3>
+<blockquote>
+<p>MVP中的P，将3D转换为2D</p>
+<p>分为正交投影和透视投影</p>
+</blockquote>
+<p>二者区别如下，直接截图了：</p>
+<img src="/2024/10/01/games101/proj1.png" class="" title="proj1">
+<h4 id="正交投影">1.6.1. 正交投影</h4>
+<p>一种简单的方式：</p>
+<ul>
+<li>首先用视图变换，让相机移动到原点，观察 <span
+class="math inline">\(-z\)</span>，上方向为 <span
+class="math inline">\(y\)</span>。</li>
+<li>然后去掉 <span class="math inline">\(z\)</span> 轴</li>
+<li>缩放至 <span
+class="math inline">\([-1,1]^2\)</span>（讲真我不是很理解这步）</li>
+</ul>
+<p>一般方式，在原来的基础上多了个平移变换：</p>
+<img src="/2024/10/01/games101/proj2.png" class="" title="proj2">
+<p>其对应的变换矩阵为： <span class="math display">\[
+M_{ortho}=
+\begin{bmatrix}
+\frac{2}{r-l} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; \frac{2}{t-b} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; \frac{2}{n-f} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; -\frac{r+l}{2}\\
+0 &amp; 1 &amp; 0 &amp; -\frac{t+b}{2}\\
+0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2}\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}
+\]</span></p>
+<h4 id="透视投影">1.6.2. 透视投影</h4>
+<blockquote>
+<p>远的物体更小，平行线不再不行。</p>
+</blockquote>
+<p>首先将锉面压缩成长方体 <span
+class="math inline">\(M_{persp\rightarrow
+ortho}\)</span>，然后可以使用上述正交投影 <span
+class="math inline">\(M_{ortho}\)</span>。</p>
+<img src="/2024/10/01/games101/proj3.png" class="" title="proj3">
+<blockquote>
+<p>这里应该假设这个锉面是通过视线形成的，即中心轴为 <span
+class="math inline">\(-z\)</span>，因此不需要先作平移变换。</p>
+</blockquote>
+<p>主要的idea是上述提到过的“找出向量经过线性变换后在原坐标系的坐标值”。</p>
+<p>首先考虑 <span class="math inline">\(y\)</span>
+，这个很简单，根据相似三角形直接求出 <span
+class="math inline">\(y^{&#39;}=\frac{n}{z}y\)</span>：</p>
+<img src="/2024/10/01/games101/proj4.png" class="" title="proj4">
+<p>将坐标系绕 <span class="math inline">\(z\)</span>
+轴旋转90度，可以发现对于 <span class="math inline">\(x\)</span>
+也一样：<span
+class="math inline">\(x^{&#39;}=\frac{n}{z}x\)</span>。</p>
+<p>根据目前的信息，用齐次坐标表示变换前后的坐标： <span
+class="math display">\[
+\begin{pmatrix}
+x\\y\\z\\1
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+nx/z\\ny/z\\unknown\\1
+\end{pmatrix}
+==
+\begin{pmatrix}
+nx\\ny\\unknown\\z
+\end{pmatrix}
+\]</span> 考虑根据变换前后，推出矩阵 <span
+class="math inline">\(M_{persp\rightarrow ortho}^{4\times 4}\)</span>：
+<span class="math display">\[
+M_{persp\rightarrow ortho}^{4\times 4}
+\begin{pmatrix}
+x\\y\\z\\1
+\end{pmatrix}=
+\begin{pmatrix}
+nx\\ny\\unknown\\z
+\end{pmatrix}
+\]</span> 注意到 <span class="math inline">\(x,y,z\)</span>
+都是变量，矩阵内部不能有这些变量，因此可以直接推出一些元素： <span
+class="math display">\[
+M_{persp\rightarrow ortho} =
+\begin{pmatrix}
+n &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; n &amp; 0 &amp; 0\\
+? &amp; ? &amp; ? &amp; ?\\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{pmatrix}
+\]</span></p>
+<blockquote>
+<p>可以发现这个似乎不是仿射变换矩阵的形式（最后一行前面都是0最后一个是1）。因此学到这里的时候，我知道，至少对于
+<span class="math inline">\(z\)</span> ，它的变换肯定不是线性的。</p>
+<p>因此我有个疑问，就是明知道变换前后不是线性的，但为什么还能假定可以用<strong>矩阵</strong>来表示呢？矩阵可以表示齐次坐标的任意变换吗？</p>
+</blockquote>
+<p>如何求出这些未知元素呢？这里我们考虑将坐标的 <span
+class="math inline">\(z\)</span> 代入一些特殊值。</p>
+<p>首先令 <span class="math inline">\(z=n\)</span> ： <span
+class="math display">\[
+\begin{pmatrix}
+x\\y\\n\\1
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+nx\\ny\\n^2\\n
+\end{pmatrix}
+\]</span> 可以得出矩阵第三行为： <span class="math display">\[
+\begin{pmatrix}
+0&amp;0&amp;A&amp;B
+\end{pmatrix}
+\begin{pmatrix}
+x\\y\\n\\1
+\end{pmatrix}
+=n^2
+\]</span> 且可以得出： <span class="math display">\[
+An+B=n^2
+\]</span> 然后我们需要再来一个方程。我们知道所有在 <span
+class="math inline">\(f\)</span> 面（即最后面的那一面）上的 <span
+class="math inline">\(z\)</span> 前后是不会变的，因此有 <span
+class="math display">\[
+\begin{pmatrix}
+0\\0\\f\\1
+\end{pmatrix}
+\Rightarrow
+\begin{pmatrix}
+0\\0\\f^2\\f
+\end{pmatrix}
+\]</span> 因此得到第二个方程： <span class="math display">\[
+Af+B=f^2
+\]</span> 可以解得 <span class="math display">\[
+A=n+f\\B=-nf
+\]</span> 因此成功求出了 <span class="math inline">\(M_{persp\rightarrow
+ortho}\)</span>。</p>
+<blockquote>
+<p>对于一般的 <span class="math inline">\(z\)</span>
+，变换前后是变大还是变小了？（换句话说，更近还是更远了呢）</p>
+<p>根据上述求解可以得知 <span
+class="math inline">\(z^{&#39;}=n+f-\dfrac{nf}{z}\)</span>，直接算 <span
+class="math inline">\(z-z{&#39;}\)</span>，乘 <span
+class="math inline">\(z\)</span> 后可以求得 <span
+class="math inline">\(z^2-(n+f)z+nf&lt;0\space(f&lt;z&lt;n)\)</span>。</p>
+<p>但因为 <span class="math inline">\(z&lt;0\)</span> ，所以 <span
+class="math inline">\(z &gt; z^{&#39;}\)</span>，变换后的 <span
+class="math inline">\(z\)</span> 更小，即更远了。</p>
+</blockquote>
+<h2 id="光栅化">2. 光栅化</h2>
+<blockquote>
+<p>根据上面的MVP变换，我们得到了一个 <span
+class="math inline">\([-1,1]^3\)</span>
+的正方体。光栅化就是把这个正方体映射到二维屏幕上。</p>
+</blockquote>
+<p>假设我们的屏幕为 <span class="math inline">\([0,width] \times [0,
+height]\)</span>。每一个方格代表一个像素，这里假设每个像素都是纯色。</p>
+<p>一种可以直接想到的简单方法是，不管 <span
+class="math inline">\(z\)</span> 坐标，先变换 <span
+class="math inline">\(xy\)</span> 平面，可以直接写出变换矩阵： <span
+class="math display">\[
+M_{viewport} =
+\begin{pmatrix}
+\frac{width}{2} &amp; 0 &amp; 0 &amp; \frac{width}{2}\\
+0 &amp; \frac{height}{2} &amp; 0 &amp; \frac{height}{2}\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+\]</span></p>
+<h3 id="三角形的离散化">2.1. 三角形的离散化</h3>
+<p>为什么选择三角形：</p>
+<ul>
+<li>最简单的多边形，可以组合成其它多边形</li>
+<li>是2D的</li>
+<li>是凸的</li>
+<li>方便重心插值</li>
+</ul>
+<p>对于像素 <span class="math inline">\((x,
+y)\)</span>，我们通过采样的方式决定是否填充： <span
+class="math display">\[
+inside(t,x,y) =
+\begin{cases}
+1 &amp; (x,y)在三角形t内\\
+0 &amp; otherwise
+\end{cases}
+\]</span> 而像素的中心实际上为 <span
+class="math inline">\((x+0.5,y+0.5)\)</span>，我们只需要判断这个中心是否在三角形内部即可，这可以用<strong>叉积</strong>实现，判断该点是否都在三个方向一致的边向量的左边/右边。</p>
+<h3 id="走样信号与滤波">2.2. 走样、信号与滤波</h3>
+<p>只通过上述对像素中心进行采样的光栅化方式，会产生锯齿（走样）。</p>
+<p><strong>采样</strong>在计算机图形学中是个十分常用的概念，但其往往却会产生一系列问题，称之为artifacts：</p>
+<img src="/2024/10/01/games101/samp1.png" class="" title="samp1">
+<p>经典的走样包括锯齿、摩尔纹、车轮效应，前两者是空间上采用的问题，后者是时间上采样的问题。究其本质，是<strong>采样的速度跟不上信号变化的速度</strong>。</p>
+<p><strong>傅里叶级数展开</strong>：任何周期函数都可以展开为不同频率的正余弦函数的线性组合加上一个常数。</p>
+<p><strong>傅里叶（逆）变换</strong>：可以将时域信号与频域信号相互转换。</p>
+<img src="/2024/10/01/games101/fourier.png" class="" title="fourier">
+<p>对于低频率的信号，采用低频率的采样方式，我们可以根据采用点重建原信号。</p>
+<p>而对于高频率的信号，采用低频率的采样方式，我们可能会错误地重建一个低频率信号。（这事实上就是摩尔纹出现的原理，对原图片进行降采样，可能会得到一个变化较少的纹路）</p>
+<img src="/2024/10/01/games101/samp2.png" class="" title="samp2">
+<p><strong>滤波</strong>：删除原信号在某些频率上的内容。</p>
+<p>滤掉低频，原图片剩下高频的内容，对应的大概率是边界部分。</p>
+<p>滤掉高频，原图片显眼的部分被去除，产生类似于模糊的效果。</p>
+<p><strong>卷积</strong>：<del>这个学过CNN的多少都有点印象，在图形学中也是一样，</del>拿个卷积核在那对每个像素作加权平均。</p>
+<p><strong>卷积定理</strong>：空间域的卷积等于频域的乘积，反之亦然。</p>
+<p>因此在原图片上进行卷积，相当于先用傅里叶变换将图片变为频谱，然后和卷积核的频谱形式进行相乘，最后用傅里叶逆变换变化回来。</p>
+<img src="/2024/10/01/games101/conv.png" class="" title="conv">
+<blockquote>
+<p>值得注意的是，这里的均值滤波器经过傅里叶变换后得到的是一个低通滤波器。</p>
+<p>而滤波器尺寸越大，所得到的低通滤波器越集中于低频率。</p>
+</blockquote>
+<h3 id="抗锯齿反走样">2.3. 抗锯齿（反走样）</h3>
+<p>前面提到，我们产生走样的原因是<strong>采样频率低于信号频率</strong>。</p>
+<p>用上述信号的原理来解释，可以理解为下图：</p>
+<img src="/2024/10/01/games101/samp3.png" class="" title="samp3">
+<p>这里(a)是我们的采样函数，(c)是我们的采样点（冲激函数），(e)是我们最终采样得到的函数。右边是它们经过傅里叶变换后的频谱形式。</p>
+<p>可以看出，对一个函数进行采样，在频率上<strong>相当于重复原函数的频谱内容</strong>。</p>
+<p>而走样在频率上，是重复频谱之间的混合交叉：</p>
+<img src="/2024/10/01/games101/samp4.png" class="" title="samp4">
+<blockquote>
+<p>tip：采样频率越高（冲激函数频率越高），在频谱形式中频率越低，越不容易产生交叉。</p>
+</blockquote>
+<p>所以我们想要反走样，可以从两步考虑：</p>
+<ul>
+<li>提升采样频率，这毫无意义</li>
+<li>降低采样函数频率（这样会让函数在频谱上显得更"窄"）</li>
+</ul>
+<img src="/2024/10/01/games101/samp5.png" class="" title="samp5">
+<p>上面也提到了，降低频率相当于在空间域上使用滤波，因此这里的抗锯齿方案是：</p>
+<blockquote>
+<p>对进行光栅化的三角形提前<strong>模糊</strong>，然后再采样。</p>
+</blockquote>
+<p>具体实现是针对每个像素而言的（相当于1x1滤波器），本质为二值平均。</p>
+<img src="/2024/10/01/games101/samp6.png" class="" title="samp6">
+<p>当然要计算三角形在每个像素中覆盖的比例是件很耗性能的工作，因此有了一种近似的模糊方法MSAA。</p>
+<h4 id="msaa-超采样">2.3.1. MSAA 超采样</h4>
+<p>原理很简单，对每个像素，不再是只对中心进行采样，而是取若干坐标，进行混合平均。</p>
+<img src="/2024/10/01/games101/samp7.png" class="" title="samp7">
+<img src="/2024/10/01/games101/samp8.png" class="" title="samp8">
+<p>事实上MSAA在拟合模糊的时候已经把采样也给做了，因此就省了一个步骤。</p>
+<p>MSAA的问题也很明显，就是超采样方式带来的性能损耗。因此还有其它的方式，例如FXAA、TAA以及你最喜欢的DLSS。</p>
+<h3 id="深度测试">2.4. 深度测试</h3>
+<blockquote>
+<p>如果我们要光栅化多个三角形，那么就需要使用各三角形的深度信息。</p>
+<p>为了方便，我们与上面光栅化的步骤不同，这里的深度（即 <span
+class="math inline">\(z\)</span> 坐标）采用正值。</p>
+</blockquote>
+<h4 id="z-buffer">2.4.1. Z-Buffer</h4>
+<p>关键idea是以像素为单位进行考虑。</p>
+<p>算法思想很简单，对于同一个像素，如果被多个三角形给覆盖，取深度值最低的那个。</p>
+<p>在实现的过程中，我们维护两个 <code>buffer</code>
+：一个是最终的结果，一个是深度图：</p>
+<img src="/2024/10/01/games101/zbuffer.png" class="" title="zbuffer">
+<p>伪代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for(each triangle T)</span><br><span class="line">	for(each sample (x, y, z) in T)</span><br><span class="line">		if(z &lt; zbuffer[x][y])</span><br><span class="line">			framebuffer[x, y] = rgb;</span><br><span class="line">			zbuffer[x][y] = z;</span><br><span class="line">		else</span><br><span class="line">			;</span><br></pre></td></tr></table></figure>
+<p>假设每个三角形占用的像素数量是常数，那么该算法是 <span
+class="math inline">\(O(n)\)</span> 的。</p>
+<p>Tip：深度测试不适用于透明物体。</p>
+<h3 id="光栅化的阴影">2.5. 光栅化的阴影</h3>
+<p>算法：Shadow Mapping</p>
+<p>Idea：对于没有被阴影的点，它应该同时被相机和点光源照到。</p>
+<p>因此我们可以考虑对点光源设置深度图。然后考虑相机看到的点，将其映射到点光源的深度图上，对比深度值是否与深度图记录上的一致。</p>
+<img src="/2024/10/01/games101/shadowmap1.png" class="" title="shadowmap1">
+<p>这种方法产生的阴影会有走样。阴影质量取决于shadow map分辨率。</p>
+<p>对于点光源，其生成的阴影是硬阴影（hard
+shadow），因为阴影里的任何地方都接触不到光。</p>
+<p>然而对于有体积的光源，则会有软阴影部分（soft shadow）</p>
+<img src="/2024/10/01/games101/shadowmap2.png" class="" title="shadowmap2">
+<h2 id="着色">3. 着色</h2>
+<blockquote>
+<p>着色的定义：对物品施加<strong>材质</strong>。</p>
+</blockquote>
+<h3 id="blinn-phong反射模型">3.1. Blinn-Phong反射模型</h3>
+<p>该模型将光照分为三个部分：镜面高光、漫反射、环境光（间接光照）</p>
+<img src="/2024/10/01/games101/shade1.png" class="" title="shade1">
+<h4 id="着色是局部行为">3.1.1. 着色是局部行为</h4>
+<p>对于着色这一步，我们只考虑在一个点上的操作（称之为着色点）。</p>
+<p>对于一个着色点，我们可以有以下输入：</p>
+<ul>
+<li>观察者视角 <span class="math inline">\(v\)</span></li>
+<li>着色表面（近似为平面）法向量 <span
+class="math inline">\(n\)</span></li>
+<li>光照方向 <span class="math inline">\(l\)</span>
+（对每个光都有一个）</li>
+<li>表面参数（颜色、光泽度（与光照无关）等）</li>
+</ul>
+<img src="/2024/10/01/games101/shade2.png" class="" title="shade2">
+<p>着色是局部的，代表某个着色点不受外部环境影响，因此着色并不产生<strong>阴影</strong>。（shading
+<span class="math inline">\(\neq\)</span> shadow）</p>
+<h4 id="漫反射">3.1.2. 漫反射</h4>
+<blockquote>
+<p>漫反射的性质是，光照经过一个表面后向各个方向均匀散射。</p>
+<p>因此在任意视角观察同一个着色点，产生的结果是相同的。</p>
+</blockquote>
+<p>我们首先明确，在给定上述的输入后，我们要的输出是漫反射光。具体而言应该是RGB形式的三维向量。</p>
+<p>首先上面提到，我们的输出和观察方向无关。</p>
+<p>其次，对于光照的方向，有 Lambert
+余弦定理，即<strong>光照强度与光照和法线的夹角的余弦值成正比</strong>。</p>
+<img src="/2024/10/01/games101/shade3.png" class="" title="shade3">
+<p>再者，我们考虑到物体离光源越远，所吸收的能量会越少。（这里应该是指点光源）</p>
+<img src="/2024/10/01/games101/shade4.png" class="" title="shade4">
+<p>根据能量守恒定律，以光源为中心的任何半径 <span
+class="math inline">\(r\)</span> 形成的球面所拥有的能量是恒定的。假设
+<span class="math inline">\(r=1\)</span> 时能量为 <span
+class="math inline">\(I\)</span>，那么对于任意的 <span
+class="math inline">\(r\)</span> ，能量为 <span
+class="math inline">\(\frac{I}{r^2}\)</span>。</p>
+<p>最后我们得到的输出也与着色点本身有关，假设着色点本身的颜色会产生一个向量
+<span class="math inline">\(k_d\)</span>，那么得到的漫反射光为： <span
+class="math display">\[
+L_d=k_d(I/r^2)\max(0, n\cdot l)
+\]</span> <img src="/2024/10/01/games101/shade5.png" class="" title="shade5"></p>
+<h4 id="镜面反射">3.1.3. 镜面反射</h4>
+<p>镜面反射的强度与漫反射不同，它将与我们的观察视角有关。</p>
+<p>根据实际经验来讲，如果观察视角和反射光很接近，那么就能看到镜面反射的高光，如下图：</p>
+<img src="/2024/10/01/games101/shade6.png" class="" title="shade6">
+<blockquote>
+<p>事实上对于朴素的Phong反射模型，它确实采用了 <span
+class="math inline">\(v\)</span> 和反射方向 <span
+class="math inline">\(R\)</span> 之间的夹角作为参数。但事实上这个 <span
+class="math inline">\(R\)</span>
+是比较难算的，所以Blinn-Phong模型采取了一些简化措施：</p>
+</blockquote>
+<img src="/2024/10/01/games101/shade7.png" class="" title="shade7">
+<p>诶🤓👆，这里模型先计算入射方向和视角的半程向量（俗称角平分线）<span
+class="math inline">\(h\)</span>，然后用 <span
+class="math inline">\(h\)</span> 和法向量 <span
+class="math inline">\(n\)</span> 之间的夹角来代替 <span
+class="math inline">\(v\)</span> 和 <span
+class="math inline">\(R\)</span>
+之间的角（实际上是大小为一半的关系）。</p>
+<p>至于夹角项上的指数 <span class="math inline">\(p\)</span>
+，是为了控制高光更加集中。</p>
+<img src="/2024/10/01/games101/cos.png" class="" title="cos">
+<p>可见，对于相同的角，如果指数 <span class="math inline">\(p\)</span>
+越高，其所得到的强度越低。</p>
+<blockquote>
+<p>对于常项 <span
+class="math inline">\(k_s\)</span>，一般指定高光为白光，所以应该是个很大的值。</p>
+<p>另外这里模型进行了简化，略掉了漫反射中光照方向和法向量夹角的一项。</p>
+</blockquote>
+<img src="/2024/10/01/games101/shade8.png" class="" title="shade8">
+<h4 id="环境光">3.1.4. 环境光</h4>
+<p>非常简单，这里Blinn-Phong做了简化：环境光照强度为常数 <span
+class="math inline">\(I_a\)</span></p>
+<img src="/2024/10/01/games101/shade9.png" class="" title="shade9">
+<p>主要的作用是保证任何地方都能有光照，即都不是黑的。（下图是环境光+漫反射+镜面反射=BP反射）</p>
+<img src="/2024/10/01/games101/shade10.png" class="" title="shade10">
+<h3 id="着色频率">3.2. 着色频率</h3>
+<p>对于同一个模型，我们可以以不同的单位进行着色（例如三角形平面、三角形顶点、像素等），这就是着色频率。</p>
+<p>显然着色频率影响最终效果质量，但其也与性能有关。</p>
+<ul>
+<li>Flat
+shading：即以三角形为单位进行着色，同一个三角形上的颜色是一样的。</li>
+<li>Gouraud
+shading：以顶点为单位进行着色（至于顶点的法向量后面会说），顶点内部三角形用插值着色。</li>
+<li>Phone
+shading：以像素为单位进行着色（与Blinn-Phone反射模型无关），像素的法向量用插值算出来。</li>
+</ul>
+<img src="/2024/10/01/games101/shade11.png" class="" title="shade11">
+<p>对于三角形顶点的法向量，可以对顶点周围的所有三角形的法向量求平均：
+<span class="math display">\[
+N_v=\dfrac{\sum_i N_i}{\|\sum_i N_i\|}
+\]</span> 对于像素的法向量，采用重心插值法（后面介绍）。</p>
+<h3 id="图形管线实时渲染管线">3.3. 图形管线（实时渲染管线）</h3>
+<blockquote>
+<p>我觉得管线就是流水线（pipeline），或者说步骤，不知道谁发明的这个说法，很别扭</p>
+</blockquote>
+<p>我们现在掌握了光栅化和部分着色的知识，现在总结一下如何将一个3D物体渲染到屏幕上：</p>
+<ol type="1">
+<li>首先，我们的输入是三维空间的点（当然还有点之间维护的三角形的关系）</li>
+<li>然后我们开始顶点处理（Vertex
+Processing）：采用MVP变换，将摄像机移植原点，上方向旋转至 <span
+class="math inline">\(y\)</span> 轴，视角朝向 <span
+class="math inline">\(-z\)</span>。然后将整个点变换至 <span
+class="math inline">\([-1,1]^3\)</span>的正方体上。（我没理解错的话）</li>
+<li>然后进行三角形处理（Triangle
+Processing）：没啥好处理的，点的变换并不影响其联通关系。</li>
+<li>然后进行光栅化（Rasterization）：将三维压到二维屏幕空间。</li>
+<li>然后进行片段处理（Fragment
+Processing）：可以理解为对每个像素进行处理（反走样、深度测试、着色等），当然这里的Fragment并不一定指像素，对于MSAA它可能会指超采样点。</li>
+<li>然后进行Framebuffer
+Operations，这里我还不知道这是什么东西，课件也没说。</li>
+<li>最后就可以渲染到屏幕上了。</li>
+</ol>
+<p>对于图形管线的具体内容参见课件。注意对于某个特定的步骤，例如着色的时候，它的操作可能是对每个像素进行着色（片段处理），但是在着色的过程中我们事实上需要运用到点的三维信息，因此它可能也包含了图形管线的顶点处理。后面的Texture
+Mapping也是一样。</p>
+<p>对于现代gpu，其内部高度并行化（非常多的core，想象一下可以并行地对不同像素进行渲染），且大部分都实现了特定的一套图形管线。当然内部有用户可定义的部分（可编程的部分），其中有一个叫做shader。</p>
+<h4 id="shader">3.3.1. shader</h4>
+<p>shader指的是一段特定编程语言的程序，专门关注对<strong>一个</strong>顶点（或者片段）的着色操作。</p>
+<blockquote>
+<p><strong>https://www.shadertoy.com/view/ld3Gz2</strong></p>
+</blockquote>
+<h3 id="纹理映射texture-mapping">3.4. 纹理映射（Texture Mapping）</h3>
+<blockquote>
+<p>我们之前可能会关注到Blinn-Phong反射模型中漫反射项的 <span
+class="math inline">\(k_d\)</span>。我理解为它包含了着色点的颜色信息，而这个颜色信息是需要通过纹理映射得到的。</p>
+</blockquote>
+<p>首先我们需要确认一个观点，就是任意的三维物体都可以展开成一个二维的矩形（俗称uv变换）：</p>
+<blockquote>
+<p>那个展示的图太掉san了，自己去看课件（</p>
+<p>主要的思想是，三维空间中的顶点与二维展开后的纹理有一一对应关系。</p>
+</blockquote>
+<p>具体如何转换的不在本课程讨论范围内</p>
+<h3 id="重心坐标法">3.5. 重心坐标法</h3>
+<blockquote>
+<p>通过三角形三个顶点的属性，对内部任意点的属性进行插值。</p>
+</blockquote>
+<p>我们可以插值得到的属性有：纹理坐标、颜色、法向量等。</p>
+<p><strong>重心坐标</strong>：以三个顶点的坐标为基准进行线性组合，所得到的系数即重心坐标。</p>
+<img src="/2024/10/01/games101/shade12.png" class="" title="shade12">
+<p>注意三个系数之和为1，且非负。</p>
+<p>可以通过计算三个点的对顶三角形的面积比来得到系数：</p>
+<img src="/2024/10/01/games101/shade13.png" class="" title="shade13">
+<blockquote>
+<p>这里的重心坐标对于3D的三角形和光栅化后的2D三角形并不是不变的。对于同一个点，变换前后的重心坐标可能有变，这表明对于一些三维的属性（例如作业二对深度的插值），我们需要将二维的点进行<strong>逆变换</strong>后得到的三维点在三维三角形的情况下计算它的重心坐标，然后进行插值。</p>
+<p>具体的插值方式是用系数进行属性的线性组合：</p>
+</blockquote>
+<p><span class="math display">\[
+V = \alpha V_A + \beta V_B + \gamma V_C
+\]</span></p>
+<p>因此我们可以通过重心坐标对每个像素中心插值出它在纹理上的坐标。</p>
+<blockquote>
+<p>对于纹理，它也是一个由许多像素构成的二维图像，不是连续的东西。因此我们假设它是一堆离散的整型坐标形成的二维空间。</p>
+</blockquote>
+<p>如果得到的纹理坐标不是整数，我们这里朴素的将其round到最近的纹理像素区域，并根据该像素设置渲染的像素的颜色（漫反射项的
+<span class="math inline">\(K_d\)</span>），但事实上这么做会有问题。</p>
+<h3 id="纹理过小">3.6. 纹理过小</h3>
+<blockquote>
+<p>解释一下过小是什么意思，我们知道纹理也是一张图片，也有属于自己的像素，这里叫做texel（纹理元素）。</p>
+<p>我对于纹理过小的理解是，纹理相比于屏幕的<strong>分辨率</strong>过小，因此用上述朴素方法（对重心坐标插值纹理坐标然后round）进行采色的时候会出现一片区域都映射到同一个texel的情况，这时候会导致渲染效果很差：</p>
+</blockquote>
+<img src="/2024/10/01/games101/shade14.png" class="" title="shade14">
+<blockquote>
+<p>Nearest情况</p>
+</blockquote>
+<p>为了不造成同一片像素映射到同一个texel的情况，我们采用双线性插值，即考虑最近的4个texel，然后根据这4个texel的颜色与纹理坐标位置之间的关系进行插值，具体实现很简单：</p>
+<img src="/2024/10/01/games101/shade15.png" class="" title="shade15">
+<blockquote>
+<p>双线性插值=三次单线性插值</p>
+</blockquote>
+<h3 id="纹理过大">3.7. 纹理过大</h3>
+<blockquote>
+<p>纹理过小指的是多个屏幕像素映射到单个texel，那么纹理过大就是单个屏幕像素<strong>包含</strong>多个texel（或者反过来说，多个texel对应单个pixel）</p>
+<p>会有什么情况呢？</p>
+</blockquote>
+<img src="/2024/10/01/games101/shade16.png" class="" title="shade16">
+<p>这里我们观察到了之前光栅化一样的走样问题。</p>
+<p>我们之前反走样采取的措施是MSAA，即针对一个屏幕像素设置多个超采样点，来解决“采样速度跟不上信号变化速度”的问题。</p>
+<p>这里我们照样可以这么干，对于一个屏幕像素，设置512个超采样点，都映射到texel上，求平均，可得到较好的效果：</p>
+<img src="/2024/10/01/games101/shade17.png" class="" title="shade17">
+<p>但是超采样的想法特别耗性能。</p>
+<p>从信号的角度上进行分析，由于我们采样的速度需要与信号变化速度一致，因此不可避免地会需要提高采样频率。因此我们直接放弃采样的想法，使用ACM大法！</p>
+<img src="/2024/10/01/games101/shade18.png" class="" title="shade18">
+<p>我们所要解决的就是这种“范围查询”的问题，将一定范围内的texel进行求平均。</p>
+<p>对于纹理过小采用的双线性插值，事实上是一种点查询问题。</p>
+<h3 id="mipmap">3.8. mipmap</h3>
+<img src="/2024/10/01/games101/shade19.png" class="" title="shade19">
+<p>这里提出了level的概念，每一个level是上一个level的1/4。</p>
+<p>首先我们要清楚，mipmap的输入必须是一个正方形，因此对于一个屏幕像素，我们需要用某些方式求出其对应在纹理上的正方形。</p>
+<p>开始可以先找周围像素中心的映射点：</p>
+<img src="/2024/10/01/games101/mipmap1.png" class="" title="mipmap1">
+<p>然后用一种很神秘的方式得到正方形边长 <span
+class="math inline">\(L\)</span>：</p>
+<img src="/2024/10/01/games101/mipmap2.png" class="" title="mipmap2">
+<img src="/2024/10/01/games101/mipmap3.png" class="" title="mipmap3">
+<p>假设我们得到的边长 <span
+class="math inline">\(L=4\)</span>，那么我们可以在 <span
+class="math inline">\(level=\log4=2\)</span> 的mipmap上进行采样。（Round
+to the nearest level）</p>
+<p>由于可能会有边长对齐问题，这里同样可以使用双线性插值得到最终结果。</p>
+<p>但是考虑到 <span class="math inline">\(L\)</span>
+大概率不是2的幂，即深度可能是小数，因此可以采用三线性插值，在深度上再来一次线性插值：</p>
+<img src="/2024/10/01/games101/mipmap4.png" class="" title="mipmap4">
+<blockquote>
+<p>这里你可能会觉得，这个方法在很多地方用了近似。首先是三线性插值本身就是种近似（感觉线性方法效果都不是很好？），其次是我们这里的输入限制了为与坐标轴平行的正方形，这可能和像素实际覆盖的范围的形状有很大出入。</p>
+<p>实际上确实，对于上面的一个例子，采用朴素的mipmap和三线性插值得到的效果：</p>
+<img src="/2024/10/01/games101/mipmap5.png" class="" title="mipmap5">
+<p>可以发现有很明显的模糊，这就是因为形状之间的出入：</p>
+<img src="/2024/10/01/games101/mipmap6.png" class="" title="mipmap6">
+<p>一种缓解这种形状出入的方式是用长方形来代替正方形，这个叫各向异性过滤（Anisotropic
+Filtering）</p>
+<p>当然还有种更好的方法叫EWA filtering，可以去课件了解一下。</p>
+</blockquote>
+<h3 id="纹理映射的其它应用">3.9. 纹理映射的其它应用</h3>
+<blockquote>
+<p>纹理不一定只映射颜色</p>
+</blockquote>
+<p>一种应用是让纹理包含深度信息：</p>
+<img src="/2024/10/01/games101/shade20.png" class="" title="shade20">
+<p>这种深度信息让渲染出来的物体具有凹凸不平的视觉视角。然而它只是一种欺骗视觉的手段，几何形体本身还是没变。</p>
+<p>具体欺骗视觉的方式是修改了每个渲染点的<strong>法向量</strong>：</p>
+<img src="/2024/10/01/games101/shade21.png" class="" title="shade21">
+<blockquote>
+<p>就是将原本的 <span class="math inline">\(p\)</span> 转换为 <span
+class="math inline">\(n\)</span>。至于为什么通过改变法向量就能有凹凸不平的效果，首先肯定和阴影无关（着色是局部行为）。我认为单纯就是它改变了Blinn-Phone模型中法向量和光线与视觉的角度，影响了亮不亮而已。</p>
+</blockquote>
+<img src="/2024/10/01/games101/shade22.png" class="" title="shade22">
+<p>这个是2D情况，我们重点看看3D：</p>
+<img src="/2024/10/01/games101/shade23.png" class="" title="shade23">
+<h2 id="几何">4. 几何</h2>
+<h3 id="表示">4.1. 表示</h3>
+<p>隐式（Implicit）表示：用方程 <span
+class="math inline">\(f(x,y,z)=0\)</span> 来表示一个几何形体。</p>
+<img src="/2024/10/01/games101/geometry1.png" class="" title="geometry1">
+<p>可以通过对方程代入点坐标来判断点是否在几何体内。</p>
+<p>显示表示：直接给出点的形式（可能通过参数映射）</p>
+<img src="/2024/10/01/games101/geometry2.png" class="" title="geometry2">
+<p>二者在不同的任务上各有优劣。</p>
+<h3 id="曲线和曲面">4.2. 曲线和曲面</h3>
+<blockquote>
+<p>这里主要介绍贝塞尔曲线和曲面。</p>
+</blockquote>
+<p>对于 <span class="math inline">\(n\)</span> 阶贝塞尔曲线，它由 <span
+class="math inline">\(n+1\)</span> 个控制点决定。通过对这 <span
+class="math inline">\(n+1\)</span> 个控制点从前往后每两个做时间维度
+<span class="math inline">\(t\)</span> 上的线性插值，可得到 <span
+class="math inline">\(n\)</span>
+个插值出来的点。然后递归进行这个过程，直到剩下一个点，那么这个点就是在时间
+<span class="math inline">\(t\)</span> 上贝塞尔曲线的位置。<span
+class="math inline">\(t \in [0,1]\)</span>。</p>
+<img src="/2024/10/01/games101/curve1.png" class="" title="curve1">
+<p>如果用代数形式推导时间 <span class="math inline">\(t\)</span>
+时贝塞尔曲线的坐标，可以发现其等于 <span
+class="math inline">\(n+1\)</span>
+控制点的线性组合，其权重为伯恩斯坦多项式（Bernstein
+polynomial），和为1.</p>
+<img src="/2024/10/01/games101/curve2.png" class="" title="curve2">
+<p>具体而言，可以写成： <span class="math display">\[
+b(t) = \sum_{i=0}^nC_n^i t^i(1-t)^{n-i} \mathbf{b}_i.
+\]</span> 关于贝塞尔曲线，有以下性质：</p>
+<ul>
+<li><p>两个端点为首尾控制点。</p></li>
+<li><p>求两个端点的切线，相当于对上式求导： <span
+class="math display">\[
+b^{&#39;}(t) = \sum_{i=0}^nC_n^i
+(it^{i-1}(1-t)^{n-i}-t^i(n-i)(1-t)^{n-i-1}) \mathbf{b}_i.
+\]</span> 可得到 <span class="math inline">\(b^{&#39;}(0) =
+n(\mathbf{b}_1-\mathbf{b}_0), b^{&#39;}(n) =
+n(\mathbf{b}_n-\mathbf{b}_{n-1})\)</span></p></li>
+<li><p>仿射不变性：显然，对所有控制点作相同的平移，不改变贝塞尔曲线的形状。</p></li>
+<li><p>贝塞尔曲线被包含在控制点形成的凸包内。</p></li>
+</ul>
+<p>实际应用中，一般会采用三阶贝塞尔曲线，并将其拼接（钢笔工具）：</p>
+<img src="/2024/10/01/games101/curve3.png" class="" title="curve3">
+<p>如果首尾相连，则定义为 <span class="math inline">\(C^0\)</span>
+连续。</p>
+<p>如果首尾之间一阶导相同，则为 <span class="math inline">\(C^1\)</span>
+连续：</p>
+<img src="/2024/10/01/games101/curve4.png" class="" title="curve4">
+<p>首先需要保证两条切线方向相同，其次保证长度相同。</p>
+<p>贝塞尔曲面：一般采用16个控制点</p>
+<img src="/2024/10/01/games101/curve5.png" class="" title="curve5">
+<p>输入二维信息 <span
+class="math inline">\((u,v)\)</span>，首先在一维上对 <span
+class="math inline">\(u\)</span> 做4次贝塞尔曲线对时间 <span
+class="math inline">\(u\)</span>
+的计算，在得到的额外4个点的基础上计算时间 <span
+class="math inline">\(v\)</span> 的坐标，得到输出。</p>
+<img src="/2024/10/01/games101/curve6.png" class="" title="curve6">
+<h3 id="网格细分">4.3. 网格细分</h3>
+<blockquote>
+<p>这里首先介绍Loop subdivision，只适用于三角形网格</p>
+</blockquote>
+<img src="/2024/10/01/games101/geometry3.png" class="" title="geometry3">
+<p>首先是分出更多的三角形，其次移动三角形顶点的位置。</p>
+<p>分出三角形：取各边中点相连。</p>
+<p>更新顶点位置，分为新的顶点和旧的顶点：</p>
+<img src="/2024/10/01/games101/geometry4.png" class="" title="geometry4">
+<img src="/2024/10/01/games101/geometry5.png" class="" title="geometry5">
+<blockquote>
+<p>然后介绍Catmull-Clark Subdivision，适用于各种网格</p>
+</blockquote>
+<img src="/2024/10/01/games101/geometry6.png" class="" title="geometry6">
+<p>每次细分，对每个网格中心添加点，再对每条边添加中点，相邻的新点进行相连。</p>
+<img src="/2024/10/01/games101/geometry7.png" class="" title="geometry7">
+<p>经过一次细分，便只剩下了四边形网格。而奇异点的数量等于初始奇异点的数量加上初始非四边形网格的数量。</p>
+<p>而顶点位置的更新较为复杂：</p>
+<img src="/2024/10/01/games101/geometry8.png" class="" title="geometry8">
+<h3 id="网格简化">4.4. 网格简化</h3>
+<h3
+id="初始idea通过坍缩一条边可以减少一个网格">初始idea：通过坍缩一条边，可以减少一个网格：</h3>
+<img src="/2024/10/01/games101/geometry9.png" class="" title="geometry9">
+<p>因此我们需要有一个方法可以得知一条边值不值得被探索。这里采用二次误差度量的方法：我们希望将一条边坍缩后得到的新点的位置与坍缩之前对应的边的距离的平方和最小：</p>
+<img src="/2024/10/01/games101/geometry10.png" class="" title="geometry10">
+<p>对于二次误差最小的边，我们优先坍缩。</p>
+<h2 id="光线追踪">5. 光线追踪</h2>
+<h3 id="基础">5.1. 基础</h3>
+<p>关于光线的三个idea：</p>
+<ul>
+<li>光线沿直线传播</li>
+<li>不同光线之间不会碰撞</li>
+<li>光线从光源传播到眼睛（这个过程可以逆向）</li>
+</ul>
+<p>个人理解：光追尝试追踪从光源射到眼睛的路径，然而这样的路径本身可能非常复杂，而且不止一条（对于每个像素（终点），每个光源（起点）都有对应的路径）。因此光追则从相机（终点）出发，尽可能恢复光线路径。</p>
+<p>这里介绍的是Whitted风格的光线追踪，它本身是一种递归算法：</p>
+<img src="/2024/10/01/games101/raytrace1.png" class="" title="raytrace1">
+<h3 id="光线平面相交">5.2. 光线—平面相交</h3>
+<p>光线可以用 <span class="math inline">\(r(t) = o+td(t \ge 0)\)</span>
+来表示。</p>
+<p>对于一般的<strong>隐式平面</strong> <span class="math inline">\(p:
+f(p)=0\)</span>，将二者联立得到 <span
+class="math inline">\(f(o+td)=0\)</span>。</p>
+<p>我们需要解出这个方程的正实数根。</p>
+<p>其次是研究光线和<strong>三角形</strong>的交点。首先我们可以先尝试求出光线和三角形所在平面的交点（如果这都没有交点，和三角形本身更不可能有交点）。</p>
+<p>对于一个三维平面，可以使用点法式表示：<span class="math inline">\(p:
+(p-p^{&#39;})\cdot N=0\)</span>，代入 <span
+class="math inline">\(p=r(t)\)</span> 可直接求出 <span
+class="math inline">\(t = \dfrac{(p^{&#39;}-o)\cdot N}{d \cdot
+N}\)</span> （$ t $）。然后检测对应的点是否在三角形内部即可。</p>
+<p>当然有一个更简单的算法：</p>
+<img src="/2024/10/01/games101/raytrace2.png" class="" title="raytrace2">
+<h3 id="加速结构">5.3. 加速结构</h3>
+<p>上面的算法贼慢，我们需要优化。</p>
+<p>这里我们假设一个说法：对于三角形（或者说object）求交是慢的，而对于平面求交是快的。</p>
+<p>因此就有了<strong>轴对齐</strong>包围盒的概念：</p>
+<img src="/2024/10/01/games101/raytrace3.png" class="" title="raytrace3">
+<p>包围盒对每条轴都有两个相互平行的平面，对于这两个平面我们能求出相交的两个
+<span class="math inline">\(t\)</span>，由大小分为 <span
+class="math inline">\(t_{\max}, t_{\min}\)</span>。</p>
+<img src="/2024/10/01/games101/raytrace4.png" class="" title="raytrace4">
+<p>对三个轴对应的 <span class="math inline">\(t_{\max},
+t_{\min}\)</span> 形成的区间进行求交，即 <span
+class="math inline">\(t_{enter} = \max\{t_{\min}\}, t_{exit} =
+\min\{t_{\max}\}\)</span>。如果光线与包围盒有交，则当且仅当</p>
+<ul>
+<li><span class="math inline">\(t_{enter} &lt; t_{exit}\)</span></li>
+<li><span class="math inline">\(t_{exit} \ge 0\)</span></li>
+</ul>
+<h4 id="空间划分">5.3.1. 空间划分</h4>
+<p>可以用树的结构进行：</p>
+<img src="/2024/10/01/games101/raytrace5.png" class="" title="raytrace5">
+<p>KDTree用的最多。</p>
+<img src="/2024/10/01/games101/raytrace6.png" class="" title="raytrace6">
+<p>对于KDTree结构，有：</p>
+<ul>
+<li>空间划分需要按照x,y,z轴方向划分（这样好算）</li>
+<li>中间节点存子节点指针</li>
+<li>只有叶子节点存物体信息</li>
+</ul>
+<p>对于光线与包围盒的求交，本质是递归遍历KDTree的过程。但是这么做会有一个问题，就是同一个物体可能会出现在不同的叶子节点中。因此有一个更好的方法BVH。</p>
+<p>KDTree方式是直接考虑整体空间的划分，而BVH则考虑了物体本身在空间的分布。</p>
+<img src="/2024/10/01/games101/raytrace7.png" class="" title="raytrace7">
+<p>这样可以保证每个三角形只会对应一个叶子节点，但是包围盒之间可能存在交集（然而老师说这个没什么关系）</p>
+<p>对于一个包围盒如何划分成两个子包围盒，很有讲究，一般有以下两个idea：</p>
+<ul>
+<li>优先选择轴最长的方向划分</li>
+<li>按照轴方向，取median的点作为划分点</li>
+</ul>
+<h3 id="辐射度量学">5.4. 辐射度量学</h3>
+<p>辐射度量学是一种以物理层面让光线追踪渲染出来的结果更加真实的东西。首先需要知道一些概念：</p>
+<ul>
+<li>Radiant energy：顾名思义，是一种度量电磁能量的物理量 <span
+class="math inline">\(Q[J=Joule]\)</span></li>
+<li>Radiant flux(power)：<strong>单位时间</strong>的能量 <span
+class="math inline">\(\Phi =
+\dfrac{dQ}{dt}[W=Watt][lm=lumen]\)</span></li>
+<li>Radiant Intensity：<strong>单位立体角</strong>的Radiant flux <span
+class="math inline">\(I(\omega) = \dfrac{d\Phi}{d\omega}\)</span></li>
+</ul>
+<blockquote>
+<p>立体角：空间的物体往单位球连线所形成的立体角度</p>
+</blockquote>
+<ul>
+<li>Irradiance：<strong>单位面积</strong>的Radiant flux <span
+class="math inline">\(E(x)=\dfrac{d\Phi}{dA}\)</span></li>
+</ul>
+<blockquote>
+<p>这里指的单位面积应当是<strong>垂直</strong>于光线方向的单位面积，在Blinn-Phone模型计算漫反射项的时候提到过类似的东西：</p>
+</blockquote>
+<img src="/2024/10/01/games101/raytrace8.png" class="" title="raytrace8">
+<p>对于Blinn-Phone模型，我们之前提到过能量损失，这个实际上是irradiance的损失：</p>
+<img src="/2024/10/01/games101/raytrace9.png" class="" title="raytrace9">
+<ul>
+<li><p>Radiance：<strong>单位立体角、单位面积</strong>的radiant
+flux：</p>
+<img src="/2024/10/01/games101/raytrace10.png" class="" title="raytrace10"></li>
+</ul>
+<p>两种角度看待radiance：</p>
+<ul>
+<li>单位立体角的irradiance</li>
+<li>单位面积的intensity</li>
+</ul>
+<p>irradiance是不同方向对应的radiance的积分：<span
+class="math inline">\(E(p) = \int_{H^2}L_i(p,\omega)\cos \theta
+d\omega\)</span></p>
+<blockquote>
+<p>个人理解：每个方向对应一个单位立体角，因此对方向积分相当于对单位立体角积分。</p>
+</blockquote>
+<p>接下来我们考虑reflection。从方向 <span
+class="math inline">\(\omega_i\)</span>
+照射到照射点（这个点是个单位面积）会让该点的irradiance增加其对应的radiance(乘上余弦？？？)：<span
+class="math inline">\(dE(\omega_i) = L(\omega_i)\cos \theta_i
+d\omega_i\)</span></p>
+<p>对于反射后的能量散步，我们需要一个函数来描述，即<strong>BRDF</strong>：
+<span class="math display">\[
+f_r(\omega_i \rightarrow \omega_r) = \dfrac{d L_r(\omega_r)}{d
+E_i(\omega_i)} = \dfrac{d L_r(\omega_r)}{L_i(\omega_i)\cos \theta_i
+d\omega_i}
+\]</span> 它的含义是指出射方向 <span
+class="math inline">\(\omega_r\)</span> 对应的radiance占入射方向 <span
+class="math inline">\(\omega_i\)</span>
+对应的增加的irradiance的占比。如果对一个反射点定义了对应的BRDF，则可以写出对应的<strong>反射方程</strong>：
+<span class="math display">\[
+L_r(p, \omega_r) = \int_{H^2} f_r(p, \omega_i \rightarrow \omega_r)
+L_i(\omega_i)\cos\theta_i d\omega_i.
+\]</span>
+即对于所有的入射方向对应的微小irradiance增加量乘上BRDF后的东西进行积分。</p>
+<p>我们发现方程两边都有radiance，因此求反射方程本质上是递归的。</p>
+<p>当然有些物体本身就是会发光的，加上这一项可以得到<strong>渲染方程</strong>：
+<span class="math display">\[
+L_o(p, \omega_o) = L_e(p, \omega_o) + \int_{\Omega^+} f_r(p, \omega_i
+\rightarrow \omega_o) L_i(p, \omega_i)(n \cdot \omega_i) d\omega_i.
+\]</span>
+接下来细致地了解一下渲染方程。首先假设只有一个点光源，则渲染方程只有一个项：</p>
+<img src="/2024/10/01/games101/raytrace11.png" class="" title="raytrace11">
+<p>如果有多个点光源，求和即可：</p>
+<img src="/2024/10/01/games101/raytrace12.png" class="" title="raytrace12">
+<p>如果有面光源，则可以将其微分成点光源，然后积分，也就是上面我们的形式：</p>
+<img src="/2024/10/01/games101/raytrace13.png" class="" title="raytrace13">
+<p>注意这里的 <span class="math inline">\(L_r\)</span> 和 <span
+class="math inline">\(L_i\)</span>
+分别对应反射出去和照入进来的radiance，它们是不一样的，因为 <span
+class="math inline">\(L_i\)</span> 包含了光源本身和其它被反射的光。</p>
+<p>因此将 <span class="math inline">\(L_i\)</span> 分解，让积分内部只有
+<span class="math inline">\(L_r\)</span>
+相关项，光源本身放到外面。可以得到较为一致的形式：</p>
+<img src="/2024/10/01/games101/raytrace14.png" class="" title="raytrace14">
+<p>后面开始玄学了。可以进一步简化上面式子：<span
+class="math inline">\(l(u)=e(u)+\int l(v) K(u,v)dv\)</span></p>
+<p>然后进一步玄学，写成算子形式并推导：</p>
+<img src="/2024/10/01/games101/raytrace15.png" class="" title="raytrace15">
+<p>考虑最后一行式子对应的意义，其 <span
+class="math inline">\(E+KE\)</span>
+其实是我们光栅化覆盖到的东西，而后面则是<strong>全局光照</strong>对应的东西。</p>
+<h3 id="蒙特卡罗积分">5.5. 蒙特卡罗积分</h3>
+<p>Monte Carlo积分是一种基于随机化的求定积分的方式。</p>
+<p>假设我们要求下面这么一个积分： <span class="math display">\[
+\int_a^b f(x) dx
+\]</span> 可以用蒙特卡罗近似： <span class="math display">\[
+F_N = \dfrac{1}{N}\sum_{i=1}^N \dfrac{f(X_i)}{p(X_i)}, X_i \sim p(x).
+\]</span></p>
+<h3 id="路径追踪path-tracing">5.6. 路径追踪（Path Tracing）</h3>
+<p>前面介绍的Whitted-Style ray
+tracing在物理层面上是解释不通的，因此我们需要一个符合一般物理规律的光线追踪方式。路径追踪就是一种基于上述提到的渲染方程的符合物理规律的光线追踪方式。</p>
+<p>我们重新看一下渲染方程： <span class="math display">\[
+L_o(p, \omega_o) = L_e(p, \omega_o) + \int_{\Omega^+}L_i(p,
+\omega_i)f_r(p, \omega_i, \omega_o)(n\cdot \omega_i) d\omega_i.
+\]</span> 它涉及到：</p>
+<ul>
+<li>对半球积分</li>
+<li>递归求解</li>
+</ul>
+<p>考虑套用Monte Carlo，我们假设对半球进行等概率采样，那么有： <span
+class="math display">\[
+\begin{aligned}
+L_o(p, \omega_o) &amp;= \int_{\Omega^+}L_i(p, \omega_i)f_r(p, \omega_i,
+\omega_o)(n\cdot \omega_i) d\omega_i\\
+&amp;\approx \dfrac{1}{N}\sum_{i=1}^N\dfrac{L_i(p, \omega_i)f_r(p,
+\omega_i, \omega_o)(n\cdot \omega_i)}{p(\omega_i)}.
+\end{aligned}
+\]</span> 假设我们的 <span class="math inline">\(\omega_i\)</span>
+是由光源产生，那么可以终止递归。如果是碰撞到另一个物体，那么递归下去：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">shade</span><span class="params">(p, wo)</span>:</span></span><br><span class="line"><span class="function">    Randomly choose N directions wi~pdf</span></span><br><span class="line"><span class="function">    Lo =</span> <span class="number">0.0</span></span><br><span class="line">    <span class="function">For each wi</span></span><br><span class="line"><span class="function">    Trace a ray <span class="title">r</span><span class="params">(p, wi)</span></span></span><br><span class="line"><span class="function">    If ray r hit the light</span></span><br><span class="line"><span class="function">    Lo +</span>= (<span class="number">1</span> / N) * L_i * f_r * cosine / <span class="built_in">pdf</span>(wi)</span><br><span class="line">    Else If ray r hit an object at q</span><br><span class="line">    Lo += (<span class="number">1</span> / N) * <span class="built_in">shade</span>(q, -wi) * f_r * cosine</span><br><span class="line">    / <span class="built_in">pdf</span>(wi)</span><br><span class="line">    Return Lo</span><br></pre></td></tr></table></figure>
+<p>这么做肯定有很多问题，首先就是爆栈：</p>
+<img src="/2024/10/01/games101/pathtrace1.png" class="" title="pathtrace1">
+<p>当前仅当当 <span class="math inline">\(N=1\)</span>
+的时候，递归不会爆炸。（这就是路径追踪，因为只有一条路径）</p>
+<p>但这相当于用一个点的函数值来整体近似积分，是非常noisy的。因此我们可以考虑对每个像素点进行随机，通过对像素点发出不同的光线，然后进行平均：</p>
+<img src="/2024/10/01/games101/pathtrace2.png" class="" title="pathtrace2">
+<p>还有一种情况，就是有可能一条路径会对物体产生无数次碰撞，导致递归不会停止。因此我们需要一个递归停止的条件。</p>
+<p>课程给出的解决方法是一种类似于俄罗斯轮盘赌的idea，我用一句话概括，就是用概率的方法来判断是否递归停止。</p>
+<p>以前的方法，我们希望函数 <code>shade</code> 总是能返回radiance。</p>
+<p>而现在，我们考虑有概率 <span class="math inline">\(p\)</span>
+可以返回radiance，而概率 <span class="math inline">\(1-p\)</span>
+停止递归（即返回0）。</p>
+<p>和之前在学dl时遇到的dropout类似，我们发现，由于0的存在会导致最后期望的radiance会降低。因此我们需要对有值的radiance除以比例
+<span class="math inline">\(p\)</span> 来使总期望的radiance不变：</p>
+<img src="/2024/10/01/games101/pathtrace3.png" class="" title="pathtrace3">
+<p>伪代码如下：</p>
+<img src="/2024/10/01/games101/pathtrace4.png" class="" title="pathtrace4">
+<p>现在我们已经有了一个较为正确的路径追踪算法，但是它依然有点问题。因为我们mento
+carlo的 <span
+class="math inline">\(N=1\)</span>，所以当光源比较小的时候，我们可能对某个像素发出的路径，都不会追踪到该光源。然而根据现实情况，光源肯定是要照到物体的，因此我们考虑再做一次
+<span class="math inline">\(N=1\)</span> 的mento
+carlo，它只在光源的方向上进行随机取样。</p>
+<p>我们知道，对于面光源，它对于某个点形成的单位球存在对应的立体角。因此我们考虑用微小面积来换元渲染方程的微小立体角：</p>
+<img src="/2024/10/01/games101/pathtrace5.png" class="" title="pathtrace5">
+<p>因此对于光源的渲染方程可以写为：</p>
+<img src="/2024/10/01/games101/pathtrace6.png" class="" title="pathtrace6">
+<p>还有一个小问题，在处理面光源的贡献时，我们还得需要判断当前采样的方向是否能够接触到面光源（不被其它物体遮挡）。判断该项之后，路径追踪算法就算大致完成了！</p>
+<h2 id="材质">6. 材质</h2>
+<blockquote>
+<p>Material == BRDF</p>
+</blockquote>
+<h3 id="漫反射镜面反射折射材质">6.1. 漫反射、镜面反射、折射材质</h3>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/10/cpp/cpp-self-study/" rel="prev" title="cpp_self_study">
+                  <i class="fa fa-angle-left"></i> cpp_self_study
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/06/atcoder_codeforces/ABC374E/" rel="next" title="ABC351E">
+                  ABC351E <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayy3</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"atri2333","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
