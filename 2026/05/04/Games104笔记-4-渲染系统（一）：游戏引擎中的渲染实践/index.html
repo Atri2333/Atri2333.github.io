@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践 | Ayy3の博客</title><meta name="author" content="Ayy3"><meta name="copyright" content="Ayy3"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文为课程Games104第四节课：Basics of Game Rendering的个人笔记。  导论 理论和实践 理论计算机图形学通常专注于单一的物体类型，例如实现一个高质量的半透明材质、水面焦散等。同时更关注其算法在理论上的正确性和物理上的精确性，例如我们所熟知的基于辐射度量学的渲染方程就是一个物理正确的图形学模型。 理论图形学也不是没有在乎效率，只不过没那么严格。像30FPS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践">
+<meta property="og:url" content="http://atri2333.github.io/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Ayy3の博客">
+<meta property="og:description" content="本文为课程Games104第四节课：Basics of Game Rendering的个人笔记。  导论 理论和实践 理论计算机图形学通常专注于单一的物体类型，例如实现一个高质量的半透明材质、水面焦散等。同时更关注其算法在理论上的正确性和物理上的精确性，例如我们所熟知的基于辐射度量学的渲染方程就是一个物理正确的图形学模型。 理论图形学也不是没有在乎效率，只不过没那么严格。像30FPS">
+<meta property="og:locale">
+<meta property="og:image" content="http://atri2333.github.io/img/Atri2.jpg">
+<meta property="article:published_time" content="2026-05-04T02:13:48.000Z">
+<meta property="article:modified_time" content="2026-05-08T09:32:35.990Z">
+<meta property="article:author" content="Ayy3">
+<meta property="article:tag" content="游戏引擎">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://atri2333.github.io/img/Atri2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践",
+  "url": "http://atri2333.github.io/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/",
+  "image": "http://atri2333.github.io/img/Atri2.jpg",
+  "datePublished": "2026-05-04T02:13:48.000Z",
+  "dateModified": "2026-05-08T09:32:35.990Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Ayy3",
+      "url": "http://Atri2333.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/Atri2.jpg"><link rel="canonical" href="http://atri2333.github.io/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tag</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/top.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ayy3の博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tag</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-05-04T02:13:48.000Z" title="Created 2026-05-04 10:13:48">2026-05-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-05-08T09:32:35.990Z" title="Updated 2026-05-08 17:32:35">2026-05-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Games104/">Games104</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p>本文为课程Games104第四节课：<strong>Basics of Game Rendering</strong>的个人笔记。</p>
+</blockquote>
+<h2 id="导论">导论</h2>
+<h3 id="理论和实践">理论和实践</h3>
+<p>理论计算机图形学通常专注于单一的物体类型，例如实现一个高质量的半透明材质、水面焦散等。同时更关注其算法在理论上的正确性和物理上的精确性，例如我们所熟知的基于辐射度量学的渲染方程就是一个物理正确的图形学模型。</p>
+<p>理论图形学也不是没有在乎效率，只不过没那么严格。像30FPS就可以认为是实时的，10FPS认为是可交互的。Out-of-Core-Rendering则是当数据量过大时使用外部分布式存储协同渲染的技术。</p>
+<p><img src="1.png" /></p>
+<p>理论图形学为游戏引擎的渲染提供了重要的理论基础。但是游戏引擎的渲染系统并非简单地应用理论算法，而是在严苛的约束下进行系统性的工程实践。</p>
+<h3 id="游戏渲染的挑战">游戏渲染的挑战</h3>
+<p>第一个挑战是<strong>可渲染物体的多样性</strong>：</p>
+<p><img src="2.png" /></p>
+<p>场景中可能存在成千上万种对象，例如角色、植被、水体、云雾等。针对不同的材质和对象，需要应用不同的渲染算法。</p>
+<p>另外整个场景还需要应用统一的光照、阴影计算，以及大量后处理算法等。</p>
+<p>第二个挑战是<strong>对于底层硬件的高效利用</strong>：</p>
+<p><img src="3.png" /></p>
+<p>游戏渲染追求极致性能，因此所有算法都应当为当代硬件架构进行深度优化，例如GPU的并行计算能力、内存带宽等。</p>
+<p>第三个挑战是如何<strong>在有限的性能运算中维持渲染的质量和稳定性</strong>：</p>
+<p><img src="4.png" /></p>
+<p>游戏渲染对于性能有极高要求，它必须在固定的时间预算内完成一帧的绘制，并且要保持帧率稳定。另外屏幕分辨率也逐渐从1080p到4K甚至8K，这些都对渲染系统提出了更高的性能要求。</p>
+<p>第四个挑战是只有<strong>有限的共享CPU资源</strong>：</p>
+<p><img src="5.png" /></p>
+<p>在游戏中，不只有渲染系统使用CPU。其它AI、物理、Gameplay等系统也需要占用CPU资源。因此在现代游戏开发中，通常会包含自动化性能分析工具（Profiler）来监控每个模块的资源占用，如果渲染系统占用过多CPU资源，就需要进行性能优化。</p>
+<p>总结，游戏引擎的渲染系统是一个需要在各种约束下在现代硬件上实现的高度复杂的系统工程。</p>
+<h2 id="渲染基础">渲染基础</h2>
+<h3 id="渲染管线">渲染管线</h3>
+<p>这里Games101都讲过了，主要作为复习。</p>
+<p><img src="6.png" /></p>
+<p>大致流程如下： - 给定空间中的顶点连接成三角形面片 - 通过MVP变换将三维空间的物体投影到二维屏幕上 - 将三角形进行光栅化，得到像素级的片段 - 对每个片段根据材质、纹理以及光照等信息进行着色，计算其最终颜色值</p>
+<p>这里涉及到了许多ALU运算以及Texture采样操作。课程给了一个像素着色器的例子：</p>
+<p><img src="7.png" /></p>
+<h3 id="纹理采样">纹理采样</h3>
+<p>纹理采样事实上是一个极其重要且计算成本高的操作。在Games101其实也提过，如果单纯根据像素中心uv在对应Texture上进行采样，是会存在所谓的走样（Aliasing）问题的。例如当一个带有精细纹理的物体距离摄像机非常远时，屏幕上的一个像素可能对应纹理图上的一个非常大的区域。如果只简单地取其中一个点，随着物体的微小移动，采样点会发生跳跃，导致画面出现闪烁和锯齿。</p>
+<p>因此一种解决方式是采用Mipmap和滤波。Mipmap会预先为纹理生成一系列从高到低不同分辨率的纹理版本，根据当前像素在纹理上的覆盖面积选择合适的Mipmap级别进行采样。同时使用双线性或三线性滤波来平滑采样结果，减少走样现象。</p>
+<p><img src="games101/mipmap4.png" /></p>
+<p>计算成本则涉及到访问8次纹理toxel，7次线性插值。</p>
+<h3 id="gpu">GPU</h3>
+<p>对于图形和引擎开发者而言，深刻理解GPU的硬件架构是设计高效渲染系统的基础。</p>
+<h4 id="simd和simt">SIMD和SIMT</h4>
+<p>SIMD是Single Instruction, Multiple Data的缩写，指的是单指令多数据流。它的核心idea是一条指令可以同时对多个数据元素进行操作。例如对于两个四维齐次向量的加分，一个SIMD指令就可以同时处理这四个分量的加法运算。在图形学中，坐标变换、颜色混合等操作都大量涉及到这类向量运算。</p>
+<p>SIMT是Single Instruction, Multiple Threads的缩写，指的是单指令多线程。它的核心idea是一条指令可以同时被多个线程执行，每个线程处理不同的数据元素。例如在GPU中，成千上万的像素着色器线程可以同时执行同一条指令，但每个线程处理不同像素的数据。这种并行执行模型使得GPU能够高效地处理大规模数据并行的图形渲染任务。</p>
+<ul>
+<li>如果SIMD能带来4倍的效率提升，那么在SIMT架构下，若有100个Core执行相同指令，理论上能再带来100倍的效率提升，总效率提升达到400倍。</li>
+<li>因此，要想完全榨干GPU的性能，我们的算法设计就必须遵循SIMT的模式：让大量的线程（像素、顶点等）运行完全相同的代码，只是处理的数据不同。</li>
+</ul>
+<h4 id="gpu架构">GPU架构</h4>
+<p>虽然现代GPU架构比课程中给出的费米（Fermi）架构更加复杂，但其核心组织是相似的，具有高度重复的层级结构。</p>
+<figure>
+<img src="8.png" alt="费米架构" /><figcaption aria-hidden="true">费米架构</figcaption>
+</figure>
+<ul>
+<li>GPC (Graphics Processing Cluster / 图形处理集群)：GPU内部最大的功能模块划分，可以看作一个独立的“处理分厂”</li>
+<li>SM (Streaming Multiprocessor / 流式多处理器)：GPC内包含多个SM，是GPC内指令分派的基本单元。</li>
+<li>CUDA Core：SM内包含数十个甚至上百个CUDA Core，是实际执行计算的基本单元。</li>
+</ul>
+<p>SM内除了通用的计算核心CUDA Core，还包含纹理单元（Texture Unit）来加速硬件采样（自动做上面Mipmap的工作？）、特殊函数单元（SFU - Special Function Unit）来加速复杂的诸如三角函数、指数函数等特殊数学函数的计算、Tensor Core加速AI相关的矩阵运算、RT Core加速光线追踪相关的计算等。</p>
+<p>GPU的性能源泉在于其大规模并行架构。所有的图形和计算任务最终都会被分解，并分发到众多SM单元中，由其内部成百上千的CUDA Core协同处理。</p>
+<h4 id="数据流动">数据流动</h4>
+<p>冯诺伊曼架构的计算机有个核心问题，就是将<strong>计算单元（CPU和GPU）</strong>和<strong>数据存储单元（RAM和显存）</strong>物理分开了。数据流动事实上非常昂贵，下图就展示了这么一个概念：</p>
+<p><img src="9.png" /></p>
+<p>如果一个渲染任务，我们需要在CPU端设置Drawcall数据，发送给GPU，GPU算完再传给CPU做决策，然后处理完CPU可能还会继续向GPU发送数据，这中间涉及到总线传输，过程事实上是非常慢的。</p>
+<p>课程提到，<strong>尽可能保证数据单向流动（CPU -&gt; GPU），并极力避免从GPU回读数据到CPU。</strong>所有依赖GPU计算结果的后续决策尽可能地在GPU上执行，所谓的Compute Shader就是做这种事情。</p>
+<h4 id="cache">Cache</h4>
+<p>前面提到了冯诺伊曼架构的核心问题，但事实上在计算单元上是有所谓的缓存区的，这东西非常滴珍贵，容量也比较小。作为引擎程序员我们必须要关注代码的缓存友好性。假设一次CPU加法运算只需要一个时钟周期，但是从RAM读数据需要超过100个时钟周期，而在Cache中读数据可能只需要几个时钟周期，那么如果我们的代码频繁访问RAM中的数据，就会导致性能大幅下降。</p>
+<p>我们要做的就是尽可能提高缓存命中（Cache Hit）率，减少未命中（Cache Miss）。</p>
+<p><img src="10.png" /></p>
+<h3 id="总结gpu可能的性能瓶颈">总结GPU可能的性能瓶颈</h3>
+<ul>
+<li>Memory Bound：访存瓶颈，指的是GPU的计算能力远远超过其内存带宽，导致GPU核心经常处于等待数据的状态。</li>
+<li>ALU Bound：计算瓶颈，通常发生在有极其复杂着色器计算的场景。</li>
+<li>TMU（Texture Mapping Unit）Bound：纹理采样瓶颈，发生在大量纹理采样操作的场景。</li>
+<li>BW（Bandwidth）Bound：带宽瓶颈，指的是GPU内部不同模块（或者和CPU）之间的数据传输受限，导致性能下降。</li>
+</ul>
+<h3 id="renderable">Renderable</h3>
+<p>上节课我们提到，游戏中任何事物都可以被描述为所谓的GameObject。而GO可以被描述成组件的集合。</p>
+<p>因此很容易想到，我们需要派生一类特殊的组件来支持渲染，使GO成为所谓的可渲染对象（Renderable）。在UE中我们熟知的StaticMeshComponent和SkeletalMeshComponent就是两种典型的可渲染组件。</p>
+<p>一个基础的Renderable对象通常有以下三个部分组成：</p>
+<ul>
+<li>Mesh：定义了物体的几何形状，通常由顶点、边和面组成。</li>
+<li>Material：定义物体表面的光学属性，和具体着色算法相关。</li>
+<li>Texture：定义物体表面的细节信息，例如颜色、法线等。</li>
+</ul>
+<p><img src="11.png" /></p>
+<h4 id="mesh网格">Mesh网格</h4>
+<p>图形学中最基础的几何图元是三角形，三角形包含三个顶点，每个顶点可以有位置、法线、颜色、贴图UV等信息。简易代码如下： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Vertex</span> &#123;</span><br><span class="line">    Vector3 position; <span class="comment">// 顶点位置</span></span><br><span class="line">    Vector3 normal;   <span class="comment">// 顶点法线</span></span><br><span class="line">    UByte4 color;    <span class="comment">// 顶点颜色</span></span><br><span class="line">    Vector2 uv;      <span class="comment">// 纹理坐标</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Triangle</span> &#123;</span><br><span class="line">    Vertex m_vertex[<span class="number">3</span>]; <span class="comment">// 三角形的三个顶点</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>但是考虑到一个顶点可能会被多个三角形共享，因此提出所谓的<strong>顶点缓冲</strong>和<strong>索引缓冲</strong>（没记错的话应该就是所谓的VBO和IBO？）</p>
+<p>顶点缓冲存储所有<strong>唯一</strong>的顶点属性，索引缓冲用来真正刻画三角形。</p>
+<p><img src="12.png" /></p>
+<p>历史上还有一种优化叫作为的Triangle Strip，类似一笔画。其Idea是定义完最初的两个顶点后，后续每增加一个顶点，就能与前两个顶点组成一个新的三角形。这样似乎连索引缓冲也去掉了，还非常的Cache友好，但现在似乎没怎么用？课程说是现代GPU性能极为强大，这种优化没必要了。</p>
+<blockquote>
+<p>思考：为什么法线这个属性必须得定义在顶点上？似乎法线这个属性属于一个面才对呀</p>
+</blockquote>
+<p>考虑最简单的立方体，它边缘的顶点事实上被三个面共享，但是三个面对应的法线显然不一样。所以事实上实际存储时会分成三个不同的顶点处理。而如果通过三角面的法线来计算顶点法线的话，边缘处的顶点就会有一个平均的法线，显然这个法线不准确。</p>
+<blockquote>
+<p>思考2：顶点法线属性不就是为了插值出面法线而服务的吗？课程讲的用面法线计算出顶点法线，这个顶点法线有什么用，为什么不直接用存的面法线？</p>
+</blockquote>
+<p>事实上这涉及到着色策略。一个三角面如果所有地方的法线是一样的，这其实叫做Flat Shading（平面着色），最终渲染出来的效果就是每个三角形都是一个平面，边缘处会有明显的分界线。</p>
+<p>而如果我们定义了顶点法线，那么在光照计算时就可以对每个像素进行插值计算，得到一个平滑的过渡效果，这就是所谓的Gouraud Shading（古罗德着色）或者Phong Shading（冯氏着色）。因此顶点法线的定义是为了实现更高质量的渲染效果，而不仅仅是为了计算面法线。</p>
+<h4 id="material材质">Material材质</h4>
+<p>材质这东西比较复杂，下面是课程给出的一张图：</p>
+<p><img src="13.png" /></p>
+<p>材质系统定义了物体的视觉属性，例如它是光滑的金属、粗糙的石头、柔软的布料还是半透明的塑料。</p>
+<p>课程提到了物理材质，这个UE里其实也有所谓的Physics Material，主要是为了物理系统提供一些属性，例如摩擦力、弹性等。虽然它也叫材质，但它和渲染系统中的材质是完全不同的东西。</p>
+<p>我认为材质里面有什么其实和着色模型密切相关，在Games101我们重点学的Phong模型，它就比较简单。现代主流（UE里默认的Default Lit）则是基于PBR，使用更符合物理规律的金属度Metallic，粗糙度Roughness等来描述材质，这些是Phong没有的。</p>
+<h4 id="texture纹理">Texture纹理</h4>
+<p>在现代 PBR 工作流中，纹理的作用远不止是提供颜色。它们是<strong>驱动材质属性变化</strong>的关键数据。课程给了一个生锈铁球的例子：</p>
+<p><img src="14.png" /></p>
+<h4 id="shader着色器">Shader着色器</h4>
+<p>Shader 本质上是程序员编写的源代码，但在引擎的渲染流程中，它被当作一种数据资产来处理和使用。我们经常看到的编译着色器事实上就是引擎将这些可能用GLSL或者HLSL编写的Shader源代码编译成GPU能够直接执行的二进制格式，然后引擎将其连同Mesh和纹理等一同提交给GPU，GPU在渲染管线中会调用这些自定义着色器来完成对顶点和像素的处理。</p>
+<blockquote>
+<p>思考：我记得初始化UE的时候要编译上万个Shader，但是根据我学习Games101和202的经验，Shader真的有那么多吗？例如PBR模型的Shader其实也就那么几个，为什么要编译上万个？</p>
+</blockquote>
+<p>TODO（不懂捏）</p>
+<h3 id="引擎中的渲染对象">引擎中的渲染对象</h3>
+<h4 id="submesh子网格">SubMesh子网格</h4>
+<p>游戏里的角色，它的身上可能有不同的材质，那么针对这么一个渲染对象，它的Mesh我们该怎么整理呢？</p>
+<p>课程里提了一个概念叫做SubMesh。在逻辑上一个完整的Mesh会根据不同的材质分成不同的SubMesh。</p>
+<p>可以思考一下这么一个数据结构该怎么设计。首先前面提到真正的三角面元是由索引缓冲来描述的。那么如果要在物理上分割Mesh为SubMesh，则需要为我们的索引缓冲进行<strong>区间划分</strong>。每一个区间对应不同SubMesh的顶点索引。我们想要访问一个SubMesh的顶点数据，就可以根据索引缓冲的Offset和Count来访问对应的顶点数据。（是不是很像计组里的CPU Cache的设计？）</p>
+<p>顶点信息处理好了，我们还有材质本身。材质本身包含Texture和Shader，对于一个SubMesh我们可以记录这些信息的位置即可。</p>
+<p><img src="15.png" /></p>
+<p>顺带一提啊，SubMesh在UE里是可以设置对应Material的，类似下面这样：</p>
+<p><img src="16.png" /></p>
+<h4 id="资源池与实例化">资源池与实例化</h4>
+<p>如果我们有很多个NPC角色，它们的Mesh和材质都是一样的，我们是否需要对每个NPC都在内存创建上述这么一个数据结构呢？</p>
+<p>显然不需要。为了节约内存，现代引擎采用资源池 (Pooling) 的架构。所有同类的资源（Mesh、Texture、Shader）被分别集中存放在一个大的资源池中进行统一管理。这样场景中的GO<strong>不再拥有</strong>这些数据，而是通过索引去<strong>引用</strong>资源池中的资源。</p>
+<p>资源池中存储的是所谓的“定义数据”，而场景中具体的GO则是“实例化对象”。知道UE里的UPROPERTY宏内的Specifier里有个<code>EditInstanceOnly</code> 吗？它的意思就是这个属性只能在实例化对象上编辑，而不能在定义数据（蓝图类）上编辑。其实实例化这个概念我们应该已经不陌生了。</p>
+<p><img src="17.png" /></p>
+<p>这种定义和实例化的思想十分重要。</p>
+<h4 id="渲染效率优化sort-by-material">渲染效率优化：Sort by Material</h4>
+<p>我们对GPU需要有一个认识，就是所谓“状态转换”对于性能的损耗之大。当我们绘制一个GO中的不同SubMesh时，如果它们使用了不同的材质，那么GPU就需要在每次切换SubMesh时进行状态转换，重新绑定不同的Shader、Texture等资源，这个过程是非常耗性能的。</p>
+<p>一种显而易见的优化想法是在渲染线程中控制我们的渲染顺序，其能够最小化状态转换次数。因此将不同的Material进行归类（即Sort by Material），使得在渲染过程中尽可能连续地渲染使用相同材质的SubMesh，从而减少GPU状态转换的次数，提高渲染效率。</p>
+<p>执行流程大致如下： - 在渲染一帧之前，对所有需要绘制的物体根据其材质ID进行排序。 - 渲染时，当遇到一种新材质，CPU 向 GPU 设置一次该材质所需的所有状态（如 Shader、纹理、渲染参数等）。 - 接着，CPU 连续不断地发出绘制指令（Draw Call），将所有使用该材质的 Sub-mesh 全部绘制完毕。 - 直到遇到下一种不同的材质时，才进行下一次状态切换。</p>
+<p><img src="18.png" /></p>
+<h4 id="渲染效率优化gpu-batch-rendering">渲染效率优化：GPU Batch Rendering</h4>
+<blockquote>
+<p>这里是我自己的理解啊。辩证看待</p>
+</blockquote>
+<p>将上面的优化策略进一步扩展。考虑到游戏场景中可能有很多相同的GO（相同SubMesh但是在不同世界坐标），可以将这些GO的DrawCall进行合并，得到所谓的Batch Rendering（批渲染）。这样就可以进一步减少CPU向GPU发出的DrawCall数量。</p>
+<blockquote>
+<p>思考：这个东西和我们八股里常背的静态合批和动态合批的关系是什么？</p>
+</blockquote>
+<p>TODO</p>
+<p><img src="19.png" /></p>
+<h3 id="可见性剔除">可见性剔除</h3>
+<p>核心Idea：只画相机看的见的东西。</p>
+<h4 id="包围体-bounding-volumes">包围体 (Bounding Volumes)</h4>
+<p>你如果学过Games101那应该手写过软光栅，在透视除法前我们通常会在Clip Space中以Mesh为单位做<strong>视锥剔除</strong>。但游戏场景可能有巨tm多的Mesh，直接遍历所有Mesh显然不现实。</p>
+<p>因此就有了剪枝的概念（提一嘴这个在算法竞赛中其实是个很常规的思想，通过<strong>必要条件</strong>进行搜索空间的减少，但主要是为了优化常数，在算法竞赛的场景中大概率不影响算法复杂度，但在游戏场景就不一样了）。</p>
+<p>在游戏场景，我们可以用简单的几何体代替复杂的网格模型，进行快速的相交判断。常见包围体类型如下： - 包围球 (Bounding Sphere)：用一个最小的球体包裹物体。相交判断最快（只需比较距离和半径）。 - 轴对齐包围盒 (AABB - Axis-Aligned Bounding Box)：一个各面都与世界坐标系的X、Y、Z轴平行的立方体。仅需存储两个对角顶点即可定义，计算效率极高，是游戏引擎中最常用的包围体之一。 - 有向包围盒 (OBB - Oriented Bounding Box)：紧密贴合物体自身朝向的包围盒，包裹效果比 AABB 更紧密，但相交测试更复杂。（可以认为是模型空间下的AABB？） - 凸包 (Convex Hull)：能够最紧密包裹物体的凸多边形。这个你在物理引擎中可能比较常见。</p>
+<p><img src="20.png" /></p>
+<h4 id="加速剔除空间划分与bvh">加速剔除：空间划分与BVH</h4>
+<p>对单个Renderable进行包围体的建立只是第一步。如果场景中有上万个物体，逐一测试它们的包围盒是否在视锥内，效率依然不高。我们需要一种能成批剔除物体的方法。这就需要用到空间划分数据结构。这个东西面试他妈的经常问，绝了。</p>
+<p>课程里给了平面常用的四叉树（Quadtree）和BVH（Bounding Volume Hierarchy）两种数据结构。</p>
+<p><img src="21.png" /></p>
+<p>常用的就是BVH。剔除流程大致如下： - 从根节点开始测试，判断其巨大的包围盒是否与视锥体相交。 - 如果根节点的包围盒完全在视锥体外，那么它包含的所有子物体（可能成百上千个）都无需再测试，直接被整批剔除。 - 如果相交或在内部，则递归地对其子节点进行同样的测试。</p>
+<p>课程提到BVH特别适合动态场景，可能是动态修改BVH（插入和删除）的成本比较低。至于怎么修改，我咋知道（不是）</p>
+<h4 id="pvs-potentially-visible-set">PVS (Potentially Visible Set)</h4>
+<p>核心Idea：对于静态的场景，从某个位置“可能”看到哪些区域，是可以提前计算并存储下来的。可以预处理这些信息进行高效Culling。</p>
+<p>它将游戏场景分为一个个独立的Cell，然后连接不同的Cell的东西叫做Portal。对于每个Cell，我们可以预先计算出从这个Cell出发，可能看到哪些其他的Cell（即PVS）。在运行时，当玩家在某个Cell中时，我们只需要渲染这个Cell以及它的PVS中的Cell，从而大幅减少渲染的物体数量。数据结构可以采用BSP树（Binary Space Partitioning Tree）来组织这些Cell和Portal。</p>
+<p><img src="22.png" /></p>
+<p>这个算法已经不常用了（在早期Quake和Doom中常用），但是这个思想值得学习。例如在现代3A游戏关卡设计中，常将世界划分为不同的“区域”（Zone）。区域间的可见性关系不仅用于剔除，更关键的是用于指导资源的动态加载与卸载。</p>
+<h4 id="gpu-culling">GPU Culling</h4>
+<p>随着 GPU 并行计算能力的飞速发展，许多剔除工作已经从 CPU 转移到了 GPU，以利用其强大的并行处理能力。</p>
+<p>这里课程举了个PreZ的例子。它将一次渲染流程分为两个Pass。 1. PreZ Pass：首先使用一个非常简单的Shader（只输出深度信息）来渲染场景。这一步会在GPU的深度缓冲区中记录下每个像素的最远可见距离。 2. Base Pass：正常渲染场景。此时，对于每个要绘制的像素，GPU 会利用 Early-Z 功能，将其深度与 Pre-pass 生成的深度图进行比较。任何被遮挡的像素都会被硬件提前剔除。</p>
+<p><img src="23.png" /></p>
+<h3 id="纹理压缩">纹理压缩</h3>
+<p>在游戏引擎中，纹理数据并非以我们熟知的 JPG 或 PNG 格式存在，而是使用专为 GPU 设计的压缩格式。</p>
+<p>在游戏中我们对于纹理压缩考虑以下四个要点： - Decoding Speed：GPU能够快速解压缩纹理数据，以满足实时渲染的需求。 - Random Access：GPU能够高效地访问纹理数据的任意位置，支持纹理采样操作。 - Compression Rate and Visual Quality：在保持较高压缩率的同时，尽量减少视觉质量的损失。 - Encoding Speed：虽然不如解压缩速度重要，但在开发过程中，快速生成压缩纹理也是一个考虑因素。</p>
+<p>GPU纹理压缩的核心Idea：将整个纹理划分为固定大小的小块（最经典的是 4x4 像素），然后独立地对每个块进行压缩。（就是分治）</p>
+<p>以DXT/BCn 系列算法为例： - 对于一个 4x4 的像素块，找出这个块中颜色最亮和最暗（或差异最大）的两个基准色（Color Endpoints），并存储它们。 - 在这两个基准色之间形成一个颜色渐变色板（Palette）。对于块内的每个像素，不再存储其完整的 RGBA 颜色，而是存储一个指向色板的索引（例如，一个2-bit的索引可以表示4个位置）。 - GPU 读取时，只需获取块的两个基准色和索引，就可以在硬件中瞬间重建出像素的近似颜色。</p>
+<p><img src="24.png" /></p>
+<h3 id="主流3d资产创建方式">主流3D资产创建方式</h3>
+<ol type="1">
+<li>传统多边形建模通过“点、线、面”的方式，像搭积木一样精确地构建模型。这是最经典、最基础的方法。</li>
+<li>数字雕刻，模拟真实世界的雕塑过程，通过“推、拉、切、削”等操作，自由地塑造高精度模型，就像在操作一块数字泥巴。</li>
+<li>3D扫描，利用深度学习和多视角几何重建算法，通过拍摄一个物体的一系列照片，自动重建出其3D模型。</li>
+<li>程序化生成，通过定义一套规则和算法，让计算机自动生成复杂的模型或场景。</li>
+</ol>
+<p><img src="25.png" /></p>
+<h3 id="基于-cluster-的-mesh-pipeline">基于 Cluster 的 Mesh Pipeline</h3>
+<p>为了应对海量几何数据的挑战，业界提出了一种新的渲染管线范式，其核心是 <strong>Cluster-based Mesh Pipeline</strong> 。</p>
+<p>其核心Idea：将一个非常庞大、高精度的模型（例如一条有几十万个面的龙），在预处理阶段就分解成大量微小的、固定大小的几何块。每一个小块被称为一个 Cluster。</p>
+<p><img src="26.png" /></p>
+<p>这个东西对应一个更现代的可编程渲染管线：</p>
+<p><img src="27.png" /></p>
+<h3 id="本次课程takeaway">本次课程Takeaway：</h3>
+<ul>
+<li>游戏引擎的设计和硬件架构息息相关</li>
+<li>通过SubMesh来支持一个拥有多个Material的模型的渲染</li>
+<li>尽可能使用Culling来加速渲染</li>
+<li>随着GPU越来越强大，越来越多的工作可以直接交付给GPU，被称为GPU Driven</li>
+</ul>
+<blockquote>
+<p>很明显这节课开始上压力了，讲的又BFS又有点DFS，如果后续做渲染相关的工作可以以这些知识点入手进行进一步探索。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Atri2333.github.io">Ayy3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://atri2333.github.io/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/">http://atri2333.github.io/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/">游戏引擎</a></div><div class="post-share"><div class="social-share" data-image="/img/Atri2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/05/01/Games104%E7%AC%94%E8%AE%B0-3-%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" title="Games104笔记-3-如何构建游戏世界"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Games104笔记-3-如何构建游戏世界</div></div><div class="info-2"><div class="info-item-1"> 本文为课程Games104第三节课：How to Build a Game World的个人笔记。  游戏世界有什么？ 课程里举了战地2042为例子，并且说这游戏很拉跨，嘻嘻嘻。 但如果以2042为例子，我们首先能想到的是很多动态交互物，例如玩家可以开坦克、开飞机，以及操控自己的小兵角色。当然像飞行中的导弹也一样。(下面图字打错了)  第二类物体就是静态物，这里包括瞭望塔、飞机的机棚、仓库、房屋、街道等。这些物体不可交互，但同样为游戏Gameplay玩法提供了重要的环境支持。  有一类不容易注意到的就是地形系统（UE里有专门的地形编辑工具），以及天空系统，植被等。  有了以上元素，我们可以得到看的见的游戏世界。但是我们的游戏还存在其它的物体，例如Trigger、空气墙等，它们虽然看不见，但是同样是玩法规则的一部分。  以上所有动静态物体统称为游戏对象Game Object(GO)。（注意：大地和天空系统是独立的）有了GO这个概念，我们该如何对某个GO进行操控呢？ Game Object 假设我们要实现一个能够自动巡逻的无人机，它需要具备什么？ 第...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/30/Games104%E7%AC%94%E8%AE%B0-2-%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82/" title="Games104笔记-2-引擎架构分层"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-30</div><div class="info-item-2">Games104笔记-2-引擎架构分层</div></div><div class="info-2"><div class="info-item-1"> 本文为课程Games104第二节课：Layered Architecture of Game Engine的个人笔记。  A Glance of Game Engine Layers 工具层 当我们第一次接触UE或者Unity时，映入眼帘的不是晦涩的代码，而是一个由许多工具组成的UI操作界面（在UE里叫做UE-Editor）：  这一层是面对我们引擎用户的，叫做工具层，我们将其放在最顶层。 功能层 引擎的产品是游戏。为了能让游戏能够看的见、场景能够动态变化并且游戏能够和我们用户输入交互，我们肯定需要对这些需求提供相应的功能实现。在面试中经常被问到游戏中碰撞检测的原理，这涉及到的就是物理系统；另外即便是游戏客户端岗位也不可避免地被拷打图形学相关知识，而实时渲染领域则被应用于游戏引擎的渲染系统；另外游戏中玩法相关以及NPC人物也都离不开脚本、AI系统等。  这一层叫做功能层，它为上面的工具层提供支持。 资源层 游戏中有许多不同类型的资源，例如三维模型、骨骼、动画、声音、贴图等。它们需要在同一个引擎内进行统一管理，这就是资源层的职能。它为功能层提供操作对象。...</div></div></div></a><a class="pagination-related" href="/2026/05/01/Games104%E7%AC%94%E8%AE%B0-3-%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" title="Games104笔记-3-如何构建游戏世界"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-01</div><div class="info-item-2">Games104笔记-3-如何构建游戏世界</div></div><div class="info-2"><div class="info-item-1"> 本文为课程Games104第三节课：How to Build a Game World的个人笔记。  游戏世界有什么？ 课程里举了战地2042为例子，并且说这游戏很拉跨，嘻嘻嘻。 但如果以2042为例子，我们首先能想到的是很多动态交互物，例如玩家可以开坦克、开飞机，以及操控自己的小兵角色。当然像飞行中的导弹也一样。(下面图字打错了)  第二类物体就是静态物，这里包括瞭望塔、飞机的机棚、仓库、房屋、街道等。这些物体不可交互，但同样为游戏Gameplay玩法提供了重要的环境支持。  有一类不容易注意到的就是地形系统（UE里有专门的地形编辑工具），以及天空系统，植被等。  有了以上元素，我们可以得到看的见的游戏世界。但是我们的游戏还存在其它的物体，例如Trigger、空气墙等，它们虽然看不见，但是同样是玩法规则的一部分。  以上所有动静态物体统称为游戏对象Game Object(GO)。（注意：大地和天空系统是独立的）有了GO这个概念，我们该如何对某个GO进行操控呢？ Game Object 假设我们要实现一个能够自动巡逻的无人机，它需要具备什么？ 第...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ayy3</div><div class="author-info-description">亚托莉四年单推人</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Atri2333"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎交流</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">导论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%92%8C%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.1.</span> <span class="toc-text">理论和实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E6%B8%B2%E6%9F%93%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-number">1.2.</span> <span class="toc-text">游戏渲染的挑战</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">渲染基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="toc-number">2.1.</span> <span class="toc-text">渲染管线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E9%87%87%E6%A0%B7"><span class="toc-number">2.2.</span> <span class="toc-text">纹理采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gpu"><span class="toc-number">2.3.</span> <span class="toc-text">GPU</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#simd%E5%92%8Csimt"><span class="toc-number">2.3.1.</span> <span class="toc-text">SIMD和SIMT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gpu%E6%9E%B6%E6%9E%84"><span class="toc-number">2.3.2.</span> <span class="toc-text">GPU架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%8A%A8"><span class="toc-number">2.3.3.</span> <span class="toc-text">数据流动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cache"><span class="toc-number">2.3.4.</span> <span class="toc-text">Cache</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93gpu%E5%8F%AF%E8%83%BD%E7%9A%84%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88"><span class="toc-number">2.4.</span> <span class="toc-text">总结GPU可能的性能瓶颈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#renderable"><span class="toc-number">2.5.</span> <span class="toc-text">Renderable</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mesh%E7%BD%91%E6%A0%BC"><span class="toc-number">2.5.1.</span> <span class="toc-text">Mesh网格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#material%E6%9D%90%E8%B4%A8"><span class="toc-number">2.5.2.</span> <span class="toc-text">Material材质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#texture%E7%BA%B9%E7%90%86"><span class="toc-number">2.5.3.</span> <span class="toc-text">Texture纹理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shader%E7%9D%80%E8%89%B2%E5%99%A8"><span class="toc-number">2.5.4.</span> <span class="toc-text">Shader着色器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.6.</span> <span class="toc-text">引擎中的渲染对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#submesh%E5%AD%90%E7%BD%91%E6%A0%BC"><span class="toc-number">2.6.1.</span> <span class="toc-text">SubMesh子网格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%B1%A0%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="toc-number">2.6.2.</span> <span class="toc-text">资源池与实例化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96sort-by-material"><span class="toc-number">2.6.3.</span> <span class="toc-text">渲染效率优化：Sort by Material</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96gpu-batch-rendering"><span class="toc-number">2.6.4.</span> <span class="toc-text">渲染效率优化：GPU Batch Rendering</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7%E5%89%94%E9%99%A4"><span class="toc-number">2.7.</span> <span class="toc-text">可见性剔除</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E5%9B%B4%E4%BD%93-bounding-volumes"><span class="toc-number">2.7.1.</span> <span class="toc-text">包围体 (Bounding Volumes)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E5%89%94%E9%99%A4%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86%E4%B8%8Ebvh"><span class="toc-number">2.7.2.</span> <span class="toc-text">加速剔除：空间划分与BVH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pvs-potentially-visible-set"><span class="toc-number">2.7.3.</span> <span class="toc-text">PVS (Potentially Visible Set)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gpu-culling"><span class="toc-number">2.7.4.</span> <span class="toc-text">GPU Culling</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.8.</span> <span class="toc-text">纹理压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%B5%813d%E8%B5%84%E4%BA%A7%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">2.9.</span> <span class="toc-text">主流3D资产创建方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-cluster-%E7%9A%84-mesh-pipeline"><span class="toc-number">2.10.</span> <span class="toc-text">基于 Cluster 的 Mesh Pipeline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E6%AC%A1%E8%AF%BE%E7%A8%8Btakeaway"><span class="toc-number">2.11.</span> <span class="toc-text">本次课程Takeaway：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/" title="Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践">Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践</a><time datetime="2026-05-04T02:13:48.000Z" title="Created 2026-05-04 10:13:48">2026-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/01/Games104%E7%AC%94%E8%AE%B0-3-%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" title="Games104笔记-3-如何构建游戏世界">Games104笔记-3-如何构建游戏世界</a><time datetime="2026-05-01T01:18:34.000Z" title="Created 2026-05-01 09:18:34">2026-05-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/UE-MotionMatchingInteraction%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/" title="UE-MotionMatchingInteraction架构分析">UE-MotionMatchingInteraction架构分析</a><time datetime="2026-04-30T01:52:50.000Z" title="Created 2026-04-30 09:52:50">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/Games104%E7%AC%94%E8%AE%B0-2-%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82/" title="Games104笔记-2-引擎架构分层">Games104笔记-2-引擎架构分层</a><time datetime="2026-04-30T00:44:20.000Z" title="Created 2026-04-30 08:44:20">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/23/%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9D%A2%E7%BB%8F%EF%BC%88%E8%87%AA%E6%95%B4%E7%90%86%E7%89%88%EF%BC%89/" title="游戏客户端面经（自整理版）">游戏客户端面经（自整理版）</a><time datetime="2026-04-23T09:44:58.000Z" title="Created 2026-04-23 17:44:58">2026-04-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Ayy3</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

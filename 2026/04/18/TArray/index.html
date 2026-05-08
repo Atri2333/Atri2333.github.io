@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TArray | Ayy3の博客</title><meta name="author" content="Ayy3"><meta name="copyright" content="Ayy3"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UE源码解析-TArray 这篇文章我们来分析UE里的变长数组的实现，对应模块为 Core 。 在 ContainersFwd.h 中罗列了很多容器模板的声明，里面包含 TArray ： 1template&lt;typename T, typename Allocator &#x3D; FDefaultAllocator&gt; class TArray; Allocator 默认的分配器是 TS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TArray">
+<meta property="og:url" content="http://atri2333.github.io/2026/04/18/TArray/index.html">
+<meta property="og:site_name" content="Ayy3の博客">
+<meta property="og:description" content="UE源码解析-TArray 这篇文章我们来分析UE里的变长数组的实现，对应模块为 Core 。 在 ContainersFwd.h 中罗列了很多容器模板的声明，里面包含 TArray ： 1template&lt;typename T, typename Allocator &#x3D; FDefaultAllocator&gt; class TArray; Allocator 默认的分配器是 TS">
+<meta property="og:locale">
+<meta property="og:image" content="http://atri2333.github.io/img/Atri2.jpg">
+<meta property="article:published_time" content="2026-04-18T03:44:20.000Z">
+<meta property="article:modified_time" content="2026-04-18T03:52:58.830Z">
+<meta property="article:author" content="Ayy3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://atri2333.github.io/img/Atri2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TArray",
+  "url": "http://atri2333.github.io/2026/04/18/TArray/",
+  "image": "http://atri2333.github.io/img/Atri2.jpg",
+  "datePublished": "2026-04-18T03:44:20.000Z",
+  "dateModified": "2026-04-18T03:52:58.830Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Ayy3",
+      "url": "http://Atri2333.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/Atri2.jpg"><link rel="canonical" href="http://atri2333.github.io/2026/04/18/TArray/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TArray',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tag</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/top.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ayy3の博客</span></a><a class="nav-page-title" href="/"><span class="site-name">TArray</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tag</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">TArray</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-04-18T03:44:20.000Z" title="Created 2026-04-18 11:44:20">2026-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-18T03:52:58.830Z" title="Updated 2026-04-18 11:52:58">2026-04-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="ue源码解析-tarray">UE源码解析-TArray</h1>
+<p>这篇文章我们来分析UE里的变长数组的实现，对应模块为 <code>Core</code> 。</p>
+<p>在 <code>ContainersFwd.h</code> 中罗列了很多容器模板的声明，里面包含 <code>TArray</code> ： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Allocator = FDefaultAllocator&gt; <span class="keyword">class</span> TArray;</span><br></pre></td></tr></table></figure></p>
+<h2 id="allocator">Allocator</h2>
+<p>默认的分配器是 <code>TSizedHeapAllocator</code> ，在 <code>ContainerAllocationPolicies.h</code> 中声明： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> IndexSize&gt; <span class="keyword">class</span> <span class="title class_">TSizedDefaultAllocator</span> : <span class="keyword">public</span> TSizedHeapAllocator&lt;IndexSize&gt; &#123; <span class="keyword">public</span>: <span class="keyword">typedef</span> TSizedHeapAllocator&lt;IndexSize&gt; Typedef; &#125;;</span><br><span class="line"><span class="keyword">using</span> FDefaultAllocator = TSizedDefaultAllocator&lt;<span class="number">32</span>&gt;;</span><br></pre></td></tr></table></figure></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://Atri2333.github.io">Ayy3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://atri2333.github.io/2026/04/18/TArray/">http://atri2333.github.io/2026/04/18/TArray/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/Atri2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/23/%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9D%A2%E7%BB%8F%EF%BC%88%E8%87%AA%E6%95%B4%E7%90%86%E7%89%88%EF%BC%89/" title="游戏客户端面经（自整理版）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">游戏客户端面经（自整理版）</div></div><div class="info-2"><div class="info-item-1"> 岗位：游戏客户端开发  C++ 1. 深拷贝和浅拷贝 深拷贝和浅拷贝的核心区别在于：拷贝时到底是只复制一层引用，还是把引用指向的内容也一起复制出一份新的。 浅拷贝是什么 定义 浅拷贝是指按字节或按成员逐个复制对象的值。对于指针类型的成员，只复制指针本身（即地址），而不复制指针所指向的内容。 在 C++ 中，如果用户没有显式定义拷贝构造函数和拷贝赋值运算符，编译器会自动生成默认版本，这些默认版本执行的就是浅拷贝。 特点  执行速度快，实现简单 多个对象共享同一份动态资源 容易引发重复释放（double free）或悬垂指针（dangling pointer）问题  深拷贝是什么 定义 深拷贝是指不仅复制对象的成员变量本身，对于指针类型的成员，还会重新分配内存，并将原指针所指向的内容复制到新分配的内存中。这样每个对象都拥有自己独立的资源副本，互不影响。 特点  避免了资源重复释放和意外共享 实现相对复杂，需要显式定义拷贝构造函数和拷贝赋值运算符 性能开销较大（涉及内存分配和数据复制）  2. 编译器默认生成的拷贝构造（拷贝赋值）的语义是什...</div></div></div></a><a class="pagination-related" href="/2026/04/16/cpp3/" title="cpp3"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">cpp3</div></div><div class="info-2"><div class="info-item-1">cpp八股3 这里我们主要手撕一些面试里可能让你手撕的轮子（？ 队列 首先看看环形队列，就是固定大小的缓冲区上维护两个指针： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051template&lt;typename T&gt;class CircleQueue&#123;public:    CircleQueue(int capacity=5)        : cap(capacity), nxt(0), head(0)    &#123;        buf.resize(cap);    &#125;    T&amp; Front()    &#123;        if(Empty())            throw std::runtime_error(&quot;Queue is empty&quot;);        return buf[head];    &#125;    T&amp; Back()  ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Atri2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ayy3</div><div class="author-info-description">亚托莉四年单推人</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Atri2333"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎交流</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-tarray"><span class="toc-number">1.</span> <span class="toc-text">UE源码解析-TArray</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#allocator"><span class="toc-number">1.1.</span> <span class="toc-text">Allocator</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/04/Games104%E7%AC%94%E8%AE%B0-4-%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E4%B8%AD%E7%9A%84%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/" title="Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践">Games104笔记-4-渲染系统（一）：游戏引擎中的渲染实践</a><time datetime="2026-05-04T02:13:48.000Z" title="Created 2026-05-04 10:13:48">2026-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/01/Games104%E7%AC%94%E8%AE%B0-3-%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" title="Games104笔记-3-如何构建游戏世界">Games104笔记-3-如何构建游戏世界</a><time datetime="2026-05-01T01:18:34.000Z" title="Created 2026-05-01 09:18:34">2026-05-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/UE-MotionMatchingInteraction%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/" title="UE-MotionMatchingInteraction架构分析">UE-MotionMatchingInteraction架构分析</a><time datetime="2026-04-30T01:52:50.000Z" title="Created 2026-04-30 09:52:50">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/Games104%E7%AC%94%E8%AE%B0-2-%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82/" title="Games104笔记-2-引擎架构分层">Games104笔记-2-引擎架构分层</a><time datetime="2026-04-30T00:44:20.000Z" title="Created 2026-04-30 08:44:20">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/23/%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9D%A2%E7%BB%8F%EF%BC%88%E8%87%AA%E6%95%B4%E7%90%86%E7%89%88%EF%BC%89/" title="游戏客户端面经（自整理版）">游戏客户端面经（自整理版）</a><time datetime="2026-04-23T09:44:58.000Z" title="Created 2026-04-23 17:44:58">2026-04-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Ayy3</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
