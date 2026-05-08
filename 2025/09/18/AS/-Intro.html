@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Gameplay Ability System&#x524d;&#x7f6e;&#x77e5;&#x8bc6;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <hr>
+<h2 id="title-gas_introdate-2025-09-17-180400tags">title: GAS_Intro
+date: 2025-09-17 18:04:00
+tags:</h2>
+<h1 id="gameplay-ability-system前置知识">Gameplay Ability System前置知识</h1>
+<p>再进入我们UE5特供的GAS插件之前，我们需要回顾一些关于虚幻的知识~</p>
+<h2 id="controller">Controller</h2>
+<p>在我之前使用UE4制作一些demo的时候，我通常直接在要控制的Character类中，实现一些逻辑（如控制输入）。然而，受MVC设计模式的启发，对于我们要possess的Character（或者Pawn），应当尽量将逻辑与功能解耦合。</p>
+<p>我自己举一个例子吧，例如在射击游戏中，可能存在固定位置的机枪、岸防炮，我们应当将这些作为Pawn的子类，因为它们需要被玩家控制。对于各自武器的特定功能，例如发射子弹或者炮弹，应当在Pawn中实现，因为它们是独立于Controller的。对于Controller，我们可以切换自己possess的pawn，例如在使用固定机枪前控制我们的角色，这时候可以进行移动，而使用机枪时，则可以控制机枪射击，无法进行移动。而这便是Controller的职责。（对于切换移动，我目测可以采用UE5的Enhanced Input系统，通过切换Input Mapping Context来实现。</p>
+<p>当然，对于Controller，它本身也内置了一些控制逻辑，例如我在制作射击游戏demo的时候，在角色死亡后，需要调用PlayerController内置的禁用输入，来防止诈尸。还有一个特定的Controller叫做AIController，它通过绑定行为树（Behavior Tree）和黑板（Blackboard）来负责控制AI的行为。例如在游戏中，AI需要根据玩家的位置，来判断是否需要进行移动，或者进行攻击。</p>
+<blockquote>
+<p>对于Controller的深入思考，推荐<a href="https://zhuanlan.zhihu.com/p/23480071">https://zhuanlan.zhihu.com/p/23480071</a></p>
+</blockquote>
+<p>我们在PlayerController的类中，添加增强输入系统所需要的IMC(Input Mapping Context)和IA(Input Action)：</p>
+<pre><code class="language-cpp"><span class="hljs-built_in">UPROPERTY</span>(EditAnywhere, Category = Input)
+TObjectPtr&lt;UInputMappingContext&gt; AuraContext;
+
+<span class="hljs-built_in">UPROPERTY</span>(EditAnywhere, Category = <span class="hljs-string">&quot;Input | Actions&quot;</span>)
+TObjectPtr&lt;UInputAction&gt; MoveAction;
+</code></pre>
+<p>然后在 <code>BeginPlay</code> 中，通过 <code>UEnhancedInputLocalPlayerSubsystem</code> 来添加IMC：</p>
+<pre><code class="language-cpp">UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::<span class="hljs-built_in">GetSubsystem</span>&lt;UEnhancedInputLocalPlayerSubsystem&gt;(<span class="hljs-built_in">GetLocalPlayer</span>());
+<span class="hljs-built_in">check</span>(Subsystem); <span class="hljs-comment">// assert</span>
+Subsystem-&gt;<span class="hljs-built_in">AddMappingContext</span>(AuraContext, <span class="hljs-number">0</span>); <span class="hljs-comment">// 0是优先级，这里我们先只添加一个IMC。对于Top Down RPG，目前我们没遇到比较复杂的输入情况。</span>
+</code></pre>
+<p>对于PlayerController，我们可以override <code>SetupInputComponent</code> 来添加输入逻辑：</p>
+<pre><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">AAuraPlayerController::SetupInputComponent</span><span class="hljs-params">()</span>
+</span>{
+	Super::<span class="hljs-built_in">SetupInputComponent</span>();
+
+	UEnhancedInputComponent* EnhancedInputComponent = <span class="hljs-built_in">CastChecked</span>&lt;UEnhancedInputComponent&gt;(InputComponent);
+
+	EnhancedInputComponent-&gt;<span class="hljs-built_in">BindAction</span>(
+		MoveAction,
+		ETriggerEvent::Triggered,
+		<span class="hljs-keyword">this</span>,
+		&amp;AAuraPlayerController::Move <span class="hljs-comment">// 需要自行实现Move逻辑（参数类型为const FInputActionValue&amp;，这里不予赘述）</span>
+	);
+}
+</code></pre>
+<p>另外再提一句，在 <code>ACharacter</code> 类中，内置了 <code>SetupPlayerInputComponent</code> 的函数。我之前一直重写这个函数，来绑定输入：</p>
+<pre><code class="language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ACharacter::SetupPlayerInputComponent</span><span class="hljs-params">(UInputComponent* PlayerInputComponent)</span>
+</span>{
+	<span class="hljs-built_in">check</span>(PlayerInputComponent);
+}
+</code></pre>
+<p>再进一步，我们会惊讶地发现，<code>InputComponent</code> 是 <code>AActor</code> 就有的成员变量！</p>
+<pre><code class="language-cpp"><span class="hljs-comment">// Actor.h</span>
+<span class="hljs-comment">/** Component that handles input for this actor, if input is enabled. */</span>
+	<span class="hljs-built_in">UPROPERTY</span>(DuplicateTransient)
+	TObjectPtr&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">UInputComponent</span>&gt; InputComponent;
+</code></pre>
+<p>也就是说，对于普通的Actor，我们也可以通过 <code>InputComponent</code> 来绑定输入。然而就和前面提到的，虚幻采用了类似MVC的设计模式，将逻辑与功能解耦合。对于输入，可以想一下，如果我们需要控制不同的Character，但是一些基本的移动逻辑，它们是共有的，我们应当在Controller中实现，而不是在Character中实现。</p>
+<h2 id="接口">接口</h2>
+<p>接口是C++中的一种抽象类型，它定义了类必须实现的一组函数。接口可以被类继承，从而实现多态。</p>
+<p>在C++中，接口通常通过纯虚函数（pure virtual function）来实现。纯虚函数是一种没有实现的虚函数，它必须在派生类中实现。</p>
+<p>在UE也是一样。我们在本课程要实现的一个功能，就是当鼠标移动到敌人身上时，显示敌人的轮廓。我们首先想到的是在敌人的基类中实现相关功能。但是如果我们不只是需要显示敌人的轮廓，可能我们需要显示其它物品的轮廓，那么在敌人的基类中实现显示轮廓的功能，是不是就不恰当了呢？</p>
+<pre><code class="language-cpp"><span class="hljs-comment">// EnemyInterface.h</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GAS_API</span> IEnemyInterface
+{
+	<span class="hljs-built_in">GENERATED_BODY</span>()
+
+	<span class="hljs-comment">// Add interface functions to this class. This is the class that will be inherited to implement this interface.</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">HighlightActor</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">UnHighlightActor</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+};
+</code></pre>
+<p>然后我们就可以在Enemy类中，继承（实现）这个接口：</p>
+<pre><code class="language-cpp"><span class="hljs-built_in">UCLASS</span>()
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GAS_API</span> AAuraEnemy : <span class="hljs-keyword">public</span> AAuraCharacterBase, <span class="hljs-keyword">public</span> IEnemyInterface
+{
+	<span class="hljs-built_in">GENERATED_BODY</span>()
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">HighlightActor</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">UnHighlightActor</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;
+};
+</code></pre>
+<h2 id="delegate委托">Delegate（委托）</h2>
+<blockquote>
+<p>挖坑.jpg</p>
+</blockquote>
+
+            
+            
+        </body>
+        </html>
